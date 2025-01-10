@@ -14,13 +14,13 @@ function s.initial_effect(c)
 	e1:SetValue(CARD_REDEYES_B_DRAGON)
 	c:RegisterEffect(e1)
 	--[[
-	If this card is the monster with the highest ATK on the field (even if tied), it can attack thrice per Battle Phase.
+	If this card is the monster with the highest ATK on the field (even if it's tied), it can attack thrice per Battle Phase.
 	Other monsters you control cannot declare an attack during the turn this card declares 2 or more attacks.
 	]]--
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_EXTRA_ATTACK)
-	e2:SetCost(s.e2cst)
+	--e2:SetCost(s.e2cst)
 	e2:SetCondition(s.e2con)
 	e2:SetValue(2)
 	c:RegisterEffect(e2)
@@ -32,7 +32,8 @@ function s.initial_effect(c)
 	e2b:SetOperation(s.e2bevt)
 	c:RegisterEffect(e2b)
 	]]--
-	-- Negate the effect of any card that would increase the ATK of a monster your opponent controls.	
+	-- Negate the effect of any card that would increase the ATK of a monster your opponent controls.
+	--[[
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e3:SetCode(EVENT_CHAIN_SOLVING)
@@ -41,6 +42,7 @@ function s.initial_effect(c)
 	e3:SetOperation(s.e3evt)
 	c:RegisterEffect(e3)
 	aux.DoubleSnareValidity(c,LOCATION_MZONE)
+	]]--
 end
 -- Mentions : "Red-Eyes Black Dragon"
 s.listed_names={CARD_REDEYES_B_DRAGON,id}
@@ -48,9 +50,8 @@ s.listed_names={CARD_REDEYES_B_DRAGON,id}
 s.listed_series={SET_RED_EYES}
 -- Helpers
 function s.e2fil(c,tp)
-	return c:IsControler(tp)
-	and c:IsFaceup()
-	and c:IsCode(id)
+	return c:IsCode(id)
+	and c:IsControler(tp)
 end
 function s.e2lim(e,c)
 	return e:GetLabel()~=c:GetFieldID()
@@ -73,7 +74,7 @@ function s.e2con(e)
 	local c=e:GetHandler()
 	local tp=c:GetControler()
 
-	local g=Duel.GetMatchingGroup(aux.TRUE,tp,LOCATION_MZONE,LOCATION_MZONE,nil):GetMaxGroup(Card.GetAttack)
+	local g=Duel.GetMatchingGroup(Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,nil):GetMaxGroup(Card.GetAttack)
 	return g and g:IsExists(s.e2fil,1,nil,tp)
 end
 function s.e2btgt(e,tp,eg,ep,ev,re,r,rp,chk)
