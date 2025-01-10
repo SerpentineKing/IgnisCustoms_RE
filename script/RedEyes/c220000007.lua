@@ -151,7 +151,7 @@ function s.e7evt(e,tp,eg,ep,ev,re,r,rp)
 		e7b:SetType(EFFECT_TYPE_SINGLE)
 		e7b:SetCode(EFFECT_TRAP_ACT_IN_SET_TURN)
 		e7b:SetProperty(EFFECT_FLAG_SET_AVAILABLE)
-		e7b:SetReset(RESET_EVENT|RESETS_STANDARD)
+		e7b:SetReset(RESET_EVENT+RESETS_STANDARD)
 		tc:RegisterEffect(e7b)
 	end
 end

@@ -142,7 +142,7 @@ function s.e4acon(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.e4aevt(e)
 	local c=e:GetHandler()
-	c:RegisterFlagEffect(id,RESET_EVENT|RESETS_STANDARD|RESET_CHAIN&~RESET_TURN_SET,0,1)
+	c:RegisterFlagEffect(id,RESET_EVENT+RESETS_STANDARD+RESET_CHAIN&~RESET_TURN_SET,0,1)
 end
 function s.e4bcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

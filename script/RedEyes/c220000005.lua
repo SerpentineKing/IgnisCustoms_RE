@@ -33,7 +33,7 @@ function s.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_UPDATE_ATTACK)
 	e2:SetValue(1000)
-	e2:SetReset(RESET_EVENT+RESETS_STANDARD_DISABLE)
+	e2:SetReset(RESET_EVENT+RESETS_STANDARD)
 	c:RegisterEffect(e2)
 
 	local e2b=Effect.CreateEffect(c)
@@ -41,10 +41,11 @@ function s.initial_effect(c)
 	e2b:SetType(EFFECT_TYPE_SINGLE)
 	e2b:SetCode(EFFECT_UPDATE_ATTACK)
 	e2b:SetValue(s.e2bval)
-	e2b:SetReset(RESET_EVENT+RESETS_STANDARD_DISABLE)
+	e2b:SetReset(RESET_EVENT+RESETS_STANDARD)
 	c:RegisterEffect(e2b)
 	
 	local e2c=e2b:Clone()
+	e2c:SetCategory(CATEGORY_DEFCHANGE)
 	e2c:SetCode(EFFECT_UPDATE_DEFENSE)
 	c:RegisterEffect(e2c)
 	--[[
@@ -163,7 +164,7 @@ end
 function s.e2bval(e,c)
 	return Duel.GetMatchingGroupCount(aux.FaceupFilter(Card.IsRace,RACE_DRAGON),0,LOCATION_MZONE+LOCATION_GRAVE,LOCATION_MZONE+LOCATION_GRAVE,nil)*500
 end
-function s.e3fil(c,e,tp,ec,rp)
+function s.e3fil(c,tp,ec,rp)
 	return c:IsLocation(LOCATION_GRAVE)
 	and rp==(1-tp)
 	and c:IsControler(tp)
@@ -171,7 +172,7 @@ function s.e3fil(c,e,tp,ec,rp)
 	and c:IsCode(46232525)
 end
 function s.e3con(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(s.e3fil,1,nil,nil,tp,e:GetHandler(),rp)
+	return eg:IsExists(s.e3fil,1,nil,tp,e:GetHandler(),rp)
 end
 function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then

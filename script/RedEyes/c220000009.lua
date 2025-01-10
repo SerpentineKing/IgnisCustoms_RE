@@ -20,6 +20,7 @@ function s.initial_effect(c)
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_EXTRA_ATTACK)
+	e2:SetCost(s.e2cst)
 	e2:SetCondition(s.e2con)
 	e2:SetValue(2)
 	c:RegisterEffect(e2)
@@ -51,28 +52,35 @@ function s.e2fil(c,tp)
 	and c:IsFaceup()
 	and c:IsCode(id)
 end
+function s.e2lim(e,c)
+	return e:GetLabel()~=c:GetFieldID()
+end
+function s.e2cst(e,tp,eg,ep,ev,re,r,rp,chk)
+	local c=e:GetHandler()
+	if chk==0 then return true end
+
+	local e2c=Effect.CreateEffect(c)
+	e2c:SetType(EFFECT_TYPE_FIELD)
+	e2c:SetProperty(EFFECT_FLAG_OATH)
+	e2c:SetCode(EFFECT_CANNOT_ATTACK)
+	e2c:SetTargetRange(LOCATION_MZONE,0)
+	e2c:SetTarget(s.e2lim)
+	e2c:SetLabel(c:GetFieldID())
+	e2c:SetReset(RESET_PHASE+PHASE_END)
+	Duel.RegisterEffect(e2c,tp)
+end
 function s.e2con(e)
 	local c=e:GetHandler()
 	local tp=c:GetControler()
 
-	local ac1=Duel.GetActivityCount(tp,ACTIVITY_ATTACK)
-	local ac2=c:GetAttackAnnouncedCount()
-	local acf=true
-	if ac1>0 and ac2<ac1 then
-		acf=false
-	end
-
 	local g=Duel.GetMatchingGroup(aux.TRUE,tp,LOCATION_MZONE,LOCATION_MZONE,nil):GetMaxGroup(Card.GetAttack)
-	return g and g:IsExists(s.e2fil,1,nil,tp) and acf
+	return g and g:IsExists(s.e2fil,1,nil,tp)
 end
 function s.e2btgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	if chk==0 then
 		return c:GetAttackAnnouncedCount()==2
 	end
-end
-function s.e2lim(e,c)
-	return e:GetLabel()~=c:GetFieldID()
 end
 function s.e2bevt(e,tp)
 	local c=e:GetHandler()
@@ -88,9 +96,11 @@ function s.e2bevt(e,tp)
 	Duel.RegisterEffect(e2c,tp)
 end
 function s.e3con(e,tp,eg,ep,ev,re,r,rp)
+	local p,o=re:GetTargetRange()
+
 	return re:IsHasCategory(CATEGORY_ATKCHANGE)
 	and re:GetValue()>0
-	and re:GetTargetRange()[1]~=0
+	and o~=0
 end
 function s.e3evt(e,tp,eg,ep,ev)
 	Duel.NegateEffect(ev)
