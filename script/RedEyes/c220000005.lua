@@ -143,7 +143,7 @@ function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local g=Duel.GetMatchingGroup(s.e1fil3,tp,LOCATION_EXTRA,0,nil,e,tp)
 	Duel.SetOperationInfo(0,CATEGORY_EQUIP,g,1,0,0)
 end
-function s.e2lim(e,c)
+function s.e1lim(e,c)
 	return c==e:GetLabelObject()
 end
 function s.e1evt(e,tp)

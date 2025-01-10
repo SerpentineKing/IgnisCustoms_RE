@@ -92,7 +92,7 @@ end
 function s.e2lim(e,c)
 	return c==e:GetLabelObject()
 end
-function s.e2evt(e)
+function s.e2evt(e,tp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) and Duel.Equip(tp,tc,c,true) then
@@ -143,7 +143,7 @@ function s.e3evt(e,tp,eg,ep,ev,re,r,rp)
 		if Duel.IsExistingMatchingCard(s.e3afil,tp,LOCATION_GRAVE,0,1,c) then
 			if Duel.SelectEffectYesNo(tp,c,aux.Stringid(id,1)) then
 				Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RTOHAND)
-				local g1=Duel.SelectMatchingCard(tp,s.e3afil,tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
+				local g1=Duel.SelectMatchingCard(tp,s.e3afil,tp,LOCATION_GRAVE,0,1,1,c)
 				if g1:GetCount()>0 then
 					if Duel.SendtoHand(g1,nil,REASON_EFFECT)>0 then
 						if Duel.IsExistingMatchingCard(s.e3bfil,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,nil,e,tp) then
