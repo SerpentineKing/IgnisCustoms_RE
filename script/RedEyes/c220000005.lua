@@ -167,11 +167,11 @@ function s.e3fil(c,tp,ec)
 	return c:IsCode(19747827)
 	and c:IsPreviousControler(tp)
 	and c:GetPreviousEquipTarget()==ec
+	and c:IsReasonPlayer(1-tp)
 end
 function s.e3con(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	return eg:IsExists(s.e3fil,1,nil,tp,c)
-	-- and c:IsReasonPlayer(1-tp)
 end
 function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then
