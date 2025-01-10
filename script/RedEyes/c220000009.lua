@@ -49,10 +49,6 @@ s.listed_names={CARD_REDEYES_B_DRAGON,id}
 -- Archetype : Red-Eyes
 s.listed_series={SET_RED_EYES}
 -- Helpers
-function s.e2fil(c,tp)
-	return c:IsCode(id)
-	and c:IsControler(tp)
-end
 function s.e2lim(e,c)
 	return e:GetLabel()~=c:GetFieldID()
 end
@@ -75,7 +71,7 @@ function s.e2con(e)
 	local tp=c:GetControler()
 
 	local g=Duel.GetMatchingGroup(Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,nil):GetMaxGroup(Card.GetAttack)
-	return g and g:IsExists(s.e2fil,1,nil,tp)
+	return g and g:IsExists(Card.IsCode,1,nil,id)
 end
 function s.e2btgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
