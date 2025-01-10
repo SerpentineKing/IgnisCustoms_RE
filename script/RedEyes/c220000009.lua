@@ -38,22 +38,7 @@ function s.initial_effect(c)
 		Duel.RegisterEffect(ge1,0)
 	end)
 	-- Negate the effect of any card that would increase the ATK of a monster your opponent controls.
-	local e4=Effect.CreateEffect(c)
-	e4:SetType(EFFECT_TYPE_FIELD)
-	e4:SetCode(EFFECT_DISABLE)
-	e4:SetRange(LOCATION_MZONE)
-	e4:SetTargetRange(LOCATION_PUBLIC,LOCATION_PUBLIC)
-	e4:SetTarget(s.e4tgt)
-	c:RegisterEffect(e4)
-
-	local e4b=Effect.CreateEffect(c)
-	e4b:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-	e4b:SetCode(EVENT_CHAIN_SOLVING)
-	e4b:SetRange(LOCATION_MZONE)
-	e4b:SetCondition(s.e4con)
-	e4b:SetOperation(s.e4evt)
-	c:RegisterEffect(e4b)
-
+	-- TODO
 	aux.DoubleSnareValidity(c,LOCATION_MZONE)
 end
 -- Mentions : "Red-Eyes Black Dragon"
@@ -76,18 +61,4 @@ end
 function s.e3tgt(e,c)
 	local ec=e:GetHandler()
 	return c~=ec and ec:GetAttackAnnouncedCount()>1
-end
-function s.e4tgt(e,c)
-	local eff=c:IsHasEffect(EFFECT_UPDATE_ATTACK)
-	return eff and eff:GetValue()>0
-end
-function s.e4con(e,tp,eg,ep,ev,re,r,rp)
-	local p,o=re:GetTargetRange()
-
-	return re:GetCode()==EFFECT_UPDATE_ATTACK
-	and re:GetValue()>0
-	--and o~=0
-end
-function s.e4evt(e,tp,eg,ep,ev)
-	Duel.NegateEffect(ev)
 end
