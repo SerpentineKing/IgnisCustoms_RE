@@ -166,7 +166,7 @@ function s.e3fil(c,tp,ec)
 	-- Red-Eyes Black Dragon Sword
 	return c:IsCode(19747827)
 	and c:IsControler(tp)
-	and c:GetEquipTarget()==ec
+	and c:GetPreviousEquipTarget()==ec
 end
 function s.e3con(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
