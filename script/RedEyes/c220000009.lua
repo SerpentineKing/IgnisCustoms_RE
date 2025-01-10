@@ -79,13 +79,7 @@ function s.e3tgt(e,c)
 end
 function s.e4tgt(e,c)
 	local eff=c:IsHasEffect(EFFECT_UPDATE_ATTACK)
-	if eff then
-		Debug.ShowHint(""..eff:GetValue())
-	end
-	if eff and eff:GetValue()>0 then
-		return true
-	end
-	return false
+	return eff and eff:GetValue()>0
 end
 function s.e4con(e,tp,eg,ep,ev,re,r,rp)
 	local p,o=re:GetTargetRange()
