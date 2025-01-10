@@ -56,7 +56,7 @@ function s.initial_effect(c)
 	e3:SetDescription(aux.Stringid(id,1))
 	e3:SetCategory(CATEGORY_DESTROY)
 	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
-	e3:SetCode(EVENT_LEAVE_FIELD)
+	e3:SetCode(EVENT_TO_GRAVE)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e3:SetCountLimit(1,{id,0})
@@ -162,15 +162,16 @@ end
 function s.e2bval(e,c)
 	return Duel.GetMatchingGroupCount(aux.FaceupFilter(Card.IsRace,RACE_DRAGON),0,LOCATION_MZONE+LOCATION_GRAVE,LOCATION_MZONE+LOCATION_GRAVE,nil)*500
 end
-function s.e3fil(c,tp,ec,rp)
-	return c:IsLocation(LOCATION_GRAVE)
-	and rp==(1-tp)
+function s.e3fil(c,tp,ec)
+	-- Red-Eyes Black Dragon Sword
+	return c:IsCode(19747827)
 	and c:IsControler(tp)
 	and c:GetEquipTarget()==ec
-	and c:IsCode(46232525)
 end
 function s.e3con(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(s.e3fil,1,nil,tp,e:GetHandler(),rp)
+	local c=e:GetHandler()
+	return c:IsReasonPlayer(1-tp)
+	and eg:IsExists(s.e3fil,1,nil,tp,c)
 end
 function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then
