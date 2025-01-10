@@ -69,7 +69,6 @@ function s.initial_effect(c)
 	e7:SetDescription(aux.Stringid(id,1))
 	e7:SetType(EFFECT_TYPE_IGNITION)
 	e7:SetRange(LOCATION_MZONE)
-	e7:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e7:SetCountLimit(1,{id,0})
 	e7:SetTarget(s.e7tgt)
 	e7:SetOperation(s.e7evt)
@@ -92,10 +91,12 @@ function s.initial_effect(c)
 	c:RegisterEffect(e8)
 end
 -- Archetype : Jinzo
-s.listed_series={0xbc,0xfe1}
+s.listed_series={SET_JINZO,0xfe1}
+-- Red-Eyes Fusion
+s.material_setcode=SET_RED_EYES
 -- Helpers
 function s.m1fil(c,fc,sumtype,tp)
-	return c:IsSetCard(0x3b)
+	return c:IsSetCard(SET_RED_EYES)
 	and c:IsLevel(7)
 end
 function s.m2fil(c,fc,sumtype,tp)
@@ -122,7 +123,7 @@ function s.e6tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 
 	local g=Duel.GetMatchingGroup(s.e6fil,tp,0,LOCATION_ONFIELD,nil)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,g:GetCount(),0,0)
-	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,g:GetCount()*300)
+	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,g:GetCount()*400)
 end
 function s.e6evt(e,tp,eg,ep,ev,re,r,rp)
 	local sg=Duel.GetMatchingGroup(s.e6fil,tp,0,LOCATION_ONFIELD,nil)
@@ -130,7 +131,7 @@ function s.e6evt(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Damage(1-tp,ct*300,REASON_EFFECT)
 end
 function s.e7fil(c)
-	return (c:IsSetCard(0x3b) or c:IsSetCard(0xfe1))
+	return (c:IsSetCard(SET_RED_EYES) or c:IsSetCard(0xfe1))
 	and c:IsTrap()
 	and c:IsSSetable()
 end
@@ -142,8 +143,16 @@ end
 function s.e7evt(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SET)
 	local g=Duel.SelectMatchingCard(tp,s.e7fil,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,1,nil)
-	if g:GetCount()>0 then
-		Duel.SSet(tp,g)
+	if g:GetCount()>0 and Duel.SSet(tp,g)>0 then
+		local c=e:GetHandler()
+		local tc=g:GetFirst()
+
+		local e7b=Effect.CreateEffect(c)
+		e7b:SetType(EFFECT_TYPE_SINGLE)
+		e7b:SetCode(EFFECT_TRAP_ACT_IN_SET_TURN)
+		e7b:SetProperty(EFFECT_FLAG_SET_AVAILABLE)
+		e7b:SetReset(RESET_EVENT|RESETS_STANDARD)
+		tc:RegisterEffect(e7b)
 	end
 end
 function s.e8con(e)

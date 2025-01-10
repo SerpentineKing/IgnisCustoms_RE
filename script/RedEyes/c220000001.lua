@@ -56,7 +56,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 -- Archetype : Red-Eyes, Chaos
-s.listed_series={0x3b,0xcf}
+s.listed_series={SET_RED_EYES,SET_CHAOS}
 -- Helpers
 function s.e4con(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

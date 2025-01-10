@@ -49,7 +49,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 -- Archetype : Red-Eyes, Chaos
-s.listed_series={0x3b,0xcf}
+s.listed_series={SET_RED_EYES,SET_CHAOS}
 -- Helpers
 function s.e1con(e,tp,eg,ep,ev,re)
 	return not re:GetHandler():IsCode(id)

@@ -25,7 +25,7 @@ function s.initial_effect(c)
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetCode(EFFECT_EXTRA_ATTACK_MONSTER)
-	e3:SetValue(1)
+	e3:SetValue(2)
 	e3:SetReset(RESET_EVENT+RESETS_STANDARD_DISABLE)
 	c:RegisterEffect(e3)
 	--[[
@@ -47,7 +47,7 @@ end
 -- Mentions : "Red-Eyes Black Dragon"
 s.listed_names={CARD_REDEYES_B_DRAGON,id}
 -- Archetype : Red-Eyes
-s.listed_series={0x3b}
+s.listed_series={SET_RED_EYES}
 -- Helpers
 function s.e4con(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

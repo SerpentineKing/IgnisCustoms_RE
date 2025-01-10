@@ -32,7 +32,7 @@ function s.initial_effect(c)
 	e4:SetCode(EFFECT_IMMUNE_EFFECT)
 	e4:SetRange(LOCATION_MZONE)
 	e4:SetTargetRange(LOCATION_MZONE,0)
-	e4:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x3b))
+	e4:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_RED_EYES))
 	e4:SetValue(s.e4fil)
 	c:RegisterEffect(e4)
 	--[[
@@ -66,10 +66,12 @@ function s.initial_effect(c)
 	c:RegisterEffect(e6)
 end
 -- Archetype : Red-Eyes
-s.listed_series={0x3b}
+s.listed_series={SET_RED_EYES}
+-- Red-Eyes Fusion
+s.material_setcode=SET_RED_EYES
 -- Helpers
 function s.m1fil(c,fc,sumtype,tp)
-	return c:IsSetCard(0x3b)
+	return c:IsSetCard(SET_RED_EYES)
 	and c:IsLevel(7)
 end
 function s.m2fil(c,fc,sumtype,tp)
@@ -97,7 +99,7 @@ function s.e5evt(e)
 end
 function s.e6fil(c,e,tp)
 	return c:IsLevelBelow(6)
-	and (c:IsSetCard(0x3b) or c:IsRace(RACE_WARRIOR))
+	and (c:IsSetCard(SET_RED_EYES) or c:IsRace(RACE_WARRIOR))
 	and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.e6con(e,tp,eg,ep,ev,re,r)

@@ -10,7 +10,7 @@ function s.initial_effect(c)
 	e1:SetCategory(CATEGORY_ATKCHANGE)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
-	e1:SetCondition(aux.NOT(s.e1con))
+	e1:SetCondition(s.e1con)
 	e1:SetValue(400)
 	c:RegisterEffect(e1)
 	--[[

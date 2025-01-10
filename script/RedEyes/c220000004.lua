@@ -47,10 +47,12 @@ end
 -- Mentions : "Flame Swordsman"
 s.listed_names={CARD_FLAME_SWORDSMAN,id}
 -- Archetype : Red-Eyes
-s.listed_series={0x3b,0xfe2}
+s.listed_series={SET_RED_EYES,0xfe2}
+-- Red-Eyes Fusion
+s.material_setcode=SET_RED_EYES
 -- Helpers
 function s.m1fil(c,fc,sumtype,tp)
-	return c:IsSetCard(0x3b)
+	return c:IsSetCard(SET_RED_EYES)
 	and c:IsLevel(7)
 end
 function s.m2fil(c,fc,sumtype,tp)
@@ -83,7 +85,7 @@ function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	end
 
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
-	local g=Duel.SelectTarget(tp,s.e2fil,tp,LOCATION_GRAVE,0,1,1,nil,tp)
+	local g=Duel.SelectTarget(tp,s.e2fil,tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
 	Duel.SetOperationInfo(0,CATEGORY_EQUIP,g,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_LEAVE_GRAVE,g,1,0,0)
 end
@@ -128,7 +130,7 @@ function s.e3afil(c)
 	and c:IsAbleToExtra()
 end
 function s.e3bfil(c,e,tp)
-	return (c:IsSetCard(0x3b)
+	return (c:IsSetCard(SET_RED_EYES)
 	and c:IsLevelBelow(7))
 	or (c:IsRace(RACE_WARRIOR)
 	and c:IsLevel(4))

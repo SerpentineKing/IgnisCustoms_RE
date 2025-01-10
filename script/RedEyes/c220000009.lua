@@ -43,9 +43,9 @@ end
 -- Mentions : "Red-Eyes Black Dragon"
 s.listed_names={CARD_REDEYES_B_DRAGON,id}
 -- Archetype : Red-Eyes
-s.listed_series={0x3b}
+s.listed_series={SET_RED_EYES}
 -- Helpers
-function s.e2fil(c)
+function s.e2fil(c,tp)
 	return c:IsControler(tp)
 	and c:IsFaceup()
 	and c:IsCode(id)
