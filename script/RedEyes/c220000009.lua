@@ -29,6 +29,14 @@ function s.initial_effect(c)
 	e3:SetTargetRange(LOCATION_MZONE,0)
 	e3:SetTarget(s.e3tgt)
 	c:RegisterEffect(e3)
+
+	aux.GlobalCheck(s,function()
+		local ge1=Effect.CreateEffect(c)
+		ge1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+		ge1:SetCode(EVENT_ATTACK_ANNOUNCE)
+		ge1:SetOperation(function(_,_,_,ep) Duel.RegisterFlagEffect(ep,id,RESET_PHASE+PHASE_END,0,1) end)
+		Duel.RegisterEffect(ge1,0)
+	end)
 	-- Negate the effect of any card that would increase the ATK of a monster your opponent controls.
 	--[[
 	local e4=Effect.CreateEffect(c)
@@ -56,6 +64,7 @@ function s.e2con(e)
 	local g=Duel.GetMatchingGroup(Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,nil):GetMaxGroup(Card.GetAttack)
 	
 	return g and g:IsExists(s.e2fil,1,nil,c)
+	and c:GetAttackAnnouncedCount()==(Duel.GetFlagEffect(0,id)+Duel.GetFlagEffect(1,id))
 end
 function s.e3tgt(e,c)
 	local ec=e:GetHandler()
