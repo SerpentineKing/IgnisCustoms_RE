@@ -72,7 +72,7 @@ end
 function s.e4con(e,tp,eg,ep,ev,re,r,rp)
 	local p,o=re:GetTargetRange()
 
-	return re:IsHasProperty(EFFECT_UPDATE_ATTACK)
+	return re:GetCode()==EFFECT_UPDATE_ATTACK
 	and re:GetValue()>0
 	--and o~=0
 end
