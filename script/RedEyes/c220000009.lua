@@ -38,7 +38,6 @@ function s.initial_effect(c)
 		Duel.RegisterEffect(ge1,0)
 	end)
 	-- Negate the effect of any card that would increase the ATK of a monster your opponent controls.
-	--[[
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e4:SetCode(EVENT_CHAIN_SOLVING)
@@ -46,8 +45,8 @@ function s.initial_effect(c)
 	e4:SetCondition(s.e4con)
 	e4:SetOperation(s.e4evt)
 	c:RegisterEffect(e4)
+
 	aux.DoubleSnareValidity(c,LOCATION_MZONE)
-	]]--
 end
 -- Mentions : "Red-Eyes Black Dragon"
 s.listed_names={CARD_REDEYES_B_DRAGON,id}
@@ -73,9 +72,9 @@ end
 function s.e4con(e,tp,eg,ep,ev,re,r,rp)
 	local p,o=re:GetTargetRange()
 
-	return re:IsHasCategory(CATEGORY_ATKCHANGE)
+	return re:IsHasProperty(EFFECT_UPDATE_ATTACK)
 	and re:GetValue()>0
-	and o~=0
+	--and o~=0
 end
 function s.e4evt(e,tp,eg,ep,ev)
 	Duel.NegateEffect(ev)

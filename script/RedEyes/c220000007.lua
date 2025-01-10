@@ -59,6 +59,7 @@ function s.initial_effect(c)
 	e6:SetTarget(s.e6tgt)
 	e6:SetOperation(s.e6evt)
 	c:RegisterEffect(e6)
+	
 	aux.DoubleSnareValidity(c,LOCATION_MZONE)
 	--[[
 	[HOPT]
