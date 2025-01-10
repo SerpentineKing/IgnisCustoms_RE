@@ -77,9 +77,9 @@ function s.e3tgt(e,c)
 	local ec=e:GetHandler()
 	return c~=ec and ec:GetAttackAnnouncedCount()>1
 end
-function s.e4tgt(c)
-	local e=c:IsHasEffect(EFFECT_UPDATE_ATTACK)
-	if e and e:GetValue()>0 then
+function s.e4tgt(e,c)
+	local eff=c:IsHasEffect(EFFECT_UPDATE_ATTACK)
+	if eff and eff:GetValue()>0 then
 		return true
 	end
 end
