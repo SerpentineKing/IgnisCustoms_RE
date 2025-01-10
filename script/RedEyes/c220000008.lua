@@ -12,7 +12,7 @@ function s.initial_effect(c)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
 	e1:SetCondition(aux.NOT(s.e1con))
 	e1:SetValue(400)
-	c:RegisterEffect(e4)
+	c:RegisterEffect(e1)
 	--[[
 	If this card is equipped with “Metalmorph”, this card gains the following effects.
 	•
