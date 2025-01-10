@@ -39,12 +39,20 @@ function s.initial_effect(c)
 	end)
 	-- Negate the effect of any card that would increase the ATK of a monster your opponent controls.
 	local e4=Effect.CreateEffect(c)
-	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-	e4:SetCode(EVENT_CHAIN_SOLVING)
+	e4:SetType(EFFECT_TYPE_FIELD)
+	e4:SetCode(EFFECT_DISABLE)
 	e4:SetRange(LOCATION_MZONE)
-	e4:SetCondition(s.e4con)
-	e4:SetOperation(s.e4evt)
+	e4:SetTargetRange(LOCATION_PUBLIC,LOCATION_PUBLIC)
+	e4:SetTarget(s.e4tgt)
 	c:RegisterEffect(e4)
+
+	local e4b=Effect.CreateEffect(c)
+	e4b:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e4b:SetCode(EVENT_CHAIN_SOLVING)
+	e4b:SetRange(LOCATION_MZONE)
+	e4b:SetCondition(s.e4con)
+	e4b:SetOperation(s.e4evt)
+	c:RegisterEffect(e4b)
 
 	aux.DoubleSnareValidity(c,LOCATION_MZONE)
 end
@@ -68,6 +76,12 @@ end
 function s.e3tgt(e,c)
 	local ec=e:GetHandler()
 	return c~=ec and ec:GetAttackAnnouncedCount()>1
+end
+function s.e4tgt(c)
+	local e=c:IsHasEffect(EFFECT_UPDATE_ATTACK)
+	if e and e:GetValue()>0 then
+		return true
+	end
 end
 function s.e4con(e,tp,eg,ep,ev,re,r,rp)
 	local p,o=re:GetTargetRange()
