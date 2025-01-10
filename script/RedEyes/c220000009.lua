@@ -59,7 +59,8 @@ function s.e2con(e)
 end
 function s.e3tgt(e,c)
 	local ec=e:GetHandler()
-	return c~=ec and ec:GetAttackAnnouncedCount()>=2
+	Debug.ShowHint(ec:GetAttackAnnouncedCount())
+	return c~=ec and ec:GetAttackAnnouncedCount()>1
 end
 function s.e4con(e,tp,eg,ep,ev,re,r,rp)
 	local p,o=re:GetTargetRange()
