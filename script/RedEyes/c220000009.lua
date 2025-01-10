@@ -23,13 +23,14 @@ function s.initial_effect(c)
 	e2:SetCondition(s.e2con)
 	e2:SetValue(2)
 	c:RegisterEffect(e2)
-
+	--[[
 	local e2b=Effect.CreateEffect(c)
 	e2b:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e2b:SetCode(EVENT_ATTACK_ANNOUNCE)
 	e2b:SetTarget(s.e2btgt)
 	e2b:SetOperation(s.e2bevt)
 	c:RegisterEffect(e2b)
+	]]--
 	-- Negate the effect of any card that would increase the ATK of a monster your opponent controls.	
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)

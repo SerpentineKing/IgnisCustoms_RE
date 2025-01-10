@@ -138,7 +138,7 @@ function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 		return Duel.IsExistingMatchingCard(s.e1fil3,tp,LOCATION_EXTRA,0,1,nil,e,tp)
 		and Duel.GetLocationCount(tp,LOCATION_SZONE)>0
 	end
-	-- FIX EQUIP
+	
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
 	local g=Duel.GetMatchingGroup(s.e1fil3,tp,LOCATION_EXTRA,0,nil,e,tp)
 	Duel.SetOperationInfo(0,CATEGORY_EQUIP,g,1,0,0)
@@ -146,7 +146,7 @@ end
 function s.e2lim(e,c)
 	return c==e:GetLabelObject()
 end
-function s.e1evt(e)
+function s.e1evt(e,tp)
 	local c=e:GetHandler()
 	local g=Duel.SelectMatchingCard(tp,s.e1fil3,tp,LOCATION_EXTRA,0,1,1,nil,e,tp)
 	local tc=g:GetFirst()

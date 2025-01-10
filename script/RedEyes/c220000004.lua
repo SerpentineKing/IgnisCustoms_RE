@@ -80,12 +80,12 @@ function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 		and s.e2fil(chkc,tp)
 	end
 	if chk==0 then
-		return Duel.IsExistingMatchingCard(s.e2fil,tp,LOCATION_GRAVE,0,1,nil,e,tp)
+		return Duel.IsExistingMatchingCard(s.e2fil,tp,LOCATION_GRAVE,0,1,nil,tp)
 		and Duel.GetLocationCount(tp,LOCATION_SZONE)>0
 	end
 
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
-	local g=Duel.SelectTarget(tp,s.e2fil,tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
+	local g=Duel.SelectTarget(tp,s.e2fil,tp,LOCATION_GRAVE,0,1,1,nil,tp)
 	Duel.SetOperationInfo(0,CATEGORY_EQUIP,g,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_LEAVE_GRAVE,g,1,0,0)
 end

@@ -24,9 +24,10 @@ function s.initial_effect(c)
 	-- This card can make up to 2 attacks on monsters during each Battle Phase.
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
+	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+	e3:SetRange(LOCATION_MZONE)
 	e3:SetCode(EFFECT_EXTRA_ATTACK_MONSTER)
-	e3:SetValue(2)
-	e3:SetReset(RESET_EVENT+RESETS_STANDARD_DISABLE)
+	e3:SetValue(1)
 	c:RegisterEffect(e3)
 	--[[
 	At the end of the Damage Step, if this card attacks an opponent’s monster,
