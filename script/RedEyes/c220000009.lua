@@ -23,10 +23,10 @@ function s.initial_effect(c)
 	-- Other monsters you control cannot declare an attack during the turn this card declares 2 or more attacks.
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD)
+	e3:SetCode(EFFECT_CANNOT_ATTACK)
 	e3:SetRange(LOCATION_MZONE)
-	e3:SetCode(EFFECT_CANNOT_ATTACK_ANNOUNCE)
+	e3:SetProperty(EFFECT_FLAG_OATH+EFFECT_FLAG_IGNORE_IMMUNE)
 	e3:SetTargetRange(LOCATION_MZONE,0)
-	--e3:SetCondition(s.e3con)
 	e3:SetTarget(s.e3tgt)
 	c:RegisterEffect(e3)
 	-- Negate the effect of any card that would increase the ATK of a monster your opponent controls.
@@ -57,11 +57,9 @@ function s.e2con(e)
 	
 	return g and g:IsExists(s.e2fil,1,nil,c)
 end
-function s.e3con(e)
-	return e:GetHandler():GetAttackAnnouncedCount()>=2
-end
 function s.e3tgt(e,c)
-	return c~=e:GetHandler()
+	local ec=e:GetHandler()
+	return c~=ec and ec:GetAttackAnnouncedCount()>=2
 end
 function s.e4con(e,tp,eg,ep,ev,re,r,rp)
 	local p,o=re:GetTargetRange()
