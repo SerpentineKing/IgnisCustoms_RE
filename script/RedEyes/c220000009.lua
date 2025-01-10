@@ -26,7 +26,7 @@ function s.initial_effect(c)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCode(EFFECT_CANNOT_ATTACK_ANNOUNCE)
 	e3:SetTargetRange(LOCATION_MZONE,0)
-	e3:SetCondition(s.e3con)
+	--e3:SetCondition(s.e3con)
 	e3:SetTarget(s.e3tgt)
 	c:RegisterEffect(e3)
 	-- Negate the effect of any card that would increase the ATK of a monster your opponent controls.
