@@ -2,6 +2,11 @@
 local s,id,o=GetID()
 -- c220000027
 function s.initial_effect(c)
+	-- [Activation]
+	local e0=Effect.CreateEffect(c)
+	e0:SetType(EFFECT_TYPE_ACTIVATE)
+	e0:SetCode(EVENT_FREE_CHAIN)
+	c:RegisterEffect(e0)
 	-- Cannot be destroyed by monster effects.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
