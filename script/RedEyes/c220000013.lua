@@ -114,7 +114,7 @@ function s.e3fil1(c,e,tp)
 	return c:IsType(TYPE_FUSION)
 	and c.material_race
 	and Duel.GetLocationCountFromEx(tp,tp,nil,c)>0
-	and Duel.IsExistingMatchingCard(s.e3fil2,tp,LOCATION_HAND+LOCATION_MZONE,0,1,nil,c.material_race)
+	-- and Duel.IsExistingMatchingCard(s.e3fil2,tp,LOCATION_HAND+LOCATION_MZONE,0,1,nil,c.material_race)
 	-- and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
 end
 function s.e3fil2(c,mr)
@@ -122,11 +122,6 @@ function s.e3fil2(c,mr)
 	and mr==c:GetRace()
 end
 function s.e3con(e)
-	local a=0
-	if e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD) then
-		a=1
-	end
-	Debug.ShowHint("Hermos Sent from field to GY: "..a)
 	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
 end
 function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -136,6 +131,8 @@ function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
 function s.e3evt(e,tp)
+	Debug.ShowHint("EVENT FIRED")
+	--[[
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CONFIRM)
 
 	local g=Duel.SelectMatchingCard(tp,s.e3fil1,tp,LOCATION_EXTRA,0,1,1,nil)
@@ -158,4 +155,5 @@ function s.e3evt(e,tp)
 		Duel.SpecialSummon(sc,0,tp,tp,true,false,POS_FACEUP)
 		sc:CompleteProcedure()
 	end
+	]]--
 end
