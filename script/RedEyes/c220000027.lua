@@ -167,9 +167,13 @@ function s.e5evt(e,tp)
 
 	local showg=Duel.GetMatchingGroup(s.e5fil,tp,LOCATION_HAND+LOCATION_MZONE+LOCATION_GRAVE+LOCATION_REMOVED,0,nil)
 	
-	if showg:GetCount()==0 then return end
+	local sct=showg:GetCount()
+	if sct==0 then return end
 	
 	local max=Duel.GetMatchingGroupCount(nil,tp,0,LOCATION_ONFIELD,nil)
+	if sct<max then
+		max=sct
+	end
 	local g=aux.SelectUnselectGroup(showg,e,tp,1,max,s.e5con,1,tp,HINTMSG_CONFIRM)
 	local ct=g:GetCount()
 	
