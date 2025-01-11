@@ -22,7 +22,6 @@ function s.initial_effect(c)
 	Destroy as many monsters your opponent controls as possible,
 	and if you do, inflict 500 damage to your opponent for each monster destroyed by this effect.
 	]]--
-	-- FIX [Condition]
 	local e1b=Effect.CreateEffect(c)
 	e1b:SetCategory(CATEGORY_DESTROY+CATEGORY_DAMAGE)
 	e1b:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
