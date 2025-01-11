@@ -2,7 +2,6 @@
 local s,id,o=GetID()
 -- c220000038
 function s.initial_effect(c)
-	-- FIX [Error Message]
 	--[[
 	This card can be used to Ritual Summon any Dragon Ritual Monster (DARK or FIRE) from your hand or Deck.
 	You must also Tribute monsters from your hand or field whose total Levels equal or exceed the Ritual Monster,
@@ -11,6 +10,8 @@ function s.initial_effect(c)
 	also, if you Tributed or banished a monster that was Special Summoned from the Extra Deck for that monster’s Ritual Summon,
 	it gains 1200 ATK.
 	]]--
+	-- FIX [Error Message]
+	--[[
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
@@ -19,6 +20,7 @@ function s.initial_effect(c)
 	e1:SetTarget(s.e1tgt)
 	e1:SetOperation(s.e1evt)
 	c:RegisterEffect(e1)
+	]]--
 	--[[
 	[HOPT]
 	You can reveal this card in your hand, then send 1 “Red-Eyes Black Dragon” from your hand or Deck to the GY;
@@ -61,10 +63,10 @@ end
 function s.e1fil2a(c,e)
 	local sc=e:GetHandler()
 
-	return c:IsFaceup()
-	and c:IsCanBeRitualMaterial(sc)
+	return c:IsCanBeRitualMaterial(sc)
 	and not c:IsImmuneToEffect(e)
 	and c:IsCode(CARD_REDEYES_B_DRAGON)
+	and c:IsAbleToRemove()
 end
 function s.e1fil2b(c,e)
 	local sc=e:GetHandler()
@@ -196,11 +198,11 @@ function s.e2cst(e,tp,eg,ep,ev,re,r,rp,chk)
 
 	local g=Duel.SelectMatchingCard(tp,s.e2fil1,tp,LOCATION_HAND+LOCATION_DECK,0,1,1,nil)
 	Duel.SendtoGrave(g,REASON_COST)
+
 	Duel.ShuffleHand(tp)
 end
 function s.e2fil2(c)
-	return c:IsSetCard(0xce1)
-	and c:IsType(TYPE_MONSTER)
+	return c:IsRitualMonster()
 end
 function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then

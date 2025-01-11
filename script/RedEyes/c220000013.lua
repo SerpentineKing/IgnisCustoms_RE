@@ -82,12 +82,14 @@ function s.e1fil(c,tp)
 	and Duel.GetMZoneCount(tp,c)>0
 end
 function s.e1cst(e,tp,eg,ep,ev,re,r,rp,chk)
+	local c=e:GetHandler()
+	
 	if chk==0 then
-		return Duel.IsExistingMatchingCard(s.e1fil,tp,LOCATION_ONFIELD+LOCATION_HAND,0,1,nil,tp)
+		return Duel.IsExistingMatchingCard(s.e1fil,tp,LOCATION_ONFIELD+LOCATION_HAND,0,1,c,tp)
 	end
 	
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-	local g=Duel.SelectMatchingCard(tp,s.e1fil,tp,LOCATION_ONFIELD+LOCATION_HAND,0,1,1,nil,tp)
+	local g=Duel.SelectMatchingCard(tp,s.e1fil,tp,LOCATION_ONFIELD+LOCATION_HAND,0,1,1,c,tp)
 	Duel.SendtoGrave(g,REASON_COST)
 end
 function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
