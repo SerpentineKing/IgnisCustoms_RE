@@ -162,7 +162,7 @@ function s.e5tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	local g=Duel.GetMatchingGroup(nil,tp,0,LOCATION_ONFIELD,nil)
 	Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,1,tp,0)
 end
-function s.e5vt(e,tp)
+function s.e5evt(e,tp)
 	if Duel.GetFieldGroupCount(tp,0,LOCATION_ONFIELD)==0 then return end
 
 	local showg=Duel.GetMatchingGroup(s.e5fil,tp,LOCATION_HAND+LOCATION_MZONE+LOCATION_GRAVE+LOCATION_REMOVED,0,nil)
