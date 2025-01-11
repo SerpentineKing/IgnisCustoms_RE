@@ -2,6 +2,7 @@
 local s,id,o=GetID()
 -- c220000038
 function s.initial_effect(c)
+	-- FIX [Error Message]
 	--[[
 	This card can be used to Ritual Summon any Dragon Ritual Monster (DARK or FIRE) from your hand or Deck.
 	You must also Tribute monsters from your hand or field whose total Levels equal or exceed the Ritual Monster,
@@ -182,6 +183,8 @@ function s.e2fil2(c)
 	return c:IsRitualMonster()
 end
 function s.e2cst(e,tp,eg,ep,ev,re,r,rp,chk)
+	local c=e:GetHandler()
+
 	if chk==0 then
 		return not c:IsPublic()
 		and Duel.IsExistingMatchingCard(s.e2fil1,tp,LOCATION_HAND+LOCATION_DECK,0,1,nil)

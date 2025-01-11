@@ -5,14 +5,17 @@ function s.initial_effect(c)
 	-- Cannot be Normal Summoned/Set.
 	c:EnableReviveLimit()
 	--[[
+	[HOPT]
 	Must be Special Summoned (from your hand) by Tributing 1 Level 7 or higher “Red-Eyes” monster from your hand or field,
 	and cannot be Special Summoned by other ways.
 	]]--
+	-- FIX [Condition]
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_SPSUMMON_PROC)
 	e1:SetRange(LOCATION_HAND)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+	e1:SetCountLimit(1,{id,0})
 	e1:SetCondition(s.e1con)
 	e1:SetTarget(s.e1tgt)
 	e1:SetOperation(s.e1evt)
@@ -22,6 +25,7 @@ function s.initial_effect(c)
 	e1b:SetType(EFFECT_TYPE_SINGLE)
 	e1b:SetCode(EFFECT_SPSUMMON_CONDITION)
 	e1b:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+	e1b:SetValue(aux.FALSE)
 	c:RegisterEffect(e1b)
 	-- Gains 600 ATK for each Dragon monster on the field and in the GYs.
 	local e2=Effect.CreateEffect(c)
@@ -80,10 +84,10 @@ function s.e1con(e,c)
 	if c==nil then return true end
 
 	local tp=c:GetControler()
-	return Duel.CheckReleaseGroup(tp,s.e1fil,1,false,1,true,c,tp,nil,false,nil)
+	return Duel.CheckReleaseGroup(tp,s.e1fil,1,false,1,true,c,tp,nil,false,e:GetHandler())
 end
 function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,c)
-	local g=Duel.SelectReleaseGroup(tp,s.e1fil,1,1,false,true,true,c,nil,nil,false,nil)
+	local g=Duel.SelectReleaseGroup(tp,s.e1fil,1,1,false,true,true,c,nil,nil,false,e:GetHandler())
 	if g then
 		g:KeepAlive()
 		e:SetLabelObject(g)

@@ -59,6 +59,7 @@ function s.initial_effect(c)
 	show any number of “Red-Eyes Black Dragon” in your hand, GY, banishment, and/or face-up field to your opponent,
 	then banish that many cards your opponent controls.
 	]]--
+	-- FIX [Reveal]
 	local e5=Effect.CreateEffect(c)
 	e5:SetDescription(aux.Stringid(id,2))
 	e5:SetCategory(CATEGORY_REMOVE)

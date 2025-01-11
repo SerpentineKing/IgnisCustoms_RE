@@ -43,12 +43,13 @@ function s.initial_effect(c)
 	then Special Summon the shown monster from your Extra Deck.
 	(This is treated as a Special Summon by the effect of “The Claw of Hermos”.)
 	]]--
+	-- FIX [Condition]
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(id,2))
 	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e3:SetCode(EVENT_TO_GRAVE)
-	e3:SetCountLimit(1,{id,1})
+	e3:SetCountLimit(1,{id,2})
 	e3:SetCost(aux.bfgcost)
 	e3:SetTarget(s.e3tgt)
 	e3:SetOperation(s.e3evt)
@@ -60,7 +61,7 @@ s.listed_names={46232525,id}
 s.listed_series={0xfe1}
 -- Helpers
 function s.e1fil(c,tp)
-	return ((c:IsMonster() and c:IsRace(RACE_SPELLCASTER))
+	return ((c:IsMonster() and c:IsRace(RACE_DRAGON))
 	or ((c:IsSetCard(SET_RED_EYES)
 	or c:IsSetCard(0xfe1)
 	or c:IsCode(36262024)
@@ -110,8 +111,8 @@ function s.e3fil1(c,e,tp)
 	return c:IsType(TYPE_FUSION)
 	and c.material_race
 	and Duel.GetLocationCountFromEx(tp,tp,nil,c)>0
-	and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
 	and Duel.IsExistingMatchingCard(s.e3fil2,tp,LOCATION_HAND+LOCATION_MZONE,0,1,nil,c.material_race)
+	-- and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
 end
 function s.e3fil2(c,mr)
 	return c:IsMonster()
