@@ -122,7 +122,7 @@ function s.e3fil2(c,mr)
 	and mr==c:GetRace()
 end
 function s.e3con(e)
-	Debug.ShowHint("Hermos Sent from field to GY")
+	Debug.ShowHint("Hermos Sent from field to GY: "..e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD))
 	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
 end
 function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
