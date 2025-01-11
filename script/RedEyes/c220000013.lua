@@ -118,6 +118,10 @@ function s.e3fil1(c,e,tp)
 	-- and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
 end
 function s.e3fil2(c,mr)
+	if c:IsMonster() then
+		Debug.ShowHint("0: "..c:GetCode().." A: "..mr.." B: "..c:GetRace())
+	end
+
 	return c:IsMonster()
 	and mr==c:GetRace()
 end
