@@ -123,7 +123,7 @@ function s.e1evt(e,tp,eg,ep,ev,re,r,rp)
 		rg:AddCard(rg1)
 		rg:AddCard(rg2)
 
-		if Duel.Remove(rg,REASON_EFFECT)>1 then
+		if Duel.Remove(rg,POS_FACEUP,REASON_EFFECT)>1 then
 			Duel.BreakEffect()
 
 			if Duel.SpecialSummon(sc,SUMMON_TYPE_RITUAL,tp,tp,false,true,POS_FACEUP)==0 then return end

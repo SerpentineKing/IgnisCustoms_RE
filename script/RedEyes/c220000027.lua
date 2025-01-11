@@ -169,7 +169,8 @@ function s.e5evt(e,tp)
 	
 	if showg:GetCount()==0 then return end
 	
-	local g=aux.SelectUnselectGroup(showg,e,tp,1,13,s.e5con,1,tp,HINTMSG_CONFIRM)
+	local max=Duel.GetMatchingGroupCount(nil,tp,0,LOCATION_ONFIELD,nil)
+	local g=aux.SelectUnselectGroup(showg,e,tp,1,max,s.e5con,1,tp,HINTMSG_CONFIRM)
 	local ct=g:GetCount()
 	
 	if ct==0 then return end
@@ -191,6 +192,6 @@ function s.e5evt(e,tp)
 		
 		Duel.BreakEffect()
 
-		Duel.Remove(remg,REASON_EFFECT)
+		Duel.Remove(remg,POS_FACEUP,REASON_EFFECT)
 	end
 end
