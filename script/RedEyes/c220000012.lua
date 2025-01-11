@@ -85,10 +85,10 @@ function s.e1con(e,c)
 	if c==nil then return true end
 
 	local tp=c:GetControler()
-	return Duel.CheckReleaseGroup(tp,s.e1fil,1,false,1,true,c,tp,nil,false,nil)
+	return Duel.CheckReleaseGroup(tp,s.e1fil,1,true,1,true,c,tp,nil,false,nil)
 end
 function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,c)
-	local g=Duel.SelectReleaseGroup(tp,s.e1fil,1,1,false,true,true,c,tp,nil,false,nil)
+	local g=Duel.SelectReleaseGroup(tp,s.e1fil,1,1,true,true,true,c,tp,nil,false,nil)
 	if g then
 		g:KeepAlive()
 		e:SetLabelObject(g)
