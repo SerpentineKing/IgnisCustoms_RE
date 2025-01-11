@@ -11,13 +11,13 @@ function s.initial_effect(c)
 	it gains 1200 ATK.
 	]]--
 	-- FIX [Error Message]
-	local e1=Effect.CreateEffect(c)
+	local e1=Ritual.CreateProc({handler=c,filter=s.e1fil1,lvtype=RITPROC_GREATER,location=LOCATION_HAND+LOCATION_DECK,stage2=s.e1evt2})
 	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetTarget(s.e1tgt)
-	e1:SetOperation(s.e1evt)
+	--e1:SetTarget(s.e1tgt)
+	--e1:SetOperation(s.e1evt)
 	c:RegisterEffect(e1)
 	--[[
 	[HOPT]
@@ -56,7 +56,6 @@ function s.e1fil1(c,e,tp)
 	return c:IsRitualMonster()
 	and c:IsRace(RACE_DRAGON)
 	and (c:IsAttribute(ATTRIBUTE_DARK) or c:IsAttribute(ATTRIBUTE_FIRE))
-	and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_RITUAL,tp,false,true)
 end
 function s.e1fil2a(c,e)
 	local sc=e:GetHandler()
