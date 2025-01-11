@@ -11,7 +11,6 @@ function s.initial_effect(c)
 	it gains 1200 ATK.
 	]]--
 	-- FIX [Error Message]
-	--[[
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
@@ -20,7 +19,6 @@ function s.initial_effect(c)
 	e1:SetTarget(s.e1tgt)
 	e1:SetOperation(s.e1evt)
 	c:RegisterEffect(e1)
-	]]--
 	--[[
 	[HOPT]
 	You can reveal this card in your hand, then send 1 “Red-Eyes Black Dragon” from your hand or Deck to the GY;
