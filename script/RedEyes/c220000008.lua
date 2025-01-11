@@ -76,8 +76,8 @@ function s.initial_effect(c)
 	e5:SetOperation(s.e5evt)
 	c:RegisterEffect(e5)
 end
--- Mentions : "Flame Swordsman"
-s.listed_names={CARD_FLAME_SWORDSMAN,id}
+-- Mentions : "Flame Swordsman","Metalmorph"
+s.listed_names={CARD_FLAME_SWORDSMAN,68540058,id}
 -- Archetype : N/A
 s.listed_series={0xfe2}
 -- Helpers

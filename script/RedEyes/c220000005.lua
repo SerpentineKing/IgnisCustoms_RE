@@ -7,7 +7,7 @@ function s.initial_effect(c)
 	c:EnableReviveLimit()
 	--[[
 	When this card is Summoned:
-	You can send 1 “Claw of Hermos” and 1 Dragon monster from your Deck to the GY;
+	You can send 1 “The Claw of Hermos” and 1 Dragon monster from your Deck to the GY;
 	equip 1 “Red-Eyes Black Dragon Sword” from your Extra Deck to this card.
 	]]--
 	local e1=Effect.CreateEffect(c)
@@ -79,6 +79,8 @@ function s.initial_effect(c)
 	e4:SetOperation(s.e4evt)
 	c:RegisterEffect(e4)
 end
+-- Mentions : "The Claw of Hermos","Red-Eyes Black Dragon Sword"
+s.listed_names={46232525,19747827,id}
 -- Archetype : Red-Eyes
 s.listed_series={SET_RED_EYES}
 -- Red-Eyes Fusion
@@ -93,7 +95,6 @@ function s.m2fil(c,fc,sumtype,tp)
 	and c:IsLevel(8)
 end
 function s.e1fil1(c)
-	-- Claw of Hermos
 	return c:IsCode(46232525)
 	and c:IsAbleToGraveAsCost()
 end
@@ -102,7 +103,6 @@ function s.e1fil2(c)
 	and c:IsAbleToGraveAsCost()
 end
 function s.e1fil3(c,e,tp)
-	-- Red-Eyes Black Dragon Sword
 	return c:IsCode(19747827)
 	and c:CheckUniqueOnField(tp)
 	and not c:IsForbidden()
@@ -160,7 +160,7 @@ function s.e1evt(e,tp)
 	end
 end
 function s.e2bval(e,c)
-	return Duel.GetMatchingGroupCount(aux.FaceupFilter(Card.IsRace,RACE_DRAGON),0,LOCATION_MZONE+LOCATION_GRAVE,LOCATION_MZONE+LOCATION_GRAVE,nil)*500
+	return 500*Duel.GetMatchingGroupCount(aux.FaceupFilter(Card.IsRace,RACE_DRAGON),0,LOCATION_MZONE+LOCATION_GRAVE,LOCATION_MZONE+LOCATION_GRAVE,nil)
 end
 function s.e3fil(c,tp,ec)
 	-- Red-Eyes Black Dragon Sword

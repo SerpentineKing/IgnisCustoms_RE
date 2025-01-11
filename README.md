@@ -36,3 +36,4 @@ Code Sequence : # c220000001
 - c46232525 ["The Claw of Hermos"]
 - c19747827 ["Red-Eyes Black Dragon Sword"]
 - c68540058 ["Metalmorph"]
+- c6172122  ["Red-Eyes Fusion"]

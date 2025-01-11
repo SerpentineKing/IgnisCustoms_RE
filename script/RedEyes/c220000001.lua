@@ -55,6 +55,8 @@ function s.initial_effect(c)
 	e5:SetOperation(s.e5evt)
 	c:RegisterEffect(e5)
 end
+-- Mentions : "Chaos Form",“Red-Eyes Re-Transmigration”
+s.listed_names={21082832,220000038,id}
 -- Archetype : Red-Eyes, Chaos
 s.listed_series={SET_RED_EYES,SET_CHAOS}
 -- Helpers

@@ -59,8 +59,6 @@ function s.initial_effect(c)
 	e6:SetTarget(s.e6tgt)
 	e6:SetOperation(s.e6evt)
 	c:RegisterEffect(e6)
-	
-	aux.DoubleSnareValidity(c,LOCATION_MZONE)
 	--[[
 	[HOPT]
 	You can Set 1 Trap from your Deck or GY that has “Red-Eyes” in its text.
@@ -90,6 +88,8 @@ function s.initial_effect(c)
 	e8:SetTarget(s.e8tgt)
 	e8:SetOperation(s.e8evt)
 	c:RegisterEffect(e8)
+
+	aux.DoubleSnareValidity(c,LOCATION_MZONE)
 end
 -- Archetype : Jinzo
 s.listed_series={SET_JINZO,0xfe1}
@@ -132,7 +132,20 @@ function s.e6evt(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Damage(1-tp,ct*300,REASON_EFFECT)
 end
 function s.e7fil(c)
-	return (c:IsSetCard(SET_RED_EYES) or c:IsSetCard(0xfe1))
+	return (c:IsSetCard(SET_RED_EYES)
+	or c:IsSetCard(0xfe1)
+	or c:IsCode(36262024)
+	or c:IsCode(93969023)
+	or c:IsCode(66574418)
+	or c:IsCode(11901678)
+	or c:IsCode(45349196)
+	or c:IsCode(90660762)
+	or c:IsCode(19025379)
+	or c:IsCode(71408082)
+	or c:IsCode(71408082)
+	or c:IsCode(32566831)
+	or c:IsCode(52684508)
+	or c:IsCode(18803791))
 	and c:IsTrap()
 	and c:IsSSetable()
 end
