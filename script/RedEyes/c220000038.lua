@@ -10,7 +10,7 @@ function s.initial_effect(c)
 	also, if you Tributed or banished a monster that was Special Summoned from the Extra Deck for that monster’s Ritual Summon,
 	it gains 1200 ATK.
 	]]--
-	-- FIX [Error Message]
+	-- FIX [Banish Option]
 	local e1=Ritual.CreateProc({handler=c,filter=s.e1fil1,lvtype=RITPROC_GREATER,location=LOCATION_HAND+LOCATION_DECK,stage2=s.e1evt2})
 	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)

@@ -51,6 +51,7 @@ function s.initial_effect(c)
 	e3:SetCode(EVENT_TO_GRAVE)
 	e3:SetCountLimit(1,{id,2})
 	e3:SetCost(aux.bfgcost)
+	e3:SetCondition(s.e3con)
 	e3:SetTarget(s.e3tgt)
 	e3:SetOperation(s.e3evt)
 	c:RegisterEffect(e3)
@@ -119,6 +120,9 @@ end
 function s.e3fil2(c,mr)
 	return c:IsMonster()
 	and mr==c:GetRace()
+end
+function s.e3con(e)
+	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
 end
 function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
