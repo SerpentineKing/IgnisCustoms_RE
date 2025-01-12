@@ -123,7 +123,7 @@ function s.e1evt(e,tp,eg,ep,ev,re,r,rp)
 		
 		if rg1:GetCount()==0 or rg2:GetCount()==0 then return end
 
-		local rg=CreateGroup()
+		local rg=Group.CreateGroup()
 		rg:AddCard(rg1)
 		rg:AddCard(rg2)
 
