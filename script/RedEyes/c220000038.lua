@@ -92,11 +92,11 @@ function s.e1evt(e,tp,eg,ep,ev,re,r,rp)
 	local ritop=Ritual.Operation(rparams)
 
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
-	if Duel.IsExistingMatchingCard(s.e1fil2a,tp,LOCATION_MMZONE,0,1,nil,e) then
-		ft=(ft+1)
+	if ft==0 and Duel.IsExistingMatchingCard(s.e1fil2a,tp,LOCATION_MMZONE,0,1,nil,e) then
+		ft=1
 	end
 
-	local b1=ft>0 and Duel.IsExistingMatchingCard(s.e1fil1,tp,LOCATION_HAND+LOCATION_DECK,0,1,nil,e,tp)
+	local b1=ft>0 and Duel.IsExistingMatchingCard(s.e1fil2a,tp,LOCATION_MZONE,0,1,nil,e) and Duel.IsExistingMatchingCard(s.e1fil2b,tp,0,LOCATION_MZONE,1,nil,e)
 	local b2=rittg(e,tp,eg,ep,ev,re,r,rp,0)
 
 	if not (b1 or b2) then return end
@@ -106,7 +106,7 @@ function s.e1evt(e,tp,eg,ep,ev,re,r,rp)
 		op=Duel.SelectEffect(tp,
 			{b1,aux.Stringid(id,1)},
 			{b2,aux.Stringid(id,2)})
-	elseif not b1 and b2 then
+	elseif (not b1) and b2 then
 		op=2
 	end
 	
