@@ -91,7 +91,7 @@ function s.initial_effect(c)
 	e4a2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_GRANT)
 	e4a2:SetRange(LOCATION_SZONE)
 	e4a2:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
-	e4a2:SetTarget(s.e4con)
+	e4a2:SetTarget(function(e,c) return e:GetHandler():GetEquipTarget()==c and c:IsSetCard(SET_RED_EYES) and c:IsMonster() end)
 	e4a2:SetLabelObject(e4a1)
 	c:RegisterEffect(e4a2)
 
@@ -235,11 +235,6 @@ function s.e3evt(e,tp)
 		e3b:SetLabelObject(tc)
 		c:RegisterEffect(e3b)
 	end
-end
-function e4con(e,c)
-	return e:GetHandler():GetEquipTarget()==c
-	and c:IsSetCard(SET_RED_EYES)
-	and c:IsMonster()
 end
 function s.e4bcon(e,tp)
 	return Duel.GetCurrentPhase()==PHASE_BATTLE
