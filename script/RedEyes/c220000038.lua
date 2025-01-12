@@ -10,14 +10,14 @@ function s.initial_effect(c)
 	also, if you Tributed or banished a monster that was Special Summoned from the Extra Deck for that monster’s Ritual Summon,
 	it gains 1200 ATK.
 	]]--
-	-- FIX [Banish Option]
-	local e1=Ritual.CreateProc({handler=c,filter=s.e1fil1,lvtype=RITPROC_GREATER,location=LOCATION_HAND+LOCATION_DECK,stage2=s.e1evt2})
+	-- local e1=Ritual.CreateProc({handler=c,filter=s.e1fil1,lvtype=RITPROC_GREATER,location=LOCATION_HAND+LOCATION_DECK,stage2=s.e1evt2})
+	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	--e1:SetTarget(s.e1tgt)
-	--e1:SetOperation(s.e1evt)
+	e1:SetTarget(s.e1tgt)
+	e1:SetOperation(s.e1evt)
 	c:RegisterEffect(e1)
 	--[[
 	[HOPT]
@@ -73,7 +73,7 @@ function s.e1fil2b(c,e)
 	and c:IsAbleToRemove()
 end
 function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
-	local rparams={filter=s.e1fil1,lvtype=RITPROC_GREATER,stage2=s.e1evt2}
+	local rparams={handler=e:GetHandler(),filter=s.e1fil1,lvtype=RITPROC_GREATER,location=LOCATION_HAND+LOCATION_DECK,stage2=s.e1evt2}
 	local rittg=Ritual.Target(rparams)
 
 	if chk==0 then
@@ -87,12 +87,12 @@ function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	rittg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.e1evt(e,tp,eg,ep,ev,re,r,rp)
-	local rparams={filter=s.e1fil1,lvtype=RITPROC_GREATER,stage2=s.e1evt2}
+	local rparams={handler=e:GetHandler(),filter=s.e1fil1,lvtype=RITPROC_GREATER,location=LOCATION_HAND+LOCATION_DECK,stage2=s.e1evt2}
 	local rittg=Ritual.Target(rparams)
 	local ritop=Ritual.Operation(rparams)
 
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
-	if Duel.IsExistingMatchingCard(s.e1fil2a,tp,LOCATION_MZONE,0,1,nil,e) then
+	if Duel.IsExistingMatchingCard(s.e1fil2a,tp,LOCATION_MMZONE,0,1,nil,e) then
 		ft=(ft+1)
 	end
 
