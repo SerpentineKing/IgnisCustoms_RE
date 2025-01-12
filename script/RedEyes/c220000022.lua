@@ -28,6 +28,7 @@ function s.initial_effect(c)
 	and if you do, until your opponent’s next turn, it cannot change its battle position, be Tributed,
 	or used as material for the Summon of a monster from the Extra Deck.
 	]]--
+	-- FIX [to DEF Pos]
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,1))
 	e2:SetCategory(CATEGORY_POSITION)
@@ -64,7 +65,7 @@ function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		return Duel.IsExistingMatchingCard(s.e1fil,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,nil)
 	end
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK_LOCATION_GRAVE)
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK+LOCATION_GRAVE)
 end
 function s.e1evt(e,tp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)

@@ -100,13 +100,12 @@ function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,5,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,2)
 end
-function s.e2evt(e,tp,eg,ep,ev,re,r,rp)
-	local tg=Duel.GetTargetCards(e)
-
-	if tg~=5 then return end
+function s.e2evt(e,tp)
+	local tg=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
+	
+	if not tg or tg:FilterCount(Card.IsRelateToEffect,nil,e)~=5 then return end
 
 	Duel.SendtoDeck(tg,nil,0,REASON_EFFECT)
-	
 	local g=Duel.GetOperatedGroup()
 	if g:IsExists(Card.IsLocation,1,nil,LOCATION_DECK) then
 		Duel.ShuffleDeck(tp)
