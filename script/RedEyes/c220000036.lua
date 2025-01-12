@@ -9,7 +9,6 @@ function s.initial_effect(c)
 	and if you do, add that lost ATK to the other monster,
 	also, your opponent cannot activate cards or effects for the rest of this Battle Phase.
 	]]--
-	-- FIX [Activation]
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_ATKCHANGE)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
@@ -22,7 +21,8 @@ function s.initial_effect(c)
 end
 -- Helpers
 function s.e1con(e,tp)
-	return Duel.GetCurrentPhase()==PHASE_BATTLE
+	local ph=Duel.GetCurrentPhase()
+	return (ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE)
 end
 function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then

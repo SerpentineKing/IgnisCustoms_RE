@@ -90,7 +90,8 @@ function s.e1evt(e,tp)
 	end
 end
 function s.e2con(e,tp)
-	return Duel.GetCurrentPhase()==PHASE_BATTLE
+	local ph=Duel.GetCurrentPhase()
+	return (ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE)
 end
 function s.e2evt(e)
 	local ct=(Duel.GetFlagEffect(0,id)+Duel.GetFlagEffect(1,id))
@@ -128,6 +129,7 @@ function s.e3evt(e,tp,eg,ep,ev,re,r,rp)
 	local i=0
 	repeat
 		local token=Duel.CreateToken(tp,220000045)
+
 		if Duel.SpecialSummonStep(token,0,tp,tp,false,false,POS_FACEUP) then
 			local e3b=Effect.CreateEffect(c)
 			e3b:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
@@ -138,7 +140,7 @@ function s.e3evt(e,tp,eg,ep,ev,re,r,rp)
 
 		ft=ft-1
 		i=(i+1)%4
-	until ft<=0 or not Duel.SelectYesNo(tp,aux.Stringid(id,1))
+	until ft<=0 or not Duel.SelectYesNo(tp,aux.Stringid(id,2))
 	Duel.SpecialSummonComplete()
 end
 function s.e3bevt(e,tp)

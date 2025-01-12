@@ -22,7 +22,6 @@ function s.initial_effect(c)
 	During your Battle Phase (Quick Effect):
 	You can target 1 other “Red-Eyes” monster you control; equip this card to it.
 	]]--
-	-- Fix [Condition]
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,1))
 	e2:SetCategory(CATEGORY_EQUIP)
@@ -148,7 +147,8 @@ function s.e1evt(e,tp)
 	end
 end
 function s.e2con(e,tp)
-	return Duel.GetCurrentPhase()==PHASE_BATTLE
+	local ph=Duel.GetCurrentPhase()
+	return (ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE)
 	and Duel.GetTurnPlayer()==e:GetHandlerPlayer()
 end
 function s.e2fil(c)
@@ -238,10 +238,12 @@ function s.e3evt(e,tp)
 	end
 end
 function s.e4bcon(e,tp)
-	return Duel.GetCurrentPhase()==PHASE_BATTLE
+	local ph=Duel.GetCurrentPhase()
+	return (ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE)
 end
 function s.e4ccon(e,tp)
-	return Duel.GetCurrentPhase()==PHASE_BATTLE
+	local ph=Duel.GetCurrentPhase()
+	return (ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE)
 end
 function s.e4dcon(e,tp)
 	local c=e:GetHandler()
