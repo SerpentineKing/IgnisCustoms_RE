@@ -133,7 +133,10 @@ end
 function s.e3evt(e,tp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CONFIRM)
 
-	local g=Duel.SelectMatchingCard(tp,s.e3fil1,tp,LOCATION_EXTRA,0,1,1,nil)
+	local g=Duel.SelectMatchingCard(tp,s.e3fil1,tp,LOCATION_EXTRA,0,1,1,nil,e,tp)
+
+	if g:GetCount()==0 then return end
+	
 	Duel.ConfirmCards(1-tp,g)
 
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FMATERIAL)
