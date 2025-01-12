@@ -113,7 +113,7 @@ s.listed_series={SET_RED_EYES}
 function s.e1con(e,tp)
 	return Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)==0
 end
-function s.e1fil(c)
+function s.e1fil(c,e,tp)
 	return c:IsSetCard(SET_RED_EYES)
 	and c:IsLevelBelow(4)
 	and c:IsCanBeSpecialSummoned(e,0,tp,false,false)

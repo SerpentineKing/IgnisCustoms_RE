@@ -9,6 +9,7 @@ function s.initial_effect(c)
 	and if you do, add that lost ATK to the other monster,
 	also, your opponent cannot activate cards or effects for the rest of this Battle Phase.
 	]]--
+	-- FIX [Activation]
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_ATKCHANGE)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)

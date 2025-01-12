@@ -29,7 +29,7 @@ function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	local g=Duel.GetMatchingGroup(Card.IsFaceup,tp,0,LOCATION_MZONE,nil)
 	Duel.SetTargetCard(g)
 end
-function s.e1vt(e,tp)
+function s.e1evt(e,tp)
 	local sg=Duel.GetMatchingGroup(s.e1fil,tp,0,LOCATION_MZONE,nil,e)
 	local c=e:GetHandler()
 
