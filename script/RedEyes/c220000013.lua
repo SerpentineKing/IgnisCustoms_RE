@@ -49,6 +49,7 @@ function s.initial_effect(c)
 	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e3:SetCode(EVENT_TO_GRAVE)
+	e3:SetProperty(EFFECT_FLAG_DELAY)
 	e3:SetCountLimit(1,{id,2})
 	e3:SetCost(aux.bfgcost)
 	e3:SetCondition(s.e3con)
@@ -111,6 +112,9 @@ function s.e2fil(tp,sg,fc)
 	return sg:IsExists(Card.IsRace,1,nil,RACE_DRAGON)
 end
 function s.e3fil1(c,e,tp)
+	if c.material_race then
+		Debug.ShowHint("FILTER RUN")
+	end
 	return c:IsType(TYPE_FUSION)
 	and c.material_race
 	and Duel.GetLocationCountFromEx(tp,tp,nil,c)>0
