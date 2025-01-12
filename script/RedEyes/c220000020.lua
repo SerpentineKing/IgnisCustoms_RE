@@ -147,7 +147,7 @@ end
 function s.e3bevt(e)
 	local c=e:GetHandler()
 	if c:IsReason(REASON_DESTROY) then
-		local tp=e:GetPlayerHandler()
+		local tp=e:GetHandlerPlayer()
 		Duel.Damage(1-tp,500,REASON_EFFECT)
 	end
 	e:Reset()
