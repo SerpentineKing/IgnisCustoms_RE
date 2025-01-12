@@ -89,14 +89,14 @@ function s.e2evt(e,tp)
 		e2b:SetType(EFFECT_TYPE_SINGLE)
 		e2b:SetCode(EFFECT_CANNOT_CHANGE_POSITION)
 		e2b:SetProperty(EFFECT_FLAG_CLIENT_HINT)
-		e2b:SetReset(RESET_EVENT+RESETS_STANDARD)
+		e2b:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
 		tc:RegisterEffect(e2b)
 
 		local e2c=Effect.CreateEffect(c)
 		e2c:SetDescription(3303)
 		e2c:SetType(EFFECT_TYPE_SINGLE)
 		e2c:SetCode(EFFECT_UNRELEASABLE_SUM)
-		e2c:SetReset(RESET_EVENT+RESETS_STANDARD)
+		e2c:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
 		e2c:SetProperty(EFFECT_FLAG_CLIENT_HINT)
 		e2c:SetValue(1)
 		tc:RegisterEffect(e2c,true)
@@ -104,7 +104,7 @@ function s.e2evt(e,tp)
 		local e2d=Effect.CreateEffect(c)
 		e2d:SetType(EFFECT_TYPE_SINGLE)
 		e2d:SetCode(EFFECT_UNRELEASABLE_NONSUM)
-		e2d:SetReset(RESET_EVENT+RESETS_STANDARD)
+		e2d:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
 		e2d:SetValue(1)
 		tc:RegisterEffect(e2d,true)
 
@@ -113,26 +113,7 @@ function s.e2evt(e,tp)
 		e2e:SetCode(EFFECT_CANNOT_BE_MATERIAL)
 		e2e:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 		e2e:SetValue(aux.cannotmatfilter(SUMMON_TYPE_FUSION,SUMMON_TYPE_SYNCHRO,SUMMON_TYPE_XYZ,SUMMON_TYPE_LINK))
-		e2e:SetReset(RESET_EVENT+RESETS_STANDARD)
+		e2e:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
 		tc:RegisterEffect(e2e)
-
-		local e2f=Effect.CreateEffect(c)
-		e2f:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		e2f:SetCode(EVENT_PHASE+PHASE_BATTLE_START)
-		e2f:SetCountLimit(1)
-		e2f:SetCondition(function() return Duel.IsTurnPlayer(1-tp) end)
-		e2f:SetOperation(s.e2res)
-		e2f:SetReset(RESET_PHASE+RESET_OPPO_TURN)
-		Duel.RegisterEffect(e2f,tp)
-
-		tc:RegisterFlagEffect(id,RESET_EVENT+RESETS_STANDARD,1,0)
 	end
-end
-function s.e2res(e)
-	local g=Duel.GetMatchingGroup(Card.HasFlagEffect,0,LOCATION_MZONE,LOCATION_MZONE,nil,id)
-	if g:GetCount()==0 then return end
-	for tc in g:Iter() do
-		tc:ResetFlagEffect(id)
-	end
-	e:Reset()
 end
