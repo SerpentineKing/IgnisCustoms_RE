@@ -34,7 +34,7 @@ function s.initial_effect(c)
 	e2:SetCategory(CATEGORY_POSITION)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_BE_BATTLE_TARGET)
-	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
+	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e2:SetCountLimit(1,{id,1})
 	e2:SetCondition(s.e2con)
 	e2:SetOperation(s.e2evt)
@@ -83,6 +83,14 @@ end
 function s.e2evt(e,tp)
 	local c=e:GetHandler()
 	local tc=Duel.GetAttacker()
+	local a=0
+	if tc then
+		a=1
+		if tc:IsRelateToEffect(e) then
+			a=2
+		end
+	end
+	Debug.ShowHint(""..a)
 	if tc and tc:IsRelateToEffect(e) then
 		if Duel.ChangePosition(tc,POS_FACEDOWN_DEFENSE)>0 then
 			local e2b=Effect.CreateEffect(c)

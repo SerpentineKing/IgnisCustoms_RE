@@ -146,7 +146,6 @@ function s.e3evt(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.e3bevt(e)
 	local c=e:GetHandler()
-	Debug.ShowHint("DESTROY TOKEN")
 	if c:IsReason(REASON_DESTROY) then
 		local tp=c:GetPreviousControler()
 		Duel.Damage(1-tp,500,REASON_EFFECT)
