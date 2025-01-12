@@ -101,9 +101,14 @@ function s.e1evt(e,tp,eg,ep,ev,re,r,rp)
 
 	if not (b1 or b2) then return end
 	
-	local op=Duel.SelectEffect(tp,
-		{b1,aux.Stringid(id,1)},
-		{b2,aux.Stringid(id,2)})
+	local op=1
+	if b1 and b2 then
+		op=Duel.SelectEffect(tp,
+			{b1,aux.Stringid(id,1)},
+			{b2,aux.Stringid(id,2)})
+	elseif not b1 and b2 then
+		op=2
+	end
 	
 	if op==1 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
