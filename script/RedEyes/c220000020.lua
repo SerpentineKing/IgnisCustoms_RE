@@ -68,7 +68,8 @@ function s.e1cst(e,c,tp)
 	return Duel.IsExistingMatchingCard(s.e1fil,tp,LOCATION_HAND+LOCATION_DECK,0,1,nil)
 end
 function s.e1evt(e,tp)
-	if Duel.IsAttackCostPaid()~=2 and e:GetHandler():IsLocation(LOCATION_MZONE) then
+	local c=e:GetHandler()
+	if Duel.IsAttackCostPaid()~=2 and c:IsLocation(LOCATION_MZONE) then
 		local g=Duel.GetMatchingGroup(s.e1fil,tp,LOCATION_HAND+LOCATION_DECK,0,nil)
 		local sg=aux.SelectUnselectGroup(g,e,tp,0,1,nil,1,tp,HINTMSG_TOGRAVE,function() return Duel.IsAttackCostPaid()==0 end,nil)
 		if sg:GetCount()==1 then
@@ -126,7 +127,7 @@ function s.e3evt(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local i=0
 	repeat
-		local token=Duel.CreateToken(tp,id+1+i)
+		local token=Duel.CreateToken(tp,220000045)
 		if Duel.SpecialSummonStep(token,0,tp,tp,false,false,POS_FACEUP) then
 			local e3b=Effect.CreateEffect(c)
 			e3b:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)

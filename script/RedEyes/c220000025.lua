@@ -22,6 +22,7 @@ function s.initial_effect(c)
 	During your Battle Phase (Quick Effect):
 	You can target 1 other “Red-Eyes” monster you control; equip this card to it.
 	]]--
+	-- Fix [Condition]
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,1))
 	e2:SetCategory(CATEGORY_EQUIP)
