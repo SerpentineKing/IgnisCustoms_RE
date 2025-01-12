@@ -134,7 +134,7 @@ function s.e1evt(e,tp,eg,ep,ev,re,r,rp)
 			
 			sc:CompleteProcedure()
 
-			local e1b=Effect.CreateEffect(c)
+			local e1b=Effect.CreateEffect(sc)
 			e1b:SetType(EFFECT_TYPE_SINGLE)
 			e1b:SetCode(EFFECT_CHANGE_CODE)
 			e1b:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
@@ -143,7 +143,7 @@ function s.e1evt(e,tp,eg,ep,ev,re,r,rp)
 			sc:RegisterEffect(e1b)
 
 			if rg:IsExists(Card.IsSummonLocation,1,nil,LOCATION_EXTRA) then
-				local e1c=Effect.CreateEffect(c)
+				local e1c=Effect.CreateEffect(sc)
 				e1c:SetCategory(CATEGORY_ATKCHANGE)
 				e1c:SetType(EFFECT_TYPE_SINGLE)
 				e1c:SetCode(EFFECT_UPDATE_ATTACK)
