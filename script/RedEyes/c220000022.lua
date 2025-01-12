@@ -83,59 +83,49 @@ end
 function s.e2evt(e,tp)
 	local c=e:GetHandler()
 	local tc=Duel.GetAttacker()
-	local a=0
-	if tc then
-		a=1
-		if tc:IsRelateToEffect(e) then
-			a=2
-		end
-	end
-	Debug.ShowHint(""..a)
-	if tc and tc:IsRelateToEffect(e) then
-		if Duel.ChangePosition(tc,POS_FACEDOWN_DEFENSE)>0 then
-			local e2b=Effect.CreateEffect(c)
-			e2b:SetDescription(3313)
-			e2b:SetType(EFFECT_TYPE_SINGLE)
-			e2b:SetCode(EFFECT_CANNOT_CHANGE_POSITION)
-			e2b:SetProperty(EFFECT_FLAG_CLIENT_HINT)
-			e2b:SetReset(RESET_EVENT+RESETS_STANDARD)
-			tc:RegisterEffect(e2b)
+	if tc and Duel.ChangePosition(tc,POS_FACEDOWN_DEFENSE)>0 then
+		local e2b=Effect.CreateEffect(c)
+		e2b:SetDescription(3313)
+		e2b:SetType(EFFECT_TYPE_SINGLE)
+		e2b:SetCode(EFFECT_CANNOT_CHANGE_POSITION)
+		e2b:SetProperty(EFFECT_FLAG_CLIENT_HINT)
+		e2b:SetReset(RESET_EVENT+RESETS_STANDARD)
+		tc:RegisterEffect(e2b)
 
-			local e2c=Effect.CreateEffect(c)
-			e2c:SetDescription(3303)
-			e2c:SetType(EFFECT_TYPE_SINGLE)
-			e2c:SetCode(EFFECT_UNRELEASABLE_SUM)
-			e2c:SetReset(RESET_EVENT+RESETS_STANDARD)
-			e2c:SetProperty(EFFECT_FLAG_CLIENT_HINT)
-			e2c:SetValue(1)
-			tc:RegisterEffect(e2c,true)
+		local e2c=Effect.CreateEffect(c)
+		e2c:SetDescription(3303)
+		e2c:SetType(EFFECT_TYPE_SINGLE)
+		e2c:SetCode(EFFECT_UNRELEASABLE_SUM)
+		e2c:SetReset(RESET_EVENT+RESETS_STANDARD)
+		e2c:SetProperty(EFFECT_FLAG_CLIENT_HINT)
+		e2c:SetValue(1)
+		tc:RegisterEffect(e2c,true)
 
-			local e2d=Effect.CreateEffect(c)
-			e2d:SetType(EFFECT_TYPE_SINGLE)
-			e2d:SetCode(EFFECT_UNRELEASABLE_NONSUM)
-			e2d:SetReset(RESET_EVENT+RESETS_STANDARD)
-			e2d:SetValue(1)
-			tc:RegisterEffect(e2d,true)
+		local e2d=Effect.CreateEffect(c)
+		e2d:SetType(EFFECT_TYPE_SINGLE)
+		e2d:SetCode(EFFECT_UNRELEASABLE_NONSUM)
+		e2d:SetReset(RESET_EVENT+RESETS_STANDARD)
+		e2d:SetValue(1)
+		tc:RegisterEffect(e2d,true)
 
-			local e2e=Effect.CreateEffect(c)
-			e2e:SetType(EFFECT_TYPE_SINGLE)
-			e2e:SetCode(EFFECT_CANNOT_BE_MATERIAL)
-			e2e:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-			e2e:SetValue(aux.cannotmatfilter(SUMMON_TYPE_FUSION,SUMMON_TYPE_SYNCHRO,SUMMON_TYPE_XYZ,SUMMON_TYPE_LINK))
-			e2e:SetReset(RESET_EVENT+RESETS_STANDARD)
-			tc:RegisterEffect(e2e)
+		local e2e=Effect.CreateEffect(c)
+		e2e:SetType(EFFECT_TYPE_SINGLE)
+		e2e:SetCode(EFFECT_CANNOT_BE_MATERIAL)
+		e2e:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+		e2e:SetValue(aux.cannotmatfilter(SUMMON_TYPE_FUSION,SUMMON_TYPE_SYNCHRO,SUMMON_TYPE_XYZ,SUMMON_TYPE_LINK))
+		e2e:SetReset(RESET_EVENT+RESETS_STANDARD)
+		tc:RegisterEffect(e2e)
 
-			local e2f=Effect.CreateEffect(c)
-			e2f:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-			e2f:SetCode(EVENT_PHASE+PHASE_BATTLE_START)
-			e2f:SetCountLimit(1)
-			e2f:SetCondition(function() return Duel.IsTurnPlayer(1-tp) end)
-			e2f:SetOperation(s.e2res)
-			e2f:SetReset(RESET_PHASE+RESET_OPPO_TURN)
-			Duel.RegisterEffect(e2f,tp)
+		local e2f=Effect.CreateEffect(c)
+		e2f:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+		e2f:SetCode(EVENT_PHASE+PHASE_BATTLE_START)
+		e2f:SetCountLimit(1)
+		e2f:SetCondition(function() return Duel.IsTurnPlayer(1-tp) end)
+		e2f:SetOperation(s.e2res)
+		e2f:SetReset(RESET_PHASE+RESET_OPPO_TURN)
+		Duel.RegisterEffect(e2f,tp)
 
-			tc:RegisterFlagEffect(id,RESET_EVENT+RESETS_STANDARD,1,0)
-		end
+		tc:RegisterFlagEffect(id,RESET_EVENT+RESETS_STANDARD,1,0)
 	end
 end
 function s.e2res(e)
