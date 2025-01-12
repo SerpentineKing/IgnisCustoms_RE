@@ -43,7 +43,6 @@ function s.initial_effect(c)
 	then Special Summon the shown monster from your Extra Deck.
 	(This is treated as a Special Summon by the effect of “The Claw of Hermos”.)
 	]]--
-	-- FIX [Condition]
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(id,2))
 	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
@@ -112,14 +111,11 @@ function s.e2fil(tp,sg,fc)
 	return sg:IsExists(Card.IsRace,1,nil,RACE_DRAGON)
 end
 function s.e3fil1(c,e,tp)
-	if c.material_race then
-		Debug.ShowHint("FILTER RUN")
-	end
 	return c:IsType(TYPE_FUSION)
 	and c.material_race
 	and Duel.GetLocationCountFromEx(tp,tp,nil,c)>0
-	-- and Duel.IsExistingMatchingCard(s.e3fil2,tp,LOCATION_HAND+LOCATION_MZONE,0,1,nil,c.material_race)
-	-- and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
+	and Duel.IsExistingMatchingCard(s.e3fil2,tp,LOCATION_HAND+LOCATION_MZONE,0,1,nil,c.material_race)
+	and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
 end
 function s.e3fil2(c,mr)
 	return c:IsMonster()
@@ -135,8 +131,6 @@ function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
 function s.e3evt(e,tp)
-	Debug.ShowHint("EVENT FIRED")
-	--[[
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CONFIRM)
 
 	local g=Duel.SelectMatchingCard(tp,s.e3fil1,tp,LOCATION_EXTRA,0,1,1,nil)
@@ -159,5 +153,4 @@ function s.e3evt(e,tp)
 		Duel.SpecialSummon(sc,0,tp,tp,true,false,POS_FACEUP)
 		sc:CompleteProcedure()
 	end
-	]]--
 end
