@@ -61,7 +61,7 @@ function s.e1evt(e,tp,eg,ep,ev,re,r,rp)
 	hc:RegisterEffect(e1b)
 
 	if not hc:IsImmuneToEffect(e1b) and g:GetCount()>0 then
-		local e1b=Effect.CreateEffect(c)
+		local e1c=Effect.CreateEffect(c)
 		e1c:SetType(EFFECT_TYPE_SINGLE)
 		e1c:SetCode(EFFECT_UPDATE_ATTACK)
 		e1c:SetReset(RESETS_STANDARD+PHASE_END)
