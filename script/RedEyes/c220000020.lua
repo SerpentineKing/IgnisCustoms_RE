@@ -144,9 +144,10 @@ function s.e3evt(e,tp,eg,ep,ev,re,r,rp)
 	until ft<=0 or not Duel.SelectYesNo(tp,aux.Stringid(id,2))
 	Duel.SpecialSummonComplete()
 end
-function s.e3bevt(e,tp)
+function s.e3bevt(e)
 	local c=e:GetHandler()
 	if c:IsReason(REASON_DESTROY) then
+		local tp=e:GetPlayerHandler()
 		Duel.Damage(1-tp,500,REASON_EFFECT)
 	end
 	e:Reset()
