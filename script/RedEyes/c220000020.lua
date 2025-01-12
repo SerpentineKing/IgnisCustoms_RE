@@ -94,6 +94,7 @@ function s.e2con(e,tp)
 	return (ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE)
 end
 function s.e2evt(e)
+	local c=e:GetHandler()
 	local ct=(Duel.GetFlagEffect(0,id)+Duel.GetFlagEffect(1,id))
 	if ct>0 then
 		local e2b=Effect.CreateEffect(c)

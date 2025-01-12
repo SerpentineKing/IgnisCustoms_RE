@@ -38,7 +38,7 @@ function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local g=Duel.SelectTarget(tp,Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,2,2,nil)
 	Duel.SetOperationInfo(0,CATEGORY_ATKCHANGE,g,g:GetCount(),tp,0)
 end
-function s.activate(e,tp,eg,ep,ev,re,r,rp)
+function s.e1evt(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetTargetCards(e):Filter(Card.IsFaceup,nil)
 	
 	if g:GetCount()==0 then return end
