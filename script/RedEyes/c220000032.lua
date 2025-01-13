@@ -263,7 +263,7 @@ function s.e5evt(e,tp)
 	local c=e:GetHandler()
 
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
-	local g=Duel.SelectMatchingCard(tp,s.e5fil2,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
+	local g=Duel.SelectMatchingCard(tp,s.e5fil2,tp,LOCATION_MZONE,0,1,1,nil)
 	local ec=g:GetFirst()
 
 	local tc=Duel.GetFirstTarget()

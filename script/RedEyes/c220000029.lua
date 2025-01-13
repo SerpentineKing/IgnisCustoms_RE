@@ -141,11 +141,11 @@ end
 function s.e2lim(e,c)
 	return c==e:GetLabelObject()
 end
-function s.e5evt(e,tp)
+function s.e2evt(e,tp)
 	local c=e:GetHandler()
 
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
-	local g=Duel.SelectMatchingCard(tp,s.e2fil2,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
+	local g=Duel.SelectMatchingCard(tp,s.e2fil2,tp,LOCATION_MZONE,0,1,1,nil)
 	local ec=g:GetFirst()
 
 	local tc=Duel.GetFirstTarget()
