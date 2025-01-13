@@ -59,7 +59,7 @@ end
 function s.e1val(e,re,r,rp)
 	return (r&REASTON_EFFECT+REASON_BATTLE)~=0
 end
-function s.e1evt(e,tp)
+function s.e1evt(e,tp,eg)
 	local g=eg:FilterSelect(tp,s.e1fil,1,1,nil,e,tp)
 	local sc=g:GetFirst()
 
