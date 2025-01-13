@@ -121,7 +121,7 @@ function s.e1evt(e,tp,eg,ep,ev,re,r,rp)
 			end)
 			e1ct2:SetValue(1)
 			e1ct2:SetReset(RESET_PHASE+PHASE_END)
-			Duel.RegisterEffect(e1,tp)
+			Duel.RegisterEffect(e1ct2,tp)
 		end
 	end
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
