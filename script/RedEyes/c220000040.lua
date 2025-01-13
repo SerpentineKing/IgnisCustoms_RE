@@ -142,7 +142,7 @@ function s.e3bfil(c,tp)
 	or c:IsCode(18803791))
 	and c:IsSpellTrap()
 	and c:IsSSetable()
-	and not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,c:GetCode()),tp,LOCATION_ONFIELD+LOCATION_GRAVE,0,1,nil)
+	--and not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,c:GetCode()),tp,LOCATION_ONFIELD+LOCATION_GRAVE,0,1,nil)
 end
 function s.e3btgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
