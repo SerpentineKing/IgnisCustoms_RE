@@ -66,10 +66,10 @@ end
 function s.e1fil3(c,e,tp,lv)
 	return c:IsSetCard(SET_RED_EYES)
 	and c:IsMonster()
-	and c:GetLevel()<lv
+	and c:GetLevel()<=lv
 	and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
-function s.e1fil4(c)
+function s.e1fil4(c,e,tp)
 	return c:IsSetCard(SET_RED_EYES)
 	and c:IsMonster()
 	and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
