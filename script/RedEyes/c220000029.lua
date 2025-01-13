@@ -119,7 +119,7 @@ function s.e2fil1(c,tp)
 	and not c:IsForbidden()
 end
 function s.e2fil2(c)
-	return c:IsSetCard(SET_RED_EYES) or c:IsRace(RACE_MACHINE)
+	return (c:IsSetCard(SET_RED_EYES) or c:IsRace(RACE_MACHINE))
 end
 function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then
@@ -173,32 +173,26 @@ function s.e5evt(e,tp)
 		c:RegisterEffect(e2d)
 	end
 end
-function s.e3fil1(c)
-	return c:GetEquipTarget()
-end
-function s.e3fil2(c)
+function s.e3fil(c)
 	return c:IsSpellTrap()
 end
 function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then
-		return eg:IsExists(s.e3fil,1,nil)
-	end
+	if chk==0 then return true end
 
-	local g=eg:Filter(s.e3fil,nil)
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,g:GetCount(),0,0)
+	Duel.SetOperationInfo(0,CATEGORY_DESTROY,eg,eg:GetCount(),0,0)
 end
-function s.e3evt(e,tp)
-	local g=eg:Filter(s.e3fil,nil)
-	local sg=Duel.GetMatchingGroup(s.e3fil2,tp,0,LOCATION_ONFIELD,nil)
-
-	if Duel.Destroy(g,REASON_EFFECT)>0 and sg:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(id,3)) then
-		Duel.BreakEffect()
-		
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-		
-		local tg=sg:Select(tp,1,1,nil)
-		Duel.HintSelection(tg)
-		Duel.Destroy(tg,REASON_EFFECT)
+function s.e3evt(e,tp,eg)
+	if Duel.Destroy(eg,REASON_EFFECT)>0 then
+		local sg=Duel.GetMatchingGroup(s.e6fil,tp,0,LOCATION_ONFIELD,nil)
+		if sg:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(id,5)) then
+			Duel.BreakEffect()
+			
+			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
+			
+			local tg=sg:Select(tp,1,1,nil)
+			Duel.HintSelection(tg)
+			Duel.Destroy(tg,REASON_EFFECT)
+		end
 	end
 end
 function s.e4con(e,tp)
