@@ -57,11 +57,11 @@ function s.e1lim(e,c)
 	return c==e:GetLabelObject()
 end
 function s.e1evt(e,tp)
-	local ec=e:GetLabelObject()
-	if not (ec:IsRelateToEffect(e) and ec:IsControler(tp)) then return end
+	local tc=e:GetLabelObject()
+	if not (tc:IsRelateToEffect(e) and tc:IsControler(tp)) then return end
 	
-	local tc=(Duel.GetTargetCards(e)-ec):GetFirst()
-	if not (tc and tc:IsFaceup() and Duel.GetLocationCount(tp,LOCATION_SZONE)>0) then
+	local ec=(Duel.GetTargetCards(e)-tc):GetFirst()
+	if not (ec and ec:IsFaceup() and Duel.GetLocationCount(tp,LOCATION_SZONE)>0) then
 		Duel.SendtoGrave(ec,REASON_RULE,PLAYER_NONE,PLAYER_NONE)
 	else
 		local c=e:GetHandler()
@@ -72,29 +72,29 @@ function s.e1evt(e,tp)
 			e1b1:SetCode(EFFECT_EQUIP_LIMIT)
 			e1b1:SetReset(RESET_EVENT+RESETS_STANDARD)
 			e1b1:SetValue(s.e1lim)
-			e1b1:SetLabelObject(ec)
-			tc:RegisterEffect(e1b1)
+			e1b1:SetLabelObject(tc)
+			ec:RegisterEffect(e1b1)
 
 			c:CancelToGrave()
-			if Duel.Equip(tp,ec,c) then
+			if Duel.Equip(tp,c,tc) then
 				local e1b2=Effect.CreateEffect(c)
 				e1b2:SetType(EFFECT_TYPE_SINGLE)
 				e1b2:SetCode(EFFECT_EQUIP_LIMIT)
 				e1b2:SetReset(RESET_EVENT+RESETS_STANDARD)
 				e1b2:SetValue(s.e1lim)
-				e1b2:SetLabelObject(ec)
+				e1b2:SetLabelObject(tc)
 				c:RegisterEffect(e1b2)
 
 				local e2c1=Effect.CreateEffect(c)
 				e2c1:SetType(EFFECT_TYPE_EQUIP)
 				e2c1:SetCode(EFFECT_UPDATE_ATTACK)
-				e2c1:SetValue(tc:GetBaseAttack())
+				e2c1:SetValue(ec:GetBaseAttack())
 				e2c1:SetReset(RESET_EVENT+RESETS_STANDARD)
 				ec:RegisterEffect(e2c1)
 
 				local e2c2=e2c1:Clone()
 				e2c2:SetCode(EFFECT_UPDATE_DEFENSE)
-				e2c2:SetValue(tc:GetBaseDefense())
+				e2c2:SetValue(ec:GetBaseDefense())
 				ec:RegisterEffect(e2c2)
 
 				local e2c3=Effect.CreateEffect(c)
@@ -103,7 +103,7 @@ function s.e1evt(e,tp)
 				e2c3:SetReset(RESET_EVENT+RESETS_STANDARD)
 				e2c3:SetTarget(s.e2ctgt)
 				e2c3:SetOperation(s.e2cevt)
-				ec:RegisterEffect(e2c3)
+				c:RegisterEffect(e2c3)
 			end
 		end
 	end
