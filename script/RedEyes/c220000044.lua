@@ -57,7 +57,7 @@ function s.e1lim(e,c)
 	return c==e:GetLabelObject()
 end
 function s.e1val(e,re,r,rp)
-	return (r&REASTON_EFFECT+REASON_BATTLE)~=0
+	return (r&REASON_EFFECT+REASON_BATTLE)~=0
 end
 function s.e1evt(e,tp,eg)
 	local g=eg:FilterSelect(tp,s.e1fil,1,1,nil,e,tp)
@@ -86,11 +86,11 @@ function s.e1evt(e,tp,eg)
 			e1c:SetCode(EFFECT_UPDATE_ATTACK)
 			e1c:SetValue(800)
 			e1c:SetReset(RESET_EVENT+RESETS_STANDARD)
-			sc:RegisterEffect(e1c)
+			ec:RegisterEffect(e1c)
 
 			local e1d=e1c:Clone()
 			e1d:SetCode(EFFECT_UPDATE_DEFENSE)
-			sc:RegisterEffect(e1d)
+			ec:RegisterEffect(e1d)
 
 			local e1e=Effect.CreateEffect(c)
 			e1e:SetType(EFFECT_TYPE_EQUIP)
