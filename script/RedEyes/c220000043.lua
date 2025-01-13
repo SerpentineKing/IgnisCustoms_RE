@@ -51,7 +51,7 @@ function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local g2=Duel.SelectTarget(tp,Card.IsFaceup,tp,LOCATION_MZONE,0,1,1,nil)
 	
 	Duel.SetOperationInfo(0,CATEGORY_EQUIP,g1,1,0,0)
-	e:SetLabelObject(g2:GetFirstTarget())
+	e:SetLabelObject(g2:GetFirst())
 end
 function s.e1lim(e,c)
 	return c==e:GetLabelObject()
