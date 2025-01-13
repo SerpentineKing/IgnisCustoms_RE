@@ -293,16 +293,17 @@ function s.e6tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,eg,eg:GetCount(),0,0)
 end
 function s.e6evt(e,tp,eg)
-	local sg=Duel.GetMatchingGroup(s.e6fil,tp,0,LOCATION_ONFIELD,nil)
-
-	if Duel.Destroy(eg,REASON_EFFECT)>0 and sg:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(id,5)) then
-		Duel.BreakEffect()
-		
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-		
-		local tg=sg:Select(tp,1,1,nil)
-		Duel.HintSelection(tg)
-		Duel.Destroy(tg,REASON_EFFECT)
+	if Duel.Destroy(eg,REASON_EFFECT)>0 then
+		local sg=Duel.GetMatchingGroup(s.e6fil,tp,0,LOCATION_ONFIELD,nil)
+		if sg:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(id,5)) then
+			Duel.BreakEffect()
+			
+			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
+			
+			local tg=sg:Select(tp,1,1,nil)
+			Duel.HintSelection(tg)
+			Duel.Destroy(tg,REASON_EFFECT)
+		end
 	end
 end
 function s.e7fil(c,e,tp)
