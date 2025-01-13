@@ -38,6 +38,7 @@ function s.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_GRAVE)
 	e2:SetCountLimit(1,{id,1})
+	e2:SetCondition(aux.exccon)
 	e2:SetCost(aux.bfgcost)
 	e2:SetTarget(s.e2tgt)
 	e2:SetOperation(s.e2evt)
@@ -60,6 +61,7 @@ function s.e1evt(e,tp)
 			{aux.TRUE,aux.Stringid(id,2)})
 	end
 
+	local c=e:GetHandler()
 	if op==1 or op==3 then
 		local e1b=Effect.CreateEffect(c)
 		e1b:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)

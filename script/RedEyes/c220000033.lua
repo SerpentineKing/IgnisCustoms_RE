@@ -140,7 +140,7 @@ function s.e3aevt(e,tp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 	local g=Duel.SelectMatchingCard(tp,s.e3afil,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,1,nil,e,tp)
 	if g:GetCount()>0 then
-		Duel.SpecialSummon(g,0,tp,tp,false,false)
+		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
 	end
 end
 function s.e3bcon(e,tp,eg,ep,ev,re,r,rp)
@@ -173,6 +173,7 @@ function s.e3bevt(e,tp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 	
 	local g=Duel.SelectMatchingCard(tp,s.e3bfil,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,1,nil,e,tp)
+	local c=e:GetHandler()
 	if g:GetCount()>0 and Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP_DEFENSE)>0 then
 		local e3b1=Effect.CreateEffect(c)
 		e3b1:SetType(EFFECT_TYPE_SINGLE)

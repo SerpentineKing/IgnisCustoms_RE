@@ -197,7 +197,7 @@ function s.e4fil1(c,tp)
 	and c:IsFaceup()
 	and c:IsControler(tp)
 end
-function s.e4con(e,tp)
+function s.e4con(e,tp,eg)
 	return eg:IsExists(s.e4fil1,1,nil,tp)
 end
 function s.e4fil2(c)

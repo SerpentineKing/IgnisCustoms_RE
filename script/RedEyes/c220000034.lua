@@ -26,27 +26,16 @@ function s.initial_effect(c)
 	Fusion Summon 1 Fusion Monster that lists a “Red-Eyes” monster as material from your Extra Deck,
 	by shuffling Fusion Materials listed on it from your GY into the Deck/Extra Deck.
 	]]--
-	local e2a=Effect.CreateEffect(c)
-	e2a:SetDescription(aux.Stringid(id,1))
-	e2a:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e2a:SetType(EFFECT_TYPE_IGNITION)
-	e2a:SetRange(LOCATION_SZONE)
-	e2a:SetProperty(EFFECT_FLAG_DELAY)
-	e2a:SetCountLimit(1,{id,1})
-	e2a:SetCost(s.e2cst)
-	e2a:SetTarget(s.e2atgt)
-	e2a:SetOperation(s.e2aevt)
-	c:RegisterEffect(e2a)
-
-	local e2b=Fusion.CreateSummonEff({handler=c,fusfilter=aux.FilterBoolFunction(Card.ListsArchetypeAsMaterial,SET_RED_EYES),matfilter=Card.IsAbleToDeck,extrafil=s.efil,extraop=Fusion.ShuffleMaterial,extratg=s.tfil})
-	e2b:SetDescription(aux.Stringid(id,2))
-	e2b:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_FUSION_SUMMON)
-	e2b:SetType(EFFECT_TYPE_IGNITION)
-	e2b:SetRange(LOCATION_SZONE)
-	e2b:SetProperty(EFFECT_FLAG_DELAY)
-	e2b:SetCountLimit(1,{id,1})
-	e2b:SetCost(s.e2cst)
-	c:RegisterEffect(e2b)
+	local e2=Effect.CreateEffect(c)
+	e2:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_FUSION_SUMMON)
+	e2:SetType(EFFECT_TYPE_IGNITION)
+	e2:SetRange(LOCATION_SZONE)
+	e2:SetProperty(EFFECT_FLAG_DELAY)
+	e2:SetCountLimit(1,{id,1})
+	e2:SetCost(s.e2cst)
+	e2:SetTarget(s.e2tgt)
+	e2:SetOperation(s.e2evt)
+	c:RegisterEffect(e2)
 	--[[
 	[HOPT]
 	If a Spellcaster monster(s) you control is sent to the GY by a card effect,
@@ -109,42 +98,65 @@ function s.e2afil(c,e,tp)
 	and c:IsMonster()
 	and c:IsCanBeSpecialSummoned(e,0,tp,true,false,POS_FACEUP)
 end
-function s.e2atgt(e,tp,eg,ep,ev,re,r,rp,chk)
+function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
+	local fparams={handler=c,fusfilter=aux.FilterBoolFunction(Card.ListsArchetypeAsMaterial,SET_RED_EYES),matfilter=Card.IsAbleToDeck,extrafil=s.efil,extraop=Fusion.ShuffleMaterial,extratg=s.tfil}
+	local fustg=Fusion.SummonEffTG(fparams)
+
 	if chk==0 then
-		return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(s.e2afil,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,nil,e,tp)
+		return (Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+		and Duel.IsExistingMatchingCard(s.e2afil,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,nil,e,tp))
+		or fustg(e,tp,eg,ep,ev,re,r,rp,0)
 	end
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND+LOCATION_GRAVE)
+
+	Duel.SetPossibleOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND+LOCATION_GRAVE)
+	fustg(e,tp,eg,ep,ev,re,r,rp,0)
 end
-function s.e2aevt(e,tp)
+function s.e2evt(e,tp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	
-	local g=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(s.e2afil),tp,LOCATION_HAND+LOCATION_GRAVE,0,1,1,nil,e,tp)
-	if g:GetCount()>0 then
-		local c=e:GetHandler()
-		local tc=g:GetFirst()
+	local fparams={handler=c,fusfilter=aux.FilterBoolFunction(Card.ListsArchetypeAsMaterial,SET_RED_EYES),matfilter=Card.IsAbleToDeck,extrafil=s.efil,extraop=Fusion.ShuffleMaterial,extratg=s.tfil}
+	local fustg=Fusion.SummonEffTG(fparams)
+	local fusop=Fusion.SummonEffOP(fparams)
 
-		if Duel.SpecialSummon(g,0,tp,tp,true,false,POS_FACEUP)>0 then
-			local e2a1=Effect.CreateEffect(c)
-			e2a1:SetDescription(3206)
-			e2a1:SetType(EFFECT_TYPE_SINGLE)
-			e2a1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_CLIENT_HINT)
-			e2a1:SetCode(EFFECT_CANNOT_ATTACK)
-			e2a1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
-			tc:RegisterEffect(e2a1)
+	local b1=Duel.IsExistingMatchingCard(s.e2afil,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,nil,e,tp)
+	local b2=fustg(e,tp,eg,ep,ev,re,r,rp,0)
+
+	if not (b1 or b2) then return end
+	
+	local op=1
+	if b1 and b2 then
+		op=Duel.SelectEffect(tp,
+			{b1,aux.Stringid(id,1)},
+			{b2,aux.Stringid(id,2)})
+	elseif (not b1) and b2 then
+		op=2
+	end
+
+	if op==1 then
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+		
+		local g=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(s.e2afil),tp,LOCATION_HAND+LOCATION_GRAVE,0,1,1,nil,e,tp)
+
+		if g:GetCount()>0 then
+			local c=e:GetHandler()
+			local tc=g:GetFirst()
+	
+			if Duel.SpecialSummon(g,0,tp,tp,true,false,POS_FACEUP)>0 then
+				local e2a1=Effect.CreateEffect(c)
+				e2a1:SetDescription(3206)
+				e2a1:SetType(EFFECT_TYPE_SINGLE)
+				e2a1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_CLIENT_HINT)
+				e2a1:SetCode(EFFECT_CANNOT_ATTACK)
+				e2a1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
+				tc:RegisterEffect(e2a1)
+			end
 		end
+	elseif op==2 then
+		fusop(e,tp,eg,ep,ev,re,r,rp,0)
 	end
 end
-function s.mfil(c,fc,sumtype,tp)
-	return c:IsSetCard(SET_RED_EYES,fc,sumtype,tp) and (not fc.material or c:IsSummonCode(fc,sumtype,tp,fc.material))
-end
-function s.cfil(tp,sg,fc,sumtype,tp)
-	return sg:IsExists(s.mfil,1,nil,fc,sumtype,tp)
-end
 function s.efil(e,tp,mg,sumtype)
-	return Duel.GetMatchingGroup(aux.NecroValleyFilter(Fusion.IsMonsterFilter(Card.IsAbleToDeck)),tp,LOCATION_GRAVE,0,nil),s.cfil
+	return Duel.GetMatchingGroup(aux.NecroValleyFilter(Fusion.IsMonsterFilter(Card.IsAbleToDeck)),tp,LOCATION_GRAVE,0,nil)
 end
 function s.tfil(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
