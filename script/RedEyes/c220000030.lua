@@ -50,7 +50,7 @@ function s.e1fil1(c)
 	and c:IsMonster()
 	and c:IsAbleToHand()
 end
-function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		local ct=Duel.GetMatchingGroupCount(s.e1fil,tp,LOCATION_ONFIELD+LOCATION_GRAVE,LOCATION_ONFIELD+LOCATION_GRAVE,nil)
 		if ct<=1 then
