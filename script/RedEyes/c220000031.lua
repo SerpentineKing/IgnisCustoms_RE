@@ -78,14 +78,14 @@ function s.e1evt(e,tp)
 			e1a1:SetOperation(s.e1aevt)
 			c:RegisterEffect(e1a1)
 
-			local ct=Duel.GetMatchingGroupCount(s.e1afil2,tp,0,LOCATION_ONFIELD,nil)
+			local ct=Duel.GetMatchingGroupCount(s.e1afil2,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
 
 			local e1a2=Effect.CreateEffect(c)
 			e1a2:SetCategory(CATEGORY_ATKCHANGE)
 			e1a2:SetType(EFFECT_TYPE_FIELD)
 			e1a2:SetCode(EFFECT_UPDATE_ATTACK)
 			e1a2:SetTargetRange(0,LOCATION_MZONE)
-			e1a2:SetValue(ct*400)
+			e1a2:SetValue(ct*-400)
 			e1a2:SetReset(RESET_PHASE+PHASE_END)
 			Duel.RegisterEffect(e1a2,tp)
 		elseif op==2 then
@@ -148,6 +148,7 @@ end
 function s.e1aevt(e,tp)
 	local g=Duel.GetMatchingGroup(s.e1afil2,tp,LOCATION_MZONE,0,nil)
 	local c=e:GetHandler()
+	local ct=Duel.GetMatchingGroupCount(s.e1afil2,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
 
 	local gs=g:GetFirst()
 	for gs in aux.Next(g) do
@@ -155,7 +156,7 @@ function s.e1aevt(e,tp)
 		e1a1:SetType(EFFECT_TYPE_SINGLE)
 		e1a1:SetCode(EFFECT_UPDATE_ATTACK)
 		e1a1:SetReset(RESET_EVENT+RESETS_STANDARD)
-		e1a1:SetValue(400)
+		e1a1:SetValue(400*ct)
 		gs:RegisterEffect(e1a1)
 	end
 end
