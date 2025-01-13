@@ -26,6 +26,7 @@ function s.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
 	e2:SetCode(EVENT_DESTROYED)
+	e2:SetRange(LOCATION_GRAVE)
 	e2:SetCountLimit(1,{id,1})
 	e2:SetCost(aux.bfgcost)
 	e2:SetTarget(s.e2tgt)
@@ -110,7 +111,7 @@ function s.e2evt(e,tp)
 		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
 	end
 end
-function s.e3acon(e,tp,eg,ep,ev,re,r,rp)
+function s.e3acon(e,tp)
 	local tc=Duel.GetAttacker()
 	if tc:IsControler(1-tp) then
 		tc=Duel.GetAttackTarget()
@@ -123,7 +124,7 @@ function s.e3acon(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.e3afil(c,e,tp)
 	return c:IsLevelBelow(4)
-	and c:IsSetCard(RACE_WARRIOR)
+	and c:IsRace(RACE_WARRIOR)
 	and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.e3atgt(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -143,7 +144,7 @@ function s.e3aevt(e,tp)
 		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
 	end
 end
-function s.e3bcon(e,tp,eg,ep,ev,re,r,rp)
+function s.e3bcon(e,tp)
 	local tc=Duel.GetAttacker()
 	if tc:IsControler(1-tp) then
 		tc=Duel.GetAttackTarget()
@@ -175,6 +176,8 @@ function s.e3bevt(e,tp)
 	local g=Duel.SelectMatchingCard(tp,s.e3bfil,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,1,nil,e,tp)
 	local c=e:GetHandler()
 	if g:GetCount()>0 and Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP_DEFENSE)>0 then
+		local tc=g:GetFirst()
+
 		local e3b1=Effect.CreateEffect(c)
 		e3b1:SetType(EFFECT_TYPE_SINGLE)
 		e3b1:SetCode(EFFECT_DISABLE)
