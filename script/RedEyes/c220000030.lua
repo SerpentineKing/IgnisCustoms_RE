@@ -170,7 +170,7 @@ function s.e1ct1fil(c,tp)
 	and c:IsSetCard(SET_RED_EYES)
 	and c:IsSummonPlayer(tp)
 end
-function s.e1ct1con(e,tp)
+function s.e1ct1con(e,tp,eg)
 	return eg:IsExists(s.e1ct1fil,1,nil,tp)
 end
 function s.e1ct1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
