@@ -70,6 +70,8 @@ function s.e1evt(e,tp,eg)
 		if sc==ec then ec=Duel.GetAttackTarget() end
 		if not ec:IsRelateToBattle() then return end
 
+		local c=e:GetHandler()
+
 		if Duel.Equip(tp,ec,sc,true) then
 			local e1b=Effect.CreateEffect(c)
 			e1b:SetType(EFFECT_TYPE_SINGLE)
