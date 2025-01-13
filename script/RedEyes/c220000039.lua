@@ -53,8 +53,8 @@ function s.e1evt(e,tp)
 	e1b:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e1b,tp)
 end
-function s.e1val(e,re,r)
-	return r:GetAttack()/2
+function s.e1val(e,re)
+	return e:GetHandler():GetAttack()/2
 end
 function s.e2val(e,re,r)
 	if (r&REASON_BATTLE+REASON_EFFECT)~=0 then

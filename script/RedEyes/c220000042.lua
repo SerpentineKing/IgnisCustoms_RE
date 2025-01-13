@@ -85,7 +85,7 @@ function s.e1evt(e,tp,eg,ep,ev,re)
 			if ct>0 then
 				Duel.BreakEffect()
 
-				local g2=Duel.GetMatchingGroup(s.e1fil3,tp,0,LOCATION_HAND+LOCATION_ONFIELD+LOCATION_GRAVE,nil)
+				local g2=Duel.GetMatchingGroup(s.e1fil3,tp,LOCATION_HAND+LOCATION_ONFIELD+LOCATION_GRAVE,0,nil)
 				
 				if g2:GetCount()==0 then return end
 
@@ -101,7 +101,7 @@ end
 function s.e2fil(c,e,tp)
 	return c:IsSetCard(SET_RED_EYES)
 	and c:IsMonster()
-	and not c:IsSummonablCard()
+	and not c:IsSummonableCard()
 	and c:GetPreviousControler()==tp
 	and c:IsCanBeEffectTarget(e)
 	and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
