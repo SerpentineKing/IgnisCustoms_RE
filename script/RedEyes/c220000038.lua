@@ -211,7 +211,7 @@ function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 		return Duel.IsExistingMatchingCard(s.e2fil2,tp,LOCATION_HAND,0,1,nil)
 	end
 end
-function s.e2evt(e,tp,eg,ep,ev,re,r,rp)
+function s.e2evt(e,tp)
 	local c=e:GetHandler()
 	local hg=Duel.GetFieldGroup(tp,LOCATION_HAND,0):Filter(s.e2fil2,nil)
 

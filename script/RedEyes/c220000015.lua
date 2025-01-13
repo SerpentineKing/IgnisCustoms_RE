@@ -72,7 +72,7 @@ function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,c,1,tp,0)
 end
-function s.e1evt(e,tp,eg,ep,ev,re,r,rp)
+function s.e1evt(e,tp)
 	local c=e:GetHandler()
 
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
@@ -98,7 +98,7 @@ function s.e2bcon(e,tp,eg,ep,ev,re,r,rp)
 	return rp==1-tp
 	and c:HasFlagEffect(id)
 end
-function s.e2bevt(e,tp,eg,ep,ev,re,r,rp)
+function s.e2bevt(e,tp)
 	Duel.Hint(HINT_CARD,0,id)
 
 	if Duel.IsExistingMatchingCard(aux.TRUE,tp,0,LOCATION_MZONE,1,nil) then

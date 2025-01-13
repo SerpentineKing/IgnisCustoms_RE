@@ -136,7 +136,7 @@ function s.e3bfil(c,e,tp)
 	and c:IsLevel(4))
 	and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
-function s.e3evt(e,tp,eg,ep,ev,re,r,rp)
+function s.e3evt(e,tp)
 	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
 	if Duel.Damage(p,d,REASON_EFFECT)>0 then
 		local c=e:GetHandler()

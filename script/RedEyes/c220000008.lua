@@ -150,7 +150,7 @@ function s.e4bcon(e,tp,eg,ep,ev,re,r,rp)
 	return rp==1-tp
 	and c:HasFlagEffect(id)
 end
-function s.e4bevt(e,tp,eg,ep,ev,re,r,rp)
+function s.e4bevt(e,tp)
 	Duel.Hint(HINT_CARD,0,id)
 
 	if Duel.IsExistingMatchingCard(aux.TRUE,tp,0,LOCATION_MZONE,1,nil) then
@@ -182,8 +182,9 @@ function s.e5tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND+LOCATION_DECK+LOCATION_GRAVE)
 end
-function s.e5evt(e,tp,eg,ep,ev,re,r,rp)
+function s.e5evt(e,tp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+	
 	local g=Duel.SelectMatchingCard(tp,s.e5fil,tp,LOCATION_HAND+LOCATION_DECK+LOCATION_GRAVE,0,1,1,nil,e,tp)
 	if g:GetCount()>0 then
 		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)

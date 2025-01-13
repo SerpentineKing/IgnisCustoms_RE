@@ -98,7 +98,7 @@ function s.e3fil(c)
 	and c:IsSpellTrap()
 	and c:IsSSetable()
 end
-function s.e3evt(e,tp,eg,ep,ev,re,r,rp)
+function s.e3evt(e,tp)
 	local c=e:GetHandler()
 	
 	if c:IsRelateToEffect(e) and Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)>0 then

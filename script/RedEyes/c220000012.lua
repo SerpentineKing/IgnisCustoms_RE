@@ -128,7 +128,7 @@ function s.e4tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_NEGATE)
 	Duel.SelectTarget(tp,Card.IsNegatable,tp,0,LOCATION_ONFIELD,1,1,nil)
 end
-function s.e4evt(e,tp,eg,ep,ev,re,r,rp)
+function s.e4evt(e,tp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 

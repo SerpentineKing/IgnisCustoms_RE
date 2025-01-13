@@ -94,7 +94,7 @@ function s.e1btgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	local g=Duel.GetMatchingGroup(aux.TRUE,tp,0,LOCATION_MZONE,nil)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,g:GetCount(),0,0,nil)
 end
-function s.e1bevt(e,tp,eg,ep,ev,re,r,rp)
+function s.e1bevt(e,tp)
 	local g=Duel.GetMatchingGroup(aux.TRUE,tp,0,LOCATION_MZONE,nil)
 	local ct=Duel.Destroy(g,REASON_EFFECT)
 	Duel.Damage(1-tp,ct*500,REASON_EFFECT)
@@ -112,7 +112,7 @@ function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 
 	Duel.SetOperationInfo(0,CATEGORY_ATKCHANGE,c,1,tp,atk)
 end
-function s.e2evt(e,tp,eg,ep,ev,re,r,rp)
+function s.e2evt(e,tp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) and c:IsFaceup() then
 		local g=Duel.GetMatchingGroup(Card.IsFaceup,tp,0,LOCATION_MZONE,nil):GetMaxGroup(Card.GetAttack)

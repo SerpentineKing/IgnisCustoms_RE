@@ -126,7 +126,7 @@ function s.e6tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,g:GetCount(),0,0)
 	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,g:GetCount()*400)
 end
-function s.e6evt(e,tp,eg,ep,ev,re,r,rp)
+function s.e6evt(e,tp)
 	local sg=Duel.GetMatchingGroup(s.e6fil,tp,0,LOCATION_ONFIELD,nil)
 	local ct=Duel.Destroy(sg,REASON_EFFECT)
 	Duel.Damage(1-tp,ct*300,REASON_EFFECT)
@@ -154,7 +154,7 @@ function s.e7tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 		return Duel.IsExistingMatchingCard(s.e7fil,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,nil)
 	end
 end
-function s.e7evt(e,tp,eg,ep,ev,re,r,rp)
+function s.e7evt(e,tp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SET)
 	local g=Duel.SelectMatchingCard(tp,s.e7fil,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,1,nil)
 	if g:GetCount()>0 and Duel.SSet(tp,g)>0 then

@@ -77,7 +77,7 @@ function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_COIN,nil,0,tp,1)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
 end
-function s.e1evt(e,tp,eg,ep,ev,re,r,rp)
+function s.e1evt(e,tp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 
 	if Duel.CallCoin(tp) then

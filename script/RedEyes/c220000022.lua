@@ -28,7 +28,7 @@ function s.initial_effect(c)
 	and if you do, until your opponent’s next turn, it cannot change its battle position, be Tributed,
 	or used as material for the Summon of a monster from the Extra Deck.
 	]]--
-	-- FIX [to DEF Pos]
+	-- TODO : Set timing to opp. turn
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,1))
 	e2:SetCategory(CATEGORY_POSITION)

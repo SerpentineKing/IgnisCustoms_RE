@@ -32,6 +32,8 @@ Code Sequence : # c220000001
 - IsSetCard : 0xfe2
 # Jinzo Groups
 - s.listed_series={0xbc}
+# Fusion Groups
+- s.listed_series={0x46}
 # Special IDs
 - c46232525 ["The Claw of Hermos"]
 - c19747827 ["Red-Eyes Black Dragon Sword"]

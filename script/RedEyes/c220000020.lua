@@ -56,6 +56,8 @@ function s.initial_effect(c)
 	e3:SetOperation(s.e3evt)
 	c:RegisterEffect(e3)
 end
+-- Mentions : Token
+s.listed_names={220000045,id}
 -- Archetype : Red-Eyes
 s.listed_series={SET_RED_EYES}
 -- Helpers
@@ -90,8 +92,7 @@ function s.e1evt(e,tp)
 	end
 end
 function s.e2con(e,tp)
-	local ph=Duel.GetCurrentPhase()
-	return (ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE)
+	return Duel.IsBattlePhase()
 end
 function s.e2evt(e)
 	local c=e:GetHandler()
@@ -119,7 +120,7 @@ function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_TOKEN,nil,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,0)
 end
-function s.e3evt(e,tp,eg,ep,ev,re,r,rp)
+function s.e3evt(e,tp)
 	local ft=5
 	if Duel.IsPlayerAffectedByEffect(tp,CARD_BLUEEYES_SPIRIT) then ft=1 end
 	ft=math.min(ft,Duel.GetLocationCount(tp,LOCATION_MZONE))

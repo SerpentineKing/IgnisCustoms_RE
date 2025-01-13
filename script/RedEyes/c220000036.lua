@@ -21,8 +21,7 @@ function s.initial_effect(c)
 end
 -- Helpers
 function s.e1con(e,tp)
-	local ph=Duel.GetCurrentPhase()
-	return (ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE)
+	return Duel.IsBattlePhase()
 end
 function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then
@@ -38,7 +37,7 @@ function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local g=Duel.SelectTarget(tp,Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,2,2,nil)
 	Duel.SetOperationInfo(0,CATEGORY_ATKCHANGE,g,g:GetCount(),tp,0)
 end
-function s.e1evt(e,tp,eg,ep,ev,re,r,rp)
+function s.e1evt(e,tp)
 	local g=Duel.GetTargetCards(e):Filter(Card.IsFaceup,nil)
 	
 	if g:GetCount()==0 then return end

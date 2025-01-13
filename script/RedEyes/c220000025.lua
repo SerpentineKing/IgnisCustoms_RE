@@ -147,8 +147,7 @@ function s.e1evt(e,tp)
 	end
 end
 function s.e2con(e,tp)
-	local ph=Duel.GetCurrentPhase()
-	return (ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE)
+	return Duel.IsBattlePhase()
 	and Duel.GetTurnPlayer()==e:GetHandlerPlayer()
 end
 function s.e2fil(c)
@@ -238,12 +237,10 @@ function s.e3evt(e,tp)
 	end
 end
 function s.e4bcon(e,tp)
-	local ph=Duel.GetCurrentPhase()
-	return (ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE)
+	return Duel.IsBattlePhase()
 end
 function s.e4ccon(e,tp)
-	local ph=Duel.GetCurrentPhase()
-	return (ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE)
+	return Duel.IsBattlePhase()
 end
 function s.e4dcon(e,tp)
 	local c=e:GetHandler()
