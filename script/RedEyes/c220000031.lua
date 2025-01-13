@@ -57,6 +57,8 @@ function s.e1evt(e,tp)
 	if rg:GetCount()>0 and Duel.Remove(rg,POS_FACEUP,REASON_EFFECT) then
 		Duel.BreakEffect()
 
+		local c=e:GetHandler()
+
 		local b3=Duel.GetFieldGroupCount(tp,0,LOCATION_SZONE)>0
 		local b4=Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>0
 
