@@ -184,21 +184,14 @@ function s.e1btgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,1)
 end
 function s.e1bevt(e,tp)
-	if not e:GetHandler():IsRelateToEffect(e) then return end
+	--if not e:GetHandler():IsRelateToEffect(e) then return end
 
 	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
 	Duel.Draw(p,d,REASON_EFFECT)
 end
 function s.e1b2con(e,tp,eg,ep)
 	local c=e:GetHandler()
-	local o=0
-	if ep~=tp then
-		o=1
-		if c:IsSetCard(SET_RED_EYES) then
-			o=2
-		end
-	end
-	Debug.ShowHint(""..o)
+	
 	return ep~=tp
 	and c:IsSetCard(SET_RED_EYES)
 	and c:IsMonster()
