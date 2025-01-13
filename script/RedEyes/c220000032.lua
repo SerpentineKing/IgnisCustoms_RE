@@ -177,8 +177,10 @@ function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function s.e3evt(e,tp)
 	local tc=Duel.GetFirstTarget()
+	local c=e:GetHandler()
+	
 	if tc:IsRelateToEffect(e) then
-		if Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)>0 and not tc:IsNotTuner() and Duel.SelectEffectYesNo(tp,c,aux.Stringid(id,1)) then
+		if Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)>0 and tc:IsType(TYPE_TUNER) and Duel.SelectEffectYesNo(tp,c,aux.Stringid(id,1)) then
 			Duel.BreakEffect()
 
 			local g=Duel.GetMatchingGroup(Card.IsSynchroSummonable,tp,LOCATION_EXTRA,0,nil,nil)
