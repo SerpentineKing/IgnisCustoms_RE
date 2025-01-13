@@ -98,11 +98,11 @@ function s.e1evt(e,tp)
 				ec:RegisterEffect(e2c2)
 
 				local e2c3=Effect.CreateEffect(c)
-				e2c3:SetType(EFFECT_TYPE_EQUIP)
+				e2c3:SetType(EFFECT_TYPE_EQUIP+EFFECT_TYPE_TRIGGER_F)
 				e2c3:SetCode(EVENT_BATTLE_DESTROYING)
-				e2c3:SetReset(RESET_EVENT+RESETS_STANDARD)
 				e2c3:SetTarget(s.e2ctgt)
 				e2c3:SetOperation(s.e2cevt)
+				e2c3:SetReset(RESET_EVENT+RESETS_STANDARD)
 				c:RegisterEffect(e2c3)
 			end
 		end
