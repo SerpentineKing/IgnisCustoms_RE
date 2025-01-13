@@ -162,14 +162,14 @@ function s.e2evt(e,tp)
 		e2c:SetType(EFFECT_TYPE_SINGLE)
 		e2c:SetCode(EFFECT_UPDATE_ATTACK)
 		e2c:SetValue(tc:GetBaseAttack())
-		e2c:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE)
+		e2c:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_BATTLE)
 		ec:RegisterEffect(e2c)
 
 		local e2d=Effect.CreateEffect(c)
 		e2d:SetType(EFFECT_TYPE_SINGLE)
 		e2d:SetCode(EFFECT_UPDATE_DEFENSE)
 		e2d:SetValue(tc:GetBaseDefense())
-		e2d:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE)
+		e2d:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_BATTLE)
 		ec:RegisterEffect(e2d)
 	end
 end
@@ -212,7 +212,7 @@ function s.e4tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 
 	if chk==0 then
 		return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingTarget(s.e4fil,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,nil,e,tp)
+		and Duel.IsExistingMatchingCard(s.e4fil,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,nil,e,tp)
 	end
 	
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
@@ -220,6 +220,7 @@ function s.e4tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.e4evt(e,tp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+
 	local g=Duel.SelectMatchingCard(tp,s.e4fil,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,1,nil,e,tp)
 	if g:GetCount()>0 then
 		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
