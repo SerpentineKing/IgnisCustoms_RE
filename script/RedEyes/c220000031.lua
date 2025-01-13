@@ -111,7 +111,7 @@ function s.e1evt(e,tp)
 			e1b2:SetTarget(s.e1btgt)
 			e1b2:SetOperation(s.e1bevt)
 			e1b2:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
-			c:RegisterEffect(e1)
+			c:RegisterEffect(e1b2)
 		elseif op==3 then
 			local g=Duel.GetFieldGroup(tp,0,LOCATION_SZONE)
 			local ct=Duel.Destroy(g,REASON_EFFECT)
