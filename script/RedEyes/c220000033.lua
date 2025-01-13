@@ -85,7 +85,7 @@ function s.e1evt(e,tp)
 		Duel.ConfirmCards(1-tp,sg)
 	end
 end
-function s.e2fil1(c)
+function s.e2fil1(c,tp)
 	return c:IsReason(REASON_BATTLE+REASON_EFFECT)
 	and c:IsPreviousLocation(LOCATION_MZONE)
 	and c:IsPreviousControler(tp)
@@ -99,8 +99,9 @@ function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 		and Duel.IsExistingMatchingCard(s.e2fil2,tp,LOCATION_DECK+LOCATION_REMOVED,0,1,nil,e,tp)
-		and eg:IsExists(s.e2fil1,1,nil)
+		and eg:IsExists(s.e2fil1,1,nil,tp)
 	end
+
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK+LOCATION_REMOVED)
 end
 function s.e2evt(e,tp)
