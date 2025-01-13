@@ -9,6 +9,7 @@ function s.initial_effect(c)
 	Halve the ATK of all monsters your opponent controls during each Battle Phase this turn.
 	Your opponent cannot activate cards or effect in response to this card’s activation.
 	]]--
+	-- TODO : Fix ATK to Halve
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_ATKCHANGE)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)

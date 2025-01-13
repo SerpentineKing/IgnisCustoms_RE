@@ -92,7 +92,7 @@ function s.e1evt(e,tp,eg,ep,ev,re)
 				local sg2=g2:Select(tp,1,1,nil)
 				Duel.ConfirmCards(1-tp,sg2)
 
-				local cc=g2:GetFirst()
+				local cc=sg2:GetFirst()
 				Duel.Damage(tp,cc:GetAttack()/2,REASON_EFFECT)
 			end
 		end
