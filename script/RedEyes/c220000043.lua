@@ -98,8 +98,10 @@ function s.e1evt(e,tp)
 				ec:RegisterEffect(e2c2)
 
 				local e2c3=Effect.CreateEffect(c)
-				e2c3:SetType(EFFECT_TYPE_EQUIP+EFFECT_TYPE_TRIGGER_F)
+				e2c3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 				e2c3:SetCode(EVENT_BATTLE_DESTROYING)
+				e2c3:SetRange(LOCATION_SZONE)
+				e2c3:SetCondition(s.e2ccon)
 				e2c3:SetTarget(s.e2ctgt)
 				e2c3:SetOperation(s.e2cevt)
 				e2c3:SetReset(RESET_EVENT+RESETS_STANDARD)
@@ -108,10 +110,13 @@ function s.e1evt(e,tp)
 		end
 	end
 end
+function s.e2ccon(e,tp,eg)
+	return eg:GetFirst()==e:GetHandler():GetEquipTarget()
+end
 function s.e2ctgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	
-	local tc=e:GetHandler():GetBattleTarget()
+	local tc=e:GetHandler():GetEquipTarget():GetBattleTarget()
 	local atk=tc:GetAttack()
 
 	if atk<0 then
