@@ -99,7 +99,7 @@ function s.e2afil(c,e,tp)
 	and c:IsCanBeSpecialSummoned(e,0,tp,true,false,POS_FACEUP)
 end
 function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
-	local fparams={handler=c,fusfilter=aux.FilterBoolFunction(Card.ListsArchetypeAsMaterial,SET_RED_EYES),matfilter=Card.IsAbleToDeck,extrafil=s.efil,extraop=Fusion.ShuffleMaterial,extratg=s.tfil}
+	local fparams={handler=c,fusfilter=aux.FilterBoolFunction(Card.ListsArchetypeAsMaterial,SET_RED_EYES),matfilter=aux.FALSE,extrafil=s.efil,extraop=Fusion.ShuffleMaterial,extratg=s.tfil}
 	local fustg=Fusion.SummonEffTG(fparams)
 
 	if chk==0 then
@@ -114,7 +114,7 @@ end
 function s.e2evt(e,tp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 
-	local fparams={handler=c,fusfilter=aux.FilterBoolFunction(Card.ListsArchetypeAsMaterial,SET_RED_EYES),matfilter=Card.IsAbleToDeck,extrafil=s.efil,extraop=Fusion.ShuffleMaterial,extratg=s.tfil}
+	local fparams={handler=c,fusfilter=aux.FilterBoolFunction(Card.ListsArchetypeAsMaterial,SET_RED_EYES),matfilter=aux.FALSE,extrafil=s.efil,extraop=Fusion.ShuffleMaterial,extratg=s.tfil}
 	local fustg=Fusion.SummonEffTG(fparams)
 	local fusop=Fusion.SummonEffOP(fparams)
 
