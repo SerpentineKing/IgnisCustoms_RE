@@ -190,9 +190,9 @@ function s.e1bevt(e,tp)
 	Duel.Draw(p,d,REASON_EFFECT)
 end
 function s.e1b2con(e,tp,eg,ep)
-	local c=e:GetHandler()
+	local tc=eg:GetFirst()
 	
 	return ep~=tp
-	and c:IsSetCard(SET_RED_EYES)
-	and c:IsMonster()
+	and tc:IsControler(tp)
+	and tc:IsSetCard(SET_RED_EYES)
 end
