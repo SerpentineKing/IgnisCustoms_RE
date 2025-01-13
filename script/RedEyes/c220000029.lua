@@ -163,14 +163,14 @@ function s.e2evt(e,tp)
 		e2c:SetCode(EFFECT_UPDATE_ATTACK)
 		e2c:SetValue(tc:GetBaseAttack())
 		e2c:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE)
-		c:RegisterEffect(e2c)
+		ec:RegisterEffect(e2c)
 
 		local e2d=Effect.CreateEffect(c)
 		e2d:SetType(EFFECT_TYPE_SINGLE)
 		e2d:SetCode(EFFECT_UPDATE_DEFENSE)
 		e2d:SetValue(tc:GetBaseDefense())
 		e2d:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE)
-		c:RegisterEffect(e2d)
+		ec:RegisterEffect(e2d)
 	end
 end
 function s.e3fil(c)
