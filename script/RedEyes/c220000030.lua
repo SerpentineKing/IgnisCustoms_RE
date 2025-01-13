@@ -89,6 +89,7 @@ function s.e1evt(e,tp,eg,ep,ev,re,r,rp)
 		end
 
 		local e1ct1=Effect.CreateEffect(c)
+		e1ct1:SetDescription(aux.Stringid(id,1))
 		e1ct1:SetCategory(CATEGORY_DRAW)
 		e1ct1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 		e1ct1:SetCode(EVENT_SUMMON_SUCCESS)

@@ -45,7 +45,7 @@ function s.e1fil(c)
 end
 function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then 
-		Duel.IsExistingMatchingCard(s.e1fil,tp,LOCATION_HAND+LOCATION_DECK+LOCATION_GRAVE,0,1,nil)
+		return Duel.IsExistingMatchingCard(s.e1fil,tp,LOCATION_HAND+LOCATION_DECK+LOCATION_GRAVE,0,1,nil)
 	end
 
 	Duel.SetOperationInfo(0,CATEGORY_REMOVE,nil,1,0,0)
