@@ -191,7 +191,14 @@ function s.e1bevt(e,tp)
 end
 function s.e1b2con(e,tp,eg,ep)
 	local c=e:GetHandler()
-
+	local o=0
+	if ep~=tp then
+		o=1
+		if c:IsSetCard(SET_RED_EYES) then
+			o=2
+		end
+	end
+	Debug.ShowHint(""..o)
 	return ep~=tp
 	and c:IsSetCard(SET_RED_EYES)
 	and c:IsMonster()
