@@ -64,8 +64,7 @@ function s.e1evt(e,tp)
 			{aux.TRUE,aux.Stringid(id,1)},
 			{aux.TRUE,aux.Stringid(id,2)},
 			{b3,aux.Stringid(id,3)},
-			{b4,aux.Stringid(id,4)},
-		)
+			{b4,aux.Stringid(id,4)})
 
 		if op==1 then
 			local e1a1=Effect.CreateEffect(c)

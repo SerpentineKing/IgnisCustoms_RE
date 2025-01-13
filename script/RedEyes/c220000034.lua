@@ -46,8 +46,6 @@ function s.initial_effect(c)
 	e2b:SetProperty(EFFECT_FLAG_DELAY)
 	e2b:SetCountLimit(1,{id,1})
 	e2b:SetCost(s.e2cst)
-	e2b:SetTarget(s.e2btgt)
-	e2b:SetOperation(s.e2bevt)
 	c:RegisterEffect(e2b)
 	--[[
 	[HOPT]
