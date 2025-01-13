@@ -38,8 +38,8 @@ function s.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_GRAVE)
 	e2:SetCountLimit(1,{id,1})
-	e2:SetCondition(aux.exccon)
 	e2:SetCost(aux.bfgcost)
+	e2:SetCondition(aux.exccon)
 	e2:SetTarget(s.e2tgt)
 	e2:SetOperation(s.e2evt)
 	c:RegisterEffect(e2)
@@ -119,7 +119,7 @@ function s.e1ccst(e,c,tp)
 end
 function s.e1cevt(e,tp)
 	if Duel.IsAttackCostPaid()~=2 and e:GetHandler():IsLocation(LOCATION_SZONE) then
-		local g=Duel.GetDecktopGroup(1-tp,1)
+		local g=Duel.GetDecktopGroup(tp,1)
 		
 		if g:GetCount()==0 then return end
 		
