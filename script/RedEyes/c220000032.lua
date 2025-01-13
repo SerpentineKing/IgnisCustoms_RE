@@ -105,7 +105,7 @@ function s.initial_effect(c)
 	e7:SetProperty(EFFECT_FLAG_DELAY)
 	e7:SetCountLimit(1,{id,5})
 	e7:SetCost(aux.bfgcost)
-	e7:SetCondition(s.e7con)
+	e7:SetCondition(function(e) return e:GetHandler():IsReason(REASON_EFFECT) end)
 	e7:SetTarget(s.e7tgt)
 	e7:SetOperation(s.e7evt)
 	c:RegisterEffect(e7)
@@ -178,7 +178,7 @@ end
 function s.e3evt(e,tp)
 	local tc=Duel.GetFirstTarget()
 	local c=e:GetHandler()
-	
+
 	if tc:IsRelateToEffect(e) then
 		if Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)>0 and tc:IsType(TYPE_TUNER) and Duel.SelectEffectYesNo(tp,c,aux.Stringid(id,1)) then
 			Duel.BreakEffect()
@@ -310,9 +310,6 @@ function s.e6evt(e,tp)
 		Duel.HintSelection(tg)
 		Duel.Destroy(tg,REASON_EFFECT)
 	end
-end
-function s.e7con(e)
-	e:GetHandler():IsReason(REASON_EFFECT)
 end
 function s.e7fil(c,e,tp)
 	return c:IsSetCard(SET_RED_EYES)
