@@ -194,8 +194,7 @@ function s.e4tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 		and chkc:IsLocation(LOCATION_MZONE)
 	end
 	if chk==0 then
-		return c:IsAbleToHand()
-		and Duel.IsExistingTarget(aux.FaceupFilter(Card.IsAbleToHand),tp,0,LOCATION_MZONE,1,nil)
+		return Duel.IsExistingTarget(aux.FaceupFilter(Card.IsAbleToHand),tp,0,LOCATION_MZONE,1,nil)
 	end
 
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RTOHAND)
