@@ -92,7 +92,9 @@ function s.e4evt(e,tp)
 		val=-1
 	end
 
+	local c=e:GetHandler()
 	local hg=Duel.GetMatchingGroup(aux.TRUE,tp,LOCATION_HAND+LOCATION_MZONE,0,nil)
+	
 	local tc=hg:GetFirst()
 	for tc in aux.Next(hg) do
 		local e4b=Effect.CreateEffect(c)
