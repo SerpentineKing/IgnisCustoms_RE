@@ -194,7 +194,7 @@ function s.e3evt(e)
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end
-function s.e4con(e)
+function s.e4con(e,tp)
 	local c=e:GetHandler()
 
 	return c:IsReason(REASON_DESTROY)
