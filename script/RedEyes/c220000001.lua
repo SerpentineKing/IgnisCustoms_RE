@@ -91,12 +91,6 @@ function s.e5tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local fparams={handler=c,fusfilter=aux.FilterBoolFunction(Card.ListsCodeAsMaterial,CARD_REDEYES_B_DRAGON),matfilter=aux.FALSE,extrafil=s.efil,extratg=s.tfil}
 	local fustg=Fusion.SummonEffTG(fparams)
 
-	if fustg(e,tp,eg,ep,ev,re,r,rp,0) then
-		Debug.ShowHint("TGT : Success")
-	else
-		Debug.ShowHint("TGT : Fail")
-	end
-
 	if chk==0 then
 		return fustg(e,tp,eg,ep,ev,re,r,rp,0)
 	end
@@ -104,8 +98,6 @@ function s.e5tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	fustg(e,tp,eg,ep,ev,re,r,rp,0)
 end
 function s.e5evt(e,tp)
-	Debug.ShowHint("EVT : Call")
-
 	local fparams={handler=c,fusfilter=aux.FilterBoolFunction(Card.ListsCodeAsMaterial,CARD_REDEYES_B_DRAGON),matfilter=aux.FALSE,extrafil=s.efil,extratg=s.tfil}
 	local fustg=Fusion.SummonEffTG(fparams)
 	local fusop=Fusion.SummonEffOP(fparams)
