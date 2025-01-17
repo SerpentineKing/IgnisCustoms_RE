@@ -5,7 +5,9 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	If this card is Normal or Special Summoned:
-	You can Special Summon 1 Level 4 “Red-Eyes” or Warrior monster from your Deck.
+	You can Special Summon 1 Level 4 “Red-Eyes” or Warrior monster from your Deck,
+	also, you cannot Special Summon monsters from the Extra Deck for the rest of this turn,
+	except “Red-Eyes” monsters or monsters that list a “Red-Eyes” monster as material.
 	]]--
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -56,6 +58,10 @@ function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
 end
+function s.e1lim(e,c)
+	return (not (c:IsSetCard(SET_RED_EYES) or c:ListsArchetypeAsMaterial(SET_RED_EYES)))
+	and c:IsLocation(LOCATION_EXTRA)
+end
 function s.e1evt(e,tp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 
@@ -65,6 +71,16 @@ function s.e1evt(e,tp)
 	if g:GetCount()>0 then
 		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
 	end
+
+	local ge1=Effect.CreateEffect(c)
+	ge1:SetType(EFFECT_TYPE_FIELD)
+	ge1:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_CLIENT_HINT)
+	ge1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+	ge1:SetDescription(aux.Stringid(id,1))
+	ge1:SetTargetRange(1,0)
+	ge1:SetTarget(s.e1lim)
+	ge1:SetReset(RESET_PHASE+PHASE_END)
+	Duel.RegisterEffect(ge1,tp)
 end
 function s.e2fil(c)
 	return c:IsSetCard(SET_RED_EYES)

@@ -66,7 +66,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 	--[[
 	[HOPT]
-	If this card is destroyed by battle or card effect and sent to the GY:
+	If this card is destroyed by battle or an opponent’s card effect and sent to the GY:
 	You can banish this card from your GY; return all Fusion and Xyz Monsters in your GY to the Extra Deck.
 	]]--
 	local e4=Effect.CreateEffect(c)
@@ -197,7 +197,7 @@ function s.e4con(e)
 	local c=e:GetHandler()
 
 	return c:IsReason(REASON_DESTROY)
-	and c:IsReason(REASON_BATTLE+REASON_EFFECT)
+	and (c:IsReason(REASON_BATTLE) or (c:IsReason(REASON_EFFECT) and c:GetReasonPlayer()==1-tp))
 end
 function s.e4fil(c)
 	return (c:IsType(TYPE_FUSION) or c:IsType(TYPE_XYZ))

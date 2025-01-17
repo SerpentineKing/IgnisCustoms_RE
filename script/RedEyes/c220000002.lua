@@ -32,9 +32,10 @@ function s.initial_effect(c)
 	e2:SetOperation(s.e2evt)
 	c:RegisterEffect(e2)
 	--[[
-	[SOPT]
+	[HOPT]
 	If this card is sent from the field to the GY:
-	You can Special Summon 1 Xyz Monster from your Extra Deck.
+	You can Special Summon 1 Xyz Monster from your Extra Deck,
+	and if you do, attach this card and 1 Level 7 “Red-Eyes” monster from your GY to it as material.
 	]]--
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(id,2))
@@ -42,7 +43,7 @@ function s.initial_effect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e3:SetCode(EVENT_TO_GRAVE)
 	e3:SetProperty(EFFECT_FLAG_DELAY)
-	e3:SetCountLimit(1)
+	e3:SetCountLimit(1,{id,0})
 	e3:SetCondition(s.e3con)
 	e3:SetTarget(s.e3tgt)
 	e3:SetOperation(s.e3evt)
@@ -104,23 +105,40 @@ end
 function s.e3con(e)
 	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
 end
-function s.e3fil(c,e,tp)
+function s.e3fil1(c,e,tp)
 	return c:IsType(TYPE_XYZ)
 	and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 	and Duel.GetLocationCountFromEx(tp,tp,nil,c)>0
 end
+function s.e3fil2(c,e)
+	return c:IsLevel(7)
+	and c:IsSetCard(SET_RED_EYES)
+end
 function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	local c=e:GetHandler()
+
 	if chk==0 then
 		return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(s.e3fil,tp,LOCATION_EXTRA,0,1,nil,e,tp)
+		and Duel.IsExistingMatchingCard(s.e3fil1,tp,LOCATION_EXTRA,0,1,nil,e,tp)
+		and Duel.IsExistingMatchingCard(s.e3fil2,tp,LOCATION_GRAVE,0,1,c)
 	end
+
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
 function s.e3evt(e,tp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,s.e3fil,tp,LOCATION_EXTRA,0,1,1,nil,e,tp)
+	local g=Duel.SelectMatchingCard(tp,s.e3fil1,tp,LOCATION_EXTRA,0,1,1,nil,e,tp)
 	if g:GetCount()>0 then
 		local tc=g:GetFirst()
-		Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)
+		if Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)>0 then
+			local c=e:GetHandler()
+
+			local og=Duel.SelectMatchingCard(tp,s.e3fil2,tp,LOCATION_GRAVE,0,1,1,c)
+			if og:GetCount()>0 then
+				og:AddCard(c)
+
+				Duel.Overlay(tc,og)
+			end
+		end
 	end
 end

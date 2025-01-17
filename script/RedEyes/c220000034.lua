@@ -3,22 +3,41 @@ local s,id,o=GetID()
 -- c220000034
 function s.initial_effect(c)
 	-- [Activation]
+	local e0=Effect.CreateEffect(c)
+	e0:SetType(EFFECT_TYPE_ACTIVATE)
+	e0:SetCode(EVENT_FREE_CHAIN)
+	c:RegisterEffect(e0)
 	--[[
 	[HOPT]
-	When this card is activated:
-	You can add 1 Level 5 or lower Spellcaster monster from your Deck to your hand.
+	During your Main Phase: You can activate 1 of these effects.
+	•
+	Add 1 Level 5 or lower Spellcaster monster from your Deck to your hand.
+	•
+	Add 1 “Fusion” or “Ritual” card from your Deck or GY to your hand.
 	]]--
-	local e1=Effect.CreateEffect(c)
-	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
-	e1:SetType(EFFECT_TYPE_ACTIVATE)
-	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetCountLimit(1,{id,0},EFFECT_COUNT_CODE_OATH)
-	e1:SetOperation(s.e1evt)
-	c:RegisterEffect(e1)
+	local e1a=Effect.CreateEffect(c)
+	e1a:SetDescription(aux.Stringid(id,0))
+	e1a:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
+	e1a:SetType(EFFECT_TYPE_IGNITION)
+	e1a:SetRange(LOCATION_SZONE)
+	e1a:SetCountLimit(1,{id,0})
+	e1a:SetTarget(s.e1atgt)
+	e1a:SetOperation(s.e1aevt)
+	c:RegisterEffect(e1a)
+
+	local e1b=Effect.CreateEffect(c)
+	e1b:SetDescription(aux.Stringid(id,1))
+	e1b:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
+	e1b:SetType(EFFECT_TYPE_IGNITION)
+	e1b:SetRange(LOCATION_SZONE)
+	e1b:SetCountLimit(1,{id,0})
+	e1b:SetTarget(s.e1btgt)
+	e1b:SetOperation(s.e1bevt)
+	c:RegisterEffect(e1b)
 	--[[
 	[HOPT]
-	During your Main Phase:
-	You can send 1 Spellcaster monster from your hand or face-up field to the GY; apply 1 of the following effects.
+	If this card is sent from your field to the GY:
+	You can banish this card and 1 Spellcaster monster from your GY; apply 1 of the following effects.
 	•
 	Special Summon 1 “Red-Eyes" monster from your hand or GY, ignoring its Summoning conditions,
 	but it cannot attack this turn.
@@ -28,48 +47,55 @@ function s.initial_effect(c)
 	]]--
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_FUSION_SUMMON)
-	e2:SetType(EFFECT_TYPE_IGNITION)
-	e2:SetRange(LOCATION_SZONE)
+	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e2:SetCode(EVENT_TO_GRAVE)
 	e2:SetProperty(EFFECT_FLAG_DELAY)
 	e2:SetCountLimit(1,{id,1})
 	e2:SetCost(s.e2cst)
+	e2:SetCondition(s.e2con)
 	e2:SetTarget(s.e2tgt)
 	e2:SetOperation(s.e2evt)
 	c:RegisterEffect(e2)
-	--[[
-	[HOPT]
-	If a Spellcaster monster(s) you control is sent to the GY by a card effect,
-	while this card is in your GY (except during the Damage Step): You can banish this card;
-	add 1 “Fusion” card from your Deck or GY to your hand.
-	]]--
-	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(id,3))
-	e3:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
-	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
-	e3:SetCode(EVENT_TO_GRAVE)
-	e3:SetProperty(EFFECT_FLAG_DELAY)
-	e3:SetRange(LOCATION_GRAVE)
-	e3:SetCountLimit(1,{id,2})
-	e3:SetCost(aux.bfgcost)
-	e3:SetCondition(s.e3con)
-	e3:SetTarget(s.e3tgt)
-	e3:SetOperation(s.e3evt)
-	c:RegisterEffect(e3)
 end
 -- Archetype : Red-Eyes
 s.listed_series={SET_RED_EYES}
 -- Helpers
-function s.e1fil(c)
+function s.e1fil1(c)
 	return c:IsLevelBelow(5)
 	and c:IsRace(RACE_SPELLCASTER)
 	and c:IsAbleToHand()
 end
-function s.e1evt(e,tp)
-	local c=e:GetHandler()
-	if not c:IsRelateToEffect(e) then return end
+function s.e1atgt(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then
+		return Duel.IsExistingMatchingCard(s.e1fil1,tp,LOCATION_DECK,0,1,nil)
+	end
 
-	local g=Duel.GetMatchingGroup(s.e1fil,tp,LOCATION_DECK,0,nil)
-	if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
+end
+function s.e1aevt(e,tp)
+	local g=Duel.GetMatchingGroup(s.e1fil1,tp,LOCATION_DECK,0,nil)
+	if g:GetCount()>0 then
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
+		
+		local sg=g:Select(tp,1,1,nil)
+		Duel.SendtoHand(sg,nil,REASON_EFFECT)
+		Duel.ConfirmCards(1-tp,sg)
+	end
+end
+function s.e1fil2(c)
+	return (c:IsSetCard(SET_FUSION) or c:IsSetCard(SET_RITUAL))
+	and c:IsAbleToHand()
+end
+function s.e1btgt(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then
+		return Duel.IsExistingMatchingCard(s.e1fil2,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,nil)
+	end
+
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK+LOCATION_GRAVE)
+end
+function s.e1bevt(e,tp)
+	local g=Duel.GetMatchingGroup(s.e1fil2,tp,LOCATION_DECK+LOCATION_GRAVE,0,nil)
+	if g:GetCount()>0 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 		
 		local sg=g:Select(tp,1,1,nil)
@@ -80,18 +106,26 @@ end
 function s.e2fil(c)
 	return c:IsRace(RACE_SPELLCASTER)
 	and c:IsMonster()
-	and (c:IsLocation(LOCATION_HAND) or c:IsFaceup())
-	and c:IsAbleToGraveAsCost()
+	and c:IsAbleToRemoveAsCost()
 end
 function s.e2cst(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
-		return Duel.IsExistingMatchingCard(s.e2fil,tp,LOCATION_HAND+LOCATION_MZONE,0,1,nil)
+		return Duel.IsExistingMatchingCard(s.e2fil,tp,LOCATION_GRAVE,0,1,nil)
 	end
 
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 	
-	local g=Duel.SelectMatchingCard(tp,s.e2fil,tp,LOCATION_HAND+LOCATION_MZONE,0,1,1,nil)
-	Duel.SendtoGrave(g,REASON_COST)
+	local c=e:GetHandler()
+	local g=Duel.SelectMatchingCard(tp,s.e2fil,tp,LOCATION_GRAVE,0,1,1,nil)
+	g:AddCard(c)
+
+	Duel.SendtoGrave(g,POS_FACEUP,REASON_COST)
+end
+function s.e2con(e,tp)
+	local c=e:GetHandler()
+
+	return c:IsPreviousLocation(LOCATION_ONFIELD)
+	and c:IsPreviousControler(tp)
 end
 function s.e2afil(c,e,tp)
 	return c:IsSetCard(SET_RED_EYES)
@@ -126,8 +160,8 @@ function s.e2evt(e,tp)
 	local op=1
 	if b1 and b2 then
 		op=Duel.SelectEffect(tp,
-			{b1,aux.Stringid(id,1)},
-			{b2,aux.Stringid(id,2)})
+			{b1,aux.Stringid(id,2)},
+			{b2,aux.Stringid(id,3)})
 	elseif (not b1) and b2 then
 		op=2
 	end
@@ -162,34 +196,4 @@ function s.tfil(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,nil,0,tp,LOCATION_GRAVE)
-end
-function s.e3fil1(c,tp)
-	return c:IsPreviousControler(tp)
-	and c:IsRace(RACE_SPELLCASTER)
-	and c:IsMonster()
-	and c:IsPreviousLocation(LOCATION_MZONE)
-	and c:IsReason(REASON_EFFECT)
-end
-function s.e3con(e,tp,eg)
-	return eg:IsExists(s.e3fil1,1,nil,tp)
-end
-function s.e3fil2(c)
-	return c:IsSetCard(SET_FUSION)
-	and c:IsAbleToHand()
-end
-function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then
-		return Duel.IsExistingMatchingCard(s.e3fil2,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,nil)
-	end
-	
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK+LOCATION_GRAVE)
-end
-function s.e3evt(e,tp)
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-
-	local g=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(s.e3fil2),tp,LOCATION_DECK+LOCATION_GRAVE,0,1,1,nil)
-	if g:GetCount()>0 then
-		Duel.SendtoHand(g,tp,REASON_EFFECT)
-		Duel.ConfirmCards(1-tp,g)
-	end
 end

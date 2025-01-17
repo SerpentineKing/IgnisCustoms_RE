@@ -16,10 +16,9 @@ function s.initial_effect(c)
 	--[[
 	If this card is equipped with “Metalmorph”, this card gains the following effects.
 	•
-	This card is unaffected by your opponent’s Spell/Trap effects.
+	This card is unaffected by your opponent’s Spell/Trap effects during the Battle Phase.
 	•
-	If this card battles a monster, during damage calculation:
-	This card gains ATK equal to half the ATK of that monster during the Damage Step only.
+	If this card battles a monster, that monster’s ATK becomes 0 during the Damage Step only.
 	]]--
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
@@ -31,11 +30,13 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 
 	local e3=Effect.CreateEffect(c)
-	e3:SetCategory(CATEGORY_ATKCHANGE)
-	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
-	e3:SetCode(EVENT_PRE_DAMAGE_CALCULATE)
+	e3:SetType(EFFECT_TYPE_FIELD)
+	e3:SetCode(EFFECT_SET_ATTACK)
+	e3:SetRange(LOCATION_MZONE)
+	e3:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
 	e3:SetCondition(s.e3con)
-	e3:SetOperation(s.e3evt)
+	e3:SetTarget(function(e,_c) return _c==e:GetHandler():GetBattleTarget() end)
+	e3:SetValue(0)
 	c:RegisterEffect(e3)
 	--[[
 	Each time your opponent activates a card or effect,
@@ -105,6 +106,7 @@ function s.e2con(e)
 	-- Metalmorph
 	return g:GetCount()>0
 	and g:IsExists(Card.IsCode,1,nil,68540058)
+	and Duel.IsBattlePhase()
 end
 function s.e2val(e,te)
 	return (te:IsActiveType(TYPE_SPELL) or te:IsActiveType(TYPE_TRAP))
@@ -113,29 +115,11 @@ end
 function s.e3con(e)
 	local c=e:GetHandler()
 	local g=c:GetEquipGroup()
-	local d=c:GetBattleTarget()
-
-	if not d then return false end
-
-	local atk=d:GetAttack()/2
-	e:SetLabel(atk)
 
 	-- Metalmorph
-	return atk>0
-	and g:GetCount()>0
+	return g:GetCount()>0
 	and g:IsExists(Card.IsCode,1,nil,68540058)
-end
-function s.e3evt(e,tp)
-	local c=e:GetHandler()
-	local atk=e:GetLabel()
-	if c:IsRelateToEffect(e) and c:IsFaceup() and atk then
-		local e3b=Effect.CreateEffect(c)
-		e3b:SetType(EFFECT_TYPE_SINGLE)
-		e3b:SetCode(EFFECT_UPDATE_ATTACK)
-		e3b:SetReset(RESET_PHASE+PHASE_DAMAGE_CAL)
-		e3b:SetValue(atk)
-		c:RegisterEffect(e3b)
-	end
+	and Duel.GetCurrentPhase()==PHASE_DAMAGE_CAL
 end
 function s.e4acon(e,tp,eg,ep,ev,re,r,rp)
 	return rp==1-tp

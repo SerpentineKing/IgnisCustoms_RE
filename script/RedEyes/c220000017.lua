@@ -20,7 +20,7 @@ function s.initial_effect(c)
 	[HOPT]
 	During your Main Phase:
 	You can banish this card from your GY;
-	draw cards equal to the number of “Red-Eyes” monsters with different names on the field and in the GYs.
+	draw cards equal to the number of “Red-Eyes Black Dragon” with different original names on the field and in the GYs.
 	]]--
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,1))
@@ -71,10 +71,10 @@ function s.e1evt(e,tp)
 end
 function s.e2fil(c)
 	return (c:IsFaceup() or c:IsLocation(LOCATION_GRAVE))
-	and (c:IsSetCard(SET_RED_EYES) and c:IsMonster())
+	and c:IsCode(CARD_REDEYES_B_DRAGON)
 end
 function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
-	local ct=Duel.GetMatchingGroup(s.e2fil,tp,LOCATION_ONFIELD+LOCATION_GRAVE,LOCATION_ONFIELD+LOCATION_GRAVE,nil):GetClassCount(Card.GetCode)
+	local ct=Duel.GetMatchingGroup(s.e2fil,tp,LOCATION_ONFIELD+LOCATION_GRAVE,LOCATION_ONFIELD+LOCATION_GRAVE,nil):GetClassCount(Card.Card.GetOriginalCodeRule)
 	if chk==0 then
 		return ct>0
 		and Duel.IsPlayerCanDraw(tp,ct)
@@ -85,6 +85,6 @@ function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.e2evt(e,tp)
 	local p=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER)
-	local ct=Duel.GetMatchingGroup(s.e2fil,tp,LOCATION_ONFIELD+LOCATION_GRAVE,LOCATION_ONFIELD+LOCATION_GRAVE,nil):GetClassCount(Card.GetCode)
+	local ct=Duel.GetMatchingGroup(s.e2fil,tp,LOCATION_ONFIELD+LOCATION_GRAVE,LOCATION_ONFIELD+LOCATION_GRAVE,nil):GetClassCount(Card.Card.GetOriginalCodeRule)
 	Duel.Draw(p,ct,REASON_EFFECT)
 end

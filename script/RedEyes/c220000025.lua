@@ -6,6 +6,8 @@ function s.initial_effect(c)
 	[HOPT]
 	If you control no monsters:
 	You can Special Summon this card and 1 Level 4 or lower “Red-Eyes” monster from your hand.
+	You cannot Special Summon monsters from the Extra Deck the turn you activate this effect,
+	except “Red-Eyes” monsters or monsters that list a “Red-Eyes” monster as material.
 	]]--
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -13,6 +15,7 @@ function s.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetRange(LOCATION_HAND)
 	e1:SetCountLimit(1,{id,0})
+	e1:SetCost(s.e1cst)
 	e1:SetCondition(s.e1con)
 	e1:SetTarget(s.e1tgt)
 	e1:SetOperation(s.e1evt)
@@ -105,10 +108,34 @@ function s.initial_effect(c)
 	local e4d2=e4a2:Clone()
 	e4d2:SetLabelObject(e4d1)
 	c:RegisterEffect(e4d2)
+
+	Duel.AddCustomActivityCounter(id,ACTIVITY_SPSUMMON,s.ge1fil)
 end
 -- Archetype : Red-Eyes
 s.listed_series={SET_RED_EYES}
 -- Helpers
+function s.ge1fil(e,c)
+	return (c:IsSetCard(SET_RED_EYES) or c:ListsArchetypeAsMaterial(SET_RED_EYES))
+	and c:IsLocation(LOCATION_EXTRA)
+end
+function s.e1lim(e,c)
+	return (not (c:IsSetCard(SET_RED_EYES) or c:ListsArchetypeAsMaterial(SET_RED_EYES)))
+	and c:IsLocation(LOCATION_EXTRA)
+end
+function s.e1cst(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.GetCustomActivityCount(id,tp,ACTIVITY_SPSUMMON)==0 end
+
+	local c=e:GetHandler()
+
+	local e1b=Effect.CreateEffect(c)
+	e1b:SetType(EFFECT_TYPE_FIELD)
+	e1b:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_OATH)
+	e1b:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+	e1b:SetReset(RESET_PHASE+PHASE_END)
+	e1b:SetTargetRange(1,0)
+	e1b:SetTarget(s.e1lim)
+	Duel.RegisterEffect(e1b,tp)
+end
 function s.e1con(e,tp)
 	return Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)==0
 end

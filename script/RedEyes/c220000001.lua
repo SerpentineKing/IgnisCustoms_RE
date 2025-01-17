@@ -39,9 +39,10 @@ function s.initial_effect(c)
 	e4:SetOperation(s.e4evt)
 	c:RegisterEffect(e4)
 	--[[
-	[SOPT]
+	[HOPT]
 	If this card is sent from the field to the GY:
-	You can Special Summon 1 Fusion Monster from your Extra Deck that mentions “Red-Eyes Black Dragon” as material.
+	You can Fusion Summon 1 Fusion Monster from your Extra Deck that mentions “Red-Eyes Black Dragon” as material,
+	by sending materials listed on it from your Deck to the GY.
 	]]--
 	local e5=Effect.CreateEffect(c)
 	e5:SetDescription(aux.Stringid(id,0))
@@ -49,7 +50,7 @@ function s.initial_effect(c)
 	e5:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e5:SetCode(EVENT_TO_GRAVE)
 	e5:SetProperty(EFFECT_FLAG_DELAY)
-	e5:SetCountLimit(1)
+	e5:SetCountLimit(1,{id,0})
 	e5:SetCondition(s.e5con)
 	e5:SetTarget(s.e5tgt)
 	e5:SetOperation(s.e5evt)
@@ -86,24 +87,34 @@ end
 function s.e5con(e)
 	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
 end
-function s.e5fil(c,e,tp)
-	return c:IsType(TYPE_FUSION)
-	and c:ListsCodeAsMaterial(CARD_REDEYES_B_DRAGON)
-	and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
-	and Duel.GetLocationCountFromEx(tp,tp,nil,c)>0
-end
 function s.e5tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	local fparams={handler=c,fusfilter=aux.FilterBoolFunction(Card.ListsCodeAsMaterial,CARD_REDEYES_B_DRAGON),matfilter=aux.FALSE,extrafil=s.efil,extratg=s.tfil}
+	local fustg=Fusion.SummonEffTG(fparams)
+
 	if chk==0 then
 		return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(s.e5fil,tp,LOCATION_EXTRA,0,1,nil,e,tp)
+		and fustg(e,tp,eg,ep,ev,re,r,rp,0)
 	end
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
+
+	fustg(e,tp,eg,ep,ev,re,r,rp,0)
 end
 function s.e5evt(e,tp)
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,s.e5fil,tp,LOCATION_EXTRA,0,1,1,nil,e,tp)
-	if g:GetCount()>0 then
-		local tc=g:GetFirst()
-		Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)
+	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
+
+	local fparams={handler=c,fusfilter=aux.FilterBoolFunction(Card.ListsCodeAsMaterial,CARD_REDEYES_B_DRAGON),matfilter=aux.FALSE,extrafil=s.efil,extratg=s.tfil}
+	local fustg=Fusion.SummonEffTG(fparams)
+	local fusop=Fusion.SummonEffOP(fparams)
+
+	local b=fustg(e,tp,eg,ep,ev,re,r,rp,0)
+	if b then
+		fusop(e,tp,eg,ep,ev,re,r,rp,0)
 	end
+end
+function s.efil(e,tp,mg,sumtype)
+	return Duel.GetMatchingGroup(Fusion.IsMonsterFilter(Card.IsAbleToGrave),tp,LOCATION_DECK,0,nil)
+end
+function s.tfil(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return true end
+
+	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,0,tp,LOCATION_GRAVE)
 end

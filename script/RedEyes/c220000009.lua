@@ -40,6 +40,32 @@ function s.initial_effect(c)
 	-- Negate the effect of any card that would increase the ATK of a monster your opponent controls.
 	-- TODO
 	aux.DoubleSnareValidity(c,LOCATION_MZONE)
+	--[[
+	If this card is destroyed by card effect:
+	Destroy 1 Spell/Trap your opponent controls.
+	]]--
+	local e5=Effect.CreateEffect(c)
+	e5:SetCategory(CATEGORY_DESTROY)
+	e5:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
+	e5:SetCode(EVENT_DESTROYED)
+	e5:SetCondition(s.e5con)
+	e5:SetTarget(s.e5tgt)
+	e5:SetOperation(s.e5evt)
+	c:RegisterEffect(e5)
+	--[[
+	If this card is destroyed by battle:
+	Equip this card to the monster that destroyed it.
+
+	At the start of the Damage Step, if a monster equipped with this card by this effect battles:
+	Destroy it, and if you do, inflict 2400 damage to your opponent.
+	]]--
+	local e6=Effect.CreateEffect(c)
+	e6:SetCategory(CATEGORY_DESTROY)
+	e6:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
+	e6:SetCode(EVENT_DESTROYED)
+	e6:SetCondition(s.e6con)
+	e6:SetOperation(s.e6evt)
+	c:RegisterEffect(e6)
 end
 -- Mentions : "Red-Eyes Black Dragon"
 s.listed_names={CARD_REDEYES_B_DRAGON,id}
@@ -61,4 +87,72 @@ end
 function s.e3tgt(e,c)
 	local ec=e:GetHandler()
 	return c~=ec and ec:GetAttackAnnouncedCount()>1
+end
+function s.e5con(e,tp)
+	local c=e:GetHandler()
+	return c:IsReason(REASON_EFFECT)
+end
+function s.e5fil(c)
+	return c:IsSpellTrap()
+end
+function s.e5tgt(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return true end
+	
+	local g=Duel.GetMatchingGroup(s.e5fil,tp,0,LOCATION_ONFIELD,nil)
+	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
+end
+function s.e5evt(e,tp)
+	local g=Duel.GetMatchingGroup(s.e5fil,tp,0,LOCATION_ONFIELD,nil)
+	if g:GetCount()>0 then
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
+		
+		local sg=g:Select(tp,1,1,nil)
+		Duel.Destroy(g,REASON_EFFECT)
+	end
+end
+function s.e6con(e,tp)
+	local c=e:GetHandler()
+	return c:IsReason(REASON_BATTLE)
+end
+function s.e6evt(e,tp)
+	local c=e:GetHandler()
+	local tc=Duel.GetAttacker()
+	
+	if c==tc then tc=Duel.GetAttackTarget() end
+	if Duel.GetLocationCount(tp,LOCATION_SZONE)==0 or tc:IsFacedown() or not tc:IsRelateToBattle() then return end
+
+	if Duel.Equip(tp,c,tc) then
+		local e6b=Effect.CreateEffect(c)
+		e6b:SetType(EFFECT_TYPE_SINGLE)
+		e6b:SetCode(EFFECT_EQUIP_LIMIT)
+		e6b:SetReset(RESET_EVENT+RESETS_STANDARD)
+		e6b:SetValue(function(e,c) return c==e:GetLabelObject() end)
+		e6b:SetLabelObject(tc)
+		c:RegisterEffect(e6b)
+
+		local e6c=Effect.CreateEffect(c)
+		e6c:SetCategory(CATEGORY_DESTROY+CATEGORY_DAMAGE)
+		e6c:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
+		e6c:SetCode(EVENT_BATTLE_START)
+		e6c:SetCountLimit(1)
+		e6c:SetCondition(s.e6ccon)
+		e6c:SetOperation(s.e6cevt)
+		e6c:SetReset(RESET_EVENT+RESETS_STANDARD)
+		c:RegisterEffect(e6c)
+	end
+end
+function s.e6ccon(e,tp)
+	local a=Duel.GetAttacker()
+	local d=Duel.GetAttackTarget()
+	local tc=e:GetHandler():GetEquipTarget()
+
+	return (a==tc or d==tc)
+end
+function s.e6cevt(e,tp)
+	local tc=e:GetHandler():GetEquipTarget()
+	if tc then
+		if Duel.Destroy(tc,REASON_EFFECT)>0 then
+			Duel.Damage(1-tp,2400,REASON_EFFECT)
+		end
+	end
 end

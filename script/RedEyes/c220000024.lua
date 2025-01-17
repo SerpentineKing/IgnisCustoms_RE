@@ -28,7 +28,9 @@ function s.initial_effect(c)
 	[HOPT]
 	If this card is sent to the GY as Synchro Material for a “Red-Eyes” monster:
 	You can Special Summon 1 Level 7 or lower “Red-Eyes” monster from your GY,
-	ignoring its Summoning conditions, except “Time Wizard with Eyes of Red.”
+	ignoring its Summoning conditions, except “Time Wizard with Eyes of Red.”,
+	also, you cannot Special Summon monsters from the Extra Deck for the rest of this turn,
+	except “Red-Eyes” monsters or monsters that list a “Red-Eyes” monster as material.
 	]]--
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,1))
@@ -124,6 +126,10 @@ function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_GRAVE)
 end
+function s.e2lim(e,c)
+	return (not (c:IsSetCard(SET_RED_EYES) or c:ListsArchetypeAsMaterial(SET_RED_EYES)))
+	and c:IsLocation(LOCATION_EXTRA)
+end
 function s.e2evt(e,tp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 
@@ -133,6 +139,16 @@ function s.e2evt(e,tp)
 	if g:GetCount()>0 then
 		Duel.SpecialSummon(g,0,tp,tp,true,false,POS_FACEUP)
 	end
+
+	local ge1=Effect.CreateEffect(c)
+	ge1:SetType(EFFECT_TYPE_FIELD)
+	ge1:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_CLIENT_HINT)
+	ge1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+	ge1:SetDescription(aux.Stringid(id,1))
+	ge1:SetTargetRange(1,0)
+	ge1:SetTarget(s.e2lim)
+	ge1:SetReset(RESET_PHASE+PHASE_END)
+	Duel.RegisterEffect(ge1,tp)
 end
 function s.e3cst(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
