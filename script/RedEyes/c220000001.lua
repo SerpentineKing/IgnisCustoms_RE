@@ -85,11 +85,19 @@ function s.e4evt(e,tp)
 	Duel.Damage(p,d,REASON_EFFECT)
 end
 function s.e5con(e)
+	if e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD) then
+		Debug.ShowHint("CON : Success")
+	end
+
 	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
 end
 function s.e5tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local fparams={handler=c,fusfilter=aux.FilterBoolFunction(Card.ListsCodeAsMaterial,CARD_REDEYES_B_DRAGON),matfilter=aux.FALSE,extrafil=s.efil,extratg=s.tfil}
 	local fustg=Fusion.SummonEffTG(fparams)
+
+	if fustg(e,tp,eg,ep,ev,re,r,rp,0) then
+		Debug.ShowHint("TGT : Success")
+	end
 
 	if chk==0 then
 		return fustg(e,tp,eg,ep,ev,re,r,rp,0)
@@ -98,6 +106,8 @@ function s.e5tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	fustg(e,tp,eg,ep,ev,re,r,rp,0)
 end
 function s.e5evt(e,tp)
+	Debug.ShowHint("EVT : Call")
+
 	local fparams={handler=c,fusfilter=aux.FilterBoolFunction(Card.ListsCodeAsMaterial,CARD_REDEYES_B_DRAGON),matfilter=aux.FALSE,extrafil=s.efil,extratg=s.tfil}
 	local fustg=Fusion.SummonEffTG(fparams)
 	local fusop=Fusion.SummonEffOP(fparams)
