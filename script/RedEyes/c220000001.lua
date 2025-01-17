@@ -85,10 +85,6 @@ function s.e4evt(e,tp)
 	Duel.Damage(p,d,REASON_EFFECT)
 end
 function s.e5con(e)
-	if e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD) then
-		Debug.ShowHint("CON : Success")
-	end
-
 	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
 end
 function s.e5tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
@@ -97,6 +93,8 @@ function s.e5tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 
 	if fustg(e,tp,eg,ep,ev,re,r,rp,0) then
 		Debug.ShowHint("TGT : Success")
+	else
+		Debug.ShowHint("TGT : Fail")
 	end
 
 	if chk==0 then
