@@ -140,6 +140,8 @@ function s.e2evt(e,tp)
 		Duel.SpecialSummon(g,0,tp,tp,true,false,POS_FACEUP)
 	end
 
+	local c=e:GetHandler()
+
 	local ge1=Effect.CreateEffect(c)
 	ge1:SetType(EFFECT_TYPE_FIELD)
 	ge1:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_CLIENT_HINT)
