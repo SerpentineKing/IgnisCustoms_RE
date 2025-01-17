@@ -119,7 +119,7 @@ function s.e2cst(e,tp,eg,ep,ev,re,r,rp,chk)
 	local g=Duel.SelectMatchingCard(tp,s.e2fil,tp,LOCATION_GRAVE,0,1,1,nil)
 	g:AddCard(c)
 
-	Duel.SendtoGrave(g,POS_FACEUP,REASON_COST)
+	Duel.Remove(g,POS_FACEUP,REASON_COST)
 end
 function s.e2con(e,tp)
 	local c=e:GetHandler()
