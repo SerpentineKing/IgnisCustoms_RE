@@ -88,6 +88,7 @@ function s.e5con(e)
 	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
 end
 function s.e5tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	local c=e:GetHandler()
 	local fparams={handler=c,fusfilter=aux.FilterBoolFunction(Card.ListsCodeAsMaterial,CARD_REDEYES_B_DRAGON),matfilter=aux.FALSE,extrafil=s.efil,extratg=s.tfil}
 	local fustg=Fusion.SummonEffTG(fparams)
 

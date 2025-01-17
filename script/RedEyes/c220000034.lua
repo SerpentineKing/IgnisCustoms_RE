@@ -83,7 +83,7 @@ function s.e1aevt(e,tp)
 	end
 end
 function s.e1fil2(c)
-	return (c:IsSetCard(SET_FUSION)) --or c:IsSetCard(SET_RITUAL))
+	return (c:IsSetCard(SET_FUSION)) --or c:IsSetCard(SET_RITUAL)) TODO
 	and c:IsAbleToHand()
 end
 function s.e1btgt(e,tp,eg,ep,ev,re,r,rp,chk)
