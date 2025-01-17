@@ -74,7 +74,7 @@ function s.e2fil(c)
 	and c:IsCode(CARD_REDEYES_B_DRAGON)
 end
 function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
-	local ct=Duel.GetMatchingGroup(s.e2fil,tp,LOCATION_ONFIELD+LOCATION_GRAVE,LOCATION_ONFIELD+LOCATION_GRAVE,nil):GetClassCount(Card.Card.GetOriginalCodeRule)
+	local ct=Duel.GetMatchingGroup(s.e2fil,tp,LOCATION_ONFIELD+LOCATION_GRAVE,LOCATION_ONFIELD+LOCATION_GRAVE,nil):GetClassCount(Card.GetOriginalCodeRule)
 	if chk==0 then
 		return ct>0
 		and Duel.IsPlayerCanDraw(tp,ct)
@@ -85,6 +85,6 @@ function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.e2evt(e,tp)
 	local p=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER)
-	local ct=Duel.GetMatchingGroup(s.e2fil,tp,LOCATION_ONFIELD+LOCATION_GRAVE,LOCATION_ONFIELD+LOCATION_GRAVE,nil):GetClassCount(Card.Card.GetOriginalCodeRule)
+	local ct=Duel.GetMatchingGroup(s.e2fil,tp,LOCATION_ONFIELD+LOCATION_GRAVE,LOCATION_ONFIELD+LOCATION_GRAVE,nil):GetClassCount(Card.GetOriginalCodeRule)
 	Duel.Draw(p,ct,REASON_EFFECT)
 end
