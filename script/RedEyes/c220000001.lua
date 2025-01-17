@@ -46,7 +46,7 @@ function s.initial_effect(c)
 	]]--
 	local e5=Effect.CreateEffect(c)
 	e5:SetDescription(aux.Stringid(id,0))
-	e5:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e5:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_FUSION_SUMMON)
 	e5:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e5:SetCode(EVENT_TO_GRAVE)
 	e5:SetProperty(EFFECT_FLAG_DELAY)
@@ -88,20 +88,16 @@ function s.e5con(e)
 	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
 end
 function s.e5tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	local c=e:GetHandler()
 	local fparams={handler=c,fusfilter=aux.FilterBoolFunction(Card.ListsCodeAsMaterial,CARD_REDEYES_B_DRAGON),matfilter=aux.FALSE,extrafil=s.efil,extratg=s.tfil}
 	local fustg=Fusion.SummonEffTG(fparams)
 
 	if chk==0 then
-		return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and fustg(e,tp,eg,ep,ev,re,r,rp,0)
+		return fustg(e,tp,eg,ep,ev,re,r,rp,0)
 	end
 
 	fustg(e,tp,eg,ep,ev,re,r,rp,0)
 end
 function s.e5evt(e,tp)
-	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-
 	local fparams={handler=c,fusfilter=aux.FilterBoolFunction(Card.ListsCodeAsMaterial,CARD_REDEYES_B_DRAGON),matfilter=aux.FALSE,extrafil=s.efil,extratg=s.tfil}
 	local fustg=Fusion.SummonEffTG(fparams)
 	local fusop=Fusion.SummonEffOP(fparams)
