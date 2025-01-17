@@ -25,7 +25,7 @@ function s.initial_effect(c)
 	e3:SetTargetRange(LOCATION_MZONE,0)
 	e3:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_RED_EYES))
 	e3:SetValue(s.e3fil)
-	c:RegisterEffect(e4)
+	c:RegisterEffect(e3)
 	--[[
 	[SOPT]
 	Once per turn: You can increase or reduce the Level of all monsters in your hand and on the field by 1
