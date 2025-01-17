@@ -114,7 +114,7 @@ end
 -- Archetype : Red-Eyes
 s.listed_series={SET_RED_EYES}
 -- Helpers
-function s.ge1fil(e,c)
+function s.ge1fil(c)
 	return (c:IsSetCard(SET_RED_EYES) or c:ListsArchetypeAsMaterial(SET_RED_EYES))
 	and c:IsLocation(LOCATION_EXTRA)
 end
