@@ -3,8 +3,9 @@ local s,id,o=GetID()
 -- c220000020
 function s.initial_effect(c)
 	--[[
-	Cannot declare an attack unless you send 1 Level 7 or lower Dragon monster from your hand or Deck to the GY.
-	If a monster is sent to the GY by this card’s effect:
+	Cannot declare an attack unless you send 1 Level 7 or higher "Red-Eyes" monster from your hand or Deck to the GY.
+	[SOPT]
+	Once per turn, if a monster is sent to the GY by this card’s effect:
 	This card gains ATK equal to half the sent monster’s original ATK until the end of this turn.
 	]]--
 	local e1=Effect.CreateEffect(c)
@@ -14,30 +15,13 @@ function s.initial_effect(c)
 	e1:SetOperation(s.e1evt)
 	c:RegisterEffect(e1)
 	--[[
-	[SOPT]
-	Once per turn, during the Battle Phase (Quick Effect):
-	You can activate this effect;
-	this card can attack a number of times this Battle Phase, up to the number of cards sent to the GY this turn.
+	This card can attack twice during each Battle Phase.
 	]]--
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(id,0))
-	e2:SetType(EFFECT_TYPE_QUICK_O)
-	e2:SetCode(EVENT_FREE_CHAIN)
-	e2:SetRange(LOCATION_MZONE)
-	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
-	e2:SetHintTiming(0,TIMINGS_CHECK_MONSTER)
-	e2:SetCountLimit(1)
-	e2:SetCondition(s.e2con)
-	e2:SetOperation(s.e2evt)
+	e2:SetType(EFFECT_TYPE_SINGLE)
+	e2:SetCode(EFFECT_EXTRA_ATTACK)
+	e2:SetValue(1)
 	c:RegisterEffect(e2)
-
-	aux.GlobalCheck(s,function()
-		local ge1=Effect.CreateEffect(c)
-		ge1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		ge1:SetCode(EVENT_TO_GRAVE)
-		ge1:SetOperation(function(_,_,_,ep) Duel.RegisterFlagEffect(ep,id,RESET_PHASE+PHASE_END,0,1) end)
-		Duel.RegisterEffect(ge1,0)
-	end)
 	--[[
 	[HOPT]
 	If this card is destroyed by battle or card effect and sent to the GY:
@@ -62,8 +46,8 @@ s.listed_names={220000045,id}
 s.listed_series={SET_RED_EYES}
 -- Helpers
 function s.e1fil(c)
-	return c:IsLevelBelow(7)
-	and c:IsRace(RACE_DRAGON)
+	return c:IsLevelAbove(7)
+	and c:IsSetCard(SET_RED_EYES)
 	and c:IsAbleToGraveAsCost()
 end
 function s.e1cst(e,c,tp)
@@ -89,23 +73,6 @@ function s.e1evt(e,tp)
 		else
 			Duel.AttackCostPaid(2)
 		end
-	end
-end
-function s.e2con(e,tp)
-	return Duel.IsBattlePhase()
-end
-function s.e2evt(e)
-	local c=e:GetHandler()
-	local ct=(Duel.GetFlagEffect(0,id)+Duel.GetFlagEffect(1,id))
-	if ct>0 then
-		local e2b=Effect.CreateEffect(c)
-		e2b:SetType(EFFECT_TYPE_SINGLE)
-		e2b:SetCode(EFFECT_EXTRA_ATTACK)
-		e2b:SetRange(LOCATION_MZONE)
-		e2b:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-		e2b:SetValue(ct)
-		e2b:SetReset(RESET_PHASE+PHASE_BATTLE)
-		c:RegisterEffect(e2b)
 	end
 end
 function s.e3con(e,tp,eg,ep,ev,re,r)

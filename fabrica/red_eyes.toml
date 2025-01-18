@@ -171,7 +171,7 @@ def = 3600
 rank = 7
 effect = '''
 3 Level 7 monsters
-This card’s name becomes “Red-Eyes Black Dragon” while on the field. If this card is the monster with the highest ATK on the field (even if it’s tied), it can attack thrice per Battle Phase. Other monsters you control cannot declare an attack during the turn this card declares 2 or more attacks. Negate the effect of any card that would increase the ATK of a monster your opponent controls. If this card is destroyed by card effect: Destroy 1 Spell/Trap your opponent controls. If this card is destroyed by battle: Equip this card to the monster that destroyed it. At the start of the Damage Step, if a monster equipped with this card by this effect battles: Destroy it, and if you do, inflict 2400 damage to your opponent.'''
+This card's name becomes "Red-Eyes Black Dragon" while on the field. If this card is the monster with the highest ATK on the field (even if it's tied), it can attack thrice per Battle Phase. Other monsters you control cannot declare an attack during the turn this card declares 2 or more attacks. Negate the effect of any card that would increase the ATK of a monster your opponent controls. If this card is destroyed by card effect: Destroy 1 Spell/Trap your opponent controls. If this card is destroyed by battle: Equip this card to the monster that destroyed it. At the start of the Damage Step, if a monster equipped with this card by this effect battles: Destroy it, and if you do, inflict 2400 damage to your opponent.'''
 
 [[card]]
 id = 220000010
@@ -215,8 +215,8 @@ set = "red_eyes"
 attribute = "dark"
 race = "dragon"
 type = "monster effect nomi"
-atk = 3400
-def = 2800
+atk = 2800
+def = 3400
 level = 8
 effect = '''
 Cannot be Normal Summoned/Set. Must be Special Summoned (from your hand) by Tributing 1 Level 7 or higher "Red-Eyes" monster from your hand or field, and cannot be Special Summoned by other ways. You can only Special Summon "Red-Eyes Eternal Darkness Dragon" once per turn this way. Gains 600 ATK for each Dragon monster on the field and in the GYs. Special Summoned monsters your opponent controls cannot attack the turn they are Summoned. Once per turn (Quick Effect): You can discard 1 card, then target 1 face-up card your opponent controls; negate its effects until the end of this turn. When this card destroys an opponent's Special Summoned monster by battle: Inflict damage to your opponent equal to the destroyed monster's original ATK.'''
@@ -354,8 +354,8 @@ def = 1600
 level = 4
 effect = '''
 (This card is always treated as a "Red-Eyes" card.)
-Cannot declare an attack unless you send 1 Level 7 or lower Dragon monster from your hand or Deck to the GY. If a monster is sent to the GY by this card's effect: This card gains ATK equal to half the sent monster's original ATK until the end of this turn. Once per turn, during the Battle Phase (Quick Effect): You can activate this effect; this card can attack a number of times this Battle Phase, up to the number of cards sent to the GY this turn. If this card is destroyed by battle or card effect and sent to the GY: You can Special Summon any number of "Black Dragon's Chick Tokens" (Dragon/DARK/Level 1/ATK 800/DEF 500), and if you do, each time 1 is destroyed, inflict 500 damage to your opponent. You can only use this effect of "Panther Warrior with Eyes of Red" once per turn.'''
-strings=['Grant ability to attack multiple times','Special Summon Tokens','Special Summon Token']
+Cannot declare an attack unless you send 1 Level 7 or higher "Red-Eyes" monster from your hand or Deck to the GY. Once per turn, if a monster is sent to the GY by this card's effect: This card gains ATK equal to half the Tributed monster's original ATK until the end of this turn.  This card can attack twice during each Battle Phase. If this card is destroyed by battle or card effect and sent to the GY: You can Special Summon any number of "Black Dragon's Chick Tokens" (Dragon/DARK/Level 1/ATK 800/DEF 500), and if you do, each time 1 is destroyed, inflict 500 damage to your opponent. You can only use this effect of "Panther Warrior with Eyes of Red" once per turn.'''
+strings=['Special Summon Tokens','Special Summon Token']
 
 [[card]]
 id = 220000021
@@ -442,7 +442,7 @@ def = 1300
 level = 4
 effect = '''
 (This card is always treated as a "Red-Eyes" card.)
-If you control no monsters: You can Special Summon both this card and 1 Level 4 or lower "Red-Eyes" monster from your hand. You cannot Special Summon monsters from the Extra Deck the turn you activate this effect, except "Red-Eyes" monsters or monsters that list a “Red-Eyes” monster as material. During your Battle Phase (Quick Effect): You can target 1 other "Red-Eyes" monster you control; equip this card to it. If this card is sent to the GY while equipped to a monster: You can target 1 "Red-Eyes" monster you control; equip this card to it. You can only use each of the preceding effects of "Rocket Warrior with Eyes of Red" once per turn. A "Red-Eyes" monster equipped with this card gains the following effects.
+If you control no monsters: You can Special Summon both this card and 1 Level 4 or lower "Red-Eyes" monster from your hand. You cannot Special Summon monsters from the Extra Deck the turn you activate this effect, except "Red-Eyes" monsters or monsters that list a "Red-Eyes" monster as material. During your Battle Phase (Quick Effect): You can target 1 other "Red-Eyes" monster you control; equip this card to it. If this card is sent to the GY while equipped to a monster: You can target 1 "Red-Eyes" monster you control; equip this card to it. You can only use each of the preceding effects of "Rocket Warrior with Eyes of Red" once per turn. A "Red-Eyes" monster equipped with this card gains the following effects.
 • This card gains 1500 ATK.
 • This card cannot be destroyed by battle or card effects during the Battle Phase.
 • If this card attacks a monster, after damage calculation: That attack target loses 1500 ATK until the end of this turn.'''
