@@ -1,0 +1,4 @@
+[expansion.red_eyes]
+default=true
+locale="en"
+recipe = ["red_eyes.toml"]

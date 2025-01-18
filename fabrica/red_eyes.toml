@@ -1,0 +1,707 @@
+[set.red_eyes]
+name = "Red-Eyes"
+code = 0x3b
+
+[set.m_red_eyes]
+name = "Red-Eyes"
+code = 0xfe1
+
+[set.flame_swordsman]
+name = "Flame Swordsman"
+code = 0xfe2
+
+[set.chaos]
+name = "Chaos"
+code = 0xcf
+
+[set.jinzo]
+name = "Jinzo"
+code = 0xbc
+
+[[card]]
+id = 220000001
+setnumber = "IPRE-EN001"
+ot = "custom"
+name = "Red-Eyes Darkness Chaos Max Dragon"
+set = "red_eyes chaos"
+attribute = "dark"
+race = "dragon"
+type = "monster effect ritual"
+atk = 3600
+def = 2800
+level = 10
+effect = '''
+You can Ritual Summon this card with "Chaos Form" or "Red-Eyes Re-Transmigration". This card cannot be targeted or destroyed by card effects. If this card attacks a Defense Position monster, inflict piercing battle damage. At the end of the Damage Step, if this card attacked a Defense Position monster: Inflict damage to your opponent equal to that monster's original ATK. If this card is sent from the field to the GY: You can Fusion Summon 1 Fusion Monster from your Extra Deck that mentions "Red-Eyes Black Dragon" as material, by sending materials listed on it from your Deck to the GY. You can only use this effect of "Red-Eyes Darkness Chaos Max Dragon" once per turn.'''
+strings=['Special Summon 1 monster from your Extra Deck?']
+
+[[card]]
+id = 220000002
+setnumber = "IPRE-EN002"
+ot = "custom"
+name = "Lord of Red Chaos"
+set = "red_eyes chaos"
+attribute = "fire"
+race = "dragon"
+type = "monster effect ritual"
+atk = 2800
+def = 2100
+level = 8
+effect = '''
+(This card is always treated as a "Red-Eyes" card.)
+You can Ritual Summon this card with "Chaos Form" or "Red-Eyes Re-Transmigration". Once per turn, when a card or effect is activated, except "Lord of Red Chaos" (Quick Effect): You can target 1 monster on the field; destroy it. Once per turn, when a card or effect is activated, except "Lord of Red Chaos" (Quick Effect): You can target 1 Spell/Trap on the field; destroy it. If this card is sent from the field to the GY: You can Special Summon 1 Xyz Monster from your Extra Deck, and if you do, attach this card and 1 Level 7 "Red-Eyes" monster from your GY to it as material. You can only use this effect of "Lord of Red Chaos" once per turn.'''
+strings=['Destroy 1 monster on the field','Destroy 1 Spell/Trap on the field','Special Summon 1 monster from your Extra Deck?']
+
+[[card]]
+id = 220000003
+setnumber = "IPRE-EN003"
+ot = "custom"
+name = "Red-Eyes Salamandra Dragon"
+set = "red_eyes"
+attribute = "fire"
+race = "dragon"
+type = "monster effect fusion"
+atk = 2900
+def = 2700
+level = 8
+effect = '''
+"Red-Eyes Black Dragon" + 1 FIRE monster
+Must first be either Fusion Summoned, or Special Summoned from your Extra Deck by Tributing 1 "Red-Eyes Black Dragon" equipped with a Fusion Monster. This card can attack all monsters your opponent controls, once each. Once per turn, at the end of the Damage Step, if this card battled: You can target 1 Spell in your GY; either add it to your hand, or Set it to your field.'''
+strings=['Add 1 Spell from GY?','Add to your hand','Set to your field']
+
+[[card]]
+id = 220000004
+setnumber = "IPRE-EN004"
+ot = "custom"
+name = "Flame Swordsman, the Red-Eyes Black Dragon Master"
+set = "red_eyes flame_swordsman"
+attribute = "fire"
+race = "warrior"
+type = "monster effect fusion"
+atk = 2900
+def = 2600
+level = 8
+effect = '''
+1 Level 7 "Red-Eyes" monster + 1 "Flame Swordsman" monster
+This card's name becomes "Flame Swordsman" while on the field. You can only use each of the following effects of "Flame Swordsman, the Red-Eyes Black Dragon Master" once per turn. You can target 1 Level 7 or lower Dragon monster in your GY; equip it to this card as an Equip Spell that gives this card ATK equal to that monster's original ATK. If this card is destroyed by battle or card effect and sent to the GY: Inflict 1000 damage to your opponent, and if you do, you can return 1 other Fusion Monster from your GY to the Extra Deck, and if you do that, you can Special Summon 1 Level 7 or lower "Red-Eyes" monster, or 1 Level 4 Warrior monster, from your Deck or GY.'''
+strings=['Equip 1 monster from your GY?','Return 1 monster from your GY to the Extra Deck?','Special Summon 1 monster from your Deck or GY?']
+
+[[card]]
+id = 220000005
+setnumber = "IPRE-EN005"
+ot = "custom"
+name = "Gearfried, Master of the Red-Eyes Black Dragon Sword"
+set = "red_eyes"
+attribute = "earth"
+race = "warrior"
+type = "monster effect fusion"
+atk = 2700
+def = 2500
+level = 8
+effect = '''
+1 Level 7 "Red-Eyes" monster + 1 Level 8 Warrior monster
+When this card is Summoned: You can send 1 "The Claw of Hermos" and 1 Dragon monster from your Deck to the GY; equip 1 "Red-Eyes Black Dragon Sword" from your Extra Deck to this card. This card gains 1000 ATK, and 500 ATK/DEF for each Dragon monster on the field and in the GYs. You can only use each of the following effects of "Gearfried, Master of the Red-Eyes Black Dragon Sword" once per turn. If a "Red-Eyes Black Dragon Sword" equipped to this card is sent from your field to the GY by an opponent's card effect (except during the Damage Step): You can target 1 card your opponent controls; destroy it. If this card is destroyed by battle or an opponent's card effect and sent to the GY: You can banish this card from your GY; return all Fusion and Xyz Monsters in your GY to the Extra Deck.'''
+strings=['Equip 1 "Red-Eyes Black Dragon Sword" from your Extra Deck?','Destroy 1 card your opponent controls?','Return monsters from your GY to the Extra Deck?']
+
+[[card]]
+id = 220000006
+setnumber = "IPRE-EN006"
+ot = "custom"
+name = "Red-Eyes, Dragon of the Deep"
+set = "red_eyes"
+attribute = "water"
+race = "dragon"
+type = "monster effect fusion"
+atk = 2400
+def = 2800
+level = 7
+effect = '''
+1 Level 7 "Red-Eyes" monster + 1 Warrior monster
+All monsters you control gain 400 ATK/DEF. All "Red-Eyes" monsters you control are unaffected by Spell effects. Once per turn: You can increase or reduce the Level of all monsters in your hand and on the field by 1 until the end of this turn (even after they are Summoned/Set). Once per turn: You can discard 1 card; this card can attack directly this turn. If this card is destroyed by battle or card effect: You can Special Summon 1 Level 6 or lower "Red-Eyes" or Warrior monster from your Deck or GY. You can only use this effect of "Red-Eyes, Dragon of the Deep" once per turn.'''
+strings=['Change Levels of monsters','Increase Levels','Decrease Levels','Let this monster attack directly?','Special Summon 1 Monster from your Deck or GY?']
+
+[[card]]
+id = 220000007
+setnumber = "IPRE-EN007"
+ot = "custom"
+name = "Jinzo, Black Dragon Armored"
+set = "jinzo m_red_eyes"
+attribute = "dark"
+race = "machine"
+type = "monster effect fusion"
+atk = 2600
+def = 1800
+level = 6
+effect = '''
+1 Level 7 "Red-Eyes" monster + 1 DARK Machine monster
+Unaffected by Trap effects. Trap Cards, and their effects on your opponent's field, cannot be activated. Negate all Trap effects on your opponent's field. Once per turn: You can destroy as many face-up Traps on your opponent's field as possible, and if you do, inflict 400 damage to your opponent for each card destroyed by this effect. You can only use each of the following effects of "Jinzo, Black Dragon Armored" once per turn. You can Set 1 Trap from your Deck or GY that has "Red-Eyes" in its text. It can be activated this turn. If this card is sent from the field to the GY: You can Special Summon 1 Dragon or Machine monster from your hand, Deck, or GY, except "Jinzo, Black Dragon Armored".'''
+strings=['Destroy Traps your opponent controls?','Set 1 Trap from your Deck or GY?','Special Summon 1 monster from your hand, Deck, or GY?']
+
+[[card]]
+id = 220000008
+setnumber = "IPRE-EN008"
+ot = "custom"
+name = "Old Swordmaster of the Flame"
+set = "flame_swordsman"
+attribute = "fire"
+race = "warrior"
+type = "monster effect fusion"
+atk = 2600
+def = 1600
+level = 6
+effect = '''
+1 "Flame Swordsman" monster + 1 Spellcaster monster
+(This card is always treated as a "Flame Swordsman" card.)
+If this card is equipped with an Equip Card, it gains 400 ATK. If this card is equipped with "Metalmorph", this card gains the following effects.
+• This card is unaffected by your opponent's Spell/Trap effects during the Battle Phase.
+• If this card battles a monster, that monster's ATK becomes 0 during the Damage Step only.
+Each time your opponent activates a card or effect, you can make 1 face-up monster your opponent controls lose 400 ATK when it resolves, and if you do, inflict 500 damage to your opponent. If this card is destroyed by battle or card effect: You can Special Summon 1 Level 4 or lower Warrior or Spellcaster monster from your hand, Deck, or GY. You can only use this effect of "Old Swordmaster of the Flame" once per turn.'''
+strings=['Reduce the ATK of 1 monster your opponent controls?','Special Summon 1 monster from your hand, Deck, or GY?']
+
+[[card]]
+id = 220000009
+setnumber = "IPRE-EN009"
+ot = "custom"
+name = "Red-Eyes Alternative Supreme Dragon"
+set = "red_eyes"
+attribute = "dark"
+race = "dragon"
+type = "monster effect xyz"
+atk = 4200
+def = 3600
+rank = 7
+effect = '''
+3 Level 7 monsters
+This card’s name becomes “Red-Eyes Black Dragon” while on the field. If this card is the monster with the highest ATK on the field (even if it’s tied), it can attack thrice per Battle Phase. Other monsters you control cannot declare an attack during the turn this card declares 2 or more attacks. Negate the effect of any card that would increase the ATK of a monster your opponent controls. If this card is destroyed by card effect: Destroy 1 Spell/Trap your opponent controls. If this card is destroyed by battle: Equip this card to the monster that destroyed it. At the start of the Damage Step, if a monster equipped with this card by this effect battles: Destroy it, and if you do, inflict 2400 damage to your opponent.'''
+
+[[card]]
+id = 220000010
+setnumber = "IPRE-EN010"
+ot = "custom"
+name = "Red-Eyes Twin Inferno Dragon"
+set = "red_eyes"
+attribute = "dark"
+race = "dragon"
+type = "monster effect xyz"
+atk = 3200
+def = 2600
+rank = 7
+effect = '''
+2 Level 7 monsters
+This card's name becomes "Red-Eyes Black Dragon" while on the field. Cannot be destroyed by battle. This card can make up to 2 attacks on monsters during each Battle Phase. At the end of the Damage Step, if this card attacks an opponent's monster, but that opponent's monster was not destroyed by battle: You can inflict damage to your opponent equal to that monster's original ATK.'''
+strings=['Inflict damage to your opponent?']
+
+[[card]]
+id = 220000011
+setnumber = "IPRE-EN011"
+ot = "custom"
+name = "Red-Eyes Black Full Potential Dragon"
+set = "red_eyes"
+attribute = "dark"
+race = "dragon"
+type = "monster effect"
+atk = 2800
+def = 2800
+level = 10
+effect = '''
+This card's name becomes "Red-Eyes Black Dragon" while on the field or in the GY. You can only use each of the following effects of "Red-Eyes Black Full Potential Dragon" once per turn. If "Red-Eyes Sovereignty" is on the field: You can Special Summon this card from your hand. If this card is destroyed by card effect and sent to the GY or banishment, while another Level 5 or higher monster is on the field: You can Special Summon this card, then you can Set 1 Spell/Trap that has "Red-Eyes" in its text from your Deck.'''
+strings=['Special Summon this card from your hand?','Special Summon this card?','Set 1 Spell/Trap from your Deck']
+
+[[card]]
+id = 220000012
+setnumber = "IPRE-EN012"
+ot = "custom"
+name = "Red-Eyes Eternal Darkness Dragon"
+set = "red_eyes"
+attribute = "dark"
+race = "dragon"
+type = "monster effect nomi"
+atk = 3400
+def = 2800
+level = 8
+effect = '''
+Cannot be Normal Summoned/Set. Must be Special Summoned (from your hand) by Tributing 1 Level 7 or higher "Red-Eyes" monster from your hand or field, and cannot be Special Summoned by other ways. You can only Special Summon "Red-Eyes Eternal Darkness Dragon" once per turn this way. Gains 600 ATK for each Dragon monster on the field and in the GYs. Special Summoned monsters your opponent controls cannot attack the turn they are Summoned. Once per turn (Quick Effect): You can discard 1 card, then target 1 face-up card your opponent controls; negate its effects until the end of this turn. When this card destroys an opponent's Special Summoned monster by battle: Inflict damage to your opponent equal to the destroyed monster's original ATK.'''
+strings=['Negate the effects of 1 card your opponent controls']
+
+[[card]]
+id = 220000013
+setnumber = "IPRE-EN013"
+ot = "custom"
+name = "Hermos the Support Dragon"
+set = "m_red_eyes"
+attribute = "light"
+race = "dragon"
+type = "monster effect"
+atk = 2800
+def = 1800
+level = 8
+effect = '''
+You can send 1 Dragon monster, or 1 Spell/Trap that has "Red-Eyes" in its text, from your hand or face-up field to the GY; Special Summon this card from your hand. During your Main Phase: You can Fusion Summon 1 Fusion Monster from your Extra Deck, using monsters from your hand and/or field as material, including a Dragon monster. If this card is sent from the field to the GY: You can banish this card from your GY; apply the following effect.
+• Show 1 Fusion Monster that must be Special Summoned with "The Claw of Hermos" from your Extra Deck, and if you do, send 1 monster from your hand or field to the GY with same Type as the shown monster (if that card is Set, reveal it), then Special Summon the shown monster from your Extra Deck. (This is treated as a Special Summon by the effect of "The Claw of Hermos".)
+You can only use each effect of "Hermos the Support Dragon" once per turn.'''
+strings=['Special Summon this card','Fusion Summon 1 Fusion Monster','Special Summon 1 monster that mentions "The Claw of Hermos"']
+
+[[card]]
+id = 220000014
+setnumber = "IPRE-EN014"
+ot = "custom"
+name = "Gilford the Legend of Blazing Red Lightning"
+set = "red_eyes"
+attribute = "dark"
+race = "warrior"
+type = "monster effect"
+atk = 2800
+def = 1400
+level = 8
+effect = '''
+(This card is always treated as a "Red-Eyes" card.)
+You can Special Summon this card (from your hand) by sending 3 other "Red-Eyes" monsters from your hand to the GY. You can only Special Summon "Gilford the Legend of Blazing Red Lightning" once per turn this way. When Summoned this way: Destroy as many monsters your opponent controls as possible, and if you do, inflict 500 damage to your opponent for each monster destroyed by this effect. If this card battles, during damage calculation: This card gains ATK equal to half the ATK of the monster your opponent controls with the highest ATK (your choice, if tied). You can only use this effect of "Gilford the Legend of Blazing Red Lightning once per turn.'''
+
+[[card]]
+id = 220000015
+setnumber = "IPRE-EN015"
+ot = "custom"
+name = "Red-Eyes Onslaught Dragon"
+set = "red_eyes"
+attribute = "dark"
+race = "dragon"
+type = "monster effect"
+atk = 2600
+def = 2400
+level = 7
+effect = '''
+You can reveal this card in your hand; add 1 card that has "Red-Eyes" in its text from your Deck to your hand, except "Red-Eyes Onslaught Dragon", and if you do, shuffle this card into the Deck. You can only use this effect of "Red-Eyes Onslaught Dragon" once per turn. Each time your opponent activates a card or effect, you can make 1 face-up monster your opponent controls lose 400 ATK when it resolves, and if you do, inflict 500 damage to your opponent.'''
+strings=['Add 1 card from your Deck to your hand','Reduce the ATK of 1 monster your opponent controls']
+
+[[card]]
+id = 220000016
+setnumber = "IPRE-EN016"
+ot = "custom"
+name = "Black Dragon's Mage"
+set = "red_eyes"
+attribute = "dark"
+race = "spellcaster"
+type = "monster effect tuner"
+atk = 2000
+def = 2400
+level = 5
+effect = '''
+(This card is always treated as a "Red-Eyes" card.)
+This card's name becomes "Dark Magician" while in the hand, GY, or on the field. You can only use each of the following effects of "Black Dragon's Mage" once per turn. If this card is in your hand or on the field: You can send 1 "Red-Eyes Black Dragon" from your hand or Deck to the GY, then apply 1 of the following effects, depending on where this card was at activation.
+• Hand: Special Summon this card.
+• Field: This turn, if this card attacks a Defense Position monster, inflict piercing battle damage, also, banish any monster destroyed by battle with this card.
+You can send up to 2 Spells/Traps from your hand and/or field to the GY; draw that many cards. You can Tribute this card; Special Summon 1 "Red-Eyes" monster from your hand or Deck, except "Black Dragon's Mage".'''
+strings=['Special Summon this card','Grant effects','Draw cards','Special Summon a monster from your hand or Deck']
+
+[[card]]
+id = 220000017
+setnumber = "IPRE-EN017"
+ot = "custom"
+name = "Black Dragon's Soul"
+set = "m_red_eyes"
+attribute = "dark"
+race = "dragon"
+type = "monster effect tuner"
+atk = 800
+def = 800
+level = 1
+effect = '''
+Once per turn: You can place 1 "Red-Eyes Black Dragon", or 1 card that mentions it, from your hand, Deck, or GY on top of the Deck, except "Black Dragon's Soul". During your Main Phase: You can banish this card from your GY; draw cards equal to the number of "Red-Eyes Black Dragon" with different original names on the field and in the GYs. You can only use this effect of "Black Dragon's Soul" once per turn.'''
+strings=['Place 1 card on top of your Deck','Draw cards']
+
+[[card]]
+id = 220000018
+setnumber = "IPRE-EN018"
+ot = "custom"
+name = "Black Dragon's Fangs"
+set = "m_red_eyes"
+attribute = "dark"
+race = "dragon"
+type = "monster effect tuner"
+atk = 800
+def = 600
+level = 1
+effect = '''
+When this card is Normal Summoned: You can add 1 Spell/Trap that has "Red-Eyes" in its text from your Deck to your hand. During your opponent's turn, if you activate a Spell/Trap Card or effect, while this card is in your GY (except during the Damage Step): You can Tribute 1 DARK Dragon monster; add this card to your hand. You can only use each effect of "Black Dragon's Fangs" once per turn.'''
+strings=['Add 1 Spell/Trap from your Deck to your hand','Add this card to your hand']
+
+[[card]]
+id = 220000019
+setnumber = "IPRE-EN019"
+ot = "custom"
+name = "Black Dragon's Claws"
+set = "m_red_eyes"
+attribute = "dark"
+race = "dragon"
+type = "monster effect tuner"
+atk = 800
+def = 400
+level = 1
+effect = '''
+During your opponent's turn (Quick Effect): You can discard 1 Spell/Trap; Special Summon 1 "Red-Eyes Black Dragon" from your Deck. During your opponent's turn, if you activate a Spell/Trap Card or effect, while this card is in your GY (except during the Damage Step): You can Special Summon this card, but banish it when it leaves the field. You can only use each effect of "Black Dragon's Claws" once per turn.'''
+strings=['Special Summon 1 monster from your Deck','Special Summon this card']
+
+[[card]]
+id = 220000020
+setnumber = "IPRE-EN020"
+ot = "custom"
+name = "Panther Warrior with Eyes of Red"
+set = "red_eyes"
+attribute = "earth"
+race = "beast-warrior"
+type = "monster effect tuner"
+atk = 2000
+def = 1600
+level = 4
+effect = '''
+(This card is always treated as a "Red-Eyes" card.)
+Cannot declare an attack unless you send 1 Level 7 or lower Dragon monster from your hand or Deck to the GY. If a monster is sent to the GY by this card's effect: This card gains ATK equal to half the sent monster's original ATK until the end of this turn. Once per turn, during the Battle Phase (Quick Effect): You can activate this effect; this card can attack a number of times this Battle Phase, up to the number of cards sent to the GY this turn. If this card is destroyed by battle or card effect and sent to the GY: You can Special Summon any number of "Black Dragon's Chick Tokens" (Dragon/DARK/Level 1/ATK 800/DEF 500), and if you do, each time 1 is destroyed, inflict 500 damage to your opponent. You can only use this effect of "Panther Warrior with Eyes of Red" once per turn.'''
+strings=['Grant ability to attack multiple times','Special Summon Tokens','Special Summon Token']
+
+[[card]]
+id = 220000021
+setnumber = "IPRE-EN021"
+ot = "custom"
+name = "Black Flame Swordsman with Eyes of Red"
+set = "red_eyes flame_swordsman"
+attribute = "dark"
+race = "warrior"
+type = "monster effect tuner"
+atk = 1800
+def = 1600
+level = 4
+effect = '''
+(This card is always treated as a "Red-Eyes" card.)
+Once per turn, during the Battle Phase (Quick Effect): You can target 1 Dragon or Warrior monster you control; this card loses exactly 600 ATK, and if it does, that target gains 600 ATK. If this card you control is destroyed by battle or card effect and sent to the GY: You can banish this card from your GY, then target 1 Dragon or Warrior monster in your GY, except "Black Flame Swordsman with Eyes of Red"; Special Summon that target. You can only use this effect of "Black Flame Swordsman with Eyes of Red" once per turn.'''
+strings=['Increase the ATK of 1 Dragon or Warrior monster you control','Special Summon 1 Dragon or Warrior monster from your GY']
+
+[[card]]
+id = 220000022
+setnumber = "IPRE-EN022"
+ot = "custom"
+name = "Alligator's Sword with Eyes of Red"
+set = "red_eyes"
+attribute = "dark"
+race = "beast"
+type = "monster effect tuner"
+atk = 1700
+def = 1500
+level = 4
+effect = '''
+(This card is always treated as a "Red-Eyes" card.)
+If this card is Normal or Special Summoned: You can add 1 Spell/Trap that has "Red-Eyes" in its text from your Deck or GY to your hand. If this card is targeted for an attack by a monster with a higher Level than it: You can change that monster to face-down Defense Position, and if you do, until your opponent's next turn, it cannot change its battle position, be Tributed, or used as material for the Summon of a monster from the Extra Deck. You can only use each effect of "Alligator's Sword with Eyes of Red" once per turn.'''
+strings=['Add 1 Spell/Trap with "Red-Eyes" in its text from your Deck to your hand','Change the attacking monster to face-down Defense Position']
+
+[[card]]
+id = 220000023
+setnumber = "IPRE-EN023"
+ot = "custom"
+name = "Axe Raider with Eyes of Red"
+set = "red_eyes"
+attribute = "earth"
+race = "warrior"
+type = "monster effect tuner"
+atk = 1700
+def = 1200
+level = 4
+effect = '''
+(This card is always treated as a "Red-Eyes" card.)
+If this card is Normal or Special Summoned: You can Special Summon 1 Level 4 or lower "Red-Eyes" or Warrior monster from your Deck or GY, except "Axe Raider with Eyes of Red", also, you cannot Special Summon monsters from the Extra Deck for the rest of this turn, except "Red-Eyes" monsters or monsters that list a "Red-Eyes" monster as material. If this card is sent from the field to the GY: You can target 5 cards that have "Red-Eyes" in their text in your GY and/or banishment; shuffle them into the Deck, and if you do, draw 2 cards. You can only use each effect of "Axe Raider with Eyes of Red" once per turn.'''
+strings=['Special Summon 1 "Red-Eyes" or Warrior monster from your Deck or GY','Shuffle 5 cards with "Red-Eyes" in their text into the Deck and Draw 2 cards']
+
+[[card]]
+id = 220000024
+setnumber = "IPRE-EN024"
+ot = "custom"
+name = "Time Wizard with Eyes of Red"
+set = "red_eyes"
+attribute = "dark"
+race = "spellcaster"
+type = "monster effect tuner"
+atk = 1500
+def = 1400
+level = 4
+effect = '''
+(This card is always treated as a "Red-Eyes" card.)
+During your Main Phase: You can toss a coin and call it, then apply the appropriate effect.
+• If you call it right: Destroy as many cards your opponent controls as possible, and if you do, inflict damage equal to half the combined original ATK of all face-up monsters destroyed by this effect, and if you do that, Special Summon 1 "Red-Eyes" monster from your hand, Deck, or GY, except "Time Wizard with Eyes of Red".
+• If you call it wrong: Destroy as many monsters you control as possible, and if you do, take damage equal to half the combined ATK those destroyed monsters had on the field.
+If this card is sent to the GY as Synchro Material for a "Red-Eyes" monster: You can Special Summon 1 Level 7 or lower "Red-Eyes" monster from your GY, ignoring its Summoning conditions, except "Time Wizard with Eyes of Red", also, you cannot Special Summon monsters from the Extra Deck for the rest of this turn, except "Red-Eyes" monsters. You can discard 1 card; add 1 Level 4 or lower "Red-Eyes" or Spellcaster monster from your Deck to your hand, except "Time Wizard with Eyes of Red". You can only use each effect of "Time Wizard with Eyes of Red" once per turn.'''
+strings=['Toss a Coin','Special Summon 1 "Red-Eyes" monster from your GY','Add 1 "Red-Eyes" or Spellcaster monster from your Deck to your hand']
+
+[[card]]
+id = 220000025
+setnumber = "IPRE-EN025"
+ot = "custom"
+name = "Rocket Warrior with Eyes of Red"
+set = "red_eyes"
+attribute = "dark"
+race = "warrior"
+type = "monster effect tuner"
+atk = 1500
+def = 1300
+level = 4
+effect = '''
+(This card is always treated as a "Red-Eyes" card.)
+If you control no monsters: You can Special Summon both this card and 1 Level 4 or lower "Red-Eyes" monster from your hand. You cannot Special Summon monsters from the Extra Deck the turn you activate this effect, except "Red-Eyes" monsters or monsters that list a “Red-Eyes” monster as material. During your Battle Phase (Quick Effect): You can target 1 other "Red-Eyes" monster you control; equip this card to it. If this card is sent to the GY while equipped to a monster: You can target 1 "Red-Eyes" monster you control; equip this card to it. You can only use each of the preceding effects of "Rocket Warrior with Eyes of Red" once per turn. A "Red-Eyes" monster equipped with this card gains the following effects.
+• This card gains 1500 ATK.
+• This card cannot be destroyed by battle or card effects during the Battle Phase.
+• If this card attacks a monster, after damage calculation: That attack target loses 1500 ATK until the end of this turn.'''
+strings=['Special Summon this card and 1 "Red-Eyes" monster from your hand','Equip this card on the field to 1 "Red-Eyes" monster you control','Equip this card from your GY to 1 "Red-Eyes" monster you control']
+
+[[card]]
+id = 220000026
+setnumber = "IPRE-EN026"
+ot = "custom"
+name = "Landstar Swordsman with Eyes of Red"
+set = "red_eyes"
+attribute = "dark"
+race = "warrior"
+type = "monster effect tuner"
+atk = 1500
+def = 1200
+level = 3
+effect = '''
+(This card is always treated as a "Red-Eyes" card.)
+If this card is Normal or Special Summoned: You can Special Summon 1 Level 4 "Red-Eyes" or Warrior monster from your Deck, also, you cannot Special Summon monsters from the Extra Deck for the rest of this turn, except "Red-Eyes" monsters. You can only use this effect of "Landstar Swordsman with Eyes of Red" once per turn. Once per turn, when your monster is targeted for an attack: You can send 1 "Red-Eyes" monster from your hand or Deck to the GY, then roll a six-sided die. All monsters you currently control gain ATK/DEF equal to the result x 500, and all monsters your opponent controls lose ATK/DEF equal to the result x 500.'''
+strings=['Special Summon 1 "Red-Eyes" or Warrior monster from your Deck','Change the ATK of all monsters on the field']
+
+[[card]]
+id = 220000027
+setnumber = "IPRE-EN027"
+ot = "custom"
+name = "Red-Eyes Sovereignty"
+set = "red_eyes"
+type = "spell field"
+effect = '''
+Cannot be destroyed by monster effects. Your opponent cannot activate cards or effects in response to the activation of your "Red-Eyes Fusion". You can only use each of the following effects of "Red-Eyes Sovereignty" once per turn. During your Main Phase: You can add 1 card that has "Red-Eyes" in its text from your Deck to your hand, except "Red-Eyes Sovereignty". If your opponent Special Summons a monster(s) (except during the Damage Step): You can Special Summon 1 "Red-Eyes" monster from your hand, Deck, or GY. If this card is sent from the field to the GY: You can banish this card from your GY; show any number of "Red-Eyes Black Dragon" in your hand, GY, banishment, and/or face-up field to your opponent, then banish that many cards your opponent controls.'''
+strings=['Add 1 card from your Deck to your hand','Special Summon 1 monster from your hand, Deck, or GY','Banish cards your opponent controls']
+
+[[card]]
+id = 220000028
+setnumber = "IPRE-EN028"
+ot = "custom"
+name = "Cerise in Ebony"
+set = "m_red_eyes"
+type = "spell continuous"
+effect = '''
+At the start of the Battle Phase: You can activate this effect; this turn, apply 1 of the following effects, or if you control a "Red-Eyes" monster, you can apply both effects.
+• Once per turn, if your Level 7 or higher "Red-Eyes" monster destroys an opponent's monster by battle: It can make a second attack during this Battle Phase.
+• Your opponent cannot target a "Red-Eyes" monster you control for attack, unless they banish the top card of their Deck.
+During your Main Phase, if this card is in your GY, except the turn it was sent there: You can banish this card; add 1 Spell/Trap that has "Red-Eyes" in its text from your GY or banishment to your hand, except "Cerise in Ebony". You can only use each effect of "Cerise in Ebony" once per turn.'''
+strings=['Grant Effects','Grant Second Attack','Your opponent must banish cards to declare an attack','Add 1 "Red-Eyes" card from your GY or banishment to your hand']
+
+[[card]]
+id = 220000029
+setnumber = "IPRE-EN029"
+ot = "custom"
+name = "Red-Eyes Mechanization"
+set = "red_eyes"
+type = "spell continuous"
+effect = '''
+When this card is activated: You can add 1 DARK Machine monster, or 1 monster that mentions "Max Metalmorph", and 1 "Metalmorph" Trap from your Deck or GY to your hand. You can only use each of the following effects of "Red-Eyes Mechanization" once per turn. At the start of the Damage Step, if your "Red-Eyes" or Machine monster battles: You can target 1 monster in either GY; equip it to 1 "Red-Eyes" or Machine monster you control as an Equip Spell, and if you do, the equipped monster gains ATK/DEF equal to that target's ATK/DEF until the end of this Battle Phase. If either player equips an Equip Card(s) to a monster(s) on the field, even during the Damage Step: You can destroy those Equip Cards, then you can destroy 1 Spell/Trap your opponent controls. If this card you control is destroyed by card effect and sent to the GY: You can banish this card from your GY; Special Summon 1 DARK Machine or "Red-Eyes" monster from your hand or GY. You can only activate 1 "Red-Eyes Mechanization" per turn.'''
+strings=['Add 1 DARK Machine or "Max Metalmorph" monster and "Metalmorph" Trap from your Deck to your hand','Equip 1 monster in the GY to 1 monster you control','Destroy Equip Cards','Destroy 1 Spell/Trap','Special Summon 1 DARK Machine or "Red-Eyes" monster from your hand or GY']
+
+[[card]]
+id = 220000030
+setnumber = "IPRE-EN030"
+ot = "custom"
+name = "Red-Eyes Potential"
+set = "red_eyes"
+type = "spell continuous"
+effect = '''
+During your Main Phase: Apply these effects in sequence, based on the number of "Red-Eyes" monsters on the field and in the GYs.
+• 1+: Add 1 Level 7 or lower "Red-Eyes" monster from your Deck or GY to your hand, also, once this turn, if you Normal or Special Summon a "Red-Eyes" monster(s), you can draw 1 card.
+• 2+: You can select 1 "Red-Eyes" monster you control, this turn, your opponent cannot activate cards or effects when that monster declares an attack.
+• 3+: You can select 1 "Red-Eyes" monster you control, Special Summon 1 "Red-Eyes" monster from your hand, Deck, or GY whose Level is less than or equal to that monster's Level, but negate its effects until the end of this turn.
+• 4+: You can Special Summon 1 "Red-Eyes" monster from your hand, Deck, or GY, ignoring its Summoning conditions.
+You can only use this effect of "Red-Eyes Potential" once per turn.'''
+strings=['Add 1 "Red-Eyes" monster from your Deck or GY to your hand','Draw 1 card','Grant Effects','Special Summon 1 "Red-Eyes" monster from your hand, Deck, or GY','Special Summon 1 "Red-Eyes" monster ignoring its Summoning conditions']
+
+[[card]]
+id = 220000031
+setnumber = "IPRE-EN031"
+ot = "custom"
+name = "Red-Eyes Resilience"
+set = "red_eyes"
+type = "spell continuous"
+effect = '''
+Once per turn: You can banish 1 "Red-Eyes Black Dragon" from your hand, Deck, or GY, then apply 1 of the following effects.
+• This turn, each time a "Red-Eyes" monster(s) is Special Summoned from your GY to your field, increase the ATK of all "Red-Eyes" monsters you currently control by the number of "Red-Eyes" monsters on the field x 400. Also, until the end of this turn, monsters your opponent controls lose 400 ATK for each "Red-Eyes" monster on the field.
+• This turn, each time your "Red-Eyes" monster destroys an opponent's monster by battle, or inflicts battle damage to your opponent by a direct attack, draw 1 card.
+• Destroy as many Spells/Traps your opponent controls as possible, and if you do, inflict 500 damage to your opponent for each card destroyed by this effect.
+• Destroy as many monsters your opponent controls as possible, and if you do, gain LP equal to half the combined ATK of those destroyed monsters.'''
+strings=['Apply Effect','Change ATK of monsters this turn','Draw 1 card during the Battle Phase','Destroy all Spells/Traps your opponent controls','Destroy all monsters your opponent controls']
+
+[[card]]
+id = 220000032
+setnumber = "IPRE-EN032"
+ot = "custom"
+name = "Red-Eyes Zombification"
+set = "red_eyes"
+type = "spell continuous"
+effect = '''
+When this card is activated: You can send 1 "Red-Eyes" monster from your hand or Deck to the GY. All "Red-Eyes" monsters on the field and in your GY become Zombie monsters. You can only use each of the following effects of "Red-Eyes Zombification" once per turn. You can target 1 "Red-Eyes" monster in your GY; Special Summon it, then if that target is a Tuner monster, you can, immediately after this effect resolves, Synchro Summon 1 Synchro Monster from your Extra Deck using monsters you control, including the Summoned monster. If a Synchro Monster(s) that lists a "Red-Eyes" monster as material is Special Summoned to your field (except during the Damage Step): You can draw 1 card, then send 1 card from your hand to the GY. When a "Red-Eyes" monster declares an attack: You can target 1 monster in either GY; equip it to a "Red-Eyes" Synchro Monster you control as an Equip Spell that gives it 200 ATK. If either player equips an Equip Card(s) to a monster(s) on the field, even during the Damage Step: You can destroy those Equip Cards, then you can destroy 1 Spell/Trap your opponent controls. If this card is sent to the GY by card effect: You can banish this card from your GY; Special Summon 1 "Red-Eyes" monster from your GY. You can only activate 1 "Red-Eyes Zombification" per turn.'''
+strings=['Send 1 "Red-Eyes" monster from your hand or Deck to the GY','Synchro Summon 1 Synchro Monster from your Extra Deck','Draw 1 card and send 1 card from your hand to the GY','Equip 1 monster to 1 "Red-Eyes" Synchro Monster','Destroy Equip Cards','Destroy 1 Spell/Trap your opponent controls','Special Summon 1 Red-Eyes monster from your GY']
+
+[[card]]
+id = 220000033
+setnumber = "IPRE-EN033"
+ot = "custom"
+name = "Warriors of the Red-Eyes"
+set = "red_eyes"
+type = "spell continuous"
+effect = '''
+When this card is activated: You can add 1 Level 4 or lower Warrior monster from your Deck or GY to your hand. If a Warrior monster(s) you control is destroyed by battle or card effect: You can banish this card from your GY; Special Summon 1 "Red-Eyes" or Warrior monster from your Deck or banishment. You can only use this effect of "Warriors of the Red-Eyes" once per turn. You can only use 1 of the following effects of "Warriors of the Red-Eyes" per turn, and only once that turn.
+• When an attack is declared involving your Dragon monster: You can Special Summon 1 Level 4 or lower Warrior monster from your hand or GY.
+• When an attack is declared involving your Warrior monster: You can Special Summon 1 Level 7 or lower "Red-Eyes" monster from your hand or GY in face-up Defense Position, but its effects are negated, also it cannot attack this turn.
+You can only activate 1 "Warriors of the Red-Eyes" per turn.'''
+strings=['Add 1 Warrior monster from your Deck or GY to your hand','Special Summon 1 "Red-Eyes" or Warrior monster from your Deck or banishment','Special Summon 1 Warrior monster from your hand or GY','Special Summon 1 "Red-Eyes" monster from your hand or GY']
+
+[[card]]
+id = 220000034
+setnumber = "IPRE-EN034"
+ot = "custom"
+name = "Wizards of the Red-Eyes"
+set = "red_eyes"
+type = "spell continuous"
+effect = '''
+During your Main Phase: You can activate 1 of these effects.
+• Add 1 Level 5 or lower Spellcaster monster from your Deck to your hand.
+• Add 1 "Fusion" or "Ritual" card from your Deck or GY to your hand.
+If this card is sent from your field to the GY: You can banish this card and 1 Spellcaster monster from your GY; apply 1 of the following effects.
+• Special Summon 1 "Red-Eyes" monster from your hand or GY, ignoring its Summoning conditions, but it cannot attack this turn.
+• Fusion Summon 1 Fusion Monster that lists a "Red-Eyes" monster as material from your Extra Deck, by shuffling Fusion Materials listed on it from your GY into the Deck/Extra Deck.
+You can only use each effect of "Wizards of the Red-Eyes" once per turn.'''
+strings=['Add 1 Spellcaster monster from your Deck to your hand','Add 1 "Fusion" or "Ritual" card from your Deck or GY to your hand','Special Summon 1 "Red-Eyes" monster from your hand or GY','Fusion Summon 1 Fusion Monster from your Extra Deck']
+
+[[card]]
+id = 220000035
+setnumber = "IPRE-EN035"
+ot = "custom"
+name = "Red-Eyes Trunade!"
+set = "red_eyes"
+type = "spell quickplay"
+effect = '''
+When your opponent activates a card or effect when your "Red-Eyes" monster(s) is Normal or Special Summoned, OR when your opponent activates a card or effect during the Battle Phase: Negate the activation, and if you do, shuffle that card and all Set cards your opponent controls into the Deck/Extra Deck, and if you do that, inflict 500 damage to your opponent for each card returned to the Deck/Extra Deck by this effect.'''
+strings=['Negate the activation']
+
+[[card]]
+id = 220000036
+setnumber = "IPRE-EN036"
+ot = "custom"
+name = 'Spell Card "Riryoku"'
+type = "spell quickplay"
+effect = '''
+During the Battle Phase: Target 2 face-up monsters on the field; until the end of this turn, halve the ATK of 1 monster, and if you do, add that lost ATK to the other monster, also, your opponent cannot activate cards or effects for the rest of this Battle Phase.'''
+
+[[card]]
+id = 220000037
+setnumber = "IPRE-EN037"
+ot = "custom"
+name = 'Spell Card "Shield & Sword"'
+type = "spell quickplay"
+effect = '''
+Switch the original ATK/DEF of all face-up monsters your opponent currently controls until the end of this turn, then you can make 1 monster you control gain ATK equal to the combined differences.'''
+strings=['Give ATK to 1 monster you control']
+
+[[card]]
+id = 220000038
+setnumber = "IPRE-EN038"
+ot = "custom"
+name = "Red-Eyes Re-Transmigration"
+set = "red_eyes"
+type = "spell ritual"
+effect = '''
+This card can be used to Ritual Summon any Dragon Ritual Monster (DARK or FIRE) from your hand or Deck. You must also Tribute monsters from your hand or field whose total Levels equal or exceed the Ritual Monster, OR Banish 1 "Red-Eyes Black Dragon" you control and 1 monster your opponent controls. A Ritual Monster that was Ritual Summoned by this card's effect becomes "Red-Eyes Black Dragon" while on the field, also, if you Tributed or banished a monster that was Special Summoned from the Extra Deck for that monster's Ritual Summon, it gains 1200 ATK. You can reveal this card in your hand, then send 1 "Red-Eyes Black Dragon" from your hand or Deck to the GY; reduce the Level of all Ritual Monsters in your hand by 1 until the End Phase. You can only use this effect of "Red-Eyes Re-Transmigration" once per turn. If a Special Summoned monster(s) you control would be destroyed by battle or card effect, you can banish this card from your GY instead.'''
+strings=['Ritual Summon 1 Ritual Monster from your hand or Deck','Banish 1 "Red-Eyes Black Dragon" you control and 1 monster your opponent controls','Tribute monsters from your hand or field','Reduce the Levels of all Ritual Monsters in your hand','Protect a Special Summoned monster you control']
+
+[[card]]
+id = 220000039
+setnumber = "IPRE-EN039"
+ot = "custom"
+name = "Black Dragon's Dominance"
+set = "m_red_eyes"
+type = "trap continuous"
+effect = '''
+When this card is activated: Activate this effect; Halve the ATK of all monsters your opponent controls during each Battle Phase this turn. Your opponent cannot activate cards or effect in response to this card's activation. The first time each "Red-Eyes" monster you control would be destroyed by battle or card effect, it is not destroyed. Negate the effect of any card that would reduce the ATK of monsters you control. You can only activate 1 "Black Dragon's Dominance" per turn.'''
+
+[[card]]
+id = 220000040
+setnumber = "IPRE-EN040"
+ot = "custom"
+name = "Black Dragon's Bond"
+set = "m_red_eyes"
+type = "trap continuous"
+effect = '''
+Your opponent cannot target "Red-Eyes" monsters you control with card effects. If this face-up card is sent from the Spell & Trap Zone to the GY: Destroy 1 "Red-Eyes" monster you control, and if you do, take damage equal to its original ATK. You can activate 1 of these effects;
+• Special Summon 1 Level 7 or lower "Red-Eyes" monster from your hand or GY.
+• Set 1 Spell/Trap that has "Red-Eyes" in its text from your Deck with a different name from the cards you control and in your GY.
+• This turn, Gemini monsters on the field are treated as Effect Monsters, and gain their effects.
+You can only use this effect of "Black Dragon's Bond" once per turn.'''
+strings=['Special Summon 1 "Red-Eyes" monster from your hand or GY','Set 1 Spell/Trap with "Red-Eyes in its text from your Deck','Gemini monsters become Effect Monsters this turn']
+
+[[card]]
+id = 220000041
+setnumber = "IPRE-EN041"
+ot = "custom"
+name = "Descent into Darkness"
+set = "m_red_eyes"
+type = "trap continuous"
+effect = '''
+When this card is activated: You can add 1 "Red-Eyes" monster that cannot be Normal Summoned/Set from your Deck or GY to your hand. Once per turn: You can target 1 "Red-Eyes" monster you control; apply the following effects.
+• It gains 1000 ATK.
+• This turn, banish any monster destroyed by battle with that target.
+You can only use each of the following effects of "Descent into Darkness" once per turn. You can send 1 "Red-Eyes Black Dragon" from your hand or Deck to the GY, and if you do, Special Summon it. When your opponent activates a monster effect that targets a "Red-Eyes" monster you control: You can target 1 face-up monster your opponent controls; inflict damage to your opponent equal to the original ATK of that target, and if you do, return that target to the hand. You can banish this card from your GY; add 1 "Red-Eyes" Spell/Trap from your Deck to your hand. You can only activate 1 "Descent into Darkness" per turn.'''
+strings=['Add 1 "Red-Eyes" monster from your Deck or GY to your hand','Grant Effects','Send and Special Summon 1 "Red-Eyes Black Dragon" from your hand or Deck','Return 1 face-up monster your opponent controls to the hand','Add 1 "Red-Eyes" Spell/Trap from your Deck to your hand']
+
+[[card]]
+id = 220000042
+setnumber = "IPRE-EN042"
+ot = "custom"
+name = "Piercing Red-Eyes from the Darkness"
+set = "red_eyes"
+type = "trap counter"
+effect = '''
+When your opponent activates a card or effect when your "Red-Eyes" monster(s) is Normal or Special Summoned: Negate the activation, and if you do, you can shuffle up to 2 cards your opponent controls into the Deck, then take damage equal to half the ATK of 1 "Red-Eyes" monster in your hand, GY, or on your field. If a "Red-Eyes" monster(s) you control that cannot be Normal Summoned/Set is sent to your GY or banishment: You can banish this card from your GY, then target 1 of those monsters; Special Summon it, ignoring its Summoning conditions. You can only use each effect of "Piercing Red-Eyes from the Darkness" once per turn.'''
+strings=['Shuffle up to 2 cards your opponent controls into the Deck','Special Summon 1 "Red-Eyes" monster from your GY or banishment']
+
+[[card]]
+id = 220000043
+setnumber = "IPRE-EN043"
+ot = "custom"
+name = "Red-Eyes Magical Arm Shield"
+set = "red_eyes"
+type = "trap counter"
+effect = '''
+When a monster is targeted for an attack, while your opponent controls 2 or more monsters: Target 1 monster your opponent controls, except the battling monster, and 1 face-up monster you control; equip the first target and this card to the second target. The equipped monster gains the following effects.
+• This card gains ATK/DEF equal to the combined ATK/DEF of all Monster Cards equipped to it.
+• If this card destroys a monster by battle: Inflict damage to the destroyed monster's controller equal to the ATK of the destroyed monster.'''
+
+[[card]]
+id = 220000044
+setnumber = "IPRE-EN044"
+ot = "custom"
+name = "Rise from Ashes"
+set = "m_red_eyes"
+type = "trap counter"
+effect = '''
+When a "Red-Eyes" monster is destroyed by battle and sent to the GY: Special Summon the destroyed monster to your field in the same position it was in when it was destroyed, then equip the monster that destroyed it to the Summoned monster as an Equip Spell with the following effects.
+• The equipped monster gains 800 ATK/DEF.
+• If the equipped monster would be destroyed by battle or card effect, destroy this card instead.
+If this Set card is sent from the field to the GY: You can banish this card from your GY; draw 2 cards. You can only use this effect of "Rise from Ashes" once per turn.'''
+strings=['Draw 2 cards']
+
+[[card]]
+id = 220000045
+setnumber = "IPRE-EN045"
+ot = "custom"
+name = "Black Dragon's Chick Token"
+attribute = "dark"
+race = "dragon"
+type = "monster normal token"
+atk = 800
+def = 500
+level = 1
+effect = '''
+This card can be used as a "Black Dragon's Chick Token".
+*If used for another Token, apply that Token's Type/Attribute/Level/ATK/DEF.'''
