@@ -62,14 +62,16 @@ function s.e1evt(e,tp)
 			Duel.SendtoGrave(sg,REASON_COST)
 			Duel.AttackCostPaid()
 
-			local atk=sg:GetFirst():GetBaseAttack()/2
+			if c:GetAttackAnnouncedCount()<1 then
+				local atk=sg:GetFirst():GetBaseAttack()/2
 
-			local e1b=Effect.CreateEffect(c)
-			e1b:SetType(EFFECT_TYPE_SINGLE)
-			e1b:SetCode(EFFECT_UPDATE_ATTACK)
-			e1b:SetValue(atk)
-			e1b:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
-			c:RegisterEffect(e1b)
+				local e1b=Effect.CreateEffect(c)
+				e1b:SetType(EFFECT_TYPE_SINGLE)
+				e1b:SetCode(EFFECT_UPDATE_ATTACK)
+				e1b:SetValue(atk)
+				e1b:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
+				c:RegisterEffect(e1b)
+			end
 		else
 			Duel.AttackCostPaid(2)
 		end

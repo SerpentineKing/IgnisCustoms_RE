@@ -260,7 +260,7 @@ You can Special Summon this card (from your hand) by sending 3 other "Red-Eyes" 
 id = 220000015
 setnumber = "IPRE-EN015"
 ot = "custom"
-name = "Red-Eyes Onslaught Dragon"
+name = "Red-Eyes Shadow Eclipse Dragon"
 set = "red_eyes"
 attribute = "dark"
 race = "dragon"
@@ -269,7 +269,7 @@ atk = 2600
 def = 2400
 level = 7
 effect = '''
-You can reveal this card in your hand; add 1 card that has "Red-Eyes" in its text from your Deck to your hand, except "Red-Eyes Onslaught Dragon", and if you do, shuffle this card into the Deck. You can only use this effect of "Red-Eyes Onslaught Dragon" once per turn. Each time your opponent activates a card or effect, you can make 1 face-up monster your opponent controls lose 400 ATK when it resolves, and if you do, inflict 500 damage to your opponent.'''
+You can reveal this card in your hand; add 1 card that has "Red-Eyes" in its text from your Deck to your hand, except "Red-Eyes Shadow Eclipse Dragon", and if you do, shuffle this card into the Deck. You can only use this effect of "Red-Eyes Shadow Eclipse Dragon" once per turn. Each time your opponent activates a card or effect, you can make 1 face-up monster your opponent controls lose 400 ATK when it resolves, and if you do, inflict 500 damage to your opponent.'''
 strings=['Add 1 card from your Deck to your hand','Reduce the ATK of 1 monster your opponent controls']
 
 [[card]]

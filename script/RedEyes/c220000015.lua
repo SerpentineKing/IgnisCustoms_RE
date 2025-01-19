@@ -1,11 +1,11 @@
--- Red-Eyes Onslaught Dragon
+-- Red-Eyes Shadow Eclipse Dragon
 local s,id,o=GetID()
 -- c220000015
 function s.initial_effect(c)
 	--[[
 	[HOPT]
 	You can reveal this card in your hand;
-	add 1 card that has “Red-Eyes” in its text from your Deck to your hand, except “Red-Eyes Onslaught Dragon”,
+	add 1 card that has “Red-Eyes” in its text from your Deck to your hand, except “Red-Eyes Shadow Eclipse Dragon”,
 	and if you do, shuffle this card into the Deck.
 	]]--
 	local e1=Effect.CreateEffect(c)
