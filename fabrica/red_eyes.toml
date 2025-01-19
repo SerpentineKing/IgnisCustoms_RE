@@ -573,7 +573,7 @@ If this card is sent from your field to the GY: You can banish this card and 1 S
 • Special Summon 1 "Red-Eyes" monster from your hand or GY, ignoring its Summoning conditions, but it cannot attack this turn.
 • Fusion Summon 1 Fusion Monster that lists a "Red-Eyes" monster as material from your Extra Deck, by shuffling Fusion Materials listed on it from your GY into the Deck/Extra Deck.
 You can only use each effect of "Wizards of the Red-Eyes" once per turn.'''
-strings=['Add 1 Spellcaster monster from your Deck to your hand','Add 1 "Fusion" or "Ritual" card from your Deck or GY to your hand','Special Summon 1 "Red-Eyes" monster from your hand or GY','Fusion Summon 1 Fusion Monster from your Extra Deck']
+strings=['Add 1 Spellcaster monster from your Deck to your hand','Add 1 "Fusion" card, Ritual Monster, or Ritual Spell from your Deck or GY to your hand','Special Summon 1 "Red-Eyes" monster from your hand or GY','Fusion Summon 1 Fusion Monster from your Extra Deck']
 
 [[card]]
 id = 220000035

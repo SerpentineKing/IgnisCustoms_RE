@@ -210,6 +210,6 @@ end
 function s.e3evt(e,tp)
 	local g=Duel.GetMatchingGroup(s.e3fil,tp,LOCATION_GRAVE,0,nil)
 	if g:GetCount()>0 then
-		Duel.SendtoDeck(c,nil,SEQ_DECKSHUFFLE,REASON_EFFECT)
+		Duel.SendtoDeck(g,nil,SEQ_DECKSHUFFLE,REASON_EFFECT)
 	end
 end
