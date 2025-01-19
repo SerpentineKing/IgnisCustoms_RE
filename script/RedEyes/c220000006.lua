@@ -2,7 +2,7 @@
 local s,id,o=GetID()
 -- c220000006
 function s.initial_effect(c)
-	-- 1 Level 7 “Red-Eyes” monster + 1 Warrior monster
+	-- 1 Level 7 "Red-Eyes" monster + 1 Warrior monster
 	Fusion.AddProcMix(c,true,true,s.m1fil,s.m2fil)
 	c:EnableReviveLimit()
 	-- All monsters you control gain 400 ATK/DEF.
@@ -17,7 +17,7 @@ function s.initial_effect(c)
 	local e2=e1:Clone()
 	e2:SetCode(EFFECT_UPDATE_DEFENSE)
 	c:RegisterEffect(e2)
-	-- All “Red-Eyes” monsters you control are unaffected by Spell effects.
+	-- All "Red-Eyes" monsters you control are unaffected by Spell effects.
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD)
 	e3:SetCode(EFFECT_IMMUNE_EFFECT)
@@ -54,7 +54,7 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	If this card is destroyed by battle or card effect:
-	You can Special Summon 1 Level 6 or lower “Red-Eyes” or Warrior monster from your Deck or GY.
+	You can Special Summon 1 Level 6 or lower "Red-Eyes" or Warrior monster from your Deck or GY.
 	]]--
 	local e6=Effect.CreateEffect(c)
 	e6:SetDescription(aux.Stringid(id,4))

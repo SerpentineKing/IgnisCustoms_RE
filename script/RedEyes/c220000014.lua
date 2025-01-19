@@ -4,7 +4,7 @@ local s,id,o=GetID()
 function s.initial_effect(c)
 	--[[
 	[HOPT]
-	You can Special Summon this card (from your hand) by sending 3 other “Red-Eyes” monsters from your hand to the GY.
+	You can Special Summon this card (from your hand) by sending 3 other "Red-Eyes" monsters from your hand to the GY.
 	]]--
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
@@ -43,6 +43,20 @@ function s.initial_effect(c)
 	e2:SetTarget(s.e2tgt)
 	e2:SetOperation(s.e2evt)
 	c:RegisterEffect(e2)
+	--[[
+	[HOPT]
+	If this card is destroyed by battle or an opponent's card effect:
+	You can return all Equip Spells and Normal Traps that have an effect to equip themselves to a monster in your GY to the Deck.
+	]]--
+	local e3=Effect.CreateEffect(c)
+	e3:SetDescription(aux.Stringid(id,0))
+	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e3:SetCode(EVENT_TO_GRAVE)
+	e3:SetCountLimit(1,{id,2})
+	e3:SetCondition(s.e3con)
+	e3:SetTarget(s.e3tgt)
+	e3:SetOperation(s.e3evt)
+	c:RegisterEffect(e3)
 end
 -- Archetype : Red-Eyes
 s.listed_series={SET_RED_EYES}
@@ -128,5 +142,74 @@ function s.e2evt(e,tp)
 				c:RegisterEffect(e2b)
 			end
 		end
+	end
+end
+function s.e3con(e,tp)
+	local c=e:GetHandler()
+
+	return c:IsReason(REASON_DESTROY)
+	and (c:IsReason(REASON_BATTLE) or (c:IsReason(REASON_EFFECT) and c:GetReasonPlayer()==1-tp))
+end
+function s.e3fil(c)
+	-- Equip Card Traps
+	return ((c:IsNormalTrap()
+	and (c:IsCode(259314)
+	or c:IsCode(2542230)
+	or c:IsCode(6112401)
+	or c:IsCode(6691855)
+	or c:IsCode(13235258)
+	or c:IsCode(13317419)
+	or c:IsCode(15684835)
+	or c:IsCode(18096222)
+	or c:IsCode(18446701)
+	or c:IsCode(20989253)
+	or c:IsCode(21350571)
+	or c:IsCode(23122036)
+	or c:IsCode(26647858)
+	or c:IsCode(29867611)
+	or c:IsCode(36591747)
+	or c:IsCode(37390589)
+	or c:IsCode(38643567)
+	or c:IsCode(43004235)
+	or c:IsCode(43405287)
+	or c:IsCode(47819246)
+	or c:IsCode(49551909)
+	or c:IsCode(51686645)
+	or c:IsCode(53656677)
+	or c:IsCode(54451023)
+	or c:IsCode(55262310)
+	or c:IsCode(57135971)
+	or c:IsCode(57470761)
+	or c:IsCode(58272005)
+	or c:IsCode(59490397)
+	or c:IsCode(62091148)
+	or c:IsCode(63049052)
+	or c:IsCode(66984907)
+	or c:IsCode(68054593)
+	or c:IsCode(68540058)
+	or c:IsCode(75361204)
+	or c:IsCode(75987257)
+	or c:IsCode(80143954)
+	or c:IsCode(89812483)
+	or c:IsCode(91152455)
+	or c:IsCode(92650018)
+	or c:IsCode(93473606)
+	or c:IsCode(93655221)
+	or c:IsCode(97182396)
+	or c:IsCode(98239899)))
+	or c:IsEquipSpell())
+	and c:IsAbleToDeck()
+end
+function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then
+		return Duel.IsExistingMatchingCard(s.e3fil,tp,LOCATION_GRAVE,0,1,e:GetHandler())
+	end
+
+	Duel.SetOperationInfo(0,CATEGORY_TODECK,nil,1,0,0)
+end
+function s.e3evt(e,tp)
+	local g=Duel.GetMatchingGroup(s.e3fil,tp,LOCATION_GRAVE,0,nil)
+	if g:GetCount()>0 then
+		Duel.SendtoDeck(c,nil,SEQ_DECKSHUFFLE,REASON_EFFECT)
 	end
 end

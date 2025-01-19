@@ -5,7 +5,7 @@ function s.initial_effect(c)
 	-- 2 Level 7 monsters
 	Xyz.AddProcedure(c,aux.TRUE,7,2)
 	c:EnableReviveLimit()
-	-- This card’s name becomes “Red-Eyes Black Dragon" while on the field.
+	-- This card's name becomes "Red-Eyes Black Dragon" while on the field.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_CHANGE_CODE)
@@ -30,9 +30,9 @@ function s.initial_effect(c)
 	e3:SetValue(1)
 	c:RegisterEffect(e3)
 	--[[
-	At the end of the Damage Step, if this card attacks an opponent’s monster,
-	but that opponent’s monster was not destroyed by battle:
-	You can inflict damage to your opponent equal to that monster’s original ATK.
+	At the end of the Damage Step, if this card attacks an opponent's monster,
+	but that opponent's monster was not destroyed by battle:
+	You can inflict damage to your opponent equal to that monster's original ATK.
 	]]--
 	local e4=Effect.CreateEffect(c)
 	e4:SetDescription(aux.Stringid(id,0))

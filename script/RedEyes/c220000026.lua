@@ -5,9 +5,9 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	If this card is Normal or Special Summoned:
-	You can Special Summon 1 Level 4 “Red-Eyes” or Warrior monster from your Deck,
+	You can Special Summon 1 Level 4 "Red-Eyes" or Warrior monster from your Deck,
 	also, you cannot Special Summon monsters from the Extra Deck for the rest of this turn,
-	except “Red-Eyes” monsters or monsters that list a “Red-Eyes” monster as material.
+	except "Red-Eyes" monsters or monsters that list a "Red-Eyes" monster as material.
 	]]--
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -26,7 +26,7 @@ function s.initial_effect(c)
 	--[[
 	[SOPT]
 	Once per turn, when your monster is targeted for an attack:
-	You can send 1 “Red-Eyes” monster from your hand or Deck to the GY, then roll a six-sided die.
+	You can send 1 "Red-Eyes" monster from your hand or Deck to the GY, then roll a six-sided die.
 	All monsters you currently control gain ATK/DEF equal to the result x 500,
 	and all monsters your opponent controls lose ATK/DEF equal to the result x 500.
 	]]--

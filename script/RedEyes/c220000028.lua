@@ -11,12 +11,12 @@ function s.initial_effect(c)
 	[HOPT]
 	At the start of the Battle Phase:
 	You can activate this effect; this turn, apply 1 of the following effects,
-	or if you control a “Red-Eyes” monster, you can apply both effects.
+	or if you control a "Red-Eyes" monster, you can apply both effects.
 	•
-	Once per turn, if your Level 7 or higher “Red-Eyes” monster destroys an opponent’s monster by battle:
+	Once per turn, if your Level 7 or higher "Red-Eyes" monster destroys an opponent's monster by battle:
 	It can make a second attack during this Battle Phase.
 	•
-	Your opponent cannot target a “Red-Eyes” monster you control for attack, unless they banish the top card of their Deck.
+	Your opponent cannot target a "Red-Eyes" monster you control for attack, unless they banish the top card of their Deck.
 	]]--
 	-- TODO : [E2, RE]
 	local e1=Effect.CreateEffect(c)
@@ -30,7 +30,7 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	During your Main Phase, if this card is in your GY, except the turn it was sent there: You can banish this card;
-	add 1 Spell/Trap that has “Red-Eyes” in its text from your GY or banishment to your hand, except “Cerise in Ebony”.
+	add 1 Spell/Trap that has "Red-Eyes" in its text from your GY or banishment to your hand, except "Cerise in Ebony".
 	]]--
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,3))

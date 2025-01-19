@@ -2,7 +2,7 @@
 local s,id,o=GetID()
 -- c220000007
 function s.initial_effect(c)
-	-- 1 Level 7 “Red-Eyes” monster + 1 DARK Machine monster
+	-- 1 Level 7 "Red-Eyes" monster + 1 DARK Machine monster
 	Fusion.AddProcMix(c,true,true,s.m1fil,s.m2fil)
 	c:EnableReviveLimit()
 	-- Unaffected by Trap effects.
@@ -22,7 +22,7 @@ function s.initial_effect(c)
 	e2:SetTargetRange(0,LOCATION_HAND+LOCATION_SZONE)
 	e2:SetTarget(aux.TargetBoolFunction(Card.IsTrap))
 	c:RegisterEffect(e2)
-	-- Negate all Trap effects on your opponent’s field.
+	-- Negate all Trap effects on your opponent's field.
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD)
 	e3:SetCode(EFFECT_DISABLE)
@@ -47,7 +47,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 	--[[
 	[SOPT]
-	Once per turn: You can destroy as many face-up Traps on your opponent’s field as possible,
+	Once per turn: You can destroy as many face-up Traps on your opponent's field as possible,
 	and if you do, inflict 400 damage to your opponent for each card destroyed by this effect.
 	]]--
 	local e6=Effect.CreateEffect(c)
@@ -61,7 +61,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e6)
 	--[[
 	[HOPT]
-	You can Set 1 Trap from your Deck or GY that has “Red-Eyes” in its text.
+	You can Set 1 Trap from your Deck or GY that has "Red-Eyes" in its text.
 	It can be activated this turn.
 	]]--
 	local e7=Effect.CreateEffect(c)
@@ -75,7 +75,7 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	If this card is sent from the field to the GY:
-	You can Special Summon 1 Dragon or Machine monster from your hand, Deck, or GY, except “Jinzo, Black Dragon Armored”.
+	You can Special Summon 1 Dragon or Machine monster from your hand, Deck, or GY, except "Jinzo, Black Dragon Armored".
 	]]--
 	local e8=Effect.CreateEffect(c)
 	e8:SetDescription(aux.Stringid(id,2))

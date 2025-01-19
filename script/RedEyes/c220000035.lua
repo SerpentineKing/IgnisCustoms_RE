@@ -3,7 +3,7 @@ local s,id,o=GetID()
 -- c220000035
 function s.initial_effect(c)
 	--[[
-	When your opponent activates a card or effect when your “Red-Eyes” monster(s) is Normal or Special Summoned,
+	When your opponent activates a card or effect when your "Red-Eyes" monster(s) is Normal or Special Summoned,
 	OR when your opponent activates a card or effect during the Battle Phase:
 	Negate the activation,
 	and if you do, shuffle that card and all Set cards your opponent controls into the Deck/Extra Deck,

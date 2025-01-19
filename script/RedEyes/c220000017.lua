@@ -1,11 +1,11 @@
--- Black Dragon’s Soul
+-- Black Dragon's Soul
 local s,id,o=GetID()
 -- c220000017
 function s.initial_effect(c)
 	--[[
 	[SOPT]
 	Once per turn:
-	You can place 1 “Red-Eyes Black Dragon”, or 1 card that mentions it, from your hand, Deck, or GY on top of the Deck, except “Black Dragon’s Soul”.
+	You can place 1 "Red-Eyes Black Dragon", or 1 card that mentions it, from your hand, Deck, or GY on top of the Deck, except "Black Dragon's Soul".
 	]]--
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -20,7 +20,7 @@ function s.initial_effect(c)
 	[HOPT]
 	During your Main Phase:
 	You can banish this card from your GY;
-	draw cards equal to the number of “Red-Eyes Black Dragon” with different original names on the field and in the GYs.
+	draw cards equal to the number of "Red-Eyes Black Dragon" with different original names on the field and in the GYs.
 	]]--
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,1))

@@ -5,9 +5,9 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	If you control no monsters:
-	You can Special Summon this card and 1 Level 4 or lower “Red-Eyes” monster from your hand.
+	You can Special Summon this card and 1 Level 4 or lower "Red-Eyes" monster from your hand.
 	You cannot Special Summon monsters from the Extra Deck the turn you activate this effect,
-	except “Red-Eyes” monsters or monsters that list a “Red-Eyes” monster as material.
+	except "Red-Eyes" monsters or monsters that list a "Red-Eyes" monster as material.
 	]]--
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -23,7 +23,7 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	During your Battle Phase (Quick Effect):
-	You can target 1 other “Red-Eyes” monster you control; equip this card to it.
+	You can target 1 other "Red-Eyes" monster you control; equip this card to it.
 	]]--
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,1))
@@ -41,7 +41,7 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	If this card is sent to the GY while equipped to a monster:
-	You can target 1 “Red-Eyes” monster you control; equip this card to it.
+	You can target 1 "Red-Eyes" monster you control; equip this card to it.
 	]]--
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(id,1))
@@ -55,7 +55,7 @@ function s.initial_effect(c)
 	e3:SetOperation(s.e3evt)
 	c:RegisterEffect(e3)
 	--[[
-	A “Red-Eyes” monster equipped with this card gains the following effects.
+	A "Red-Eyes" monster equipped with this card gains the following effects.
 	•
 	This card gains 1500 ATK.
 	•

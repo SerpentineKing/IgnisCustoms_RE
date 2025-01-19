@@ -12,7 +12,7 @@ function s.initial_effect(c)
 	This card gains ATK/DEF equal to the combined ATK/DEF of all Monster Cards equipped to it.
 	•
 	If this card destroys a monster by battle:
-	Inflict damage to the destroyed monster’s controller equal to the ATK of the destroyed monster.
+	Inflict damage to the destroyed monster's controller equal to the ATK of the destroyed monster.
 	]]--
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)

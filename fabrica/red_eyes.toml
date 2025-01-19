@@ -48,7 +48,7 @@ def = 2100
 level = 8
 effect = '''
 (This card is always treated as a "Red-Eyes" card.)
-You can Ritual Summon this card with "Chaos Form" or "Red-Eyes Re-Transmigration". Once per turn, when a card or effect is activated, except "Lord of Red Chaos" (Quick Effect): You can target 1 monster on the field; destroy it. Once per turn, when a card or effect is activated, except "Lord of Red Chaos" (Quick Effect): You can target 1 Spell/Trap on the field; destroy it. If this card is sent from the field to the GY: You can Special Summon 1 Xyz Monster from your Extra Deck, and if you do, attach this card and 1 Level 7 "Red-Eyes" monster from your GY to it as material. You can only use this effect of "Lord of Red Chaos" once per turn.'''
+You can Ritual Summon this card with "Chaos Form" or "Red-Eyes Re-Transmigration". Once per turn, when a card or effect is activated, except "Lord of Red Chaos" (Quick Effect): You can target 1 monster on the field; destroy it. Once per turn, when a card or effect is activated, except "Lord of Red Chaos" (Quick Effect): You can target 1 Spell/Trap on the field; destroy it. If this card is sent from the field to the GY: You can Special Summon 1 "Red-Eyes" Xyz Monster from your Extra Deck, and if you do, attach this card and 1 Level 7 "Red-Eyes" monster from your GY to it as material. You can only use this effect of "Lord of Red Chaos" once per turn.'''
 strings=['Destroy 1 monster on the field','Destroy 1 Spell/Trap on the field','Special Summon 1 monster from your Extra Deck?']
 
 [[card]]
@@ -254,7 +254,8 @@ def = 1400
 level = 8
 effect = '''
 (This card is always treated as a "Red-Eyes" card.)
-You can Special Summon this card (from your hand) by sending 3 other "Red-Eyes" monsters from your hand to the GY. You can only Special Summon "Gilford the Legend of Blazing Red Lightning" once per turn this way. When Summoned this way: Destroy as many monsters your opponent controls as possible, and if you do, inflict 500 damage to your opponent for each monster destroyed by this effect. If this card battles, during damage calculation: This card gains ATK equal to half the ATK of the monster your opponent controls with the highest ATK (your choice, if tied). You can only use this effect of "Gilford the Legend of Blazing Red Lightning once per turn.'''
+You can Special Summon this card (from your hand) by sending 3 other "Red-Eyes" monsters from your hand to the GY. You can only Special Summon "Gilford the Legend of Blazing Red Lightning" once per turn this way. If Summoned this way: Destroy as many monsters your opponent controls as possible, and if you do, inflict 500 damage to your opponent for each monster destroyed by this effect. You can only use each of the following effects of "Gilford the Legend of Blazing Red Lightning once per turn. If this card battles, during damage calculation: This card gains ATK equal to half the ATK of the monster your opponent controls with the highest ATK (your choice, if tied). If this card is destroyed by battle or an opponent's card effect: You can return all Equip Spells and Normal Traps that have an effect to equip themselves to a monster in your GY to the Deck.'''
+strings=['Return Equip Cards from the GY to the Deck?']
 
 [[card]]
 id = 220000015
@@ -269,8 +270,8 @@ atk = 2600
 def = 2400
 level = 7
 effect = '''
-You can reveal this card in your hand; add 1 card that has "Red-Eyes" in its text from your Deck to your hand, except "Red-Eyes Shadow Eclipse Dragon", and if you do, shuffle this card into the Deck. You can only use this effect of "Red-Eyes Shadow Eclipse Dragon" once per turn. Each time your opponent activates a card or effect, you can make 1 face-up monster your opponent controls lose 400 ATK when it resolves, and if you do, inflict 500 damage to your opponent.'''
-strings=['Add 1 card from your Deck to your hand','Reduce the ATK of 1 monster your opponent controls']
+You can reveal this card in your hand; shuffle 1 other card from your hand into the Deck, and if you do, Special Summon this card. If this card is Special Summoned: You can target 1 other monster you control; equip 1 Equip Spell, or 1 Normal Trap that has an effect to equip itself to a monster, from your Deck or GY to that appropriate monster. If this card is destroyed by battle or an opponent's card effect: You can banish this card from your GY; take 1 card that has "Metalmorph" in its text in your GY or banishment, except this card, and either add it to your hand or shuffle it into the Deck. You can only use each of the preceding effects of "Red-Eyes Shadow Eclipse Dragon" once per turn. Once per turn, if another monster you control is targeted for an attack: You can Tribute this card; end the Battle Phase, also, reduce the attacking monster's ATK to 0 until the start of your opponent's next turn, and if you do, inflict 500 damage to your opponent.'''
+strings=['Special Summon this card','Equip 1 Equip Card to a monster you control','Recycle 1 card that mentions "Metalmorph"','Add it to your hand','Shuffle it into the Deck','End the Battle Phase']
 
 [[card]]
 id = 220000016
@@ -289,8 +290,8 @@ effect = '''
 This card's name becomes "Dark Magician" while in the hand, GY, or on the field. You can only use each of the following effects of "Black Dragon's Mage" once per turn. If this card is in your hand or on the field: You can send 1 "Red-Eyes Black Dragon" from your hand or Deck to the GY, then apply 1 of the following effects, depending on where this card was at activation.
 • Hand: Special Summon this card.
 • Field: This turn, if this card attacks a Defense Position monster, inflict piercing battle damage, also, banish any monster destroyed by battle with this card.
-You can send up to 2 Spells/Traps from your hand and/or field to the GY; draw that many cards. You can Tribute this card; Special Summon 1 "Red-Eyes" monster from your hand or Deck, except "Black Dragon's Mage".'''
-strings=['Special Summon this card','Grant effects','Draw cards','Special Summon a monster from your hand or Deck']
+You can send up to 2 Spells/Traps from your hand and/or field to the GY; draw that many cards. During damage calculation, if your other "Red-Eyes" monster battles (Quick Effect): You can Tribute this card from your hand or face-up field; that monster you control gains 2000 ATK until the end of this turn.'''
+strings=['Special Summon this card','Grant effects','Draw cards','Gain 2000 ATK']
 
 [[card]]
 id = 220000017
@@ -422,10 +423,10 @@ def = 1400
 level = 4
 effect = '''
 (This card is always treated as a "Red-Eyes" card.)
-During your Main Phase: You can toss a coin and call it, then apply the appropriate effect.
+This card's name becomes "Time Wizard" while on the field. You can only use each of the following effects of "Time Wizard with Eyes of Red" once per turn. During your Main Phase: You can toss a coin and call it, then apply the appropriate effect.
 • If you call it right: Destroy as many cards your opponent controls as possible, and if you do, inflict damage equal to half the combined original ATK of all face-up monsters destroyed by this effect, and if you do that, Special Summon 1 "Red-Eyes" monster from your hand, Deck, or GY, except "Time Wizard with Eyes of Red".
 • If you call it wrong: Destroy as many monsters you control as possible, and if you do, take damage equal to half the combined ATK those destroyed monsters had on the field.
-If this card is sent to the GY as Synchro Material for a "Red-Eyes" monster: You can Special Summon 1 Level 7 or lower "Red-Eyes" monster from your GY, ignoring its Summoning conditions, except "Time Wizard with Eyes of Red", also, you cannot Special Summon monsters from the Extra Deck for the rest of this turn, except "Red-Eyes" monsters. You can discard 1 card; add 1 Level 4 or lower "Red-Eyes" or Spellcaster monster from your Deck to your hand, except "Time Wizard with Eyes of Red". You can only use each effect of "Time Wizard with Eyes of Red" once per turn.'''
+If this card is sent to the GY as Synchro Material for a "Red-Eyes" monster: You can Special Summon 1 Level 7 or lower "Red-Eyes" monster from your GY, ignoring its Summoning conditions, except "Time Wizard with Eyes of Red", also, you cannot Special Summon monsters from the Extra Deck for the rest of this turn, except "Red-Eyes" monsters. You can discard 1 card; add 1 Level 4 or lower "Red-Eyes" or Spellcaster monster from your Deck to your hand, except "Time Wizard with Eyes of Red".'''
 strings=['Toss a Coin','Special Summon 1 "Red-Eyes" monster from your GY','Add 1 "Red-Eyes" or Spellcaster monster from your Deck to your hand']
 
 [[card]]
@@ -567,7 +568,7 @@ type = "spell continuous"
 effect = '''
 During your Main Phase: You can activate 1 of these effects.
 • Add 1 Level 5 or lower Spellcaster monster from your Deck to your hand.
-• Add 1 "Fusion" or "Ritual" card from your Deck or GY to your hand.
+• Add 1 "Fusion" card, 1 Ritual Monster, or 1 Ritual Spell from your Deck or GY to your hand.
 If this card is sent from your field to the GY: You can banish this card and 1 Spellcaster monster from your GY; apply 1 of the following effects.
 • Special Summon 1 "Red-Eyes" monster from your hand or GY, ignoring its Summoning conditions, but it cannot attack this turn.
 • Fusion Summon 1 Fusion Monster that lists a "Red-Eyes" monster as material from your Extra Deck, by shuffling Fusion Materials listed on it from your GY into the Deck/Extra Deck.

@@ -5,7 +5,7 @@ function s.initial_effect(c)
 	-- 3 Level 7 monsters
 	Xyz.AddProcedure(c,aux.TRUE,7,3)
 	c:EnableReviveLimit()
-	-- This card’s name becomes “Red-Eyes Black Dragon" while on the field.
+	-- This card's name becomes "Red-Eyes Black Dragon" while on the field.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_CHANGE_CODE)

@@ -2,7 +2,7 @@
 local s,id,o=GetID()
 -- c220000011
 function s.initial_effect(c)
-	-- This card’s name becomes “Red-Eyes Black Dragon” while on the field or in the GY.
+	-- This card's name becomes "Red-Eyes Black Dragon" while on the field or in the GY.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_CHANGE_CODE)
@@ -12,7 +12,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 	--[[
 	[HOPT]
-	If “Red-Eyes Sovereignty” is on the field: You can Special Summon this card from your hand.
+	If "Red-Eyes Sovereignty" is on the field: You can Special Summon this card from your hand.
 	]]--
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,0))
@@ -29,7 +29,7 @@ function s.initial_effect(c)
 	If this card is destroyed by card effect and sent to the GY or banishment,
 	while another Level 5 or higher monster is on the field:
 	You can Special Summon this card,
-	then you can Set 1 Spell/Trap that has “Red-Eyes” in its text from your Deck.
+	then you can Set 1 Spell/Trap that has "Red-Eyes" in its text from your Deck.
 	]]--
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(id,1))

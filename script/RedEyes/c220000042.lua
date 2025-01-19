@@ -4,10 +4,10 @@ local s,id,o=GetID()
 function s.initial_effect(c)
 	--[[
 	[HOPT]
-	When your opponent activates a card or effect when your “Red-Eyes” monster(s) is Normal or Special Summoned:
+	When your opponent activates a card or effect when your "Red-Eyes" monster(s) is Normal or Special Summoned:
 	Negate the activation,
 	and if you do, you can shuffle up to 2 cards your opponent controls into the Deck,
-	then take damage equal to half the ATK of 1 “Red-Eyes” monster in your hand, GY, or on your field.
+	then take damage equal to half the ATK of 1 "Red-Eyes" monster in your hand, GY, or on your field.
 	]]--
 	-- TODO : Set "Red-Eyes" requirement
 	local e1=Effect.CreateEffect(c)
@@ -22,7 +22,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 	--[[
 	[HOPT]
-	If a “Red-Eyes” monster(s) you control that cannot be Normal Summoned/Set is sent to your GY or banishment:
+	If a "Red-Eyes" monster(s) you control that cannot be Normal Summoned/Set is sent to your GY or banishment:
 	You can banish this card from your GY, then target 1 of those monsters;
 	Special Summon it, ignoring its Summoning conditions.
 	]]--

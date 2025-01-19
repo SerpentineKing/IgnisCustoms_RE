@@ -5,8 +5,8 @@ function s.initial_effect(c)
 	--[[
 	Cannot declare an attack unless you send 1 Level 7 or higher "Red-Eyes" monster from your hand or Deck to the GY.
 	[SOPT]
-	Once per turn, if a monster is sent to the GY by this card’s effect:
-	This card gains ATK equal to half the sent monster’s original ATK until the end of this turn.
+	Once per turn, if a monster is sent to the GY by this card's effect:
+	This card gains ATK equal to half the sent monster's original ATK until the end of this turn.
 	]]--
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -25,7 +25,7 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	If this card is destroyed by battle or card effect and sent to the GY:
-	You can Special Summon any number of “Black Dragon’s Chick Tokens” (Dragon/DARK/Level 1/ATK 800/DEF 500),
+	You can Special Summon any number of "Black Dragon's Chick Tokens" (Dragon/DARK/Level 1/ATK 800/DEF 500),
 	and if you do, each time 1 is destroyed, inflict 500 damage to your opponent.
 	]]--
 	local e3=Effect.CreateEffect(c)

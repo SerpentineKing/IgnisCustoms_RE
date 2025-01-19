@@ -5,7 +5,7 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	If this card is Normal or Special Summoned:
-	You can add 1 Spell/Trap that has “Red-Eyes” in its text from your Deck or GY to your hand.
+	You can add 1 Spell/Trap that has "Red-Eyes" in its text from your Deck or GY to your hand.
 	]]--
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -25,7 +25,7 @@ function s.initial_effect(c)
 	[HOPT]
 	If this card is targeted for an attack by a monster with a higher Level than it:
 	You can change that monster to face-down Defense Position,
-	and if you do, until your opponent’s next turn, it cannot change its battle position, be Tributed,
+	and if you do, until your opponent's next turn, it cannot change its battle position, be Tributed,
 	or used as material for the Summon of a monster from the Extra Deck.
 	]]--
 	-- TODO : Set timing to opp. turn

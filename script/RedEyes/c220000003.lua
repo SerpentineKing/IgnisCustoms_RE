@@ -2,12 +2,12 @@
 local s,id,o=GetID()
 -- c220000003
 function s.initial_effect(c)
-	-- “Red-Eyes Black Dragon” + 1 FIRE monster
+	-- "Red-Eyes Black Dragon" + 1 FIRE monster
 	Fusion.AddProcMix(c,true,true,CARD_REDEYES_B_DRAGON,aux.FilterBoolFunctionEx(Card.IsAttribute,ATTRIBUTE_FIRE))
 	c:EnableReviveLimit()
 	--[[
 	Must first be either Fusion Summoned, or Special Summoned from your Extra Deck
-	by Tributing 1 “Red-Eyes Black Dragon” equipped with a Fusion Monster.
+	by Tributing 1 "Red-Eyes Black Dragon" equipped with a Fusion Monster.
 	]]--
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)

@@ -4,7 +4,7 @@ local s,id,o=GetID()
 function s.initial_effect(c)
 	--[[
 	[HOPT]
-	You can send 1 Dragon monster, or 1 Spell/Trap that has “Red-Eyes” in its text, from your hand or face-up field to the GY;
+	You can send 1 Dragon monster, or 1 Spell/Trap that has "Red-Eyes" in its text, from your hand or face-up field to the GY;
 	Special Summon this card from your hand.
 	]]--
 	local e1=Effect.CreateEffect(c)
@@ -38,10 +38,10 @@ function s.initial_effect(c)
 	[HOPT]
 	If this card is sent from the field to the GY: You can banish this card from your GY; apply the following effect.
 	•
-	Show 1 Fusion Monster that must be Special Summoned with “The Claw of Hermos” from your Extra Deck, and if you do,
+	Show 1 Fusion Monster that must be Special Summoned with "The Claw of Hermos" from your Extra Deck, and if you do,
 	send 1 monster from your hand or field to the GY with same Type as the shown monster (if that card is Set, reveal it),
 	then Special Summon the shown monster from your Extra Deck.
-	(This is treated as a Special Summon by the effect of “The Claw of Hermos”.)
+	(This is treated as a Special Summon by the effect of "The Claw of Hermos".)
 	]]--
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(id,2))

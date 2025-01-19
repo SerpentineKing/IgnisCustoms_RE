@@ -4,9 +4,9 @@ local s,id,o=GetID()
 function s.initial_effect(c)
 	--[[
 	[HOPT]
-	During your opponent’s turn (Quick Effect):
+	During your opponent's turn (Quick Effect):
 	You can discard 1 Spell/Trap;
-	Special Summon 1 “Red-Eyes Black Dragon” from your Deck.
+	Special Summon 1 "Red-Eyes Black Dragon" from your Deck.
 	]]--
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -23,7 +23,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 	--[[
 	[HOPT]
-	During your opponent’s turn, if you activate a Spell/Trap Card or effect,
+	During your opponent's turn, if you activate a Spell/Trap Card or effect,
 	while this card is in your GY (except during the Damage Step):
 	You can Special Summon this card, but banish it when it leaves the field.
 	]]--

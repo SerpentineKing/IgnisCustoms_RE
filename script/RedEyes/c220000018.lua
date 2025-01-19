@@ -1,11 +1,11 @@
--- Black Dragon’s Fangs
+-- Black Dragon's Fangs
 local s,id,o=GetID()
 -- c220000018
 function s.initial_effect(c)
 	--[[
 	[HOPT]
 	When this card is Normal Summoned:
-	You can add 1 Spell/Trap that has “Red-Eyes” in its text from your Deck to your hand.
+	You can add 1 Spell/Trap that has "Red-Eyes" in its text from your Deck to your hand.
 	]]--
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -18,7 +18,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 	--[[
 	[HOPT]
-	During your opponent’s turn, if you activate a Spell/Trap Card or effect,
+	During your opponent's turn, if you activate a Spell/Trap Card or effect,
 	while this card is in your GY (except during the Damage Step):
 	You can Tribute 1 DARK Dragon monster;
 	add this card to your hand.

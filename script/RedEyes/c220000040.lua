@@ -1,4 +1,4 @@
--- Black Dragon’s Bond
+-- Black Dragon's Bond
 local s,id,o=GetID()
 -- c220000040
 function s.initial_effect(c)
@@ -7,7 +7,7 @@ function s.initial_effect(c)
 	e0:SetType(EFFECT_TYPE_ACTIVATE)
 	e0:SetCode(EVENT_FREE_CHAIN)
 	c:RegisterEffect(e0)
-	-- Your opponent cannot target “Red-Eyes” monsters you control with card effects.
+	-- Your opponent cannot target "Red-Eyes" monsters you control with card effects.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
@@ -19,7 +19,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 	--[[
 	If this face-up card is sent from the Spell & Trap Zone to the GY:
-	Destroy 1 “Red-Eyes” monster you control,
+	Destroy 1 "Red-Eyes" monster you control,
 	and if you do, take damage equal to its original ATK.
 	]]--
 	local e2=Effect.CreateEffect(c)
@@ -35,9 +35,9 @@ function s.initial_effect(c)
 	[HOPT]
 	You can activate 1 of these effects;
 	•
-	Special Summon 1 Level 7 or lower “Red-Eyes” monster from your hand or GY.
+	Special Summon 1 Level 7 or lower "Red-Eyes" monster from your hand or GY.
 	•
-	Set 1 Spell/Trap that has “Red-Eyes” in its text from your Deck with a different name from the cards you control and in your GY.
+	Set 1 Spell/Trap that has "Red-Eyes" in its text from your Deck with a different name from the cards you control and in your GY.
 	•
 	This turn, Gemini monsters on the field are treated as Effect Monsters, and gain their effects.
 	]]--

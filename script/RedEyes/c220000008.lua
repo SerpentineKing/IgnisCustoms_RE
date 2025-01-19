@@ -2,7 +2,7 @@
 local s,id,o=GetID()
 -- c220000008
 function s.initial_effect(c)
-	-- 1 “Flame Swordsman” monster + 1 Spellcaster monster
+	-- 1 "Flame Swordsman" monster + 1 Spellcaster monster
 	Fusion.AddProcMix(c,true,true,s.m1fil,s.m2fil)
 	c:EnableReviveLimit()
 	-- If this card is equipped with an Equip Card, it gains 400 ATK.
@@ -14,11 +14,11 @@ function s.initial_effect(c)
 	e1:SetValue(400)
 	c:RegisterEffect(e1)
 	--[[
-	If this card is equipped with “Metalmorph”, this card gains the following effects.
+	If this card is equipped with "Metalmorph", this card gains the following effects.
 	•
-	This card is unaffected by your opponent’s Spell/Trap effects during the Battle Phase.
+	This card is unaffected by your opponent's Spell/Trap effects during the Battle Phase.
 	•
-	If this card battles a monster, that monster’s ATK becomes 0 during the Damage Step only.
+	If this card battles a monster, that monster's ATK becomes 0 during the Damage Step only.
 	]]--
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)

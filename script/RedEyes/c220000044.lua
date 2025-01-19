@@ -3,7 +3,7 @@ local s,id,o=GetID()
 -- c220000044
 function s.initial_effect(c)
 	--[[
-	When a “Red-Eyes” monster is destroyed by battle and sent to the GY:
+	When a "Red-Eyes" monster is destroyed by battle and sent to the GY:
 	Special Summon the destroyed monster to your field in the same position it was in when it was destroyed,
 	then equip the monster that destroyed it to the Summoned monster as an Equip Spell with the following effects.
 	•

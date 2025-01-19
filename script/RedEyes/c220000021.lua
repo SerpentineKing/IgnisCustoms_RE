@@ -25,7 +25,7 @@ function s.initial_effect(c)
 	[HOPT]
 	If this card you control is destroyed by battle or card effect and sent to the GY:
 	You can banish this card from your GY,
-	then target 1 Dragon or Warrior monster in your GY, except “Black Flame Swordsman with Eyes of Red”;
+	then target 1 Dragon or Warrior monster in your GY, except "Black Flame Swordsman with Eyes of Red";
 	Special Summon that target.
 	]]--
 	local e2=Effect.CreateEffect(c)

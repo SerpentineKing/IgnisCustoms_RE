@@ -15,7 +15,7 @@ function s.initial_effect(c)
 	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e1:SetValue(s.e1val)
 	c:RegisterEffect(e1)
-	-- Your opponent cannot activate cards or effects in response to the activation of your “Red-Eyes Fusion”.
+	-- Your opponent cannot activate cards or effects in response to the activation of your "Red-Eyes Fusion".
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e2:SetCode(EVENT_CHAINING)
@@ -25,7 +25,7 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	During your Main Phase:
-	You can add 1 card that has “Red-Eyes” in its text from your Deck to your hand, except “Red-Eyes Sovereignty”.
+	You can add 1 card that has "Red-Eyes" in its text from your Deck to your hand, except "Red-Eyes Sovereignty".
 	]]--
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(id,0))
@@ -39,7 +39,7 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	If your opponent Special Summons a monster(s) (except during the Damage Step):
-	You can Special Summon 1 “Red-Eyes” monster from your hand, Deck, or GY.
+	You can Special Summon 1 "Red-Eyes" monster from your hand, Deck, or GY.
 	]]--
 	local e4=Effect.CreateEffect(c)
 	e4:SetDescription(aux.Stringid(id,1))
@@ -56,7 +56,7 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	If this card is sent from the field to the GY: You can banish this card from your GY;
-	show any number of “Red-Eyes Black Dragon” in your hand, GY, banishment, and/or face-up field to your opponent,
+	show any number of "Red-Eyes Black Dragon" in your hand, GY, banishment, and/or face-up field to your opponent,
 	then banish that many cards your opponent controls.
 	]]--
 	local e5=Effect.CreateEffect(c)

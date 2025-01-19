@@ -2,7 +2,7 @@
 local s,id,o=GetID()
 -- c220000001
 function s.initial_effect(c)
-	-- You can Ritual Summon this card with “Chaos Form” or “Red-Eyes Re-Transmigration”.
+	-- You can Ritual Summon this card with "Chaos Form" or "Red-Eyes Re-Transmigration".
 	c:EnableReviveLimit()
 	-- Cannot be targeted by card effects.
 	local e1=Effect.CreateEffect(c)
@@ -41,7 +41,7 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	If this card is sent from the field to the GY:
-	You can Fusion Summon 1 Fusion Monster from your Extra Deck that mentions “Red-Eyes Black Dragon” as material,
+	You can Fusion Summon 1 Fusion Monster from your Extra Deck that mentions "Red-Eyes Black Dragon" as material,
 	by sending materials listed on it from your Deck to the GY.
 	]]--
 	local e5=Effect.CreateEffect(c)
@@ -56,7 +56,7 @@ function s.initial_effect(c)
 	e5:SetOperation(s.e5evt)
 	c:RegisterEffect(e5)
 end
--- Mentions : "Chaos Form",“Red-Eyes Re-Transmigration”
+-- Mentions : "Chaos Form","Red-Eyes Re-Transmigration"
 s.listed_names={21082832,220000038,id}
 -- Archetype : Red-Eyes, Chaos
 s.listed_series={SET_RED_EYES,SET_CHAOS}

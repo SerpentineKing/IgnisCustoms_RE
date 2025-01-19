@@ -9,19 +9,19 @@ function s.initial_effect(c)
 	c:RegisterEffect(e0)
 	--[[
 	[HOPT]
-	During your Main Phase: Apply these effects in sequence, based on the number of “Red-Eyes” monsters on the field and in the GYs.
+	During your Main Phase: Apply these effects in sequence, based on the number of "Red-Eyes" monsters on the field and in the GYs.
 	• 1+:
-	Add 1 Level 7 or lower “Red-Eyes” monster from your Deck or GY to your hand,
-	also, once this turn, if you Normal or Special Summon a “Red-Eyes” monster(s), you can draw 1 card.
+	Add 1 Level 7 or lower "Red-Eyes" monster from your Deck or GY to your hand,
+	also, once this turn, if you Normal or Special Summon a "Red-Eyes" monster(s), you can draw 1 card.
 	• 2+:
-	You can select 1 “Red-Eyes” monster you control,
+	You can select 1 "Red-Eyes" monster you control,
 	this turn, your opponent cannot activate cards or effects when that monster declares an attack.
 	• 3+:
-	You can select 1 “Red-Eyes” monster you control,
-	Special Summon 1 “Red-Eyes” monster from your hand, Deck, or GY whose Level is less than or equal to that monster's Level,
+	You can select 1 "Red-Eyes" monster you control,
+	Special Summon 1 "Red-Eyes" monster from your hand, Deck, or GY whose Level is less than or equal to that monster's Level,
 	but negate its effects until the end of this turn.
 	• 4+:
-	You can Special Summon 1 “Red-Eyes” monster from your hand, Deck, or GY, ignoring its Summoning conditions.
+	You can Special Summon 1 "Red-Eyes" monster from your hand, Deck, or GY, ignoring its Summoning conditions.
 	]]--
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_TOHAND+CATEGORY_SEARCH+CATEGORY_DRAW)

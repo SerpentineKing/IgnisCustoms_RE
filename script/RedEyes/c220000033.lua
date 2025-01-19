@@ -18,7 +18,7 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	If a Warrior monster(s) you control is destroyed by battle or card effect: You can banish this card from your GY;
-	Special Summon 1 “Red-Eyes” or Warrior monster from your Deck or banishment.
+	Special Summon 1 "Red-Eyes" or Warrior monster from your Deck or banishment.
 	]]--
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,1))
@@ -39,7 +39,7 @@ function s.initial_effect(c)
 	You can Special Summon 1 Level 4 or lower Warrior monster from your hand or GY.
 	•
 	When an attack is declared involving your Warrior monster:
-	You can Special Summon 1 Level 7 or lower “Red-Eyes” monster from your hand or GY in face-up Defense Position,
+	You can Special Summon 1 Level 7 or lower "Red-Eyes" monster from your hand or GY in face-up Defense Position,
 	but its effects are negated, also it cannot attack this turn.
 	]]--
 	local e3a=Effect.CreateEffect(c)

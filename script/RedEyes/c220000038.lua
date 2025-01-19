@@ -5,9 +5,9 @@ function s.initial_effect(c)
 	--[[
 	This card can be used to Ritual Summon any Dragon Ritual Monster (DARK or FIRE) from your hand or Deck.
 	You must also Tribute monsters from your hand or field whose total Levels equal or exceed the Ritual Monster,
-	OR Banish 1 “Red-Eyes Black Dragon” you control and 1 monster your opponent controls.
-	A Ritual Monster that was Ritual Summoned by this card’s effect becomes “Red-Eyes Black Dragon” while on the field,
-	also, if you Tributed or banished a monster that was Special Summoned from the Extra Deck for that monster’s Ritual Summon,
+	OR Banish 1 "Red-Eyes Black Dragon" you control and 1 monster your opponent controls.
+	A Ritual Monster that was Ritual Summoned by this card's effect becomes "Red-Eyes Black Dragon" while on the field,
+	also, if you Tributed or banished a monster that was Special Summoned from the Extra Deck for that monster's Ritual Summon,
 	it gains 1200 ATK.
 	]]--
 	-- local e1=Ritual.CreateProc({handler=c,filter=s.e1fil1,lvtype=RITPROC_GREATER,location=LOCATION_HAND+LOCATION_DECK,stage2=s.e1evt2})
@@ -21,7 +21,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 	--[[
 	[HOPT]
-	You can reveal this card in your hand, then send 1 “Red-Eyes Black Dragon” from your hand or Deck to the GY;
+	You can reveal this card in your hand, then send 1 "Red-Eyes Black Dragon" from your hand or Deck to the GY;
 	reduce the Level of all Ritual Monsters in your hand by 1 until the End Phase.
 	]]--
 	local e2=Effect.CreateEffect(c)

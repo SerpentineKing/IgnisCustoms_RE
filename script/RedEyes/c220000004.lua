@@ -2,10 +2,10 @@
 local s,id,o=GetID()
 -- c220000004
 function s.initial_effect(c)
-	-- 1 Level 7 “Red-Eyes” monster + 1 “Flame Swordsman” monster
+	-- 1 Level 7 "Red-Eyes" monster + 1 "Flame Swordsman" monster
 	Fusion.AddProcMix(c,true,true,s.m1fil,s.m2fil)
 	c:EnableReviveLimit()
-	-- This card’s name becomes “Flame Swordsman” while on the field.
+	-- This card's name becomes "Flame Swordsman" while on the field.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_CHANGE_CODE)
@@ -16,7 +16,7 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	You can target 1 Level 7 or lower Dragon monster in your GY;
-	equip it to this card as an Equip Spell that gives this card ATK equal to that monster’s original ATK.
+	equip it to this card as an Equip Spell that gives this card ATK equal to that monster's original ATK.
 	]]--
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,0))
@@ -31,7 +31,7 @@ function s.initial_effect(c)
 	[HOPT]
 	If this card is destroyed by battle or card effect and sent to the GY: Inflict 1000 damage to your opponent,
 	and if you do, you can return 1 other Fusion Monster from your GY to the Extra Deck,
-	and if you do that, you can Special Summon 1 Level 7 or lower “Red-Eyes” monster, or 1 Level 4 Warrior monster, from your Deck or GY.
+	and if you do that, you can Special Summon 1 Level 7 or lower "Red-Eyes" monster, or 1 Level 4 Warrior monster, from your Deck or GY.
 	]]--
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_DAMAGE+CATEGORY_SPECIAL_SUMMON)

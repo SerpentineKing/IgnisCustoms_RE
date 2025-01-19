@@ -6,7 +6,7 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	When this card is activated:
-	You can send 1 “Red-Eyes” monster from your hand or Deck to the GY.
+	You can send 1 "Red-Eyes" monster from your hand or Deck to the GY.
 	]]--
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TOGRAVE)
@@ -16,7 +16,7 @@ function s.initial_effect(c)
 	e1:SetTarget(s.e1tgt)
 	e1:SetOperation(s.e1evt)
 	c:RegisterEffect(e1)
-	-- All “Red-Eyes” monsters on the field and in your GY become Zombie monsters.
+	-- All "Red-Eyes" monsters on the field and in your GY become Zombie monsters.
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetRange(LOCATION_SZONE)
@@ -27,7 +27,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 	--[[
 	[HOPT]
-	You can target 1 “Red-Eyes” monster in your GY;
+	You can target 1 "Red-Eyes" monster in your GY;
 	Special Summon it,
 	then if that target is a Tuner monster, you can, immediately after this effect resolves,
 	Synchro Summon 1 Synchro Monster from your Extra Deck using monsters you control, including the Summoned monster.
@@ -44,7 +44,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 	--[[
 	[HOPT]
-	If a Synchro Monster(s) that lists a “Red-Eyes” monster as material is Special Summoned to your field (except during the Damage Step):
+	If a Synchro Monster(s) that lists a "Red-Eyes" monster as material is Special Summoned to your field (except during the Damage Step):
 	You can draw 1 card, then send 1 card from your hand to the GY.
 	]]--
 	local e4=Effect.CreateEffect(c)
@@ -61,9 +61,9 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 	--[[
 	[HOPT]
-	When a “Red-Eyes” monster declares an attack:
+	When a "Red-Eyes" monster declares an attack:
 	You can target 1 monster in either GY;
-	equip it to a “Red-Eyes” Synchro Monster you control as an Equip Spell that gives it 200 ATK.
+	equip it to a "Red-Eyes" Synchro Monster you control as an Equip Spell that gives it 200 ATK.
 	]]--
 	local e5=Effect.CreateEffect(c)
 	e5:SetDescription(aux.Stringid(id,3))
@@ -96,7 +96,7 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	If this card is sent to the GY by card effect: You can banish this card from your GY;
-	Special Summon 1 “Red-Eyes” monster from your GY.
+	Special Summon 1 "Red-Eyes" monster from your GY.
 	]]--
 	local e7=Effect.CreateEffect(c)
 	e7:SetDescription(aux.Stringid(id,6))

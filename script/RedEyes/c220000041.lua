@@ -6,7 +6,7 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	When this card is activated:
-	You can add 1 “Red-Eyes” monster that cannot be Normal Summoned/Set from your Deck or GY to your hand.
+	You can add 1 "Red-Eyes" monster that cannot be Normal Summoned/Set from your Deck or GY to your hand.
 	]]--
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
@@ -17,7 +17,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 	--[[
 	[SOPT]
-	Once per turn: You can target 1 “Red-Eyes” monster you control; apply the following effects.
+	Once per turn: You can target 1 "Red-Eyes" monster you control; apply the following effects.
 	•
 	It gains 1000 ATK.
 	•
@@ -37,7 +37,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 	--[[
 	[HOPT]
-	You can send 1 “Red-Eyes Black Dragon” from your hand or Deck to the GY,
+	You can send 1 "Red-Eyes Black Dragon" from your hand or Deck to the GY,
 	and if you do, Special Summon it.
 	]]--
 	local e3=Effect.CreateEffect(c)
@@ -53,7 +53,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 	--[[
 	[HOPT]
-	When your opponent activates a monster effect that targets a “Red-Eyes” monster you control:
+	When your opponent activates a monster effect that targets a "Red-Eyes" monster you control:
 	You can target 1 face-up monster your opponent controls;
 	inflict damage to your opponent equal to the original ATK of that target,
 	and if you do, return that target to the hand.
@@ -74,7 +74,7 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	You can banish this card from your GY;
-	add 1 “Red-Eyes” Spell/Trap from your Deck to your hand.
+	add 1 "Red-Eyes" Spell/Trap from your Deck to your hand.
 	]]--
 	local e5=Effect.CreateEffect(c)
 	e5:SetDescription(aux.Stringid(id,4))

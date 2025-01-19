@@ -9,13 +9,13 @@ function s.initial_effect(c)
 	c:RegisterEffect(e0)
 	--[[
 	[SOPT]
-	Once per turn: You can banish 1 “Red-Eyes Black Dragon” from your hand, Deck, or GY, then apply 1 of the following effects.
+	Once per turn: You can banish 1 "Red-Eyes Black Dragon" from your hand, Deck, or GY, then apply 1 of the following effects.
 	•
-	This turn, each time a “Red-Eyes” monster(s) is Special Summoned from your GY to your field,
-	increase the ATK of all “Red-Eyes” monsters you currently control by the number of “Red-Eyes” monsters on the field x 400.
-	Also, until the end of this turn, monsters your opponent controls lose 400 ATK for each “Red-Eyes” monster on the field.
+	This turn, each time a "Red-Eyes" monster(s) is Special Summoned from your GY to your field,
+	increase the ATK of all "Red-Eyes" monsters you currently control by the number of "Red-Eyes" monsters on the field x 400.
+	Also, until the end of this turn, monsters your opponent controls lose 400 ATK for each "Red-Eyes" monster on the field.
 	•
-	This turn, each time your “Red-Eyes” monster destroys an opponent’s monster by battle,
+	This turn, each time your "Red-Eyes" monster destroys an opponent's monster by battle,
 	or inflicts battle damage to your opponent by a direct attack,
 	draw 1 card.
 	•

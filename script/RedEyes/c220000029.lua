@@ -6,8 +6,8 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	When this card is activated:
-	You can add 1 DARK Machine monster, or 1 monster that mentions “Max Metalmorph”,
-	and 1 “Metalmorph” Trap from your Deck or GY to your hand.
+	You can add 1 DARK Machine monster, or 1 monster that mentions "Max Metalmorph",
+	and 1 "Metalmorph" Trap from your Deck or GY to your hand.
 	]]--
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
@@ -18,10 +18,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 	--[[
 	[HOPT]
-	At the start of the Damage Step, if your “Red-Eyes” or Machine monster battles:
+	At the start of the Damage Step, if your "Red-Eyes" or Machine monster battles:
 	You can target 1 monster in either GY;
-	equip it to 1 “Red-Eyes” or Machine monster you control as an Equip Spell,
-	and if you do, the equipped monster gains ATK/DEF equal to that target’s ATK/DEF until the end of this Battle Phase.
+	equip it to 1 "Red-Eyes" or Machine monster you control as an Equip Spell,
+	and if you do, the equipped monster gains ATK/DEF equal to that target's ATK/DEF until the end of this Battle Phase.
 	]]--
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,1))
@@ -54,7 +54,7 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	If this card you control is destroyed by card effect and sent to the GY: You can banish this card from your GY;
-	Special Summon 1 DARK Machine or “Red-Eyes” monster from your hand or GY.
+	Special Summon 1 DARK Machine or "Red-Eyes" monster from your hand or GY.
 	]]--
 	local e4=Effect.CreateEffect(c)
 	e4:SetDescription(aux.Stringid(id,4))

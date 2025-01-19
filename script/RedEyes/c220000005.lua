@@ -2,13 +2,13 @@
 local s,id,o=GetID()
 -- c220000005
 function s.initial_effect(c)
-	-- 1 Level 7 “Red-Eyes” monster + 1 Level 8 Warrior monster
+	-- 1 Level 7 "Red-Eyes" monster + 1 Level 8 Warrior monster
 	Fusion.AddProcMix(c,true,true,s.m1fil,s.m2fil)
 	c:EnableReviveLimit()
 	--[[
 	When this card is Summoned:
-	You can send 1 “The Claw of Hermos” and 1 Dragon monster from your Deck to the GY;
-	equip 1 “Red-Eyes Black Dragon Sword” from your Extra Deck to this card.
+	You can send 1 "The Claw of Hermos" and 1 Dragon monster from your Deck to the GY;
+	equip 1 "Red-Eyes Black Dragon Sword" from your Extra Deck to this card.
 	]]--
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -48,8 +48,8 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2c)
 	--[[
 	[HOPT]
-	If a “Red-Eyes Black Dragon Sword” equipped to this card
-	is sent from your field to the GY by an opponent’s card effect (except during the Damage Step):
+	If a "Red-Eyes Black Dragon Sword" equipped to this card
+	is sent from your field to the GY by an opponent's card effect (except during the Damage Step):
 	You can target 1 card your opponent controls; destroy it.
 	]]--
 	local e3=Effect.CreateEffect(c)
@@ -66,7 +66,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 	--[[
 	[HOPT]
-	If this card is destroyed by battle or an opponent’s card effect and sent to the GY:
+	If this card is destroyed by battle or an opponent's card effect and sent to the GY:
 	You can banish this card from your GY; return all Fusion and Xyz Monsters in your GY to the Extra Deck.
 	]]--
 	local e4=Effect.CreateEffect(c)

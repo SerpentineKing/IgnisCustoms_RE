@@ -13,7 +13,7 @@ function s.initial_effect(c)
 	•
 	Add 1 Level 5 or lower Spellcaster monster from your Deck to your hand.
 	•
-	Add 1 “Fusion” or “Ritual” card from your Deck or GY to your hand.
+	Add 1 "Fusion" card, 1 Ritual Monster, or 1 Ritual Spell, from your Deck or GY to your hand.
 	]]--
 	local e1a=Effect.CreateEffect(c)
 	e1a:SetDescription(aux.Stringid(id,0))
@@ -39,10 +39,10 @@ function s.initial_effect(c)
 	If this card is sent from your field to the GY:
 	You can banish this card and 1 Spellcaster monster from your GY; apply 1 of the following effects.
 	•
-	Special Summon 1 “Red-Eyes" monster from your hand or GY, ignoring its Summoning conditions,
+	Special Summon 1 "Red-Eyes" monster from your hand or GY, ignoring its Summoning conditions,
 	but it cannot attack this turn.
 	•
-	Fusion Summon 1 Fusion Monster that lists a “Red-Eyes” monster as material from your Extra Deck,
+	Fusion Summon 1 Fusion Monster that lists a "Red-Eyes" monster as material from your Extra Deck,
 	by shuffling Fusion Materials listed on it from your GY into the Deck/Extra Deck.
 	]]--
 	local e2=Effect.CreateEffect(c)
@@ -83,7 +83,7 @@ function s.e1aevt(e,tp)
 	end
 end
 function s.e1fil2(c)
-	return (c:IsSetCard(SET_FUSION)) --or c:IsSetCard(SET_RITUAL)) TODO
+	return (c:IsSetCard(SET_FUSION) or c:IsRitualMonster() or c:IsRitualSpell())
 	and c:IsAbleToHand()
 end
 function s.e1btgt(e,tp,eg,ep,ev,re,r,rp,chk)

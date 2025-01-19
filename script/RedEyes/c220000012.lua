@@ -6,7 +6,7 @@ function s.initial_effect(c)
 	c:EnableReviveLimit()
 	--[[
 	[HOPT]
-	Must be Special Summoned (from your hand) by Tributing 1 Level 7 or higher “Red-Eyes” monster from your hand or field,
+	Must be Special Summoned (from your hand) by Tributing 1 Level 7 or higher "Red-Eyes" monster from your hand or field,
 	and cannot be Special Summoned by other ways.
 	]]--
 	local e1=Effect.CreateEffect(c)
@@ -61,8 +61,8 @@ function s.initial_effect(c)
 	e4:SetOperation(s.e4evt)
 	c:RegisterEffect(e4)
 	--[[
-	When this card destroys an opponent’s Special Summoned monster by battle:
-	Inflict damage to your opponent equal to the destroyed monster’s original ATK.
+	When this card destroys an opponent's Special Summoned monster by battle:
+	Inflict damage to your opponent equal to the destroyed monster's original ATK.
 	]]--
 	local e5=Effect.CreateEffect(c)
 	e5:SetCategory(CATEGORY_DAMAGE)

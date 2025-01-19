@@ -2,11 +2,11 @@
 local s,id,o=GetID()
 -- c220000002
 function s.initial_effect(c)
-	-- You can Ritual Summon this card with “Chaos Form” or “Red-Eyes Re-Transmigration”.
+	-- You can Ritual Summon this card with "Chaos Form" or "Red-Eyes Re-Transmigration".
 	c:EnableReviveLimit()
 	--[[
 	[SOPT]
-	Once per turn, when a card or effect is activated, except “Lord of Red Chaos” (Quick Effect):
+	Once per turn, when a card or effect is activated, except "Lord of Red Chaos" (Quick Effect):
 	You can target 1 monster on the field; destroy it.
 	]]--
 	local e1=Effect.CreateEffect(c)
@@ -23,7 +23,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 	--[[
 	[SOPT]
-	Once per turn, when a card or effect is activated, except “Lord of Red Chaos” (Quick Effect):
+	Once per turn, when a card or effect is activated, except "Lord of Red Chaos" (Quick Effect):
 	You can target 1 Spell/Trap on the field; destroy it.
 	]]--
 	local e2=e1:Clone()
@@ -34,8 +34,8 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	If this card is sent from the field to the GY:
-	You can Special Summon 1 Xyz Monster from your Extra Deck,
-	and if you do, attach this card and 1 Level 7 “Red-Eyes” monster from your GY to it as material.
+	You can Special Summon 1 "Red-Eyes" Xyz Monster from your Extra Deck,
+	and if you do, attach this card and 1 Level 7 "Red-Eyes" monster from your GY to it as material.
 	]]--
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(id,2))
@@ -49,7 +49,7 @@ function s.initial_effect(c)
 	e3:SetOperation(s.e3evt)
 	c:RegisterEffect(e3)
 end
--- Mentions : "Chaos Form",“Red-Eyes Re-Transmigration”
+-- Mentions : "Chaos Form","Red-Eyes Re-Transmigration"
 s.listed_names={21082832,220000038,id}
 -- Archetype : Red-Eyes, Chaos
 s.listed_series={SET_RED_EYES,SET_CHAOS}
@@ -107,6 +107,7 @@ function s.e3con(e)
 end
 function s.e3fil1(c,e,tp)
 	return c:IsType(TYPE_XYZ)
+	and c:IsSetCard(SET_RED_EYES)
 	and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 	and Duel.GetLocationCountFromEx(tp,tp,nil,c)>0
 end

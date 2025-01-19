@@ -1,4 +1,4 @@
--- Black Dragon’s Dominance
+-- Black Dragon's Dominance
 local s,id,o=GetID()
 -- c220000039
 function s.initial_effect(c)
@@ -7,7 +7,7 @@ function s.initial_effect(c)
 	[HOPT]
 	When this card is activated: Activate this effect;
 	Halve the ATK of all monsters your opponent controls during each Battle Phase this turn.
-	Your opponent cannot activate cards or effect in response to this card’s activation.
+	Your opponent cannot activate cards or effect in response to this card's activation.
 	]]--
 	-- TODO : Fix ATK to Halve
 	local e1=Effect.CreateEffect(c)
@@ -18,7 +18,7 @@ function s.initial_effect(c)
 	e1:SetTarget(s.e1tgt)
 	e1:SetOperation(s.e1evt)
 	c:RegisterEffect(e1)
-	-- The first time each “Red-Eyes” monster you control would be destroyed by battle or card effect, it is not destroyed.
+	-- The first time each "Red-Eyes" monster you control would be destroyed by battle or card effect, it is not destroyed.
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetCode(EFFECT_INDESTRUCTABLE_COUNT)

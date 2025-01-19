@@ -5,9 +5,9 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	If this card is Normal or Special Summoned:
-	You can Special Summon 1 Level 4 or lower “Red-Eyes” or Warrior monster from your Deck or GY, except “Axe Raider with Eyes of Red”,
+	You can Special Summon 1 Level 4 or lower "Red-Eyes" or Warrior monster from your Deck or GY, except "Axe Raider with Eyes of Red",
 	also, you cannot Special Summon monsters from the Extra Deck for the rest of this turn,
-	except “Red-Eyes” monsters or monsters that list a “Red-Eyes” monster as material.
+	except "Red-Eyes" monsters or monsters that list a "Red-Eyes" monster as material.
 	]]--
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -26,7 +26,7 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	If this card is sent from the field to the GY:
-	You can target 5 other cards that have “Red-Eyes” in their text in your GY and/or banishment;
+	You can target 5 other cards that have "Red-Eyes" in their text in your GY and/or banishment;
 	shuffle them into the Deck, and if you do, draw 2 cards.
 	]]--
 	local e2=Effect.CreateEffect(c)
