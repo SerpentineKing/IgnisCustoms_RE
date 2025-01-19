@@ -178,20 +178,25 @@ function s.e4cst(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Release(c,REASON_COST)
 end
 function s.e4con(e,tp)
-	local c=Duel.GetAttackTarget()
+	local a=Duel.GetAttacker()
+	local d=Duel.GetAttackTarget()
+
+	local tc=a
 	
-	if not c then return false end
-	
-	if c:IsControler(1-tp) then
-		c=Duel.GetAttacker()
+	if a:IsControler(1-tp) then
+		if d and d:IsControler(tp) then
+			tc=d
+		else
+			return false
+		end
 	end
 
-	e:SetLabelObject(c)
+	e:SetLabelObject(tc)
 
-	return (c and c~=e:GetHandler())
-	and c:IsRelateToBattle()
-	and c:IsSetCard(SET_RED_EYES)
-	and c:IsMonster()
+	return (tc and tc~=e:GetHandler())
+	and tc:IsRelateToBattle()
+	and tc:IsSetCard(SET_RED_EYES)
+	and tc:IsMonster()
 end
 function s.e4evt(e,tp)
 	local tc=e:GetLabelObject()
