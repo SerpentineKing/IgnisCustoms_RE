@@ -166,11 +166,16 @@ end
 function s.e3evt(e,tp)
 	local c=e:GetHandler()
 
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RTOHAND)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
 
 	local g=Duel.SelectMatchingCard(tp,s.e3fil,tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,1,c)
 	if g:GetCount()>0 then
 		local tc=g:GetFirst()
+
+		local b1=tc:IsAbleToHand()
+		local b2=tc:IsAbleToDeck()
+
+		if not (b1 or b2) then return end
 
 		local op=1
 		if b1 and b2 then
