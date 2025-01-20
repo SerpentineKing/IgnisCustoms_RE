@@ -97,7 +97,7 @@ function s.e1evt(e,tp)
 
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
 
-	local g=Duel.SelectMatchingCard(tp,Card.IsAbleToDeck,tp,LOCATION_HAND,0,1,1,nil)
+	local g=Duel.SelectMatchingCard(tp,Card.IsAbleToDeck,tp,LOCATION_HAND,0,1,1,c)
 	if g:GetCount()>0 and Duel.SendtoDeck(g,nil,SEQ_DECKSHUFFLE,REASON_EFFECT)>0 then
 		Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)
 	end
@@ -166,7 +166,7 @@ end
 function s.e3evt(e,tp)
 	local c=e:GetHandler()
 
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOHAND)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RTOHAND)
 
 	local g=Duel.SelectMatchingCard(tp,s.e3fil,tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,1,c)
 	if g:GetCount()>0 then
@@ -207,7 +207,7 @@ end
 function s.e4evt(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	
-	if not c:IsRelateToEffect(e) then return end
+	-- if not c:IsRelateToEffect(e) then return end
 	
 	local a=Duel.GetAttacker()
 
