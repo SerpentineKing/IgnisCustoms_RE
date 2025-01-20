@@ -222,7 +222,7 @@ function s.e4evt(e,tp,eg,ep,ev,re,r,rp)
 		e4b:SetType(EFFECT_TYPE_SINGLE)
 		e4b:SetCode(EFFECT_SET_ATTACK_FINAL)
 		e4b:SetValue(0)
-		e4b:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+RESET_DRAW,2)
+		e4b:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_DRAW,2)
 		a:RegisterEffect(e4b)
 
 		Duel.Damage(1-tp,500,REASON_EFFECT)
