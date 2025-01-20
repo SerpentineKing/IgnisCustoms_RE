@@ -93,6 +93,8 @@ function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,nil,1,tp,LOCATION_HAND)
 end
 function s.e1evt(e,tp)
+	local c=e:GetHandler()
+
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
 
 	local g=Duel.SelectMatchingCard(tp,Card.IsAbleToDeck,tp,LOCATION_HAND,0,1,1,nil)
