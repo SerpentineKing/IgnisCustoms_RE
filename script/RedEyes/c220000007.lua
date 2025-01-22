@@ -177,7 +177,7 @@ function s.e2evt(e,tp)
 		end
 	end
 end
-function s.e3fil(c)
+function s.e3fil(c,tp)
 	return c:IsSetCard(SET_RED_EYES)
 	and c:IsLevelAbove(7)
 	and c:IsMonster()
@@ -185,9 +185,9 @@ function s.e3fil(c)
 end
 function s.e3cst(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
-		return Duel.CheckReleaseGroupCost(tp,s.e3fil,1,false,nil,nil)
+		return Duel.CheckReleaseGroupCost(tp,s.e3fil,1,false,nil,nil,tp)
 	end
-	local sg=Duel.SelectReleaseGroupCost(tp,s.e3fil,1,1,false,nil,nil)
+	local sg=Duel.SelectReleaseGroupCost(tp,s.e3fil,1,1,false,nil,nil,tp)
 	Duel.Release(sg,REASON_COST)
 end
 function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
