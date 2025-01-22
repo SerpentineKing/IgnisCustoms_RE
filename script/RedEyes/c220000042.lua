@@ -52,17 +52,20 @@ function s.e1fil1(c,e,tp)
 	and c:GetControler()==tp
 end
 function s.e1con(e,tp,eg,ep,ev,re,r,rp)
-	local ch=ev-1
-	if ch==0 or ep==tp then return false end
-	
-	local ch_player,ch_eff=Duel.GetChainInfo(ch,CHAININFO_TRIGGERING_PLAYER,CHAININFO_TRIGGERING_EFFECT)
-	local ch_c=ch_eff:GetHandler()
+	local ch_pl,ch_con,ch_cds=Duel.GetChainInfo(0,CHAININFO_TRIGGERING_PLAYER,CHAININFO_TRIGGERING_CONTROLER,CHAININFO_TRIGGERING_SETCODES)
+
+	local req=false
+	for _,setcode in ipairs(ch_cds) do
+		if (SET_RED_EYES&setcode)==SET_RED_EYES then
+			req=true
+		end
+	end
 
 	return rp~=tp
 	and Duel.IsChainNegatable(ev)
 	and (re:GetCode()==EVENT_SUMMON_SUCCESS
 	or re:GetCode()==EVENT_SPSUMMON_SUCCESS)
-	and (ch_player==tp and ch_c:IsSetCard(SET_RED_EYES) and ch_c:IsMonster())
+	and (ch_con==tp and req)
 end
 function s.e1fil2(c)
 	return c:IsAbleToDeck()
