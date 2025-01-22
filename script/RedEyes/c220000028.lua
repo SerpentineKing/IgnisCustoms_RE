@@ -63,13 +63,14 @@ function s.e1evt(e,tp)
 	local c=e:GetHandler()
 	if op==1 or op==3 then
 		local e1b=Effect.CreateEffect(c)
-		e1b:SetType(EFFECT_TYPE_FIELD)
+		e1b:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 		e1b:SetCode(EVENT_BATTLE_DESTROYING)
+		e1b:SetRange(LOCATION_SZONE)
 		e1b:SetCountLimit(1)
 		e1b:SetCondition(s.e1bcon)
 		e1b:SetOperation(s.e1bevt)
 		e1b:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
-		Duel.RegisterEffect(e1b,tp)
+		c:RegisterEffect(e1b)
 	end
 	if op==2 or op==3 then
 		local e1c1=Effect.CreateEffect(c)
