@@ -38,8 +38,14 @@ function s.initial_effect(c)
 		Duel.RegisterEffect(ge1,0)
 	end)
 	-- Negate the effect of any card that would increase the ATK of a monster your opponent controls.
-	-- TODO
-	aux.DoubleSnareValidity(c,LOCATION_MZONE)
+	local e4=Effect.CreateEffect(c)
+	e4:SetType(EFFECT_TYPE_FIELD)
+	e4:SetCode(EFFECT_IMMUNE_EFFECT)
+	e4:SetRange(LOCATION_MZONE)
+	e4:SetTargetRange(0,LOCATION_MZONE)
+	e4:SetTarget(s.e4tgt)
+	e4:SetValue(s.e4val)
+	c:RegisterEffect(e4)
 	--[[
 	If this card is destroyed by card effect:
 	Destroy 1 Spell/Trap your opponent controls.
@@ -87,6 +93,32 @@ end
 function s.e3tgt(e,c)
 	local ec=e:GetHandler()
 	return c~=ec and ec:GetAttackAnnouncedCount()>1
+end
+function s.e4tgt(e,c)
+	return c:IsFaceup()
+end
+function s.e4val(e,te)
+	local res=false
+
+	-- TODO : Fix
+	local tc=e:GetHandler()
+	local v=te:GetValue()
+
+	if te:GetCode()==EFFECT_UPDATE_ATTACK and v then
+		if type(v)=="number" and v>0 then
+			res=true
+		end
+	elseif te:IsCode()==EFFECT_SET_BASE_ATTACK and v then
+		if type(v)=="number" and v>tc:GetBaseAttack() then
+			res=true
+		end
+	elseif (te:IsCode()==EFFECT_SET_ATTACK or te:IsCode()==EFFECT_SET_ATTACK_FINAL) and v then
+		if type(v)=="number" and v>tc:GetAttack() then
+			res=true
+		end
+	end
+
+	return res
 end
 function s.e5con(e,tp)
 	local c=e:GetHandler()
