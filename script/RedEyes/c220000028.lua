@@ -83,14 +83,14 @@ function s.e1evt(e,tp)
 
 		local e1c2=Effect.CreateEffect(c)
 		e1c2:SetCategory(CATEGORY_REMOVE)
-		e1c2:SetType(EFFECT_TYPE_FIELD)
+		e1c2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 		e1c2:SetCode(EVENT_BE_BATTLE_TARGET)
-		e1c2:SetTargetRange(LOCATION_MZONE,0)
+		e1c2:SetRange(LOCATION_SZONE)
 		e1c2:SetCondition(s.e1c2con)
 		e1c2:SetTarget(s.e1c2tgt)
 		e1c2:SetOperation(s.e1c2evt)
 		e1c2:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
-		Duel.RegisterEffect(e1c2,tp)
+		c:RegisterEffect(e1c2)
 	end
 end
 function s.e1bfil(c,tp)
