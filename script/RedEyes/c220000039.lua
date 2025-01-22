@@ -66,16 +66,6 @@ function s.e1evt(e,tp)
 	if not c:IsRelateToEffect(e) then return end
 
 	local e1b=Effect.CreateEffect(c)
-	e1b:SetCategory(CATEGORY_ATKCHANGE)
-	e1b:SetType(EFFECT_TYPE_FIELD)
-	e1b:SetCode(EVENT_PHASE+PHASE_BATTLE_START)
-	e1b:SetCountLimit(1)
-	e1b:SetOperation(s.e1bevt)
-	e1b:SetReset(RESET_PHASE+PHASE_END)
-	Duel.RegisterEffect(e1b,tp)
-
-	--[[
-	local e1b=Effect.CreateEffect(c)
 	e1b:SetType(EFFECT_TYPE_FIELD)
 	e1b:SetCode(EFFECT_SET_ATTACK_FINAL)
 	e1b:SetTargetRange(0,LOCATION_MZONE)
@@ -83,24 +73,9 @@ function s.e1evt(e,tp)
 	e1b:SetValue(s.e1bval)
 	e1b:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e1b,tp)
-	]]--
 end
 function s.e1bval(e,re)
 	return e:GetHandler():GetAttack()/2
-end
-function s.e1bevt(e,tp)
-	local c=e:GetHandler()
-	local g=Duel.GetMatchingGroup(Card.IsFaceup,tp,0,LOCATION_MZONE,nil)
-
-	local tc=g:GetFirst()
-	for tc in aux.Next(g) do
-		local e1b1=Effect.CreateEffect(c)
-		e1b1:SetType(EFFECT_TYPE_SINGLE)
-		e1b1:SetCode(EFFECT_SET_ATTACK_FINAL)
-		e1b1:SetValue(tc:GetAttack()/2)
-		e1b1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_BATTLE)
-		tc:RegisterEffect(e1b1)
-	end
 end
 function s.e2val(e,re,r)
 	if (r&REASON_BATTLE+REASON_EFFECT)~=0 then
