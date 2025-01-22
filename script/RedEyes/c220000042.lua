@@ -52,6 +52,9 @@ function s.e1fil1(c,e,tp)
 	and c:GetControler()==tp
 end
 function s.e1con(e,tp,eg,ep,ev,re,r,rp)
+	local ch=ev-1
+	if ch==0 or ep==tp then return false end
+	
 	local ch_player,ch_eff=Duel.GetChainInfo(ch,CHAININFO_TRIGGERING_PLAYER,CHAININFO_TRIGGERING_EFFECT)
 	local ch_c=ch_eff:GetHandler()
 
