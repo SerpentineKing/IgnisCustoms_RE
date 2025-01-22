@@ -52,11 +52,14 @@ function s.e1fil1(c,e,tp)
 	and c:GetControler()==tp
 end
 function s.e1con(e,tp,eg,ep,ev,re,r,rp)
+	local ch_player,ch_eff=Duel.GetChainInfo(ch,CHAININFO_TRIGGERING_PLAYER,CHAININFO_TRIGGERING_EFFECT)
+	local ch_c=ch_eff:GetHandler()
+
 	return rp~=tp
 	and Duel.IsChainNegatable(ev)
 	and (re:GetCode()==EVENT_SUMMON_SUCCESS
 	or re:GetCode()==EVENT_SPSUMMON_SUCCESS)
-	and eg:IsExists(s.e1fil1,1,nil)
+	and (ch_player==tp and ch_c:IsSetCard(SET_RED_EYES) and ch_c:IsMonster())
 end
 function s.e1fil2(c)
 	return c:IsAbleToDeck()
