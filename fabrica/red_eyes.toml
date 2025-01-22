@@ -18,6 +18,10 @@ code = 0xcf
 name = "Jinzo"
 code = 0xbc
 
+[set.harpie]
+name = "Harpie"
+code = 0x64
+
 [[card]]
 id = 220000001
 setnumber = "IPRE-EN001"
@@ -733,7 +737,7 @@ id = 220000047
 setnumber = "IPRE-EN047"
 ot = "custom"
 name = "Red-Eyes Harpie Lady, Nightmare in the Darkness"
-set = "red_eyes"
+set = "harpie red_eyes"
 attribute = "dark"
 race = "winged-beast"
 type = "monster effect"

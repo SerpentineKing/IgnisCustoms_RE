@@ -23,6 +23,6 @@ function s.initial_effect(c)
 	and if you do, gain LP equal to half the combined ATK of those destroyed monsters.
 	]]--
 end
--- Archetype : Red-Eyes
-s.listed_series={SET_RED_EYES}
+-- Archetype : Red-Eyes, Harpie
+s.listed_series={SET_RED_EYES,SET_HARPIE}
 -- Helpers

@@ -87,12 +87,12 @@ s.listed_series={SET_RED_EYES}
 -- Helpers
 function s.e1bfil(c)
 	return c:IsSetCard(SET_RED_EYES)
-	and c:IsNotTuner()
+	and not c:IsType(TYPE_TUNER)
 end
 function s.e1btgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then
 		return chkc:IsLocation(LOCATION_MZONE)
-		and chkc:IsNotTuner()
+		and not chkc:IsType(TYPE_TUNER)
 		and chkc:IsSetCard(SET_RED_EYES)
 		and chkc:IsFaceup()
 	end
@@ -119,7 +119,7 @@ function s.e1bevt(e,tp)
 end
 function s.e1cfil1(c)
 	return c:IsSetCard(SET_RED_EYES)
-	and c:IsNotTuner()
+	and not c:IsType(TYPE_TUNER)
 	and c:IsLevelBelow(7)
 	and c:IsMonster()
 	and c:IsDiscardable()
@@ -133,7 +133,7 @@ function s.e1ccst(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.e1cfil2(c)
 	return c:IsSetCard(SET_RED_EYES)
-	and not c:IsNotTuner()
+	and c:IsType(TYPE_TUNER)
 	and c:IsMonster()
 	and c:IsAbleToHand()
 end

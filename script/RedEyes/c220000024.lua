@@ -106,7 +106,6 @@ function s.e3cst(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.e3con(e,tp,eg,ep,ev,re,r)
 	return (r&REASON_EFFECT+REASON_BATTLE)~=0
-	and e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
 end
 function s.e3fil(c)
 	return ((c:IsSetCard(SET_RED_EYES) and c:IsMonster()) or c:IsRace(RACE_SPELLCASTER))

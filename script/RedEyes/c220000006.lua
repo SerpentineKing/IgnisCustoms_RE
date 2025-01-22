@@ -129,7 +129,6 @@ function s.e6fil(c,e,tp)
 end
 function s.e6con(e,tp,eg,ep,ev,re,r)
 	return (r&REASON_EFFECT+REASON_BATTLE)~=0
-	and e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
 end
 function s.e6tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then

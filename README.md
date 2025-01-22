@@ -31,6 +31,8 @@ Code Sequence : # c220000001
 - IsSetCard : 0xfe2
 # Jinzo Groups
 - s.listed_series={SET_JINZO} [0xbc]
+# Harpie Groups
+- s.listed_series={SET_HARPIE} [0x64]
 # Metalmorph Cards
 - s.listed_names={CARD_MAX_METALMORPH,68540058,id}
 - IsSetCard : SET_METALMORPH
