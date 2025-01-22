@@ -8,7 +8,7 @@ function s.initial_effect(c)
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_SUMMON_PROC)
-	e1:SetCondition(s.ntcon)
+	e1:SetCondition(s.e1con)
 	c:RegisterEffect(e1)
 	--[[
 	[SOPT]
