@@ -108,11 +108,11 @@ function s.e4val(e,te)
 		if type(v)=="number" and v>0 then
 			res=true
 		end
-	elseif te:IsCode()==EFFECT_SET_BASE_ATTACK and v then
+	elseif te:GetCode()==EFFECT_SET_BASE_ATTACK and v then
 		if type(v)=="number" and v>tc:GetBaseAttack() then
 			res=true
 		end
-	elseif (te:IsCode()==EFFECT_SET_ATTACK or te:IsCode()==EFFECT_SET_ATTACK_FINAL) and v then
+	elseif (te:GetCode()==EFFECT_SET_ATTACK or te:GetCode()==EFFECT_SET_ATTACK_FINAL) and v then
 		if type(v)=="number" and v>tc:GetAttack() then
 			res=true
 		end
