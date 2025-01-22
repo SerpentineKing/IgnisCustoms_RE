@@ -14,17 +14,16 @@ function s.initial_effect(c)
 	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetCategory(CATEGORY_NEGATE+CATEGORY_DAMAGE)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
-	e1:SetCode(EVENT_CHAINING) -- EVENT_CHAINING
+	e1:SetCode(EVENT_SUMMON_SUCCESS) -- EVENT_CHAINING
 	e1:SetCountLimit(1,{id,0})
 	e1:SetCondition(s.e1con)
 	e1:SetTarget(s.e1tgt)
 	e1:SetOperation(s.e1evt)
 	c:RegisterEffect(e1)
-	--[[
+	
 	local e1b=e1:Clone()
 	e1b:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e1b)
-	]]--
 	--[[
 	[HOPT]
 	If a "Red-Eyes" monster(s) you control that cannot be Normal Summoned/Set is sent to your GY or banishment:
@@ -51,28 +50,26 @@ end
 -- Archetype : Red-Eyes
 s.listed_series={SET_RED_EYES}
 -- Helpers
-function s.e1fil1(c,e,tp)
+function s.e1fil1(c,tp)
 	return c:IsSetCard(SET_RED_EYES)
 	and c:IsMonster()
 	and c:GetControler()==tp
 end
 function s.e1con(e,tp,eg,ep,ev,re,r,rp)
-	--[[
 	local ch=Duel.GetCurrentChain()
 
 	local req=false
 	if ch>=1 then
-		local te=Duel.GetChainInfo(ch-1,CHAININFO_TRIGGERING_EFFECT)
+		local ch_ev=ch-1
+		local ch_p,ch_e=Duel.GetChainInfo(tev,CHAININFO_TRIGGERING_PLAYER,CHAININFO_TRIGGERING_EFFECT)
 
-		req=true
+		if (ch_e:GetCode()==EVENT_SUMMON_SUCCESS or ch_e:GetCode()==EVENT_SPSUMMON_SUCCESS) and Duel.IsChainNegatable(ch_ev) and ch_p~=tp then
+			req=true
+		end
 	end
-	]]--
 
-	return rp~=tp
-	and Duel.IsChainNegatable(ev)
-	and (re:GetCode()==EVENT_SUMMON_SUCCESS
-	or re:GetCode()==EVENT_SPSUMMON_SUCCESS)
-	and eg:IsExists(s.e1fil1,1,nil,e,tp)
+	return req
+	and eg:IsExists(s.e1fil1,1,nil,tp)
 end
 function s.e1fil2(c)
 	return c:IsAbleToDeck()
@@ -91,6 +88,8 @@ function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 end
 function s.e1evt(e,tp,eg,ep,ev,re)
+	Debug.ShowHint("CALL")
+	--[[
 	local rc=re:GetHandler()
 	if Duel.NegateActivation(ev) and rc:IsRelateToEffect(re) then
 		local g=Duel.GetMatchingGroup(s.e1fil2,tp,0,LOCATION_ONFIELD,nil)
@@ -114,6 +113,7 @@ function s.e1evt(e,tp,eg,ep,ev,re)
 			end
 		end
 	end
+	]]--
 end
 function s.e2fil(c,e,tp)
 	return c:IsSetCard(SET_RED_EYES)
