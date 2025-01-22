@@ -56,6 +56,7 @@ function s.e1con(e,tp,eg,ep,ev,re,r,rp)
 	and Duel.IsChainNegatable(ev)
 	and (re:GetCode()==EVENT_SUMMON_SUCCESS
 	or re:GetCode()==EVENT_SPSUMMON_SUCCESS)
+	and eg:IsExists(s.e1fil1,1,nil)
 end
 function s.e1fil2(c)
 	return c:IsAbleToDeck()
