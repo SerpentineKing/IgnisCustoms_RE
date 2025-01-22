@@ -98,20 +98,20 @@ function s.e3val(e,te)
 	local res=0
 
 	local c=e:GetHandler()
+	local v=te:GetValue()
 
-	if te:GetCode()==EFFECT_UPDATE_ATTACK then
-		local v=te:GetValue()
-		if v and v<0 then
+	Debug.ShowHint(""..c:GetBaseAttack())
+
+	if te:GetCode()==EFFECT_UPDATE_ATTACK and v then
+		if type(v)=="number" and v<0 then
 			res=1
 		end
-	elseif te:IsCode()==EFFECT_SET_BASE_ATTACK then
-		local v=te:GetValue()
-		if v and v<c:GetBaseAttack() then
+	elseif te:IsCode()==EFFECT_SET_BASE_ATTACK and v then
+		if type(v)=="number" and v<c:GetBaseAttack() then
 			res=1
 		end
-	elseif (te:IsCode()==EFFECT_SET_ATTACK or te:IsCode()==EFFECT_SET_ATTACK_FINAL) then
-		local v=te:GetValue()
-		if v and v<c:GetAttack() then
+	elseif (te:IsCode()==EFFECT_SET_ATTACK or te:IsCode()==EFFECT_SET_ATTACK_FINAL) and v then
+		if type(v)=="number" and v<c:GetAttack() then
 			res=1
 		end
 	end
