@@ -730,7 +730,7 @@ level = 4
 effect = '''
 (This card is always treated as a "Red-Eyes" card.)
 If this card is Normal or Special Summoned: You can target 1 Level 1 Dragon monster in your GY; add it to your hand. You can only use this effect of "Little-Winguard with Eyes of Red" once per turn. Once per turn, when your opponent's monster effect activated on the field resolves, while this card is equipped to a "Red-Eyes" monster, you can change the monster that activated that effect to face-down Defense Position. Once per turn, during the Battle Phase (Quick Effect): You can switch the ATK and DEF of 1 face-up monster your opponent controls until the end of this Battle Phase.'''
-strings=['']
+strings=['Add 1 Level 1 Dragon from your GY to your hand','Change the monster to face-down Defense Position','Switch the ATK and DEF of 1 monster your opponent controls']
 
 [[card]]
 id = 220000047
@@ -750,4 +750,4 @@ If you control a "Red-Eyes" monster, you can Normal Summon this card without Tri
 • Destroy as many Spells/Traps your opponent controls as possible, and if you do, inflict 500 damage to your opponent for each card destroyed by this effect.
 • Destroy as many monsters your opponent controls as possible, and if you do, gain LP equal to half the combined ATK of those destroyed monsters.
 You can only use this effect of "Red-Eyes Harpie Lady, Nightmare in the Darkness" once per turn.'''
-strings=['']
+strings=['Normal Summon with Tributing','Return 1 card on the field to the hand','Destroy all Spells/Traps your opponent controls','Destroy all monsters your opponent controls']

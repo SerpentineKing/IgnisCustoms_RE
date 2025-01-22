@@ -122,11 +122,11 @@ end
 function s.e2bevt(e,tp)
 	Duel.Hint(HINT_CARD,0,id)
 
-	if Duel.IsExistingMatchingCard(aux.TRUE,tp,0,LOCATION_MZONE,1,nil) then
+	if Duel.IsExistingMatchingCard(Card.IsFaceup,tp,0,LOCATION_MZONE,1,nil) then
 		local c=e:GetHandler()
 		if Duel.SelectEffectYesNo(tp,c,aux.Stringid(id,0)) then
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATTACK)
-			local g=Duel.SelectMatchingCard(tp,aux.TRUE,tp,0,LOCATION_MZONE,1,1,nil)
+			local g=Duel.SelectMatchingCard(tp,Card.IsFaceup,tp,0,LOCATION_MZONE,1,1,nil)
 			if g:GetCount()>0 then
 				if g:GetFirst():UpdateAttack(-400)<0 then
 					Duel.Damage(1-tp,500,REASON_EFFECT)
