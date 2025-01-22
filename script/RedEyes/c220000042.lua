@@ -52,8 +52,11 @@ function s.e1fil1(c,e,tp)
 	and c:GetControler()==tp
 end
 function s.e1con(e,tp,eg,ep,ev,re,r,rp)
-	local cl=Duel.GetCurrentChain(true)-1
-	local ch_pl,ch_con,ch_cds=Duel.GetChainInfo(cl,CHAININFO_TRIGGERING_PLAYER,CHAININFO_TRIGGERING_CONTROLER,CHAININFO_TRIGGERING_SETCODES)
+	local ch=Duel.GetCurrentChain(true)-1
+
+	if not (ch>0) then return false end
+
+	local ch_con,ch_cds=Duel.GetChainInfo(ch,CHAININFO_TRIGGERING_CONTROLER,CHAININFO_TRIGGERING_SETCODES)
 
 	local req=false
 	for _,setcode in ipairs(ch_cds) do
@@ -62,9 +65,6 @@ function s.e1con(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 
-	if ch_pl==tp then
-		Debug.ShowHint("PL")
-	end
 	if ch_con==tp then
 		Debug.ShowHint("CON")
 	end
@@ -76,7 +76,7 @@ function s.e1con(e,tp,eg,ep,ev,re,r,rp)
 	and Duel.IsChainNegatable(ev)
 	and (re:GetCode()==EVENT_SUMMON_SUCCESS
 	or re:GetCode()==EVENT_SPSUMMON_SUCCESS)
-	and (ch_pl==tp and ch_con==tp and req)
+	--and (ch_con==tp and req)
 end
 function s.e1fil2(c)
 	return c:IsAbleToDeck()
