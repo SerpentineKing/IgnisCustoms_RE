@@ -98,6 +98,7 @@ function s.e3val(e,te)
 	local res=false
 
 	local c=e:GetHandler()
+	Debug.ShowHint(""..c:GetBaseAttack())
 
 	if te:IsCode(EFFECT_UPDATE_ATTACK) then
 		local v=te:GetValue()
