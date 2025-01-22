@@ -9,7 +9,6 @@ function s.initial_effect(c)
 	and if you do, you can shuffle up to 2 cards your opponent controls into the Deck,
 	then take damage equal to half the ATK of 1 "Red-Eyes" monster in your hand, GY, or on your field.
 	]]--
-	-- TODO : Set "Red-Eyes" requirement
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetCategory(CATEGORY_NEGATE+CATEGORY_DAMAGE)
@@ -82,16 +81,22 @@ end
 function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 
-	Duel.SetOperationInfo(0,CATEGORY_NEGATE,eg,1,0,0)
-	if re:GetHandler():IsRelateToEffect(re) then
+	local ch=Duel.GetCurrentChain()
+	local ch_e=Duel.GetChainInfo(ch-1,CHAININFO_TRIGGERING_EFFECT)
+	local ch_c=ch_e:GetHandler()
+
+	Duel.SetOperationInfo(0,CATEGORY_NEGATE,ch_c,1,0,0)
+
+	if ch_c:IsRelateToEffect(ch_e) then
 		Duel.SetPossibleOperationInfo(0,CATEGORY_TODECK,nil,2,0,LOCATION_ONFIELD)
 	end
 end
-function s.e1evt(e,tp,eg,ep,ev,re)
-	Debug.ShowHint("CALL")
-	--[[
-	local rc=re:GetHandler()
-	if Duel.NegateActivation(ev) and rc:IsRelateToEffect(re) then
+function s.e1evt(e,tp)
+	local ch=Duel.GetCurrentChain()
+	local ch_e=Duel.GetChainInfo(ch-1,CHAININFO_TRIGGERING_EFFECT)
+
+	local ch_c=ch_e:GetHandler()
+	if Duel.NegateActivation(ev) and ch_c:IsRelateToEffect(re) then
 		local g=Duel.GetMatchingGroup(s.e1fil2,tp,0,LOCATION_ONFIELD,nil)
 		if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SET)
@@ -113,7 +118,6 @@ function s.e1evt(e,tp,eg,ep,ev,re)
 			end
 		end
 	end
-	]]--
 end
 function s.e2fil(c,e,tp)
 	return c:IsSetCard(SET_RED_EYES)
