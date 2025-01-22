@@ -9,7 +9,6 @@ function s.initial_effect(c)
 	and if you do, shuffle that card and all Set cards your opponent controls into the Deck/Extra Deck,
 	and if you do that, inflict 500 damage to your opponent for each card returned to the Deck/Extra Deck by this effect.
 	]]--
-	-- TODO : Set "Red-Eyes" requirement
 	local e1a1=Effect.CreateEffect(c)
 	e1a1:SetDescription(aux.Stringid(id,0))
 	e1a1:SetCategory(CATEGORY_NEGATE+CATEGORY_DAMAGE)

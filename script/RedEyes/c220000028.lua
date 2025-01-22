@@ -18,7 +18,6 @@ function s.initial_effect(c)
 	•
 	Your opponent cannot target a "Red-Eyes" monster you control for attack, unless they banish the top card of their Deck.
 	]]--
-	-- TODO : [E2, RE]
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
@@ -64,35 +63,33 @@ function s.e1evt(e,tp)
 	local c=e:GetHandler()
 	if op==1 or op==3 then
 		local e1b=Effect.CreateEffect(c)
-		e1b:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
+		e1b:SetType(EFFECT_TYPE_FIELD)
 		e1b:SetCode(EVENT_BATTLE_DESTROYING)
 		e1b:SetCountLimit(1)
-		e1b:SetRange(LOCATION_SZONE)
 		e1b:SetCondition(s.e1bcon)
 		e1b:SetOperation(s.e1bevt)
 		e1b:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
-		c:RegisterEffect(e1b)
+		Duel.RegisterEffect(e1b,tp)
 	end
 	if op==2 or op==3 then
-		local e1c=Effect.CreateEffect(c)
-		e1c:SetType(EFFECT_TYPE_FIELD)
-		e1c:SetCode(EFFECT_ATTACK_COST)
-		e1c:SetRange(LOCATION_SZONE)
-		e1c:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-		e1c:SetTargetRange(0,1)
-		e1c:SetCost(s.e1ccst)
-		e1c:SetOperation(s.e1cevt)
-		e1c:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
-		c:RegisterEffect(e1c)
+		local e1c1=Effect.CreateEffect(c)
+		e1c1:SetType(EFFECT_TYPE_FIELD)
+		e1c1:SetCode(EFFECT_CANNOT_SELECT_BATTLE_TARGET)
+		e1c1:SetTargetRange(0,LOCATION_MZONE)
+		e1c1:SetCondition(s.e1c1con)
+		e1c1:SetValue(s.e1c1val)
+		e1c1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
+		Duel.RegisterEffect(e1c1,tp)
 
-		local e1d=Effect.CreateEffect(c)
-		e1d:SetType(EFFECT_TYPE_FIELD)
-		e1d:SetCode(id)
-		e1d:SetRange(LOCATION_SZONE)
-		e1d:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-		e1d:SetTargetRange(0,1)
-		e1c:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
-		c:RegisterEffect(e1d)
+		local e1c2=Effect.CreateEffect(c)
+		e1c2:SetCategory(CATEGORY_REMOVE)
+		e1c2:SetType(EFFECT_TYPE_FIELD)
+		e1c2:SetCode(EVENT_BE_BATTLE_TARGET)
+		e1c2:SetCondition(s.e1c2con)
+		e1c2:SetTarget(s.e1c2tgt)
+		e1c2:SetOperation(s.e1c2evt)
+		e1c2:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
+		Duel.RegisterEffect(e1c2,tp)
 	end
 end
 function s.e1bfil(c,tp)
@@ -113,19 +110,37 @@ end
 function s.e1bevt(e,tp)
 	Duel.ChainAttack()
 end
-function s.e1ccst(e,c,tp)
-	local ct=#{Duel.GetPlayerEffect(tp,id)}
-	return Duel.IsPlayerCanDiscardDeckAsCost(tp,ct)
+function s.e1c1con(e)
+	local tp=e:GetHandlerPlayer()
+	
+	return not (Duel.GetFieldGroupCount(1-tp,LOCATION_DECK,0)>0
+	and Duel.IsPlayerCanRemove(1-tp))
 end
-function s.e1cevt(e,tp)
-	if Duel.IsAttackCostPaid()~=2 and e:GetHandler():IsLocation(LOCATION_SZONE) then
-		local g=Duel.GetDecktopGroup(tp,1)
-		
-		if g:GetCount()==0 then return end
-		
+function s.e1c1val(e,c)
+	return c:IsSetCard(SET_RED_EYES)
+end
+function s.e1c2con(e,tp,eg,ep,ev,re,r)
+	local bt=eg:GetFirst()
+
+	return r~=REASON_REPLACE
+	and bt:IsSetCard(SET_RED_EYES)
+	and bt:GetControler()==tp
+end
+function s.e1c2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then
+		return Duel.GetFieldGroupCount(1-tp,LOCATION_DECK,0)>0
+		and Duel.IsPlayerCanRemove(1-tp)
+	end
+
+	local g=Duel.GetFieldGroup(1-tp,0,LOCATION_DECK)
+	Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,1,1-tp,0)
+end
+function s.e1c2evt(e,tp)
+	local g=Duel.GetDecktopGroup(tp,1)
+	
+	if g:GetCount()>0 then
 		Duel.DisableShuffleCheck()
-		Duel.Remove(g,POS_FACEUP,REASON_COST)
-		Duel.AttackCostPaid()
+		Duel.Remove(g,POS_FACEUP,REASON_EFFECT) -- REASON_COST
 	end
 end
 function s.e2fil(c)
