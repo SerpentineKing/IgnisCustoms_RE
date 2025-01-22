@@ -174,15 +174,25 @@ end
 function s.e2evt(e,tp)
 	local c=e:GetHandler()
 
-	local e2b=Effect.CreateEffect(c)
-	e2b:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-	e2b:SetTargetRange(LOCATION_MZONE+LOCATION_GRAVE,LOCATION_MZONE+LOCATION_GRAVE)
-	e2b:SetCode(EFFECT_CHANGE_RACE)
-	e2b:SetRange(LOCATION_SZONE)
-	e2b:SetValue(RACE_ZOMBIE)
-	e2b:SetTarget(s.e2btgt)
-	e2b:SetReset(RESET_PHASE+PHASE_END)
-	c:RegisterEffect(e2b)
+	local e2b1=Effect.CreateEffect(c)
+	e2b1:SetType(EFFECT_TYPE_FIELD)
+	e2b1:SetCode(EFFECT_CHANGE_RACE)
+	e2b1:SetRange(LOCATION_SZONE)
+	e2b1:SetTargetRange(LOCATION_MZONE+LOCATION_GRAVE,LOCATION_MZONE+LOCATION_GRAVE)
+	e2b1:SetValue(RACE_ZOMBIE)
+	e2b1:SetTarget(s.e2btgt)
+	e2b1:SetReset(RESET_PHASE+PHASE_END)
+	c:RegisterEffect(e2b1)
+
+	local e2b2=Effect.CreateEffect(c)
+	e2b2:SetType(EFFECT_TYPE_FIELD)
+	e2b2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+	e2b2:SetCode(id)
+	e2b2:SetRange(LOCATION_SZONE)
+	e2b2:SetTargetRange(1,0)
+	e2b2:SetValue(s.e2bval)
+	e2b2:SetReset(RESET_PHASE+PHASE_END)
+	c:RegisterEffect(e2b2)
 end
 function s.e2btgt(e,c)
 	if c:GetFlagEffect(1)==0 then
@@ -205,6 +215,11 @@ function s.e2btgt(e,c)
 
 	return c:IsSetCard(SET_RED_EYES)
 	and c:IsMonster()
+end
+function s.e2bval(e,c,re,chk)
+	if chk==0 then return true end
+
+	return RACE_ZOMBIE
 end
 function s.e3con(e)
 	return Duel.GetAttacker():IsSetCard(SET_RED_EYES)
