@@ -123,16 +123,6 @@ end
 function s.e1c2con(e,tp,eg,ep,ev,re,r)
 	local bt=eg:GetFirst()
 
-	if r~=REASON_REPLACE then
-		Debug.ShowHint("1")
-	end
-	if bt:IsSetCard(SET_RED_EYES) then
-		Debug.ShowHint("2")
-	end
-	if bt:GetControler()==tp then
-		Debug.ShowHint("3")
-	end
-
 	return r~=REASON_REPLACE
 	and bt:IsSetCard(SET_RED_EYES)
 	and bt:GetControler()==tp
@@ -147,7 +137,7 @@ function s.e1c2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,1,1-tp,0)
 end
 function s.e1c2evt(e,tp)
-	local g=Duel.GetDecktopGroup(tp,1)
+	local g=Duel.GetDecktopGroup(1-tp,1)
 	
 	if g:GetCount()>0 then
 		Duel.DisableShuffleCheck()
