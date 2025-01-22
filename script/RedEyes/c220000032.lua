@@ -66,8 +66,7 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	When a card or effect is activated that targets a "Red-Eyes" card(s) you control:
-	You can destroy this card;
-	negate the activation, and if you do, destroy that card.
+	Negate the activation, and if you do, destroy both that card and this card.
 	]]--
 	local e4=Effect.CreateEffect(c)
 	e4:SetDescription(aux.Stringid(id,5))
@@ -76,7 +75,6 @@ function s.initial_effect(c)
 	e4:SetCode(EVENT_CHAINING)
 	e4:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DAMAGE_CAL)
 	e4:SetRange(LOCATION_SZONE)
-	e4:SetCost(s.e4cst)
 	e4:SetCondition(s.e4con)
 	e4:SetTarget(s.e4tgt)
 	e4:SetOperation(s.e4evt)
@@ -260,14 +258,6 @@ function s.e3evt(e,tp)
 		tc:RegisterEffect(e3b2)
 	end
 end
-function s.e4cst(e,tp,eg,ep,ev,re,r,rp,chk)
-	local c=e:GetHandler()
-	if chk==0 then
-		return c:IsDestructable()
-	end
-
-	Duel.Destroy(c,REASON_COST)
-end
 function s.e4fil(c,tp)
 	return c:IsControler(tp)
 	and c:IsLocation(LOCATION_ONFIELD)
@@ -292,8 +282,10 @@ function s.e4tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 		Duel.SetOperationInfo(0,CATEGORY_DESTROY,eg,1,0,0)
 	end
 end
-function s.operation(e,tp,eg,ep,ev,re)
+function s.e4evt(e,tp,eg,ep,ev,re)
+	local c=e:GetHandler()
 	if Duel.NegateActivation(ev) and re:GetHandler():IsRelateToEffect(re) then
 		Duel.Destroy(eg,REASON_EFFECT)
+		Duel.Destroy(c,REASON_EFFECT)
 	end
 end
