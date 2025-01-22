@@ -93,10 +93,11 @@ function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.e1evt(e,tp)
 	local ch=Duel.GetCurrentChain()
-	local ch_e=Duel.GetChainInfo(ch-1,CHAININFO_TRIGGERING_EFFECT)
+	local ch_ev=ch-1
+	local ch_e=Duel.GetChainInfo(ch_ev,CHAININFO_TRIGGERING_EFFECT)
 
 	local ch_c=ch_e:GetHandler()
-	if Duel.NegateActivation(ev) and ch_c:IsRelateToEffect(re) then
+	if Duel.NegateActivation(ch_ev) and ch_c:IsRelateToEffect(ch_e) then
 		local g=Duel.GetMatchingGroup(s.e1fil2,tp,0,LOCATION_ONFIELD,nil)
 		if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SET)
