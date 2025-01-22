@@ -28,7 +28,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 	-- Negate the effect of any card that would reduce the ATK of monsters you control.
 	local e3=Effect.CreateEffect(c)
-	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e3:SetType(EFFECT_TYPE_FIELD)
 	e3:SetCode(EFFECT_IMMUNE_EFFECT)
 	e3:SetRange(LOCATION_SZONE)
 	e3:SetTargetRange(LOCATION_MZONE,0)
@@ -116,7 +116,8 @@ function s.e3val(e,te)
 		end
 	end
 
-	return (te:IsCode(EFFECT_UPDATE_ATTACK) or te:IsCode(EFFECT_SET_BASE_ATTACK) or te:IsCode(EFFECT_SET_ATTACK) or te:IsCode(EFFECT_SET_ATTACK_FINAL))
+	--return (te:IsCode(EFFECT_UPDATE_ATTACK) or te:IsCode(EFFECT_SET_BASE_ATTACK) or te:IsCode(EFFECT_SET_ATTACK) or te:IsCode(EFFECT_SET_ATTACK_FINAL))
+	return te:IsSpellEffect()
 end
 function s.e4fil(c,tp)
 	return c:IsSetCard(SET_RED_EYES)
