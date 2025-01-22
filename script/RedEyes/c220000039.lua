@@ -99,24 +99,24 @@ function s.e3val(e,te)
 
 	local c=e:GetHandler()
 
-	if te:IsCode(EFFECT_UPDATE_ATTACK) then
+	if te:GetCode()==EFFECT_UPDATE_ATTACK then
 		local v=te:GetValue()
 		if v and v<0 then
 			res=1
 		end
-	elseif te:IsCode(EFFECT_SET_BASE_ATTACK) then
+	elseif te:IsCode()==EFFECT_SET_BASE_ATTACK then
 		local v=te:GetValue()
 		if v and v<c:GetBaseAttack() then
 			res=1
 		end
-	elseif (te:IsCode(EFFECT_SET_ATTACK) or te:IsCode(EFFECT_SET_ATTACK_FINAL)) then
+	elseif (te:IsCode()==EFFECT_SET_ATTACK or te:IsCode()==EFFECT_SET_ATTACK_FINAL) then
 		local v=te:GetValue()
 		if v and v<c:GetAttack() then
 			res=1
 		end
 	end
 
-	--return (te:IsCode(EFFECT_UPDATE_ATTACK) or te:IsCode(EFFECT_SET_BASE_ATTACK) or te:IsCode(EFFECT_SET_ATTACK) or te:IsCode(EFFECT_SET_ATTACK_FINAL))
+	--return (te:IsCode()==EFFECT_UPDATE_ATTACK or te:IsCode()==EFFECT_SET_BASE_ATTACK or te:IsCode()==EFFECT_SET_ATTACK or te:IsCode()==EFFECT_SET_ATTACK_FINAL)
 	return te:IsSpellEffect()
 end
 function s.e4fil(c,tp)
