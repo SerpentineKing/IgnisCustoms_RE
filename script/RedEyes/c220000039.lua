@@ -95,25 +95,24 @@ function s.e3tgt(e,c)
 	return c:IsFaceup()
 end
 function s.e3val(e,te)
-	local res=false
+	local res=0
 
 	local c=e:GetHandler()
-	Debug.ShowHint(""..c:GetBaseAttack())
 
 	if te:IsCode(EFFECT_UPDATE_ATTACK) then
 		local v=te:GetValue()
 		if v and v<0 then
-			res=true
+			res=1
 		end
 	elseif te:IsCode(EFFECT_SET_BASE_ATTACK) then
 		local v=te:GetValue()
 		if v and v<c:GetBaseAttack() then
-			res=true
+			res=1
 		end
 	elseif (te:IsCode(EFFECT_SET_ATTACK) or te:IsCode(EFFECT_SET_ATTACK_FINAL)) then
 		local v=te:GetValue()
 		if v and v<c:GetAttack() then
-			res=true
+			res=1
 		end
 	end
 
