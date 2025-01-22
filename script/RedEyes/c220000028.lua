@@ -121,6 +121,16 @@ function s.e1c1val(e,c)
 end
 function s.e1c2con(e,tp,eg,ep,ev,re,r)
 	local bt=eg:GetFirst()
+	
+	if r~=REASON_REPLACE then
+		Debug.ShowHint("1")
+	end
+	if bt:IsSetCard(SET_RED_EYES) then
+		Debug.ShowHint("2")
+	end
+	if bt:GetControler()==tp then
+		Debug.ShowHint("3")
+	end
 
 	return r~=REASON_REPLACE
 	and bt:IsSetCard(SET_RED_EYES)
