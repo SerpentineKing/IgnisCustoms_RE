@@ -140,6 +140,7 @@ function s.e5fil(c)
 	and c:IsMonster()
 end
 function s.e5val(e)
+	local tp=e:GetHandlerPlayer()
 	local ct=Duel.GetMatchingGroupCount(s.e5fil,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
 
 	return ct*-400
