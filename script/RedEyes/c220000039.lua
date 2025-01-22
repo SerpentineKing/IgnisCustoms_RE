@@ -27,7 +27,14 @@ function s.initial_effect(c)
 	e2:SetValue(s.e2val)
 	c:RegisterEffect(e2)
 	-- Negate the effect of any card that would reduce the ATK of monsters you control.
-	-- TODO
+	local e3=Effect.CreateEffect(c)
+	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e3:SetCode(EFFECT_IMMUNE_EFFECT)
+	e3:SetRange(LOCATION_SZONE)
+	e3:SetTargetRange(LOCATION_MZONE,0)
+	e3:SetTarget(s.e3tgt)
+	e3:SetValue(s.e3val)
+	c:RegisterEffect(e3)
 	--[[
 	Each time a "Red-Eyes" monster(s) is Special Summoned from your GY to your field:
 	Increase the ATK of all "Red-Eyes" monsters you currently control by the number of "Red-Eyes" monsters on the field x 400.
@@ -83,6 +90,33 @@ function s.e2val(e,re,r)
 	else
 		return 0
 	end
+end
+function s.e3tgt(e,c)
+	return c:IsFaceup()
+end
+function s.e3val(e,te)
+	local res=false
+
+	local c=e:GetHandler()
+
+	if te:IsCode(EFFECT_UPDATE_ATTACK) then
+		local v=te:GetValue()
+		if v and v<0 then
+			res=true
+		end
+	elseif te:IsCode(EFFECT_SET_BASE_ATTACK) then
+		local v=te:GetValue()
+		if v and v<c:GetBaseAttack() then
+			res=true
+		end
+	elseif (te:IsCode(EFFECT_SET_ATTACK) or te:IsCode(EFFECT_SET_ATTACK_FINAL)) then
+		local v=te:GetValue()
+		if v and v<c:GetAttack() then
+			res=true
+		end
+	end
+
+	return res
 end
 function s.e4fil(c,tp)
 	return c:IsSetCard(SET_RED_EYES)
