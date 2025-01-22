@@ -178,10 +178,11 @@ function s.e2evt(e,tp)
 	e2b:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e2b:SetTargetRange(LOCATION_MZONE+LOCATION_GRAVE,LOCATION_MZONE+LOCATION_GRAVE)
 	e2b:SetCode(EFFECT_CHANGE_RACE)
+	e2b:SetRange(LOCATION_SZONE)
 	e2b:SetValue(RACE_ZOMBIE)
 	e2b:SetTarget(s.e2btgt)
 	e2b:SetReset(RESET_PHASE+PHASE_END)
-	Duel.RegisterEffect(e2b,tp)
+	c:RegisterEffect(e2b)
 end
 function s.e2btgt(e,c)
 	if c:GetFlagEffect(1)==0 then
