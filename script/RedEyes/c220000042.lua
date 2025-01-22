@@ -13,13 +13,18 @@ function s.initial_effect(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetCategory(CATEGORY_NEGATE+CATEGORY_DAMAGE)
-	e1:SetType(EFFECT_TYPE_ACTIVATE)
-	e1:SetCode(EVENT_CHAINING)
+	e1:SetType(EFFECT_TYPE_TYPE_ACTIVATE)
+	e1:SetCode(EVENT_CHAINING) -- EVENT_CHAINING
 	e1:SetCountLimit(1,{id,0})
 	e1:SetCondition(s.e1con)
 	e1:SetTarget(s.e1tgt)
 	e1:SetOperation(s.e1evt)
 	c:RegisterEffect(e1)
+	--[[
+	local e1b=e1:Clone()
+	e1b:SetCode(EVENT_SPSUMMON_SUCCESS)
+	c:RegisterEffect(e1b)
+	]]--
 	--[[
 	[HOPT]
 	If a "Red-Eyes" monster(s) you control that cannot be Normal Summoned/Set is sent to your GY or banishment:
@@ -52,31 +57,22 @@ function s.e1fil1(c,e,tp)
 	and c:GetControler()==tp
 end
 function s.e1con(e,tp,eg,ep,ev,re,r,rp)
-	local ch=Duel.GetCurrentChain(true)-1
-
-	-- if not (ch>0) then return false end
-
-	local ch_con,ch_cds=Duel.GetChainInfo(ch,CHAININFO_TRIGGERING_CONTROLER,CHAININFO_TRIGGERING_SETCODES)
+	--[[
+	local ch=Duel.GetCurrentChain()
 
 	local req=false
-	for _,setcode in ipairs(ch_cds) do
-		if (SET_RED_EYES&0xfff)==(set&0xfff) and (SET_RED_EYES&setcode)==SET_RED_EYES then
-			req=true
-		end
-	end
+	if ch>=1 then
+		local te=Duel.GetChainInfo(ch-1,CHAININFO_TRIGGERING_EFFECT)
 
-	if ch_con==tp then
-		Debug.ShowHint("CON")
+		req=true
 	end
-	if req then
-		Debug.ShowHint("REQ")
-	end
+	]]--
 
 	return rp~=tp
 	and Duel.IsChainNegatable(ev)
 	and (re:GetCode()==EVENT_SUMMON_SUCCESS
 	or re:GetCode()==EVENT_SPSUMMON_SUCCESS)
-	--and (ch_con==tp and req)
+	and eg:IsExists(s.e1fil1,1,nil,e,tp)
 end
 function s.e1fil2(c)
 	return c:IsAbleToDeck()
