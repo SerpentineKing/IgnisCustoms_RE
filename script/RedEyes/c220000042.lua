@@ -54,7 +54,7 @@ end
 function s.e1con(e,tp,eg,ep,ev,re,r,rp)
 	local ch=Duel.GetCurrentChain(true)-1
 
-	if not (ch>0) then return false end
+	-- if not (ch>0) then return false end
 
 	local ch_con,ch_cds=Duel.GetChainInfo(ch,CHAININFO_TRIGGERING_CONTROLER,CHAININFO_TRIGGERING_SETCODES)
 
