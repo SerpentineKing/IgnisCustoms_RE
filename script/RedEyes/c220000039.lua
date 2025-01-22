@@ -116,7 +116,7 @@ function s.e3val(e,te)
 		end
 	end
 
-	return res
+	return (te:IsCode(EFFECT_UPDATE_ATTACK) or te:IsCode(EFFECT_SET_BASE_ATTACK) or te:IsCode(EFFECT_SET_ATTACK) or te:IsCode(EFFECT_SET_ATTACK_FINAL))
 end
 function s.e4fil(c,tp)
 	return c:IsSetCard(SET_RED_EYES)
