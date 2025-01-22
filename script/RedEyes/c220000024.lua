@@ -34,38 +34,21 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 	--[[
 	[HOPT]
-	If this card is sent to the GY as Synchro Material for a "Red-Eyes" monster:
-	You can Special Summon 1 Level 7 or lower "Red-Eyes" monster from your GY,
-	ignoring its Summoning conditions, except "Time Wizard with Eyes of Red.",
-	also, you cannot Special Summon monsters from the Extra Deck for the rest of this turn,
-	except "Red-Eyes" monsters or monsters that list a "Red-Eyes" monster as material.
+	If this card is destroyed by battle or card effect: You can discard 1 card;
+	add 1 Level 4 or lower "Red-Eyes" or Spellcaster monster from your Deck to your hand, except "Time Wizard with Eyes of Red".
 	]]--
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(id,1))
-	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e3:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e3:SetCode(EVENT_BE_MATERIAL)
-	e3:SetProperty(EFFECT_FLAG_DELAY)
+	e3:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
+	e3:SetRange(EVENT_DESTROYED)
 	e3:SetCountLimit(1,{id,1})
+	e3:SetCost(s.e3cst)
 	e3:SetCondition(s.e3con)
 	e3:SetTarget(s.e3tgt)
 	e3:SetOperation(s.e3evt)
 	c:RegisterEffect(e3)
-	--[[
-	[HOPT]
-	You can discard 1 card;
-	add 1 Level 4 or lower "Red-Eyes" or Spellcaster monster from your Deck to your hand, except "Time Wizard with Eyes of Red".
-	]]--
-	local e4=Effect.CreateEffect(c)
-	e4:SetDescription(aux.Stringid(id,2))
-	e4:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
-	e4:SetType(EFFECT_TYPE_IGNITION)
-	e4:SetRange(LOCATION_MZONE)
-	e4:SetCountLimit(1,{id,2})
-	e4:SetCost(s.e4cst)
-	e4:SetTarget(s.e4tgt)
-	e4:SetOperation(s.e4evt)
-	c:RegisterEffect(e4)
 end
 -- Archetype : Red-Eyes
 s.listed_series={SET_RED_EYES}
@@ -114,76 +97,34 @@ function s.e2evt(e,tp)
 		end
 	end
 end
-function s.e3con(e,tp,eg,ep,ev,re,r)
-	local c=e:GetHandler()
-
-	return c:IsLocation(LOCATION_GRAVE)
-	and r==REASON_SYNCHRO
-	and c:GetReasonCard():IsSetCard(SET_RED_EYES)
-end
-function s.e3fil(c,e,tp)
-	return c:IsSetCard(SET_RED_EYES)
-	and c:IsLevelBelow(7)
-	and not c:IsCode(id)
-	and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
-end
-function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then
-		return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(s.e3fil,tp,LOCATION_GRAVE,0,1,nil,e,tp)
-	end
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_GRAVE)
-end
-function s.e3lim(e,c)
-	return (not (c:IsSetCard(SET_RED_EYES) or c:ListsArchetypeAsMaterial(SET_RED_EYES)))
-	and c:IsLocation(LOCATION_EXTRA)
-end
-function s.e3evt(e,tp)
-	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	
-	local g=Duel.SelectMatchingCard(tp,s.e3fil,tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
-	if g:GetCount()>0 then
-		Duel.SpecialSummon(g,0,tp,tp,true,false,POS_FACEUP)
-	end
-
-	local c=e:GetHandler()
-
-	local ge1=Effect.CreateEffect(c)
-	ge1:SetType(EFFECT_TYPE_FIELD)
-	ge1:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_CLIENT_HINT)
-	ge1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
-	ge1:SetDescription(aux.Stringid(id,1))
-	ge1:SetTargetRange(1,0)
-	ge1:SetTarget(s.e3lim)
-	ge1:SetReset(RESET_PHASE+PHASE_END)
-	Duel.RegisterEffect(ge1,tp)
-end
-function s.e4cst(e,tp,eg,ep,ev,re,r,rp,chk)
+function s.e3cst(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		return Duel.IsExistingMatchingCard(Card.IsDiscardable,tp,LOCATION_HAND,0,1,nil)
 	end
 
 	Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
 end
-function s.e4fil(c)
+function s.e3con(e,tp,eg,ep,ev,re,r)
+	return (r&REASON_EFFECT+REASON_BATTLE)~=0
+	and e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
+end
+function s.e3fil(c)
 	return ((c:IsSetCard(SET_RED_EYES) and c:IsMonster()) or c:IsRace(RACE_SPELLCASTER))
 	and c:IsLevelBelow(4)
 	and not c:IsCode(id)
 	and c:IsAbleToHand()
 end
-function s.e4tgt(e,tp,eg,ep,ev,re,r,rp,chk)
+function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
-		return Duel.IsExistingMatchingCard(s.e4fil,tp,LOCATION_DECK,0,1,nil)
+		return Duel.IsExistingMatchingCard(s.e3fil,tp,LOCATION_DECK,0,1,nil)
 	end
 	
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
-function s.e4evt(e,tp)
+function s.e3evt(e,tp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 
-	local g=Duel.SelectMatchingCard(tp,s.e4fil,tp,LOCATION_DECK,0,1,1,nil)
+	local g=Duel.SelectMatchingCard(tp,s.e3fil,tp,LOCATION_DECK,0,1,1,nil)
 	if g:GetCount()>0 then
 		Duel.SendtoHand(g,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,g)

@@ -211,9 +211,6 @@ function s.e4con(e,tp,eg,ep,ev,re,r)
 end
 function s.e4evt(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	
-	-- if not c:IsRelateToEffect(e) then return end
-	
 	local a=Duel.GetAttacker()
 
 	if not a:IsImmuneToEffect(e) and a:GetAttack()>0 then

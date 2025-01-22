@@ -27,7 +27,7 @@ function s.initial_effect(c)
 	[SOPT]
 	Once per turn, when your monster is targeted for an attack:
 	You can send 1 "Red-Eyes" monster from your hand or Deck to the GY, then roll a six-sided die.
-	All monsters you currently control gain ATK/DEF equal to the result x 500,
+	Until the end of this turn, all monsters you currently control gain ATK/DEF equal to the result x 500,
 	and all monsters your opponent controls lose ATK/DEF equal to the result x 500.
 	]]--
 	local e2=Effect.CreateEffect(c)
@@ -117,6 +117,7 @@ function s.e2evt(e,tp)
 			e2b1:SetType(EFFECT_TYPE_SINGLE)
 			e2b1:SetCode(EFFECT_UPDATE_ATTACK)
 			e2b1:SetValue(val)
+			e2b1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
 			tc:RegisterEffect(e2b1)
 
 			local e2b2=e2b1:Clone()
@@ -129,6 +130,7 @@ function s.e2evt(e,tp)
 			e2b3:SetType(EFFECT_TYPE_SINGLE)
 			e2b3:SetCode(EFFECT_UPDATE_ATTACK)
 			e2b3:SetValue(-val)
+			e2b3:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
 			tc:RegisterEffect(e2b3)
 
 			local e2b4=e2b3:Clone()

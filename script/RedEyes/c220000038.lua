@@ -3,14 +3,13 @@ local s,id,o=GetID()
 -- c220000038
 function s.initial_effect(c)
 	--[[
-	This card can be used to Ritual Summon any Dragon Ritual Monster (DARK or FIRE) from your hand or Deck.
+	This card can be used to Ritual Summon any Dragon Ritual Monster (DARK or FIRE).
 	You must also Tribute monsters from your hand or field whose total Levels equal or exceed the Ritual Monster,
 	OR Banish 1 "Red-Eyes Black Dragon" you control and 1 monster your opponent controls.
 	A Ritual Monster that was Ritual Summoned by this card's effect becomes "Red-Eyes Black Dragon" while on the field,
 	also, if you Tributed or banished a monster that was Special Summoned from the Extra Deck for that monster's Ritual Summon,
 	it gains 1200 ATK.
 	]]--
-	-- local e1=Ritual.CreateProc({handler=c,filter=s.e1fil1,lvtype=RITPROC_GREATER,location=LOCATION_HAND+LOCATION_DECK,stage2=s.e1evt2})
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
@@ -22,10 +21,12 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	You can reveal this card in your hand, then send 1 "Red-Eyes Black Dragon" from your hand or Deck to the GY;
-	reduce the Level of all Ritual Monsters in your hand by 1 until the End Phase.
+	add 1 Ritual Monster from your Deck to your hand,
+	and if you do, reduce the Level of all Ritual Monsters in your hand by 1 until the End Phase.
 	]]--
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,3))
+	e2:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_HAND)
 	e2:SetCountLimit(1,{id,0})
@@ -73,12 +74,12 @@ function s.e1fil2b(c,e)
 	and c:IsAbleToRemove()
 end
 function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
-	local rparams={handler=e:GetHandler(),filter=s.e1fil1,lvtype=RITPROC_GREATER,location=LOCATION_HAND+LOCATION_DECK,stage2=s.e1evt2}
+	local rparams={handler=e:GetHandler(),filter=s.e1fil1,lvtype=RITPROC_GREATER,location=LOCATION_HAND,stage2=s.e1evt2}
 	local rittg=Ritual.Target(rparams)
 
 	if chk==0 then
 		return (Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(s.e1fil1,tp,LOCATION_HAND+LOCATION_DECK,0,1,nil,e,tp)
+		and Duel.IsExistingMatchingCard(s.e1fil1,tp,LOCATION_HAND,0,1,nil,e,tp)
 		and Duel.IsExistingMatchingCard(s.e1fil2a,tp,LOCATION_MZONE,0,1,nil,e)
 		and Duel.IsExistingMatchingCard(s.e1fil2b,tp,0,LOCATION_MZONE,1,nil,e))
 		or rittg(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -87,7 +88,7 @@ function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	rittg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.e1evt(e,tp,eg,ep,ev,re,r,rp)
-	local rparams={handler=e:GetHandler(),filter=s.e1fil1,lvtype=RITPROC_GREATER,location=LOCATION_HAND+LOCATION_DECK,stage2=s.e1evt2}
+	local rparams={handler=e:GetHandler(),filter=s.e1fil1,lvtype=RITPROC_GREATER,location=LOCATION_HAND,stage2=s.e1evt2}
 	local rittg=Ritual.Target(rparams)
 	local ritop=Ritual.Operation(rparams)
 
@@ -113,7 +114,7 @@ function s.e1evt(e,tp,eg,ep,ev,re,r,rp)
 	if op==1 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 
-		local sc=Duel.SelectMatchingCard(tp,s.e1fil1,tp,LOCATION_HAND+LOCATION_DECK,0,1,1,nil,e,tp):GetFirst()
+		local sc=Duel.SelectMatchingCard(tp,s.e1fil1,tp,LOCATION_HAND,0,1,1,nil,e,tp):GetFirst()
 		
 		if not sc then return end
 		
@@ -185,6 +186,10 @@ function s.e2fil1(c)
 end
 function s.e2fil2(c)
 	return c:IsRitualMonster()
+	and c:IsAbleToHand()
+end
+function s.e2fil3(c)
+	return c:IsRitualMonster()
 end
 function s.e2cst(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -203,26 +208,35 @@ function s.e2cst(e,tp,eg,ep,ev,re,r,rp,chk)
 
 	Duel.ShuffleHand(tp)
 end
-function s.e2fil2(c)
-	return c:IsRitualMonster()
-end
 function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
-		return Duel.IsExistingMatchingCard(s.e2fil2,tp,LOCATION_HAND,0,1,nil)
+		return Duel.IsExistingMatchingCard(s.e2fil2,tp,LOCATION_DECK,0,1,nil)
 	end
+
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
 function s.e2evt(e,tp)
 	local c=e:GetHandler()
-	local hg=Duel.GetFieldGroup(tp,LOCATION_HAND,0):Filter(s.e2fil2,nil)
 
-	local tc=hg:GetFirst()
-	for tc in aux.Next(hg) do
-		local e2b=Effect.CreateEffect(c)
-		e2b:SetType(EFFECT_TYPE_SINGLE)
-		e2b:SetCode(EFFECT_UPDATE_LEVEL)
-		e2b:SetValue(-1)
-		e2b:SetReset(RESET_EVENT+RESETS_STANDARD-RESET_TOFIELD+RESET_PHASE+PHASE_END)
-		tc:RegisterEffect(e2b)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
+
+	local g=Duel.SelectMatchingCard(tp,s.e2fil2,tp,LOCATION_DECK,0,1,1,nil)
+	if g:GetCount()>0 then
+		if Duel.SendtoHand(g,nil,REASON_EFFECT)>0 then
+			Duel.ConfirmCards(1-tp,g)
+
+			local hg=Duel.GetFieldGroup(tp,LOCATION_HAND,0):Filter(s.e2fil3,nil)
+
+			local tc=hg:GetFirst()
+			for tc in aux.Next(hg) do
+				local e2b=Effect.CreateEffect(c)
+				e2b:SetType(EFFECT_TYPE_SINGLE)
+				e2b:SetCode(EFFECT_UPDATE_LEVEL)
+				e2b:SetValue(-1)
+				e2b:SetReset(RESET_EVENT+RESETS_STANDARD-RESET_TOFIELD+RESET_PHASE+PHASE_END)
+				tc:RegisterEffect(e2b)
+			end
+		end
 	end
 end
 function s.e3fil(c,tp)

@@ -9,7 +9,6 @@ function s.initial_effect(c)
 	Halve the ATK of all monsters your opponent controls during each Battle Phase this turn.
 	Your opponent cannot activate cards or effect in response to this card's activation.
 	]]--
-	-- TODO : Fix ATK to Halve
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_ATKCHANGE)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
@@ -29,6 +28,27 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 	-- Negate the effect of any card that would reduce the ATK of monsters you control.
 	-- TODO
+	--[[
+	Each time a "Red-Eyes" monster(s) is Special Summoned from your GY to your field:
+	Increase the ATK of all "Red-Eyes" monsters you currently control by the number of "Red-Eyes" monsters on the field x 400.
+	]]--
+	local e4=Effect.CreateEffect(c)
+	e4:SetCategory(CATEGORY_ATKCHANGE)
+	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
+	e4:SetCode(EVENT_SPSUMMON_SUCCESS)
+	e4:SetRange(LOCATION_SZONE)
+	e4:SetCondition(s.e4con)
+	e4:SetOperation(s.e4evt)
+	c:RegisterEffect(e4)
+	-- Monsters your opponent controls lose 400 ATK for each "Red-Eyes" monster on the field.
+	local e5=Effect.CreateEffect(c)
+	e5:SetCategory(CATEGORY_ATKCHANGE)
+	e5:SetType(EFFECT_TYPE_FIELD)
+	e5:SetCode(EFFECT_UPDATE_ATTACK)
+	e5:SetTargetRange(0,LOCATION_MZONE)
+	e5:SetValue(s.e5val)
+	e5:SetReset(RESET_PHASE+PHASE_END)
+	Duel.RegisterEffect(e5,tp)
 end
 -- Archetype : N/A
 s.listed_series={0xfe1}
@@ -46,16 +66,40 @@ function s.e1evt(e,tp)
 	if not c:IsRelateToEffect(e) then return end
 
 	local e1b=Effect.CreateEffect(c)
+	e1b:SetCategory(CATEGORY_ATKCHANGE)
+	e1b:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e1b:SetCode(EVENT_PHASE+PHASE_BATTLE_START)
+	e1b:SetOperation(s.e1bevt)
+	e1b:SetReset(RESET_PHASE+PHASE_END)
+	Duel.RegisterEffect(e1b,tp)
+
+	--[[
+	local e1b=Effect.CreateEffect(c)
 	e1b:SetType(EFFECT_TYPE_FIELD)
 	e1b:SetCode(EFFECT_SET_ATTACK_FINAL)
 	e1b:SetTargetRange(0,LOCATION_MZONE)
 	e1b:SetCondition(function() return Duel.IsBattlePhase() end)
-	e1b:SetValue(s.e1val)
+	e1b:SetValue(s.e1bval)
 	e1b:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e1b,tp)
+	]]--
 end
-function s.e1val(e,re)
+function s.e1bval(e,re)
 	return e:GetHandler():GetAttack()/2
+end
+function s.e1bevt(e,tp)
+	local c=e:GetHandler()
+	local g=Duel.GetMatchingGroup(Card.IsFaceup,tp,0,LOCATION_MZONE,nil)
+
+	local tc=g:GetFirst()
+	for tc in aux.Next(g) do
+		local e1b1=Effect.CreateEffect(c)
+		e1b1:SetType(EFFECT_TYPE_SINGLE)
+		e1b1:SetCode(EFFECT_SET_ATTACK_FINAL)
+		e1b1:SetValue(tc:GetAttack()/2)
+		e1b1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_BATTLE)
+		tc:RegisterEffect(e1b1)
+	end
 end
 function s.e2val(e,re,r)
 	if (r&REASON_BATTLE+REASON_EFFECT)~=0 then
@@ -63,4 +107,40 @@ function s.e2val(e,re,r)
 	else
 		return 0
 	end
+end
+function s.e4fil(c,tp)
+	return c:IsSetCard(SET_RED_EYES)
+	and c:IsMonster()
+	and c:IsPreviousLocation(LOCATION_GRAVE)
+	and c:IsPreviousControler(tp)
+end
+function s.e4con(e,tp,eg)
+	local c=e:GetHandler()
+
+	return not eg:IsContains(c)
+	and eg:IsExists(s.e4fil,1,nil,tp)
+end
+function s.e4evt(e,tp)
+	local g=Duel.GetMatchingGroup(s.e5fil,tp,LOCATION_MZONE,0,nil)
+	local c=e:GetHandler()
+	local ct=Duel.GetMatchingGroupCount(s.e5fil,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
+
+	local gs=g:GetFirst()
+	for gs in aux.Next(g) do
+		local e1a1=Effect.CreateEffect(c)
+		e1a1:SetType(EFFECT_TYPE_SINGLE)
+		e1a1:SetCode(EFFECT_UPDATE_ATTACK)
+		e1a1:SetReset(RESET_EVENT+RESETS_STANDARD)
+		e1a1:SetValue(400*ct)
+		gs:RegisterEffect(e1a1)
+	end
+end
+function s.e5fil(c)
+	return c:IsSetCard(SET_RED_EYES)
+	and c:IsMonster()
+end
+function s.e5val(e)
+	local ct=Duel.GetMatchingGroupCount(s.e5fil,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
+
+	return ct*-400
 end

@@ -16,7 +16,7 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	You can target 1 Level 7 or lower Dragon monster in your GY;
-	equip it to this card as an Equip Spell that gives this card ATK equal to that monster's original ATK.
+	equip it to this card as an Equip Spell that gives this card ATK equal to half that monster's original ATK.
 	]]--
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,0))
@@ -107,7 +107,7 @@ function s.e2evt(e,tp)
 		local e2b=Effect.CreateEffect(c)
 		e2b:SetType(EFFECT_TYPE_EQUIP)
 		e2b:SetCode(EFFECT_UPDATE_ATTACK)
-		e2b:SetValue(tc:GetBaseAttack())
+		e2b:SetValue(tc:GetBaseAttack()/2)
 		e2b:SetReset(RESET_EVENT+RESETS_STANDARD)
 		tc:RegisterEffect(e2b)
 	end
