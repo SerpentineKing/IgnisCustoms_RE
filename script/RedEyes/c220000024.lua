@@ -99,12 +99,18 @@ function s.e2evt(e,tp)
 end
 function s.e3cst(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
+		if Duel.IsExistingMatchingCard(Card.IsDiscardable,tp,LOCATION_HAND,0,1,nil) then
+			Debug.ShowHint("CST MET")
+		end
 		return Duel.IsExistingMatchingCard(Card.IsDiscardable,tp,LOCATION_HAND,0,1,nil)
 	end
 
 	Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
 end
 function s.e3con(e,tp,eg,ep,ev,re,r)
+	if (r&REASON_EFFECT+REASON_BATTLE)~=0 then
+		Debug.ShowHint("CON MET")
+	end
 	return (r&REASON_EFFECT+REASON_BATTLE)~=0
 end
 function s.e3fil(c)
@@ -115,6 +121,9 @@ function s.e3fil(c)
 end
 function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
+		if Duel.IsExistingMatchingCard(s.e3fil,tp,LOCATION_DECK,0,1,nil) then
+			Debug.ShowHint("TGT MET")
+		end
 		return Duel.IsExistingMatchingCard(s.e3fil,tp,LOCATION_DECK,0,1,nil)
 	end
 	
