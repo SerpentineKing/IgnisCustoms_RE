@@ -85,6 +85,7 @@ function s.e1evt(e,tp)
 		e1c2:SetCategory(CATEGORY_REMOVE)
 		e1c2:SetType(EFFECT_TYPE_FIELD)
 		e1c2:SetCode(EVENT_BE_BATTLE_TARGET)
+		e1c2:SetTargetRange(LOCATION_MZONE,0)
 		e1c2:SetCondition(s.e1c2con)
 		e1c2:SetTarget(s.e1c2tgt)
 		e1c2:SetOperation(s.e1c2evt)
@@ -121,7 +122,7 @@ function s.e1c1val(e,c)
 end
 function s.e1c2con(e,tp,eg,ep,ev,re,r)
 	local bt=eg:GetFirst()
-	
+
 	if r~=REASON_REPLACE then
 		Debug.ShowHint("1")
 	end
