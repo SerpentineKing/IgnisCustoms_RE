@@ -48,6 +48,7 @@ function s.initial_effect(c)
 	]]--
 	local e4a=Effect.CreateEffect(c)
 	e4a:SetCategory(CATEGORY_DESTROY+CATEGORY_DAMAGE)
+	e4a:SetDescription(aux.Stringid(id,2))
 	e4a:SetType(EFFECT_TYPE_IGNITION)
 	e4a:SetRange(LOCATION_MZONE)
 	e4a:SetCountLimit(1,{id,0})
@@ -57,6 +58,7 @@ function s.initial_effect(c)
 
 	local e4b=Effect.CreateEffect(c)
 	e4b:SetCategory(CATEGORY_DESTROY+CATEGORY_RECOVER)
+	e4b:SetDescription(aux.Stringid(id,3))
 	e4b:SetType(EFFECT_TYPE_IGNITION)
 	e4b:SetRange(LOCATION_MZONE)
 	e4b:SetCountLimit(1,{id,0})
@@ -85,7 +87,7 @@ function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_HANDES,0,0,1-tp,1)
 end
 function s.e2evt(e,tp)
-	local g=Duel.GetFieldGroup(tp,LOCATION_HAND,0,nil)
+	local g=Duel.GetFieldGroup(1-tp,LOCATION_HAND,0,nil)
 	if g:GetCount()>0 then
 		Duel.Hint(HINT_SELECTMSG,1-tp,HINTMSG_DISCARD)
 
