@@ -52,11 +52,12 @@ function s.e1fil1(c,e,tp)
 	and c:GetControler()==tp
 end
 function s.e1con(e,tp,eg,ep,ev,re,r,rp)
-	local ch_pl,ch_con,ch_cds=Duel.GetChainInfo(ev,CHAININFO_TRIGGERING_PLAYER,CHAININFO_TRIGGERING_CONTROLER,CHAININFO_TRIGGERING_SETCODES)
+	local cl=Duel.GetCurrentChain(true)-1
+	local ch_pl,ch_con,ch_cds=Duel.GetChainInfo(cl,CHAININFO_TRIGGERING_PLAYER,CHAININFO_TRIGGERING_CONTROLER,CHAININFO_TRIGGERING_SETCODES)
 
 	local req=false
 	for _,setcode in ipairs(ch_cds) do
-		if (SET_RED_EYES&setcode)==SET_RED_EYES then
+		if (SET_RED_EYES&0xfff)==(set&0xfff) and (SET_RED_EYES&setcode)==SET_RED_EYES then
 			req=true
 		end
 	end
