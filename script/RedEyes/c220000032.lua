@@ -31,7 +31,7 @@ function s.initial_effect(c)
 	e1c:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e1c:SetCost(s.e1ccst)
 	e1c:SetTarget(s.e1ctgt)
-	elc:SetOperation(s.e1cevt)
+	e1c:SetOperation(s.e1cevt)
 	c:RegisterEffect(e1c)
 	--[[
 	[HOPT]
