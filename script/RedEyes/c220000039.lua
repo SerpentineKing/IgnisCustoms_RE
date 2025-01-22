@@ -45,10 +45,10 @@ function s.initial_effect(c)
 	e5:SetCategory(CATEGORY_ATKCHANGE)
 	e5:SetType(EFFECT_TYPE_FIELD)
 	e5:SetCode(EFFECT_UPDATE_ATTACK)
+	e5:SetRange(LOCATION_SZONE)
 	e5:SetTargetRange(0,LOCATION_MZONE)
 	e5:SetValue(s.e5val)
-	e5:SetReset(RESET_PHASE+PHASE_END)
-	Duel.RegisterEffect(e5,tp)
+	c:RegisterEffect(e5)
 end
 -- Archetype : N/A
 s.listed_series={0xfe1}

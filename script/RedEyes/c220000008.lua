@@ -67,7 +67,7 @@ function s.initial_effect(c)
 	e3:SetCondition(s.e3con)
 	e3:SetTarget(s.e3tgt)
 	e3:SetOperation(s.e3evt)
-	c:RegisterEffect(e5)
+	c:RegisterEffect(e3)
 end
 -- Mentions : "Flame Swordsman"
 s.listed_names={CARD_FLAME_SWORDSMAN,id}

@@ -124,7 +124,7 @@ function s.e1cfil1(c)
 	and c:IsMonster()
 	and c:IsDiscardable()
 end
-function s.e4cst(e,tp,eg,ep,ev,re,r,rp,chk)
+function s.e1ccst(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		return Duel.IsExistingMatchingCard(s.e1cfil1,tp,LOCATION_HAND,0,1,nil)
 	end
