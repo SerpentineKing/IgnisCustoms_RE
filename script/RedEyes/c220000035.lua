@@ -38,7 +38,7 @@ end
 -- Archetype : Red-Eyes
 s.listed_series={SET_RED_EYES}
 -- Helpers
-function s.e1fil1(c,e,tp)
+function s.e1fil1(c,tp)
 	return c:IsSetCard(SET_RED_EYES)
 	and c:IsMonster()
 	and c:GetControler()==tp
