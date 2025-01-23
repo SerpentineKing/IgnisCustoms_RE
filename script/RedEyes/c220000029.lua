@@ -119,8 +119,8 @@ function s.e2evt(e,tp)
 		if Duel.Equip(tp,ec,tc) then
 			local e2e1=Effect.CreateEffect(c)
 			e2e1:SetType(EFFECT_TYPE_SINGLE)
-			e2e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 			e2e1:SetCode(EFFECT_EQUIP_LIMIT)
+			e2e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 			e2e1:SetValue(s.e2lim)
 			e2e1:SetLabelObject(tc)
 			e2e1:SetReset(RESET_EVENT+RESETS_STANDARD)
@@ -188,8 +188,6 @@ function s.e3aval(e,re,r,rp)
 		e3a1:SetValue(dam)
 		e3a1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
 		tc:RegisterEffect(e3a1)
-
-		Duel.BreakEffect()
 
 		local g=Duel.GetMatchingGroup(s.e3afil,tp,LOCATION_GRAVE,0,nil)
 		if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(id,2)) then
