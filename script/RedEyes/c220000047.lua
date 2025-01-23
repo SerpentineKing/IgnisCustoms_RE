@@ -152,7 +152,8 @@ function s.e4evt(e,tp)
 	local c=e:GetHandler()
 	local tc=Duel.GetAttacker()
 
-	if tc and c:IsRelateToEffect(e) then
+	if tc then
+		Debug.ShowHint("CALL")
 		local e4b=Effect.CreateEffect(c)
 		e4b:SetType(EFFECT_TYPE_SINGLE)
 		e4b:SetCode(EFFECT_SET_ATTACK_FINAL)
