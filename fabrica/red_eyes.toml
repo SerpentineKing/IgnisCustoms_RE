@@ -634,7 +634,7 @@ name = "Black Dragon's Dominance"
 set = "m_red_eyes"
 type = "trap continuous"
 effect = '''
-During your opponent's Battle Phase, halve the ATK of all monsters your opponent controls. Negate the effect of any card that would reduce the ATK of monsters you control. You can activate 1 of the following effects;
+Negate the effect of any card that would reduce the ATK of monsters you control. You can activate 1 of the following effects;
 • This turn, each time a "Red-Eyes" monster(s) is Special Summoned from the GY to your field: Increase the ATK of all "Red-Eyes" monsters you currently control by the number of "Red-Eyes" monsters on the field x 400.
 • This turn, each time a monster(s) is Special Summoned from your opponent's GY to their field: Monsters your opponent currently controls lose 400 ATK for each "Red-Eyes" monster on the field.
 You can only use this effect of "Black Dragon's Dominance" once per turn. You can only activate 1 "Black Dragon's Dominance" per turn.'''
@@ -753,7 +753,7 @@ def = 2450
 level = 6
 effect = '''
 (This card is always treated as a "Red-Eyes" card.)
-If you control a "Red-Eyes" monster, you can Normal Summon this card without Tributing. Once per turn, when this card destroys an opponent's monster by battle: Your opponent must discard 1 card. If this card is destroyed by battle or card effect: You can return 1 card on the field to the hand, and if you do, discard 1 card. During your Main Phase: You can activate 1 of these effects.
+If you control a "Red-Eyes" monster, you can Normal Summon this card without Tributing. Once per turn, when this card destroys an opponent's monster by battle: Your opponent must discard 1 card. If this card is destroyed by battle or card effect: You can return 1 card on the field to the hand, and if you do, discard 1 card. When your "Red-Eyes" monster is targeted for an attack by a monster with higher ATK than it: You can banish this card from your GY; halve the attack of the attacking monster during this Battle Phase only. During your Main Phase: You can activate 1 of these effects.
 • Destroy as many Spells/Traps your opponent controls as possible, and if you do, inflict 500 damage to your opponent for each card destroyed by this effect.
 • Destroy as many monsters your opponent controls as possible, and if you do, gain LP equal to half the combined ATK of those destroyed monsters.
 You can only use this effect of "Red-Eyes Harpie Lady, Nightmare in the Darkness" once per turn.'''

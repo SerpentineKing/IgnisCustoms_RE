@@ -37,6 +37,20 @@ function s.initial_effect(c)
 	e3:SetOperation(s.e3evt)
 	c:RegisterEffect(e3)
 	--[[
+	[SOPT]
+	When your "Red-Eyes" monster is targeted for an attack by a monster with higher ATK than it:
+	You can banish this card from your GY;
+	halve the attack of the attacking monster during this Battle Phase only.
+	]]--
+	local e4=Effect.CreateEffect(c)
+	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
+	e4:SetCode(EVENT_BE_BATTLE_TARGET)
+	e4:SetRange(LOCATION_GRAVE)
+	e4:SetCost(aux.bfgcost)
+	e4:SetCondition(s.e4con)
+	e4:SetOperation(s.e4evt)
+	c:RegisterEffect(e4)
+	--[[
 	[HOPT]
 	During your Main Phase: You can activate 1 of these effects.
 	•
@@ -46,25 +60,25 @@ function s.initial_effect(c)
 	Destroy as many monsters your opponent controls as possible,
 	and if you do, gain LP equal to half the combined ATK of those destroyed monsters.
 	]]--
-	local e4a=Effect.CreateEffect(c)
-	e4a:SetCategory(CATEGORY_DESTROY+CATEGORY_DAMAGE)
-	e4a:SetDescription(aux.Stringid(id,2))
-	e4a:SetType(EFFECT_TYPE_IGNITION)
-	e4a:SetRange(LOCATION_MZONE)
-	e4a:SetCountLimit(1,{id,0})
-	e4a:SetTarget(s.e4atgt)
-	e4a:SetOperation(s.e4aevt)
-	c:RegisterEffect(e4a)
+	local e5a=Effect.CreateEffect(c)
+	e5a:SetCategory(CATEGORY_DESTROY+CATEGORY_DAMAGE)
+	e5a:SetDescription(aux.Stringid(id,2))
+	e5a:SetType(EFFECT_TYPE_IGNITION)
+	e5a:SetRange(LOCATION_MZONE)
+	e5a:SetCountLimit(1,{id,0})
+	e5a:SetTarget(s.e5atgt)
+	e5a:SetOperation(s.e5aevt)
+	c:RegisterEffect(e5a)
 
-	local e4b=Effect.CreateEffect(c)
-	e4b:SetCategory(CATEGORY_DESTROY+CATEGORY_RECOVER)
-	e4b:SetDescription(aux.Stringid(id,3))
-	e4b:SetType(EFFECT_TYPE_IGNITION)
-	e4b:SetRange(LOCATION_MZONE)
-	e4b:SetCountLimit(1,{id,0})
-	e4b:SetTarget(s.e4btgt)
-	e4b:SetOperation(s.e4bevt)
-	c:RegisterEffect(e4b)
+	local e5b=Effect.CreateEffect(c)
+	e5b:SetCategory(CATEGORY_DESTROY+CATEGORY_RECOVER)
+	e5b:SetDescription(aux.Stringid(id,3))
+	e5b:SetType(EFFECT_TYPE_IGNITION)
+	e5b:SetRange(LOCATION_MZONE)
+	e5b:SetCountLimit(1,{id,0})
+	e5b:SetTarget(s.e5btgt)
+	e5b:SetOperation(s.e5bevt)
+	c:RegisterEffect(e5b)
 end
 -- Archetype : Red-Eyes, Harpie
 s.listed_series={SET_RED_EYES,SET_HARPIE}
@@ -125,28 +139,48 @@ function s.e3evt(e,tp)
 		end
 	end
 end
-function s.e4atgt(e,tp,eg,ep,ev,re,r,rp,chk)
+function s.e4con(e,tp)
+	local a=Duel.GetAttacker()
+	local d=Duel.GetAttackTarget()
+
+	return (d and d:IsFaceup())
+	and d:IsControler(tp)
+	and d:IsSetCard(SET_RED_EYES)
+	and a:GetAttack()>d:GetAttack()
+end
+function s.e3evt(e,tp)
+	local c=e:GetHandler()
+	local tc=Duel.GetAttacker()
+
+	local e3b=Effect.CreateEffect(c)
+	e3b:SetType(EFFECT_TYPE_SINGLE)
+	e3b:SetCode(EFFECT_SET_ATTACK_FINAL)
+	e3b:SetValue(tc:GetAttack()/2)
+	e3b:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_BATTLE)
+	tc:RegisterEffect(e3b)
+end
+function s.e5atgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		return Duel.GetFieldGroupCount(1-tp,LOCATION_SZONE,0)>0
 	end
 
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,nil,1,1-tp,LOCATION_SZONE)
 end
-function s.e4aevt(e,tp)
+function s.e5aevt(e,tp)
 	local g=Duel.GetFieldGroup(tp,0,LOCATION_SZONE)
 	local ct=Duel.Destroy(g,REASON_EFFECT)
 	if ct>0 then
 		Duel.Damage(1-tp,ct*500,REASON_EFFECT)
 	end
 end
-function s.e4btgt(e,tp,eg,ep,ev,re,r,rp,chk)
+function s.e5btgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		return Duel.GetFieldGroupCount(1-tp,LOCATION_MZONE,0)>0
 	end
 
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,nil,1,1-tp,LOCATION_MZONE)
 end
-function s.e4bevt(e,tp)
+function s.e5bevt(e,tp)
 	local g=Duel.GetFieldGroup(tp,0,LOCATION_MZONE)
 	if Duel.Destroy(g,REASON_EFFECT)>0 then
 		local dg=Duel.GetOperatedGroup()
