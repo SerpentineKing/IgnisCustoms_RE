@@ -3,7 +3,7 @@ local s,id,o=GetID()
 -- c220000038
 function s.initial_effect(c)
 	--[[
-	This card can be used to Ritual Summon any Dragon Ritual Monster (DARK or FIRE).
+	This card can be used to Ritual Summon "Red-Eyes Darkness Chaos Max Dragon" or "Lord of Red Chaos".
 	You must also Tribute monsters from your hand or field whose total Levels equal or exceed the Ritual Monster,
 	OR Banish 1 "Red-Eyes Black Dragon" you control and 1 monster your opponent controls.
 	A Ritual Monster that was Ritual Summoned by this card's effect becomes "Red-Eyes Black Dragon" while on the field,
@@ -55,8 +55,7 @@ s.listed_series={SET_RED_EYES}
 -- Helpers
 function s.e1fil1(c,e,tp)
 	return c:IsRitualMonster()
-	and c:IsRace(RACE_DRAGON)
-	and (c:IsAttribute(ATTRIBUTE_DARK) or c:IsAttribute(ATTRIBUTE_FIRE))
+	and (c:IsCode(220000001) or c:IsCode(220000002))
 end
 function s.e1fil2a(c,e)
 	local sc=e:GetHandler()

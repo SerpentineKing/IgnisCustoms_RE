@@ -43,23 +43,6 @@ function s.initial_effect(c)
 	e2:SetTarget(s.e2tgt)
 	e2:SetOperation(s.e2evt)
 	c:RegisterEffect(e2)
-	--[[
-	[HOPT]
-	You can banish this card from your GY;
-	add 1 "Red-Eyes" Spell/Trap from your Deck to your hand.
-	]]--
-	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(id,2))
-	e3:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
-	e3:SetType(EFFECT_TYPE_QUICK_O)
-	e3:SetCode(EVENT_FREE_CHAIN)
-	e3:SetRange(LOCATION_GRAVE)
-	e3:SetHintTiming(0,TIMING_END_PHASE)
-	e3:SetCountLimit(1,{id,2})
-	e3:SetCost(aux.bfgcost)
-	e3:SetTarget(s.e3tgt)
-	e3:SetOperation(s.e3evt)
-	c:RegisterEffect(e3)
 end
 -- Mentions : "Red-Eyes Black Dragon"
 s.listed_names={CARD_REDEYES_B_DRAGON,id}
@@ -172,26 +155,5 @@ function s.e2evt(e,tp)
 		if Duel.Damage(1-tp,tc:GetBaseAttack(),REASON_EFFECT)>0 then
 			Duel.SendtoHand(tc,nil,REASON_EFFECT)
 		end
-	end
-end
-function s.e3fil(c)
-	return c:IsSetCard(SET_RED_EYES)
-	and c:IsSpellTrap()
-	and c:IsAbleToHand()
-end
-function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then
-		return Duel.IsExistingMatchingCard(s.e3fil,tp,LOCATION_DECK,0,1,nil)
-	end
-	
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
-end
-function s.e3evt(e,tp)
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-
-	local g=Duel.SelectMatchingCard(tp,s.e3fil,tp,LOCATION_DECK,0,1,1,nil)
-	if g:GetCount()>0 then
-		Duel.SendtoHand(g,nil,REASON_EFFECT)
-		Duel.ConfirmCards(1-tp,g)
 	end
 end

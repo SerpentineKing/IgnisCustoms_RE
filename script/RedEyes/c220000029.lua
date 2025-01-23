@@ -6,8 +6,7 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	When this card is activated:
-	You can add 1 DARK Machine monster, or 1 monster that mentions "Max Metalmorph",
-	and 1 "Metalmorph" Trap from your Deck or GY to your hand.
+	You can add 1 "Red-Eyes" monster, 1 monster that mentions "Max Metalmorph", or 1 "Metalmorph" Trap from your Deck to your hand.
 	]]--
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
@@ -17,57 +16,49 @@ function s.initial_effect(c)
 	e1:SetOperation(s.e1evt)
 	c:RegisterEffect(e1)
 	--[[
-	[HOPT]
-	At the start of the Damage Step, if your "Red-Eyes" or Machine monster battles:
-	You can target 1 monster in either GY;
-	equip it to 1 "Red-Eyes" or Machine monster you control as an Equip Spell,
-	and if you do, the equipped monster gains ATK/DEF equal to that target's ATK/DEF until the end of this Battle Phase.
+	[SOPT]
+	Once per turn: You can equip 1 "Max Metalmorph" from your Deck or GY to 1 "Red-Eyes" monster you control,
+	and if you do, it becomes a Machine monster while equipped.
+	(This is treated as being equipped by the effect of "Max Metalmorph".)
 	]]--
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,1))
 	e2:SetCategory(CATEGORY_EQUIP)
-	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
-	e2:SetCode(EVENT_BATTLE_START)
+	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_SZONE)
-	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e2:SetCountLimit(1,{id,1})
-	e2:SetCondition(s.e2con)
+	e2:SetCountLimit(1)
 	e2:SetTarget(s.e2tgt)
 	e2:SetOperation(s.e2evt)
 	c:RegisterEffect(e2)
 	--[[
 	[HOPT]
-	If either player equips an Equip Card(s) to a monster(s) on the field, even during the Damage Step:
-	You can destroy those Equip Cards, then you can destroy 1 Spell/Trap your opponent controls.
+	•
+	The first time each "Red-Eyes" or Machine monster you control would be destroyed by battle
+	during your opponent’s turn, it is not destroyed,
+	and if you took battle damage from that battle, it gains that much ATK until the end of the turn,
+	then you can set 1 "Metalmorph" Trap from your GY.
+	•
+	The first time each "Metalmorph" Trap you control would be destroyed by card effect, it is not destroyed.
 	]]--
-	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(id,2))
-	e3:SetCategory(CATEGORY_DESTROY)
-	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
-	e3:SetCode(EVENT_EQUIP)
-	e3:SetRange(LOCATION_SZONE)
-	e3:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
-	e3:SetCountLimit(1,{id,2})
-	e3:SetTarget(s.e3tgt)
-	e3:SetOperation(s.e3evt)
-	c:RegisterEffect(e3)
-	--[[
-	[HOPT]
-	If this card you control is destroyed by card effect and sent to the GY: You can banish this card from your GY;
-	Special Summon 1 DARK Machine or "Red-Eyes" monster from your hand or GY.
-	]]--
-	local e4=Effect.CreateEffect(c)
-	e4:SetDescription(aux.Stringid(id,4))
-	e4:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e4:SetCode(EVENT_TO_GRAVE)
-	e4:SetProperty(EFFECT_FLAG_DELAY)
-	e4:SetCountLimit(1,{id,3})
-	e4:SetCost(aux.bfgcost)
-	e4:SetCondition(s.e4con)
-	e4:SetTarget(s.e4tgt)
-	e4:SetOperation(s.e4evt)
-	c:RegisterEffect(e4)
+	local e3a=Effect.CreateEffect(c)
+	e3a:SetType(EFFECT_TYPE_FIELD)
+	e3a:SetCode(EFFECT_INDESTRUCTABLE_COUNT)
+	e3a:SetRange(LOCATION_SZONE)
+	e3a:SetTargetRange(LOCATION_MZONE,0)
+	e3a:SetCountLimit(1,{id,2})
+	e3a:SetTarget(s.e3atgt)
+	e3a:SetValue(s.e3aval)
+	c:RegisterEffect(e3a)
+
+	local e3b=Effect.CreateEffect(c)
+	e3b:SetType(EFFECT_TYPE_FIELD)
+	e3b:SetCode(EFFECT_INDESTRUCTABLE_COUNT)
+	e3b:SetRange(LOCATION_SZONE)
+	e3b:SetTargetRange(LOCATION_SZONE,0)
+	e3b:SetCountLimit(1,{id,2})
+	e3b:SetTarget(s.e3btgt)
+	e3b:SetValue(s.e3bval)
+	c:RegisterEffect(e3b)
 end
 -- Mentions : "Max Metalmorph"
 s.listed_names={CARD_MAX_METALMORPH,id}
@@ -75,9 +66,9 @@ s.listed_names={CARD_MAX_METALMORPH,id}
 s.listed_series={SET_RED_EYES}
 -- Helpers
 function s.e1fil1(c)
-	return ((c:IsAttribute(ATTRIBUTE_DARK) and c:IsRace(RACE_MACHINE))
-	or c:ListsCode(CARD_MAX_METALMORPH))
-	and c:IsMonster()
+	return ((c:IsSetCard(SET_RED_EYES) and c:IsMonster())
+	or (c:ListsCode(CARD_MAX_METALMORPH) and c:IsMonster())
+	or (c:IsSetCard(SET_METALMORPH) and c:IsTrap()))
 	and c:IsAbleToHand()
 end
 function s.e1fil2(c)
@@ -106,123 +97,124 @@ function s.e1evt(e,tp)
 		Duel.ConfirmCards(1-tp,sg)
 	end
 end
-function s.e2con(e,tp)
-	local a=Duel.GetAttacker()
-	if a:IsControler(1-tp) then
-		a=Duel.GetAttackTarget()
-	end
-	return a and a:IsFaceup() and (a:IsSetCard(SET_RED_EYES) or a:IsRace(RACE_MACHINE))
-end
-function s.e2fil1(c,tp)
-	return c:CheckUniqueOnField(tp)
-	and c:IsMonster()
-	and not c:IsForbidden()
+function s.e2fil1(c)
+	return c:IsCode(CARD_MAX_METALMORPH)
 end
 function s.e2fil2(c)
-	return (c:IsSetCard(SET_RED_EYES) or c:IsRace(RACE_MACHINE))
+	return c:IsSetCard(SET_RED_EYES)
+	and c:IsFaceup()
 end
-function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then
-		return chkc:IsLocation(LOCATION_GRAVE)
-		and s.e2fil(chkc,tp)
-	end
+function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
-		return Duel.IsExistingTarget(s.e2fil1,tp,LOCATION_GRAVE,LOCATION_GRAVE,1,nil,tp)
+		return Duel.IsExistingMatchingCard(s.e2fil1,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,nil)
 		and Duel.IsExistingMatchingCard(s.e2fil2,tp,LOCATION_MZONE,0,1,nil)
 		and Duel.GetLocationCount(tp,LOCATION_SZONE)>0
 	end
-	
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
-	
-	local g=Duel.SelectTarget(tp,s.e2fil1,tp,LOCATION_GRAVE,LOCATION_GRAVE,1,1,nil,tp)
-	Duel.SetOperationInfo(0,CATEGORY_EQUIP,g,1,0,0)
-	Duel.SetOperationInfo(0,CATEGORY_LEAVE_GRAVE,g,1,0,0)
-end
-function s.e2lim(e,c)
-	return c==e:GetLabelObject()
+
+	Duel.SetOperationInfo(0,CATEGORY_EQUIP,nil,1,0,0)
 end
 function s.e2evt(e,tp)
-	local c=e:GetHandler()
-
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
-	local g=Duel.SelectMatchingCard(tp,s.e2fil2,tp,LOCATION_MZONE,0,1,1,nil)
-	local ec=g:GetFirst()
+	local g1=Duel.SelectMatchingCard(tp,s.e3fil1,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,1,nil)
+	local g2=Duel.SelectMatchingCard(tp,s.e3fil2,tp,LOCATION_MZONE,0,1,1,nil)
 
-	local tc=Duel.GetFirstTarget()
-	if g:GetCount()>0 and tc:IsRelateToEffect(e) and Duel.Equip(tp,tc,ec,true) then
-		local e2b=Effect.CreateEffect(c)
-		e2b:SetType(EFFECT_TYPE_SINGLE)
-		e2b:SetCode(EFFECT_EQUIP_LIMIT)
-		e2b:SetReset(RESET_EVENT+RESETS_STANDARD)
-		e2b:SetValue(s.e2lim)
-		e2b:SetLabelObject(ec)
-		tc:RegisterEffect(e2b)
+	if g1:GetCount()>0 and g2:GetCount()>0 then
+		local ec=g1:GetFirst()
+		local tc=g2:GetFirst()
 
-		local e2c=Effect.CreateEffect(c)
-		e2c:SetType(EFFECT_TYPE_SINGLE)
-		e2c:SetCode(EFFECT_UPDATE_ATTACK)
-		e2c:SetValue(tc:GetBaseAttack())
-		e2c:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_BATTLE)
-		ec:RegisterEffect(e2c)
+		local e2e1=Effect.CreateEffect(c)
+		e2e1:SetType(EFFECT_TYPE_SINGLE)
+		e2e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+		e2e1:SetCode(EFFECT_EQUIP_LIMIT)
+		e2e1:SetValue(function(e,c) return c==tc end)
+		e2e1:SetReset(RESET_EVENT+RESETS_STANDARD)
+		c:RegisterEffect(e2e1)
+		
+		local e2e2=Effect.CreateEffect(c)
+		e2e2:SetType(EFFECT_TYPE_EQUIP)
+		e2e2:SetCode(EFFECT_UPDATE_ATTACK)
+		e2e2:SetValue(400)
+		e2e2:SetReset(RESET_EVENT+RESETS_STANDARD)
+		c:RegisterEffect(e2e2)
 
-		local e2d=Effect.CreateEffect(c)
-		e2d:SetType(EFFECT_TYPE_SINGLE)
-		e2d:SetCode(EFFECT_UPDATE_DEFENSE)
-		e2d:SetValue(tc:GetBaseDefense())
-		e2d:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_BATTLE)
-		ec:RegisterEffect(e2d)
+		local e2e3=e2e2:Clone()
+		e2e3:SetCode(EFFECT_UPDATE_DEFENSE)
+		c:RegisterEffect(e2e3)
+		
+		local e2e4=Effect.CreateEffect(c)
+		e2e4:SetType(EFFECT_TYPE_EQUIP)
+		e2e4:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
+		e2e4:SetValue(function(e,re,rc,c) return re:IsMonsterEffect() or re:IsSpellEffect() end)
+		e2e4:SetReset(RESET_EVENT+RESETS_STANDARD)
+		c:RegisterEffect(e2e4)
+		
+		local e2e5=e2e4:Clone()
+		e2e5:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
+		e2e5:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
+		e2e5:SetValue(function(e,re,rp) return rp==1-e:GetHandlerPlayer() and (re:IsMonsterEffect() or re:IsSpellEffect()) end)
+		c:RegisterEffect(e2e5)
+
+		local e2e6=Effect.CreateEffect(c)
+		e2e6:SetType(EFFECT_TYPE_EQUIP)
+		e2e6:SetCode(EFFECT_CHANGE_RACE)
+		e2e6:SetValue(RACE_MACHINE)
+		e2e6:SetReset(RESET_EVENT+RESETS_STANDARD)
+		c:RegisterEffect(e2e6)
 	end
 end
-function s.e3fil(c)
-	return c:IsSpellTrap()
+function s.e3afil(c)
+	return c:IsSetCard(SET_METALMORPH)
+	and c:IsTrap()
 end
-function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return true end
-
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,eg,eg:GetCount(),0,0)
+function s.e3atgt(e,c)
+	return (c:IsSetCard(SET_RED_EYES) or c:IsRace(RACE_MACHINE))
 end
-function s.e3evt(e,tp,eg)
-	if Duel.Destroy(eg,REASON_EFFECT)>0 then
-		local sg=Duel.GetMatchingGroup(s.e6fil,tp,0,LOCATION_ONFIELD,nil)
-		if sg:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(id,5)) then
-			Duel.BreakEffect()
-			
-			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-			
-			local tg=sg:Select(tp,1,1,nil)
-			Duel.HintSelection(tg)
-			Duel.Destroy(tg,REASON_EFFECT)
-		end
-	end
-end
-function s.e4con(e,tp)
+function s.e3aval(e,re,r,rp)
 	local c=e:GetHandler()
-
-	return c:IsReason(REASON_DESTROY)
-	and c:IsReason(REASON_EFFECT)
-	and c:IsPreviousControler(tp)
-	and c:IsPreviousLocation(LOCATION_ONFIELD)
-end
-function s.e4fil(c,e,tp)
-	return ((c:IsAttribute(ATTRIBUTE_DARK) and c:IsRace(RACE_MACHINE)) or c:IsSetCard(SET_RED_EYES))
-	and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
-end
-function s.e4tgt(e,tp,eg,ep,ev,re,r,rp,chk)
-	local c=e:GetHandler()
-
-	if chk==0 then
-		return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(s.e4fil,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,nil,e,tp)
-	end
 	
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND+LOCATION_GRAVE)
-end
-function s.e4evt(e,tp)
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+	if Duel.IsTurnPlayer(1-e:GetHandlerPlayer()) and r&REASON_BATTLE~=0 then
+		local tp=e:GetHandlerPlayer()
+		local a=Duel.GetAttacker()
+		local tc=a:GetBattleTarget()
 
-	local g=Duel.SelectMatchingCard(tp,s.e4fil,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,1,nil,e,tp)
-	if g:GetCount()>0 then
-		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
+		if tc and tc:IsControler(1-tp) then a,tc=tc,a end
+		
+		local dam=Duel.GetBattleDamage(tp)
+		
+		if not tc or dam<=0 then return 1 end
+		
+		local e3a1=Effect.CreateEffect(c)
+		e3a1:SetType(EFFECT_TYPE_SINGLE)
+		e3a1:SetCode(EFFECT_UPDATE_ATTACK)
+		e3a1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+		e3a1:SetRange(LOCATION_MZONE)
+		e3a1:SetValue(dam)
+		e3a1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+RESET_END)
+		tc:RegisterEffect(e3a1)
+
+		Duel.BreakEffect()
+
+		local g=Duel.GetMatchingGroup(s.e3afil,tp,LOCATION_GRAVE,0,nil)
+		if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(id,2)) then
+			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SET)
+
+			local sg=g:Select(tp,1,1,nil)
+			Duel.SSet(tp,sg)
+		end
+
+		return 1
+	else
+		return 0
+	end
+end
+function s.e3btgt(e,c)
+	return c:IsSetCard(SET_METALMORPH)
+	and c:IsTrap()
+end
+function s.e3bval(e,re,r,rp)
+	if (r&REASON_EFFECT)~=0 then
+		return 1
+	else
+		return 0
 	end
 end

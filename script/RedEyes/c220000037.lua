@@ -1,10 +1,10 @@
--- Spell Card "Shield & Sword"
+-- Red-Eyes Shield & Sword!
 local s,id,o=GetID()
 -- c220000037
 function s.initial_effect(c)
 	--[[
 	Switch the original ATK/DEF of all face-up monsters your opponent currently controls until the end of this turn,
-	then you can make 1 monster you control gain ATK equal to the combined differences.
+	then you can make 1 "Red-Eyes" monster you control gain ATK equal to the combined differences.
 	]]--
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_ATKCHANGE+CATEGORY_DEFCHANGE)
@@ -15,10 +15,14 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 -- Helpers
-function s.e1fil(c,e)
+function s.e1fil1(c,e)
 	return c:IsFaceup()
 	and c:IsRelateToEffect(e)
 	and not c:IsImmuneToEffect(e)
+end
+function s.e1fil2(c)
+	return c:IsSetCard(SET_RED_EYES)
+	and c:IsFaceup()
 end
 function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
@@ -30,7 +34,7 @@ function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetTargetCard(g)
 end
 function s.e1evt(e,tp)
-	local sg=Duel.GetMatchingGroup(s.e1fil,tp,0,LOCATION_MZONE,nil,e)
+	local sg=Duel.GetMatchingGroup(s.e1fil1,tp,0,LOCATION_MZONE,nil,e)
 	local c=e:GetHandler()
 
 	local total=0
@@ -56,10 +60,10 @@ function s.e1evt(e,tp)
 
 	Duel.Hint(HINT_CARD,0,id)
 
-	if Duel.IsExistingMatchingCard(aux.TRUE,tp,LOCATION_MZONE,0,1,nil) then
+	if Duel.IsExistingMatchingCard(s.e1fil2,tp,LOCATION_MZONE,0,1,nil) then
 		if Duel.SelectEffectYesNo(tp,c,aux.Stringid(id,0)) then
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATTACK)
-			local g=Duel.SelectMatchingCard(tp,aux.TRUE,tp,LOCATION_MZONE,0,1,1,nil)
+			local g=Duel.SelectMatchingCard(tp,s.e1fil2,tp,LOCATION_MZONE,0,1,1,nil)
 			if g:GetCount()>0 then
 				g:GetFirst():UpdateAttack(total)
 			end

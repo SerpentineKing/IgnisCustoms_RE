@@ -17,21 +17,46 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 	--[[
 	[HOPT]
-	If a Warrior monster(s) you control is destroyed by battle or card effect: You can banish this card from your GY;
-	Special Summon 1 "Red-Eyes" or Warrior monster from your Deck or banishment.
+	If this card leaves the field:
+	You can Special Summon 1 Gemini monster from your Deck as an Effect Monster that gains its effects.
 	]]--
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(id,1))
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
-	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
-	e2:SetCode(EVENT_DESTROYED)
-	e2:SetRange(LOCATION_GRAVE)
+	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e2:SetCode(EVENT_LEAVE_FIELD)
 	e2:SetCountLimit(1,{id,1})
-	e2:SetCost(aux.bfgcost)
 	e2:SetTarget(s.e2tgt)
 	e2:SetOperation(s.e2evt)
 	c:RegisterEffect(e2)
+	--[[
+	[HOPT]
+	When your Warrior monster targeted for an attack, OR when your Warrior monster(s) is destroyed:
+	You can banish this card from your GY, then Tribute 1 Gemini Monster;
+	Special Summon 1 FIRE Warrior from your hand or Deck,
+	then if you Tributed a Gemini Monster that was an Effect Monster and had gained its effects to activate this effect,
+	you can destroy 1 card on the field.
+	]]--
+	local e3a=Effect.CreateEffect(c)
+	e3a:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
+	e3a:SetCode(EVENT_BE_BATTLE_TARGET)
+	e3a:SetRange(LOCATION_GRAVE)
+	e3a:SetCountLimit(1,{id,2})
+	e3a:SetCost(s.e3cst)
+	e3a:SetCondition(s.e3acon)
+	e3a:SetTarget(s.e3tgt)
+	e3a:SetOperation(s.e3evt)
+	c:RegisterEffect(e3a)
+
+	local e3b=Effect.CreateEffect(c)
+	e3b:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
+	e3b:SetCode(EVENT_DESTROYED)
+	e3b:SetRange(LOCATION_GRAVE)
+	e3b:SetCountLimit(1,{id,2})
+	e3b:SetCost(s.e3cst)
+	e3b:SetCondition(s.e3bcon)
+	e3b:SetTarget(s.e3tgt)
+	e3b:SetOperation(s.e3evt)
+	c:RegisterEffect(e3b)
 	--[[
 	[HOPT]
 	•
@@ -42,28 +67,30 @@ function s.initial_effect(c)
 	You can Special Summon 1 Level 7 or lower "Red-Eyes" monster from your hand or GY in face-up Defense Position,
 	but its effects are negated, also it cannot attack this turn.
 	]]--
-	local e3a=Effect.CreateEffect(c)
-	e3a:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e3a:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
-	e3a:SetCode(EVENT_ATTACK_ANNOUNCE)
-	e3a:SetRange(LOCATION_SZONE)
-	e3a:SetCountLimit(1,{id,2})
-	e3a:SetCondition(s.e3acon)
-	e3a:SetTarget(s.e3atgt)
-	e3a:SetOperation(s.e3aevt)
-	c:RegisterEffect(e3a)
+	local e4a=Effect.CreateEffect(c)
+	e4a:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e4a:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
+	e4a:SetCode(EVENT_ATTACK_ANNOUNCE)
+	e4a:SetRange(LOCATION_SZONE)
+	e4a:SetCountLimit(1,{id,3})
+	e4a:SetCondition(s.e4acon)
+	e4a:SetTarget(s.e4atgt)
+	e4a:SetOperation(s.e4aevt)
+	c:RegisterEffect(e4a)
 
-	local e3b=Effect.CreateEffect(c)
-	e3b:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e3b:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
-	e3b:SetCode(EVENT_ATTACK_ANNOUNCE)
-	e3b:SetRange(LOCATION_SZONE)
-	e3b:SetCountLimit(1,{id,2})
-	e3b:SetCondition(s.e3bcon)
-	e3b:SetTarget(s.e3btgt)
-	e3b:SetOperation(s.e3bevt)
-	c:RegisterEffect(e3b)
+	local e4b=Effect.CreateEffect(c)
+	e4b:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e4b:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
+	e4b:SetCode(EVENT_ATTACK_ANNOUNCE)
+	e4b:SetRange(LOCATION_SZONE)
+	e4b:SetCountLimit(1,{id,3})
+	e4b:SetCondition(s.e4bcon)
+	e4b:SetTarget(s.e4btgt)
+	e4b:SetOperation(s.e4bevt)
+	c:RegisterEffect(e4b)
 end
+-- Geminize Lord Golknight
+s.listed_card_types={TYPE_GEMINI}
 -- Archetype : Red-Eyes
 s.listed_series={SET_RED_EYES}
 -- Helpers
@@ -85,34 +112,110 @@ function s.e1evt(e,tp)
 		Duel.ConfirmCards(1-tp,sg)
 	end
 end
-function s.e2fil1(c,tp)
-	return c:IsReason(REASON_BATTLE+REASON_EFFECT)
-	and c:IsPreviousLocation(LOCATION_MZONE)
-	and c:IsPreviousControler(tp)
-	and c:IsRace(RACE_WARRIOR)
-end
-function s.e2fil2(c,e,tp)
-	return (c:IsSetCard(SET_RED_EYES) or c:IsRace(RACE_WARRIOR))
+function s.e2fil(c,e,tp)
+	return c:IsType(TYPE_GEMINI)
 	and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(s.e2fil2,tp,LOCATION_DECK+LOCATION_REMOVED,0,1,nil,e,tp)
-		and eg:IsExists(s.e2fil1,1,nil,tp)
+		and Duel.IsExistingMatchingCard(s.e2fil,tp,LOCATION_DECK,0,1,nil,e,tp)
 	end
 
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK+LOCATION_REMOVED)
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
 end
 function s.e2evt(e,tp)
+	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
+
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 
-	local g=Duel.SelectMatchingCard(tp,s.e2fil2,tp,LOCATION_DECK+LOCATION_REMOVED,0,1,1,nil,e,tp)
+	local g=Duel.SelectMatchingCard(tp,s.e2fil,tp,LOCATION_DECK,0,1,1,nil,e,tp)
 	if g:GetCount()>0 then
-		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
+		local tc=g:GetFirst()
+		
+		if Duel.SpecialSummonStep(tc,0,tp,tp,false,false,POS_FACEUP) then
+			tc:EnableGeminiStatus()
+		end
+		Duel.SpecialSummonComplete()
 	end
 end
 function s.e3acon(e,tp)
+	local d=Duel.GetAttackTarget()
+
+	return d:IsFaceup()
+	and d:IsControler(tp)
+	and d:IsRace(RACE_WARRIOR)
+end
+function s.e3bfil(c,tp)
+	return c:IsRace(RACE_WARRIOR)
+	and c:IsMonster()
+	and c:IsPreviousLocation(LOCATION_MZONE)
+	and c:IsPreviousControler(tp)
+end
+function s.e3bcon(e,tp,eg)
+	return eg:IsExists(s.e3bfil,1,nil,tp)
+end
+function s.e3fil1(c,tp)
+	return c:IsType(TYPE_GEMINI)
+	and c:IsMonster()
+	and (c:IsControler(tp) or c:IsFaceup())
+end
+function s.e3cst(e,tp,eg,ep,ev,re,r,rp,chk)
+	local c=e:GetHandler()
+
+	if chk==0 then
+		return Duel.CheckReleaseGroupCost(tp,s.e3fil1,1,false,nil,nil,tp)
+		and c:IsAbleToRemoveAsCost()
+	end
+
+	local sg=Duel.SelectReleaseGroupCost(tp,s.e3fil1,1,1,false,nil,nil,tp)
+	
+	local tc=sg:GetFirst()
+	if tc:IsFaceup() and tc:IsGeminiStatus() then
+		e:SetLabel(1)
+	else
+		e:SetLabel(0)
+	end
+
+	Duel.Release(sg,REASON_COST)
+
+	Duel.Remove(c,POS_FACEUP,REASON_COST)
+end
+function s.e3fil2(c,e,tp)
+	return c:IsAttribute(ATTRIBUTE_FIRE)
+	and c:IsRace(RACE_WARRIOR)
+	and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+end
+function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then
+		return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+		and Duel.IsExistingMatchingCard(s.e3fil2,tp,LOCATION_HAND+LOCATION_DECK,0,1,nil,e,tp)
+	end
+
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND+LOCATION_DECK)
+end
+function s.e3evt(e,tp)
+	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
+
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+	local g=Duel.SelectMatchingCard(tp,s.e3fil2,tp,LOCATION_HAND+LOCATION_DECK,0,1,1,nil,e,tp)
+	if g:GetCount()>0 then
+		if Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)>0 then
+			Duel.BreakEffect()
+
+			local dg=Duel.GetMatchingGroup(nil,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
+			if e:GetLabel()==1 and dg:GetCount()>0 and Duel.SelectEffectYesNo(tp,c,aux.Stringid(id,1)) then
+				Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
+				
+				local sg=dg:Select(tp,1,1,nil)
+				if sg:GetCount()>0 then
+					Duel.Destroy(sg,REASON_EFFECT)
+				end
+			end
+		end
+	end
+end
+function s.e4acon(e,tp)
 	local tc=Duel.GetAttacker()
 	if tc:IsControler(1-tp) then
 		tc=Duel.GetAttackTarget()
@@ -123,29 +226,29 @@ function s.e3acon(e,tp)
 	and tc:IsControler(tp)
 	and tc:IsRace(RACE_DRAGON)
 end
-function s.e3afil(c,e,tp)
+function s.e4afil(c,e,tp)
 	return c:IsLevelBelow(4)
 	and c:IsRace(RACE_WARRIOR)
 	and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
-function s.e3atgt(e,tp,eg,ep,ev,re,r,rp,chk)
+function s.e4atgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(s.e3afil,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,nil,e,tp)
+		and Duel.IsExistingMatchingCard(s.e4afil,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,nil,e,tp)
 	end
 
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND+LOCATION_GRAVE)
 end
-function s.e3aevt(e,tp)
+function s.e4aevt(e,tp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,s.e3afil,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,1,nil,e,tp)
+	local g=Duel.SelectMatchingCard(tp,s.e4afil,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,1,nil,e,tp)
 	if g:GetCount()>0 then
 		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
 	end
 end
-function s.e3bcon(e,tp)
+function s.e4bcon(e,tp)
 	local tc=Duel.GetAttacker()
 	if tc:IsControler(1-tp) then
 		tc=Duel.GetAttackTarget()
@@ -156,47 +259,47 @@ function s.e3bcon(e,tp)
 	and tc:IsControler(tp)
 	and tc:IsRace(RACE_WARRIOR)
 end
-function s.e3bfil(c,e,tp)
+function s.e4bfil(c,e,tp)
 	return c:IsLevelBelow(7)
 	and c:IsSetCard(SET_RED_EYES)
 	and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
-function s.e3btgt(e,tp,eg,ep,ev,re,r,rp,chk)
+function s.e4btgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(s.e3bfil,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,nil,e,tp)
+		and Duel.IsExistingMatchingCard(s.e4bfil,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,nil,e,tp)
 	end
 
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND+LOCATION_GRAVE)
 end
-function s.e3bevt(e,tp)
+function s.e4bevt(e,tp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 	
-	local g=Duel.SelectMatchingCard(tp,s.e3bfil,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,1,nil,e,tp)
+	local g=Duel.SelectMatchingCard(tp,s.e4bfil,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,1,nil,e,tp)
 	local c=e:GetHandler()
 	if g:GetCount()>0 and Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP_DEFENSE)>0 then
 		local tc=g:GetFirst()
 
-		local e3b1=Effect.CreateEffect(c)
-		e3b1:SetType(EFFECT_TYPE_SINGLE)
-		e3b1:SetCode(EFFECT_DISABLE)
-		e3b1:SetReset(RESET_EVENT+RESETS_STANDARD)
-		tc:RegisterEffect(e3b1)
+		local e4b1=Effect.CreateEffect(c)
+		e4b1:SetType(EFFECT_TYPE_SINGLE)
+		e4b1:SetCode(EFFECT_DISABLE)
+		e4b1:SetReset(RESET_EVENT+RESETS_STANDARD)
+		tc:RegisterEffect(e4b1)
 
-		local e3b2=Effect.CreateEffect(c)
-		e3b2:SetType(EFFECT_TYPE_SINGLE)
-		e3b2:SetCode(EFFECT_DISABLE_EFFECT)
-		e3b2:SetReset(RESET_EVENT+RESETS_STANDARD)
-		tc:RegisterEffect(e3b2)
+		local e4b2=Effect.CreateEffect(c)
+		e4b2:SetType(EFFECT_TYPE_SINGLE)
+		e4b2:SetCode(EFFECT_DISABLE_EFFECT)
+		e4b2:SetReset(RESET_EVENT+RESETS_STANDARD)
+		tc:RegisterEffect(e4b2)
 
-		local e3b3=Effect.CreateEffect(c)
-		e3b3:SetDescription(3206)
-		e3b3:SetType(EFFECT_TYPE_SINGLE)
-		e3b3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_CLIENT_HINT)
-		e3b3:SetCode(EFFECT_CANNOT_ATTACK)
-		e3b3:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
-		tc:RegisterEffect(e3b3)
+		local e4b3=Effect.CreateEffect(c)
+		e4b3:SetDescription(3206)
+		e4b3:SetType(EFFECT_TYPE_SINGLE)
+		e4b3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_CLIENT_HINT)
+		e4b3:SetCode(EFFECT_CANNOT_ATTACK)
+		e4b3:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
+		tc:RegisterEffect(e4b3)
 	end
 end
