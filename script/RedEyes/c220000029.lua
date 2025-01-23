@@ -45,7 +45,6 @@ function s.initial_effect(c)
 	e3a:SetCode(EFFECT_INDESTRUCTABLE_COUNT)
 	e3a:SetRange(LOCATION_SZONE)
 	e3a:SetTargetRange(LOCATION_MZONE,0)
-	e3a:SetCountLimit(1,{id,2})
 	e3a:SetTarget(s.e3atgt)
 	e3a:SetValue(s.e3aval)
 	c:RegisterEffect(e3a)
@@ -55,7 +54,6 @@ function s.initial_effect(c)
 	e3b:SetCode(EFFECT_INDESTRUCTABLE_COUNT)
 	e3b:SetRange(LOCATION_SZONE)
 	e3b:SetTargetRange(LOCATION_SZONE,0)
-	e3b:SetCountLimit(1,{id,2})
 	e3b:SetTarget(s.e3btgt)
 	e3b:SetValue(s.e3bval)
 	c:RegisterEffect(e3b)
@@ -168,9 +166,15 @@ function s.e3atgt(e,c)
 end
 function s.e3aval(e,re,r,rp)
 	local c=e:GetHandler()
+
+	local tp=e:GetHandlerPlayer()
+	if Duel.GetFlagEffect(tp,id) then
+		return 0
+	else
+		Duel.RegisterFlagEffect(tp,id,RESETS_STANDARD_PHASE_END,0,1)
+	end
 	
-	if Duel.IsTurnPlayer(1-e:GetHandlerPlayer()) and r&REASON_BATTLE~=0 then
-		local tp=e:GetHandlerPlayer()
+	if Duel.IsTurnPlayer(1-tp) and r&REASON_BATTLE~=0 then
 		local a=Duel.GetAttacker()
 		local tc=a:GetBattleTarget()
 
@@ -207,6 +211,13 @@ function s.e3btgt(e,c)
 	and c:IsTrap()
 end
 function s.e3bval(e,re,r,rp)
+	local tp=e:GetHandlerPlayer()
+	if Duel.GetFlagEffect(tp,id) then
+		return 0
+	else
+		Duel.RegisterFlagEffect(tp,id,RESETS_STANDARD_PHASE_END,0,1)
+	end
+
 	if (r&REASON_EFFECT)~=0 then
 		return 1
 	else
