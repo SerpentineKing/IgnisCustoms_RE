@@ -152,12 +152,14 @@ function s.e3evt(e,tp)
 	local c=e:GetHandler()
 	local tc=Duel.GetAttacker()
 
-	local e3b=Effect.CreateEffect(c)
-	e3b:SetType(EFFECT_TYPE_SINGLE)
-	e3b:SetCode(EFFECT_SET_ATTACK_FINAL)
-	e3b:SetValue(tc:GetAttack()/2)
-	e3b:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_BATTLE)
-	tc:RegisterEffect(e3b)
+	if tc and c:IsRelateToEffect(e) then
+		local e3b=Effect.CreateEffect(c)
+		e3b:SetType(EFFECT_TYPE_SINGLE)
+		e3b:SetCode(EFFECT_SET_ATTACK_FINAL)
+		e3b:SetValue(tc:GetAttack()/2)
+		e3b:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_BATTLE)
+		tc:RegisterEffect(e3b)
+	end
 end
 function s.e5atgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
