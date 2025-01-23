@@ -503,10 +503,7 @@ name = "Red-Eyes Mechanization"
 set = "red_eyes"
 type = "spell continuous"
 effect = '''
-When this card is activated: You can add 1 "Red-Eyes" monster, 1 monster that mentions "Max Metalmorph", or 1 "Metalmorph" Trap from your Deck to your hand. Once per turn: You can equip 1 "Max Metalmorph" from your Deck or GY to 1 "Red-Eyes" monster you control, and if you do, it becomes a Machine monster while equipped. (This is treated as being equipped by the effect of "Max Metalmorph".) You can only use 1 the following effects of "Red-Eyes Mechanization" per turn, and only once that turn.
-• The first time each "Red-Eyes" or Machine monster you control would be destroyed by battle during your opponent's turn, it is not destroyed, and if you took battle damage from that battle, it gains that much ATK until the end of the turn, then you can set 1 "Metalmorph" Trap from your GY.
-• The first time each "Metalmorph" Trap you control would be destroyed by card effect, it is not destroyed.
-You can only activate 1 "Red-Eyes Mechanization" per turn.'''
+When this card is activated: You can add 1 "Red-Eyes" monster, 1 monster that mentions "Max Metalmorph", or 1 "Metalmorph" Trap from your Deck to your hand. Once per turn: You can equip 1 "Max Metalmorph" from your Deck or GY to 1 "Red-Eyes" monster you control, and if you do, it becomes a Machine monster while equipped. (This is treated as being equipped by the effect of "Max Metalmorph".) The first time each "Red-Eyes" or Machine monster you control would be destroyed by battle during your opponent's turn, it is not destroyed, and if you took battle damage from that battle, it gains that much ATK until the end of the turn, then you can set 1 "Metalmorph" Trap from your GY. The first time each "Metalmorph" Trap you control would be destroyed by card effect, it is not destroyed. You can only activate 1 "Red-Eyes Mechanization" per turn.'''
 strings=['Add 1 "Red-Eyes" monster, 1 "Max Metalmorph" monster, or "Metalmorph" Trap from your Deck to your hand','Equip 1 "Max Metalmorph" to your "Red-Eyes" monster','Set 1 "Metalmorph" Trap']
 
 [[card]]

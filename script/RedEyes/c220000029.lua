@@ -31,13 +31,10 @@ function s.initial_effect(c)
 	e2:SetOperation(s.e2evt)
 	c:RegisterEffect(e2)
 	--[[
-	[HOPT]
-	•
 	The first time each "Red-Eyes" or Machine monster you control would be destroyed by battle
 	during your opponent’s turn, it is not destroyed,
-	and if you took battle damage from that battle, it gains that much ATK until the end of the turn,
-	then you can set 1 "Metalmorph" Trap from your GY.
-	•
+	and if you took battle damage from that battle, it gains that much ATK until the end of the turn.
+	
 	The first time each "Metalmorph" Trap you control would be destroyed by card effect, it is not destroyed.
 	]]--
 	local e3a=Effect.CreateEffect(c)
@@ -166,13 +163,7 @@ function s.e3atgt(e,c)
 end
 function s.e3aval(e,re,r,rp)
 	local c=e:GetHandler()
-
 	local tp=e:GetHandlerPlayer()
-	if Duel.GetFlagEffect(tp,id) then
-		return 0
-	else
-		Duel.RegisterFlagEffect(tp,id,RESETS_STANDARD_PHASE_END,0,1)
-	end
 	
 	if Duel.IsTurnPlayer(1-tp) and r&REASON_BATTLE~=0 then
 		local a=Duel.GetAttacker()
@@ -211,13 +202,6 @@ function s.e3btgt(e,c)
 	and c:IsTrap()
 end
 function s.e3bval(e,re,r,rp)
-	local tp=e:GetHandlerPlayer()
-	if Duel.GetFlagEffect(tp,id) then
-		return 0
-	else
-		Duel.RegisterFlagEffect(tp,id,RESETS_STANDARD_PHASE_END,0,1)
-	end
-
 	if (r&REASON_EFFECT)~=0 then
 		return 1
 	else
