@@ -65,33 +65,22 @@ s.listed_names={CARD_MAX_METALMORPH,id}
 -- Archetype : Red-Eyes
 s.listed_series={SET_RED_EYES}
 -- Helpers
-function s.e1fil1(c)
+function s.e1fil(c)
 	return ((c:IsSetCard(SET_RED_EYES) and c:IsMonster())
 	or (c:ListsCode(CARD_MAX_METALMORPH) and c:IsMonster())
 	or (c:IsSetCard(SET_METALMORPH) and c:IsTrap()))
-	and c:IsAbleToHand()
-end
-function s.e1fil2(c)
-	return c:IsSetCard(SET_METALMORPH)
-	and c:IsTrap()
 	and c:IsAbleToHand()
 end
 function s.e1evt(e,tp)
 	local c=e:GetHandler()
 	if not c:IsRelateToEffect(e) then return end
 
-	local g1=Duel.GetMatchingGroup(s.e1fil1,tp,LOCATION_DECK+LOCATION_GRAVE,0,nil)
-	local g2=Duel.GetMatchingGroup(s.e1fil2,tp,LOCATION_DECK+LOCATION_GRAVE,0,nil)
+	local g=Duel.GetMatchingGroup(s.e1fil,tp,LOCATION_DECK,0,nil)
 
-	if g1:GetCount()>0 and g2:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
+	if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 		
-		local sg1=g1:Select(tp,1,1,nil)
-		local sg2=g2:Select(tp,1,1,nil)
-		
-		local sg=Group.CreateGroup()
-		sg:AddCard(sg1:GetFirst())
-		sg:AddCard(sg2:GetFirst())
+		local sg=g:Select(tp,1,1,nil)
 
 		Duel.SendtoHand(sg,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,sg)
