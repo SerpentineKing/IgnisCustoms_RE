@@ -189,7 +189,7 @@ function s.e3aval(e,re,r,rp)
 		e3a1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 		e3a1:SetRange(LOCATION_MZONE)
 		e3a1:SetValue(dam)
-		e3a1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+RESET_END)
+		e3a1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
 		tc:RegisterEffect(e3a1)
 
 		Duel.BreakEffect()
