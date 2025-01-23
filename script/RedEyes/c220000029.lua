@@ -102,12 +102,17 @@ function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 
 	Duel.SetOperationInfo(0,CATEGORY_EQUIP,nil,1,0,0)
 end
+function s.e2lim(e,c)
+	return c==e:GetLabelObject()
+end
 function s.e2evt(e,tp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
-	local g1=Duel.SelectMatchingCard(tp,s.e3fil1,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,1,nil)
-	local g2=Duel.SelectMatchingCard(tp,s.e3fil2,tp,LOCATION_MZONE,0,1,1,nil)
+	local g1=Duel.SelectMatchingCard(tp,s.e2fil1,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,1,nil)
+	local g2=Duel.SelectMatchingCard(tp,s.e2fil2,tp,LOCATION_MZONE,0,1,1,nil)
 
 	if g1:GetCount()>0 and g2:GetCount()>0 then
+		local c=e:GetHandler()
+
 		local ec=g1:GetFirst()
 		local tc=g2:GetFirst()
 
@@ -115,40 +120,41 @@ function s.e2evt(e,tp)
 		e2e1:SetType(EFFECT_TYPE_SINGLE)
 		e2e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 		e2e1:SetCode(EFFECT_EQUIP_LIMIT)
-		e2e1:SetValue(function(e,c) return c==tc end)
+		e2e1:SetValue(s.e2lim)
+		e2e1:SetLabelObject(c)
 		e2e1:SetReset(RESET_EVENT+RESETS_STANDARD)
-		c:RegisterEffect(e2e1)
+		ec:RegisterEffect(e2e1)
 		
 		local e2e2=Effect.CreateEffect(c)
 		e2e2:SetType(EFFECT_TYPE_EQUIP)
 		e2e2:SetCode(EFFECT_UPDATE_ATTACK)
 		e2e2:SetValue(400)
 		e2e2:SetReset(RESET_EVENT+RESETS_STANDARD)
-		c:RegisterEffect(e2e2)
+		ec:RegisterEffect(e2e2)
 
 		local e2e3=e2e2:Clone()
 		e2e3:SetCode(EFFECT_UPDATE_DEFENSE)
-		c:RegisterEffect(e2e3)
+		ec:RegisterEffect(e2e3)
 		
 		local e2e4=Effect.CreateEffect(c)
 		e2e4:SetType(EFFECT_TYPE_EQUIP)
 		e2e4:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
 		e2e4:SetValue(function(e,re,rc,c) return re:IsMonsterEffect() or re:IsSpellEffect() end)
 		e2e4:SetReset(RESET_EVENT+RESETS_STANDARD)
-		c:RegisterEffect(e2e4)
+		ec:RegisterEffect(e2e4)
 		
 		local e2e5=e2e4:Clone()
 		e2e5:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
 		e2e5:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
 		e2e5:SetValue(function(e,re,rp) return rp==1-e:GetHandlerPlayer() and (re:IsMonsterEffect() or re:IsSpellEffect()) end)
-		c:RegisterEffect(e2e5)
+		ec:RegisterEffect(e2e5)
 
 		local e2e6=Effect.CreateEffect(c)
 		e2e6:SetType(EFFECT_TYPE_EQUIP)
 		e2e6:SetCode(EFFECT_CHANGE_RACE)
 		e2e6:SetValue(RACE_MACHINE)
 		e2e6:SetReset(RESET_EVENT+RESETS_STANDARD)
-		c:RegisterEffect(e2e6)
+		ec:RegisterEffect(e2e6)
 	end
 end
 function s.e3afil(c)
