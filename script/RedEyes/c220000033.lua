@@ -203,6 +203,7 @@ function s.e3evt(e,tp)
 		if Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)>0 then
 			Duel.BreakEffect()
 
+			local c=e:GetHandler()
 			local dg=Duel.GetMatchingGroup(nil,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
 			if e:GetLabel()==1 and dg:GetCount()>0 and Duel.SelectEffectYesNo(tp,c,aux.Stringid(id,1)) then
 				Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
