@@ -148,17 +148,17 @@ function s.e4con(e,tp)
 	and d:IsSetCard(SET_RED_EYES)
 	and a:GetAttack()>d:GetAttack()
 end
-function s.e3evt(e,tp)
+function s.e4evt(e,tp)
 	local c=e:GetHandler()
 	local tc=Duel.GetAttacker()
 
 	if tc and c:IsRelateToEffect(e) then
-		local e3b=Effect.CreateEffect(c)
-		e3b:SetType(EFFECT_TYPE_SINGLE)
-		e3b:SetCode(EFFECT_SET_ATTACK_FINAL)
-		e3b:SetValue(tc:GetAttack()/2)
-		e3b:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_BATTLE)
-		tc:RegisterEffect(e3b)
+		local e4b=Effect.CreateEffect(c)
+		e4b:SetType(EFFECT_TYPE_SINGLE)
+		e4b:SetCode(EFFECT_SET_ATTACK_FINAL)
+		e4b:SetValue(tc:GetAttack()/2)
+		e4b:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_BATTLE)
+		tc:RegisterEffect(e4b)
 	end
 end
 function s.e5atgt(e,tp,eg,ep,ev,re,r,rp,chk)
