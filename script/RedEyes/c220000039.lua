@@ -70,6 +70,8 @@ function s.e1val(e,te)
 	return res
 end
 function s.e2aevt(e,tp)
+	local c=e:GetHandler()
+
 	local e2a2=Effect.CreateEffect(c)
 	e2a2:SetCategory(CATEGORY_ATKCHANGE)
 	e2a2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
@@ -108,6 +110,8 @@ function s.e2a2evt(e,tp)
 	end
 end
 function s.e2bevt(e,tp)
+	local c=e:GetHandler()
+
 	local e2b2=Effect.CreateEffect(c)
 	e2b2:SetCategory(CATEGORY_ATKCHANGE)
 	e2b2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
