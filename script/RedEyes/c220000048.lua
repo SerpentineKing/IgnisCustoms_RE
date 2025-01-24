@@ -32,7 +32,6 @@ function s.initial_effect(c)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCountLimit(1)
 	e3:SetCondition(s.e3con)
-	e3:SetTarget(s.e3tgt)
 	e3:SetOperation(s.e3evt)
 	c:RegisterEffect(e3)
 	--[[
@@ -98,22 +97,16 @@ end
 function s.e3fil(c)
 	return c:IsLevel(4) and c:IsAbleToGrave()
 end
-function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(s.e3fil,tp,LOCATION_HAND|LOCATION_DECK,0,1,nil) end
-	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,tp,LOCATION_HAND|LOCATION_DECK)
-	Duel.SetOperationInfo(0,CATEGORY_ATKCHANGE,e:GetHandler(),1,tp,0)
-end
 function s.e3evt(e,tp)
 	local c=e:GetHandler()
-	if c:IsRelateToEffect(e) and c:IsFaceup() then
-		local e3b=Effect.CreateEffect(c)
-		e3b:SetType(EFFECT_TYPE_SINGLE)
-		e3b:SetCode(EFFECT_UPDATE_ATTACK)
-		e3b:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-		e3b:SetValue(c:GetDefense())
-		e3b:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_BATTLE)
-		c:RegisterEffect(e3b)
-	end
+	
+	local e3b=Effect.CreateEffect(c)
+	e3b:SetType(EFFECT_TYPE_SINGLE)
+	e3b:SetCode(EFFECT_UPDATE_ATTACK)
+	e3b:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+	e3b:SetValue(c:GetDefense())
+	e3b:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_BATTLE)
+	c:RegisterEffect(e3b)
 end
 function s.e4cst(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -142,7 +135,7 @@ function s.e4tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetTargetCard(eg)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,g:GetCount(),0,0)
 end
-function s.e4evt(e,tp)
+function s.e4evt(e,tp,eg)
 	local g=eg:Filter(s.e4fil,nil,e,tp)
 	if g:GetCount()>0 then
 		Duel.Destroy(g,REASON_EFFECT)
