@@ -22,6 +22,10 @@ code = 0xbc
 name = "Harpie"
 code = 0x64
 
+[set.fusion]
+name = "Fusion"
+code = 0x46
+
 [[card]]
 id = 220000001
 setnumber = "IPRE-EN001"
@@ -727,7 +731,7 @@ name = "Little-Winguard with Eyes of Red"
 set = "red_eyes"
 attribute = "dark"
 race = "warrior"
-type = "monster effect"
+type = "monster effect tuner"
 atk = 1400
 def = 1800
 level = 4
@@ -755,3 +759,30 @@ If you control a "Red-Eyes" monster, you can Normal Summon this card without Tri
 • Destroy as many monsters your opponent controls as possible, and if you do, gain LP equal to half the combined ATK of those destroyed monsters.
 You can only use this effect of "Red-Eyes Harpie Lady, Nightmare in the Darkness" once per turn.'''
 strings=['Normal Summon with Tributing','Return 1 card on the field to the hand','Destroy all Spells/Traps your opponent controls','Destroy all monsters your opponent controls']
+
+[[card]]
+id = 220000048
+setnumber = "IPRE-EN048"
+ot = "custom"
+name = "Dark Flare Swordsman"
+attribute = "dark"
+race = "warrior"
+type = "monster effect fusion"
+atk = 2500
+def = 1800
+level = 6
+effect = '''
+"Dark Magician" + 1 "Flame Swordsman" monster
+You take no battle damage from battles involving this card. Monsters your opponent controls cannot target Warrior monsters for attacks, except "Shadow Flare Knight". Once per turn, during damage calculation, if this card battles an opponent's monster with 2400 or more ATK (Quick Effect): You can make this card gain ATK equal to its current DEF until the end of this Battle Phase. You can only use each of the following effects of Shadow Flare Knight" once per turn. If your opponent Special Summons a Level 5 or higher monster(s) (Quick Effect): You can Tribute 1 face-up monster; destroy that Summoned monster(s), and if you do, inflict 500 damage to your opponent. If this card is destroyed by battle or card effect and sent to the GY: You can banish this card from your GY; Special Summon 1 Level 8 or lower FIRE Warrior monster from your hand or Deck, and if you do, inflict 500 damage to your opponent.'''
+strings=['Make this card gain ATK','Destroy the Summoned monster(s)','Special Summon 1 Level 8 or lower FIRE Warrior from your hand or Deck']
+
+[[card]]
+id = 220000049
+setnumber = "IPRE-EN049"
+ot = "custom"
+name = "Time Magic Fusion"
+set = "m_red_eyes fusion"
+type = "spell equip"
+effect = '''
+Equip only to a Level 3 or 4 "Red-Eyes" monster that is equipped with a "Time Wizard" monster. The equipped monster gains 500 ATK. If this equipped monster would be destroyed by battle or card effect, you can destroy this card instead. While this card is equipped to a Fusion Monster you control: You can send this card and the equipped monster to the GY, and if you do, Special Summon 1 "Thousand Dragon" or 1 Fusion Monster that mentions it from your Extra Deck. (This is treated as a Fusion Summon.) You can only use this effect of "Time Magic Fusion" once per turn.'''
+strings=['Special Summon 1 "Thousand Dragon" or Fusion Monster that mentions it from your Extra Deck']

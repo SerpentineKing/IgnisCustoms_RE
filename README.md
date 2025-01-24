@@ -37,6 +37,10 @@ Code Sequence : # c220000001
 - s.listed_names={CARD_MAX_METALMORPH,68540058,id}
 - IsSetCard : SET_METALMORPH
 - c24311372
+# Time Wizard Monsters
+- c71625222
+- c26273196
+- c220000024
 # Fusion Groups
 - s.listed_series={SET_FUSION} [0x46]
 # Ritual Cards
@@ -94,3 +98,4 @@ Code Sequence : # c220000001
 - c68540058 ["Metalmorph"]
 - c6172122  ["Red-Eyes Fusion"]
 - c71625222 ["Time Wizard"]
+- c41462083 ["Thousand Dragon"]

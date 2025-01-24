@@ -75,8 +75,8 @@ function s.initial_effect(c)
 end
 -- Mentions : "Dark Magician","Red-Eyes Black Dragon"
 s.listed_names={CARD_DARK_MAGICIAN,CARD_REDEYES_B_DRAGON,id}
--- Archetype : Red-Eyes, Dark Magician
-s.listed_series={SET_RED_EYES,SET_DARK_MAGICIAN}
+-- Archetype : Red-Eyes
+s.listed_series={SET_RED_EYES}
 -- Helpers
 function s.e2fil(c)
 	return c:IsCode(CARD_REDEYES_B_DRAGON)
