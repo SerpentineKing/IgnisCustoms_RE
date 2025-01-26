@@ -62,7 +62,7 @@ function s.e1con(e,tp,eg,ep,ev,re,r,rp)
 		local ch_ev=ch-1
 		local ch_p,ch_e=Duel.GetChainInfo(ch_ev,CHAININFO_TRIGGERING_PLAYER,CHAININFO_TRIGGERING_EFFECT)
 
-		if (ch_e:GetCode()==EVENT_SUMMON_SUCCESS or ch_e:GetCode()==EVENT_SPSUMMON_SUCCESS) and Duel.IsChainNegatable(ch_ev) and ch_p~=tp then
+		if Duel.IsChainNegatable(ch_ev) and ch_p~=tp then
 			req=true
 		end
 	end
