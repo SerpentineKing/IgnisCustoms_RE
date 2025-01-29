@@ -2,7 +2,7 @@
 local s,id,o=GetID()
 -- c220000049
 function s.initial_effect(c)
-	-- Equip only to a Level 3 or 4 "Red-Eyes" monster that is equipped with a "Time Wizard" monster.
+	-- Equip only to "Time Wizard" monster that is equipped with a "Red-Eyes" monster.
 	aux.AddEquipProcedure(c,nil,s.eqfil)
 	-- The equipped monster gains 500 ATK.
 	local e1=Effect.CreateEffect(c)
@@ -43,14 +43,13 @@ s.listed_series={0xfe1}
 function s.eqfil(c)
 	local eqg=c:GetEquipGroup()
 
-	return c:IsSetCard(SET_RED_EYES)
-	and (c:IsLevel(3) or c:IsLevel(4))
-	and (eqg and eqg:IsExists(s.eqfil2,1,nil))
-end
-function s.eqfil2(c)
 	return (c:IsCode(71625222)
 	or c:IsCode(26273196)
 	or c:IsCode(220000024))
+	and (eqg and eqg:IsExists(s.eqfil2,1,nil))
+end
+function s.eqfil2(c)
+	return c:IsSetCard(SET_RED_EYES)
 end
 function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
