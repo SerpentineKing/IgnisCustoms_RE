@@ -98,7 +98,7 @@ function s.e3con(sg,e,tp,mg)
 	return sg:FilterCount(Card.IsCode,nil,CARD_REDEYES_B_DRAGON)==1
 end
 function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
-	local g=Duel.GetMatchingGroup(s.e3fil,tp,LOCATION_HAND_DECK_GRAVE_EXTRA,0,nil,e,tp)
+	local g=Duel.GetMatchingGroup(s.e3fil,tp,LOCATION_HAND+LOCATION_DECK+LOCATION_GRAVE+LOCATION_EXTRA,0,nil,e,tp)
 
 	if chk==0 then
 		return not Duel.IsPlayerAffectedByEffect(tp,CARD_BLUEEYES_SPIRIT)
@@ -106,12 +106,12 @@ function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 		and aux.SelectUnselectGroup(g,e,tp,2,2,s.e3con,0)
 	end
 	
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,2,tp,LOCATION_HAND_DECK_GRAVE_EXTRA)
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,2,tp,LOCATION_HAND+LOCATION_DECK+LOCATION_GRAVE+LOCATION_EXTRA)
 end
 function s.e3evt(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.IsPlayerAffectedByEffect(tp,CARD_BLUEEYES_SPIRIT) or Duel.GetLocationCount(tp,LOCATION_MZONE)<2 then return end
 
-	local g=Duel.GetMatchingGroup(aux.NecroValleyFilter(s.e3fil),tp,LOCATION_HAND_DECK_GRAVE_EXTRA,0,nil,e,tp)
+	local g=Duel.GetMatchingGroup(aux.NecroValleyFilter(s.e3fil),tp,LOCATION_HAND+LOCATION_DECK+LOCATION_GRAVE+LOCATION_EXTRA,0,nil,e,tp)
 	if g:GetCount()>0 then
 		local sg=aux.SelectUnselectGroup(g,e,tp,2,2,s.e3con,1,tp,HINTMSG_SPSUMMON)
 		if sg:GetCount()>0 then
