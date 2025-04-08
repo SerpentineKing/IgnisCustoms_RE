@@ -141,7 +141,7 @@ def = 1800
 level = 8
 effect = '''
 (This card is always treated as a "Red-Eyes" card.)
-Cannot be Normal Summoned/Set. Must first be Special Summoned with "Max Metalmorph" that was activated by Tributing a Level 5 or higher Machine monster. You can reveal this card in your hand; take 1 "Metalmorph" Trap, or 1 Trap that has "Red-Eyes" in its text, from your GY or banishment, and either add it to your hand or shuffle it into the Deck, and if you do, shuffle this card into the Deck. "Red-Eyes" monsters you control are unaffected by the effects of Trap Cards on your opponent's field. You can only use each of the following effects of "Jinzo, Black Fullmetal Dragon Armored" once per turn. You can Tribute 1 Level 7 or higher "Red-Eyes" monster; destroy as many Traps your opponent controls as possible (if a card is Set, reveal it), and if you do, inflict 400 damage to your opponent for each card destroyed by this effect. When your opponent activates a card or effect (Quick Effect): You can target 1 face-up monster your opponent controls; take control of it until the End Phase. If this card is sent from the field to the GY: You can banish this card from your GY; Special Summon 1 DARK Dragon or Machine monster from your hand, Deck, or GY, except "Jinzo, Black Fullmetal Dragon Armored".'''
+Cannot be Normal Summoned/Set. Must first be Special Summoned with "Max Metalmorph" that was activated by Tributing a Level 5 or higher Machine monster. You can reveal this card in your hand; take 1 "Metalmorph" Trap, or 1 Trap that has "Red-Eyes" in its text, from your GY or banishment, and either add it to your hand or shuffle it into the Deck, and if you do, shuffle this card into the Deck. "Red-Eyes" monsters you control are unaffected by the effects of Trap Cards on your opponent's field. "Metalmorph" Traps you control cannot be destroyed by card effects. You can only use each of the following effects of "Jinzo, Black Fullmetal Dragon Armored" once per turn. You can Tribute 1 Level 7 or higher "Red-Eyes" monster; destroy as many Traps your opponent controls as possible (if a card is Set, reveal it), and if you do, inflict 400 damage to your opponent for each card destroyed by this effect. When your opponent activates a card or effect (Quick Effect): You can target 1 face-up monster your opponent controls; take control of it until the End Phase. If this card is sent from the field to the GY: You can banish this card from your GY; Special Summon 1 DARK Dragon or Machine monster from your hand, Deck, or GY, except "Jinzo, Black Fullmetal Dragon Armored".'''
 strings=['Return 1 "Metalmorph" or "Red-Eyes" Trap to your hand or Deck','Add to your hand','Shuffle into the Deck','Destroy Traps your opponent controls?','Take control of 1 face-up monster your opponent controls','Special Summon 1 monster from your hand, Deck, or GY?']
 
 [[card]]
@@ -227,7 +227,7 @@ atk = 2800
 def = 3400
 level = 8
 effect = '''
-Cannot be Normal Summoned/Set. Must be Special Summoned (from your hand) by Tributing 1 Level 7 or higher "Red-Eyes" monster from your hand or field, and cannot be Special Summoned by other ways. You can only Special Summon "Red-Eyes Eternal Darkness Dragon" once per turn this way. Gains 600 ATK for each Dragon monster on your field and in your GY. Special Summoned monsters your opponent controls cannot attack the turn they are Summoned. Once per turn (Quick Effect): You can discard 1 card, then target 1 face-up card your opponent controls; negate its effects until the end of this turn. When this card destroys an opponent's Special Summoned monster by battle: Inflict damage to your opponent equal to the destroyed monster's original ATK.'''
+Cannot be Normal Summoned/Set. Must be Special Summoned (from your hand) by Tributing 1 Level 7 or higher "Red-Eyes" monster from your hand or field, and cannot be Special Summoned by other ways. You can only Special Summon "Red-Eyes Eternal Darkness Dragon" once per turn this way. Gains 400 ATK for each Dragon monster on your field and in your GY. Special Summoned monsters your opponent controls cannot attack the turn they are Summoned. Once per turn (Quick Effect): You can discard 1 card, then target 1 face-up card your opponent controls; negate its effects until the end of this turn. When this card destroys an opponent's Special Summoned monster by battle: Inflict damage to your opponent equal to the destroyed monster's original ATK.'''
 strings=['Negate the effects of 1 card your opponent controls']
 
 [[card]]
@@ -786,3 +786,35 @@ type = "spell equip"
 effect = '''
 Equip only to a "Time Wizard" monster that is equipped with a "Red-Eyes" monster. The equipped monster gains 500 ATK. If this equipped monster would be destroyed by battle or card effect, you can destroy this card instead. While this card is equipped to a Fusion Monster you control: You can send this card and the equipped monster to the GY, and if you do, Special Summon 1 "Thousand Dragon" or 1 Fusion Monster that mentions it from your Extra Deck. (This is treated as a Fusion Summon.) You can only use this effect of "Time Magic Fusion" once per turn.'''
 strings=['Special Summon 1 "Thousand Dragon" or Fusion Monster that mentions it from your Extra Deck']
+
+[[card]]
+id = 220000050
+setnumber = "IPRE-EN050"
+ot = "custom"
+name = "Thousand Dragon, Breath of Time Magic"
+attribute = "wind"
+race = "dragon"
+type = "monster effect fusion"
+atk = 2400
+def = 2000
+level = 7
+effect = '''
+"Time Wizard" + 1 Level 3 or 4 Dragon monster
+A.'''
+strings=['']
+
+[[card]]
+id = 220000051
+setnumber = "IPRE-EN051"
+ot = "custom"
+name = "Red-Eyes Noxious Flame Dragon"
+attribute = "dark"
+race = "dragon"
+type = "monster effect fusion"
+atk = 2800
+def = 2400
+level = 8
+effect = '''
+1 Level 7 "Red-Eyes" monster + 1 Level 7 WIND Dragon monster
+If a monster you control attacks a Defense Position monster, inflict piercing battle damage to your opponent. Once per turn, when a monster you control destroys an opponent's monster by battle: You can inflict damage to your opponent equal to the destroyed monster's original ATK. If this card is destroyed by battle or card effect: You can Special Summon both 1 "Red-Eyes Black Dragon" and 1 "Thousand Dragon" from your hand, Deck, Extra Deck, and/or GY.'''
+strings=['Inflict damage to your opponent?','Special Summon "Red-Eyes Black Dragon" and "Thousand Dragon"?']

@@ -50,7 +50,9 @@ function s.initial_effect(c)
 	e3:SetOperation(s.e3evt)
 	c:RegisterEffect(e3)
 end
--- Archetype : Red-Eyes
+-- Mentions : "Time Wizard"
+s.listed_names={71625222,id}
+-- Archetype : N/A
 s.listed_series={SET_RED_EYES}
 -- Coin Toss
 s.toss_coin=true

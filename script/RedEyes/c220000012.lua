@@ -26,7 +26,7 @@ function s.initial_effect(c)
 	e1b:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e1b:SetValue(aux.FALSE)
 	c:RegisterEffect(e1b)
-	-- Gains 600 ATK for each Dragon monster on your field and in your GY.
+	-- Gains 400 ATK for each Dragon monster on your field and in your GY.
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_ATKCHANGE)
 	e2:SetType(EFFECT_TYPE_SINGLE)
@@ -103,7 +103,7 @@ function s.e1evt(e,tp,eg,ep,ev,re,r,rp,c)
 	g:DeleteGroup()
 end
 function s.e2val(e,c)
-	return 600*Duel.GetMatchingGroupCount(aux.FaceupFilter(Card.IsRace,RACE_DRAGON),0,LOCATION_MZONE+LOCATION_GRAVE,0,nil)
+	return 400*Duel.GetMatchingGroupCount(aux.FaceupFilter(Card.IsRace,RACE_DRAGON),0,LOCATION_MZONE+LOCATION_GRAVE,0,nil)
 end
 function s.e3tgt(e,c)
 	return c:IsStatus(STATUS_SPSUMMON_TURN)
