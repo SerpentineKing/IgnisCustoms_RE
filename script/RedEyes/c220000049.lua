@@ -2,7 +2,7 @@
 local s,id,o=GetID()
 -- c220000049
 function s.initial_effect(c)
-	-- Equip only to "Time Wizard" monster that is equipped with a "Red-Eyes" monster.
+	-- Equip only to a "Time Wizard" monster that is equipped with a "Red-Eyes" monster.
 	aux.AddEquipProcedure(c,nil,s.eqfil)
 	-- The equipped monster gains 500 ATK.
 	local e1=Effect.CreateEffect(c)
