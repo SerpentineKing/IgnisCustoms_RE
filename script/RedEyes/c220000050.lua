@@ -22,6 +22,17 @@ function s.initial_effect(c)
 	e1:SetTarget(s.e1tgt)
 	e1:SetOperation(s.e1evt)
 	c:RegisterEffect(e1)
+
+	aux.GlobalCheck(s,function()
+		local ge1=Effect.CreateEffect(c)
+		ge1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+		ge1:SetCode(EVENT_TOSS_COIN)
+		ge1:SetCondition(s.ge1con)
+		ge1:SetOperation(function(_,_,_,ep)
+			Duel.RegisterFlagEffect(ep,id,RESET_PHASE+PHASE_END,0,1)
+		end)
+		Duel.RegisterEffect(ge1,0)
+	end)
 	--[[
 	[HOPT]
 	If a monster(s) you control is destroyed by card effect, while this card is in your GY (except during the Damage Step):
@@ -52,6 +63,13 @@ function s.m2fil(c,fc,sumtype,tp)
 	return c:IsRace(RACE_DRAGON)
 	and (c:IsLevel(3) or c:IsLevel(4))
 end
+function s.ge1con(e,tp,eg,ep,ev,re,r,rp)
+	local ex,eg,et,cp,ct=Duel.GetOperationInfo(ev,CATEGORY_COIN)
+	if ex and ct==1 then
+		return true
+	end
+	return false
+end
 function s.e1con(e)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION)
 end
@@ -71,9 +89,9 @@ function s.e1fil2(c)
 end
 function s.e1evt(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	
+
 	local g1=Duel.GetMatchingGroup(s.e1fil1,tp,0,LOCATION_MZONE,nil)
-	local tc1=g:GetFirst()
+	local tc1=g1:GetFirst()
 	for tc1 in aux.Next(g1) do
 		if tc1:GetAttack()~=tc1:GetBaseAttack() then
 			local e1b1=Effect.CreateEffect(c)
@@ -94,20 +112,24 @@ function s.e1evt(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 
-	local g2=Duel.GetMatchingGroup(s.e1fil2,tp,0,LOCATION_MZONE,nil)
-	local tc2=g2:GetFirst()
-	for tc2 in aux.Next(g2) do
-		local e1c1=Effect.CreateEffect(c)
-		e1c1:SetType(EFFECT_TYPE_SINGLE)
-		e1c1:SetCode(EFFECT_DISABLE)
-		e1c1:SetReset(RESET_EVENT+RESETS_STANDARD)
-		tc2:RegisterEffect(e1c1)
+	if Duel.GetFlagEffect(0,id) then
+		Duel.BreakEffect()
 
-		local e1c2=Effect.CreateEffect(c)
-		e1c2:SetType(EFFECT_TYPE_SINGLE)
-		e1c2:SetCode(EFFECT_DISABLE_EFFECT)
-		e1c2:SetReset(RESET_EVENT+RESETS_STANDARD)
-		tc2:RegisterEffect(e1c2)
+		local g2=Duel.GetMatchingGroup(s.e1fil2,tp,0,LOCATION_MZONE,nil)
+		local tc2=g2:GetFirst()
+		for tc2 in aux.Next(g2) do
+			local e1c1=Effect.CreateEffect(c)
+			e1c1:SetType(EFFECT_TYPE_SINGLE)
+			e1c1:SetCode(EFFECT_DISABLE)
+			e1c1:SetReset(RESET_EVENT+RESETS_STANDARD)
+			tc2:RegisterEffect(e1c1)
+
+			local e1c2=Effect.CreateEffect(c)
+			e1c2:SetType(EFFECT_TYPE_SINGLE)
+			e1c2:SetCode(EFFECT_DISABLE_EFFECT)
+			e1c2:SetReset(RESET_EVENT+RESETS_STANDARD)
+			tc2:RegisterEffect(e1c2)
+		end
 	end
 end
 function s.e2fil(c,tp)
