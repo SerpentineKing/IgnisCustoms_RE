@@ -76,6 +76,8 @@ function s.e2lim(e,c,sump,sumtype,sumpos,targetp,se)
 	and not (c:IsType(TYPE_FUSION) or c:IsType(TYPE_XYZ))
 end
 function s.e2evt(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
