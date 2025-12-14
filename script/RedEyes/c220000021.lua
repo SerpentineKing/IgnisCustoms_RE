@@ -184,7 +184,7 @@ function s.e1con(e,c)
 	local tp=c:GetControler()
 
 	return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-	and Duel.IsExistingMatchingCard(aux.FaceupFilter(s.e1fil,tp,LOCATION_MZONE,0,1,nil))
+	and Duel.IsExistingMatchingCard(aux.FaceupFilter(s.e1fil),tp,LOCATION_MZONE,0,1,nil)
 end
 function s.e2val(e,c)
 	return c:GetEquipCount()*700
