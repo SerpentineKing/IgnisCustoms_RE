@@ -1,4 +1,4 @@
--- Black Dragon's Fangs
+-- Insect Queen with Eyes of Red
 local s,id,o=GetID()
 -- c220000018
 function s.initial_effect(c)
@@ -37,8 +37,8 @@ function s.initial_effect(c)
 	e2:SetOperation(s.e2evt)
 	c:RegisterEffect(e2)
 end
--- Archetype : N/A
-s.listed_series={0xfe1}
+-- Archetype : Red-Eyes
+s.listed_series={SET_RED_EYES}
 -- Helpers
 function s.e1fil(c)
 	return (c:IsSetCard(SET_RED_EYES)

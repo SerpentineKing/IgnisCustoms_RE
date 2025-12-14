@@ -46,10 +46,13 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	If this card is destroyed by battle or an opponent's card effect:
-	You can return all Equip Spells and Normal Traps that have an effect to equip themselves to a monster in your GY to the Deck.
+	You can Special Summon 1 other Warrior monster from your GY,
+	and if you do, add 1 Equip Spell from your GY to your hand,
+	and if you do that, return all Equip Spells in your GY (if any) to the Deck.
 	]]--
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(id,0))
+	e3:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_TOHAND+CATEGORY_TODECK)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e3:SetCode(EVENT_TO_GRAVE)
 	e3:SetCountLimit(1,{id,2})
@@ -150,66 +153,51 @@ function s.e3con(e,tp)
 	return c:IsReason(REASON_DESTROY)
 	and (c:IsReason(REASON_BATTLE) or (c:IsReason(REASON_EFFECT) and c:GetReasonPlayer()==1-tp))
 end
-function s.e3fil(c)
-	-- Equip Card Traps
-	return ((c:IsNormalTrap()
-	and (c:IsCode(259314)
-	or c:IsCode(2542230)
-	or c:IsCode(6112401)
-	or c:IsCode(6691855)
-	or c:IsCode(13235258)
-	or c:IsCode(13317419)
-	or c:IsCode(15684835)
-	or c:IsCode(18096222)
-	or c:IsCode(18446701)
-	or c:IsCode(20989253)
-	or c:IsCode(21350571)
-	or c:IsCode(23122036)
-	or c:IsCode(26647858)
-	or c:IsCode(29867611)
-	or c:IsCode(36591747)
-	or c:IsCode(37390589)
-	or c:IsCode(38643567)
-	or c:IsCode(43004235)
-	or c:IsCode(43405287)
-	or c:IsCode(47819246)
-	or c:IsCode(49551909)
-	or c:IsCode(51686645)
-	or c:IsCode(53656677)
-	or c:IsCode(54451023)
-	or c:IsCode(55262310)
-	or c:IsCode(57135971)
-	or c:IsCode(57470761)
-	or c:IsCode(58272005)
-	or c:IsCode(59490397)
-	or c:IsCode(62091148)
-	or c:IsCode(63049052)
-	or c:IsCode(66984907)
-	or c:IsCode(68054593)
-	or c:IsCode(68540058)
-	or c:IsCode(75361204)
-	or c:IsCode(75987257)
-	or c:IsCode(80143954)
-	or c:IsCode(89812483)
-	or c:IsCode(91152455)
-	or c:IsCode(92650018)
-	or c:IsCode(93473606)
-	or c:IsCode(93655221)
-	or c:IsCode(97182396)
-	or c:IsCode(98239899)))
-	or c:IsEquipSpell())
+function s.e3fil1(c,e,tp)
+	return c:IsRace(RACE_WARRIOR)
+	and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	and Duel.GetLocationCountFromEx(tp,tp,nil,c)>0
+end
+function s.e3fil2(c)
+	return c:IsEquipSpell()
+	and c:IsAbleToHand()
+end
+function s.e3fil3(c)
+	return c:IsEquipSpell()
 	and c:IsAbleToDeck()
 end
-function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
+function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	local c=e:GetHandler()
+
 	if chk==0 then
-		return Duel.IsExistingMatchingCard(s.e3fil,tp,LOCATION_GRAVE,0,1,e:GetHandler())
+		return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+		and Duel.IsExistingMatchingCard(s.e3fil1,tp,LOCATION_GRAVE,0,1,c,e,tp)
+		and Duel.IsExistingMatchingCard(s.e3fil2,tp,LOCATION_GRAVE,0,1,c)
 	end
 
-	Duel.SetOperationInfo(0,CATEGORY_TODECK,nil,1,0,0)
+	local rg=Duel.GetMatchingGroup(s.e3fil3,tp,LOCATION_GRAVE,0,nil)
+
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_GRAVE)
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_GRAVE)
+	Duel.SetPossibleOperationInfo(0,CATEGORY_TODECK,nil,rg:GetCount()-1,tp,LOCATION_GRAVE)
 end
 function s.e3evt(e,tp)
-	local g=Duel.GetMatchingGroup(s.e3fil,tp,LOCATION_GRAVE,0,nil)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+	local g=Duel.SelectMatchingCard(tp,s.e3fil1,tp,LOCATION_GRAVE,0,1,1,c,e,tp)
 	if g:GetCount()>0 then
-		Duel.SendtoDeck(g,nil,SEQ_DECKSHUFFLE,REASON_EFFECT)
+		local tc=g:GetFirst()
+		if Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)>0 then
+			local c=e:GetHandler()
+
+			local ag=Duel.SelectMatchingCard(tp,s.e3fil2,tp,LOCATION_GRAVE,0,1,1,nil)
+			if ag:GetCount()>0 then
+				if Duel.SendtoHand(ag:GetFirst(),nil,REASON_EFFECT)>0 then
+					local rg=Duel.GetMatchingGroup(s.e3fil3,tp,LOCATION_GRAVE,0,nil)
+					if rg:GetCount()>0 then
+						Duel.SendtoDeck(rg,nil,SEQ_DECKSHUFFLE,REASON_EFFECT)
+					end
+				end
+			end
+		end
 	end
 end

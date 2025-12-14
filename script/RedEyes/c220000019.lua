@@ -1,4 +1,4 @@
--- Black Dragon's Claws
+-- Hayabusa Knight with Eyes of Red
 local s,id,o=GetID()
 -- c220000019
 function s.initial_effect(c)
@@ -42,8 +42,8 @@ function s.initial_effect(c)
 end
 -- Mentions : "Red-Eyes Black Dragon"
 s.listed_names={CARD_REDEYES_B_DRAGON,id}
--- Archetype : N/A
-s.listed_series={0xfe1}
+-- Archetype : Red-Eyes
+s.listed_series={SET_RED_EYES}
 -- Helpers
 function s.e1fil1(c)
 	return c:IsSpellTrap()

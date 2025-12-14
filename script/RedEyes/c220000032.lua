@@ -236,7 +236,7 @@ end
 function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then
 		return chkc:IsLocation(LOCATION_GRAVE)
-		and s.e3fil(chkc,tp)
+		and s.e3fil1(chkc,tp)
 	end
 	if chk==0 then
 		return Duel.IsExistingTarget(s.e3fil1,tp,LOCATION_GRAVE,LOCATION_GRAVE,1,nil,tp)
