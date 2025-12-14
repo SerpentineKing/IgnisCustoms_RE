@@ -238,9 +238,9 @@ function s.e5evt(e,tp)
 		end
 		
 		if op==1 then
-			Duel.SendtoHand(g,nil,REASON_EFFECT)
+			Duel.SendtoHand(tc,nil,REASON_EFFECT)
 		elseif op==2 then
-			Duel.SendtoDeck(g,nil,SEQ_DECKSHUFFLE,REASON_EFFECT)
+			Duel.SendtoDeck(tc,nil,SEQ_DECKSHUFFLE,REASON_EFFECT)
 		end
 	end
 end

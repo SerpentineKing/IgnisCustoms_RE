@@ -168,7 +168,7 @@ function s.e2btgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	local rc=re:GetHandler()
 	Duel.SetOperationInfo(0,CATEGORY_NEGATE,eg,1,tp,0)
 
-	if rc:IsAble(tp) and rc:IsRelateToEffect(re) then
+	if rc:IsCanTurnSet() and rc:IsRelateToEffect(re) then
 		Duel.SetOperationInfo(0,CATEGORY_POSITION,eg,1,tp,0)
 	end
 end
