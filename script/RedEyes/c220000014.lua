@@ -182,6 +182,8 @@ function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetPossibleOperationInfo(0,CATEGORY_TODECK,nil,rg:GetCount()-1,tp,LOCATION_GRAVE)
 end
 function s.e3evt(e,tp)
+	local c=e:GetHandler()
+	
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 	local g=Duel.SelectMatchingCard(tp,s.e3fil1,tp,LOCATION_GRAVE,0,1,1,c,e,tp)
 	if g:GetCount()>0 then

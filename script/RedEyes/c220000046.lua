@@ -38,7 +38,7 @@ function s.initial_effect(c)
 	e2a:SetCode(EVENT_BE_BATTLE_TARGET)
 	e2a:SetCountLimit(1, {id,1})
 	e2a:SetCondition(s.e2acon)
-	e2a:SetOperation(s.e2evt)
+	e2a:SetOperation(s.e2aevt)
 	c:RegisterEffect(e2a)
 
 	local e2b=Effect.CreateEffect(c)
@@ -51,7 +51,7 @@ function s.initial_effect(c)
 	e2b:SetCountLimit(1, {id,1})
 	e2b:SetCondition(s.e2bcon)
 	e2b:SetTarget(s.e2btgt)
-	e2b:SetOperation(s.e2evt)
+	e2b:SetOperation(s.e2bevt)
 	c:RegisterEffect(e2b)
 	--[[
 	[SOPT]
@@ -174,7 +174,7 @@ function s.e2btgt(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.e2bevt(e,tp,eg,ep,ev,re)
 	local c=e:GetHandler()
-	local tc = re:GetHandler()
+	local tc=re:GetHandler()
 
 	if Duel.NegateActivation(ev) and tc:IsRelateToEffect(re) then
 		if Duel.ChangePosition(tc,POS_FACEDOWN_DEFENSE)>0 then
@@ -255,7 +255,7 @@ function s.e3evt(e,tp,eg,ep,ev,re,r,rp)
 	e3a2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e3a2:SetCode(EVENT_ATTACK_ANNOUNCE)
 	e3a2:SetRange(LOCATION_SZONE)
-	e3a3:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+	e3a2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e3a2:SetCountLimit(1)
 	e3a2:SetCondition(s.e3a2con)
 	e3a2:SetTarget(s.e3a2tgt)
