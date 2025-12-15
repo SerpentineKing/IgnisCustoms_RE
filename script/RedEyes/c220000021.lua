@@ -230,7 +230,7 @@ function s.e4evt(e,tp,eg,ep,ev,re)
 			e4b:SetReset(RESET_EVENT+RESETS_STANDARD)
 			e4b:SetValue(s.eqlim)
 			e4b:SetLabelObject(c)
-			c:RegisterEffect(e4b)
+			tc:RegisterEffect(e4b)
 		end
 	end
 end
@@ -267,7 +267,7 @@ function s.e5evt(e,tp)
 		e5b:SetReset(RESET_EVENT+RESETS_STANDARD)
 		e5b:SetValue(s.eqlim)
 		e5b:SetLabelObject(c)
-		c:RegisterEffect(e5b)
+		tc:RegisterEffect(e5b)
 	end
 end
 function s.e6tgt(e,tp,eg,ep,ev,re,r,rp,chk)
