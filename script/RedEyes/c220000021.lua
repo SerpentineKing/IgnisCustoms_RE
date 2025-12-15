@@ -223,6 +223,8 @@ function s.e4evt(e,tp,eg,ep,ev,re)
 	local tc=eg:GetFirst()
 
 	if Duel.NegateActivation(ev) and re:GetHandler():IsRelateToEffect(re) then
+		tc:CancelToGrave()
+
 		if Duel.Equip(tp,tc,c,true) then
 			local e4b=Effect.CreateEffect(c)
 			e4b:SetType(EFFECT_TYPE_SINGLE)
