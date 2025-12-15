@@ -223,7 +223,7 @@ function s.e4evt(e,tp,eg,ep,ev,re)
 	local tc=eg:GetFirst()
 
 	if Duel.NegateActivation(ev) and re:GetHandler():IsRelateToEffect(re) then
-		if Duel.Equip(tp,c,tc) then
+		if Duel.Equip(tp,tc,c,true) then
 			local e4b=Effect.CreateEffect(c)
 			e4b:SetType(EFFECT_TYPE_SINGLE)
 			e4b:SetCode(EFFECT_EQUIP_LIMIT)
@@ -260,7 +260,7 @@ function s.e5evt(e,tp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 
-	if tc:IsRelateToEffect(e) and Duel.Equip(tp,c,tc) then
+	if tc:IsRelateToEffect(e) and Duel.Equip(tp,tc,c,true) then
 		local e5b=Effect.CreateEffect(c)
 		e5b:SetType(EFFECT_TYPE_SINGLE)
 		e5b:SetCode(EFFECT_EQUIP_LIMIT)
