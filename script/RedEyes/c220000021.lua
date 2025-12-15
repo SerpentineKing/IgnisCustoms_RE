@@ -228,8 +228,8 @@ function s.e4evt(e,tp,eg,ep,ev,re)
 			e4b:SetType(EFFECT_TYPE_SINGLE)
 			e4b:SetCode(EFFECT_EQUIP_LIMIT)
 			e4b:SetReset(RESET_EVENT+RESETS_STANDARD)
-			e4b:SetValue(function(e,c) return c==e:GetLabelObject() end)
-			e4b:SetLabelObject(tc)
+			e4b:SetValue(s.eqlim)
+			e4b:SetLabelObject(c)
 			c:RegisterEffect(e4b)
 		end
 	end
@@ -265,8 +265,8 @@ function s.e5evt(e,tp)
 		e5b:SetType(EFFECT_TYPE_SINGLE)
 		e5b:SetCode(EFFECT_EQUIP_LIMIT)
 		e5b:SetReset(RESET_EVENT+RESETS_STANDARD)
-		e5b:SetValue(function(e,c) return c==e:GetLabelObject() end)
-		e5b:SetLabelObject(tc)
+		e5b:SetValue(s.eqlim)
+		e5b:SetLabelObject(c)
 		c:RegisterEffect(e5b)
 	end
 end
@@ -378,6 +378,9 @@ function s.e9evt(e,tp)
 	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
 	Duel.Damage(p,d,REASON_EFFECT)
 end
+function s.eqlim(e,c)
+	return c==e:GetLabelObject()
+end
 function s.e10con(e,tp)
 	local c=e:GetHandler()
 	local bc=c:GetBattleTarget()
@@ -397,9 +400,6 @@ function s.e10tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetTargetCard(tc)
 	Duel.SetOperationInfo(0,CATEGORY_LEAVE_GRAVE,tc,1,0,0)
 end
-function s.e10lim(e,c)
-	return c==e:GetLabelObject()
-end
 function s.e10evt(e,tp)
 	local c=e:GetHandler()
 	
@@ -409,7 +409,7 @@ function s.e10evt(e,tp)
 		e10b:SetType(EFFECT_TYPE_SINGLE)
 		e10b:SetCode(EFFECT_EQUIP_LIMIT)
 		e10b:SetReset(RESET_EVENT+RESETS_STANDARD)
-		e10b:SetValue(s.e10lim)
+		e10b:SetValue(s.eqlim)
 		e10b:SetLabelObject(c)
 		tc:RegisterEffect(e10b)
 	end
