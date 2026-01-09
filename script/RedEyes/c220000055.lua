@@ -101,17 +101,15 @@ function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function s.e2evt(e,tp)
 	local c=e:GetHandler()
-	Debug.Message("EVENT")
-	if Duel.GetLocationCount(tp,LOCATION_MZONE)<2 or Duel.IsPlayerAffectedByEffect(tp,CARD_BLUEEYES_SPIRIT) then return end
-	Debug.Message("LOCATION")
-	local tc=Duel.GetFirstTarget()
 
+	if Duel.GetLocationCount(tp,LOCATION_MZONE)<2 or Duel.IsPlayerAffectedByEffect(tp,CARD_BLUEEYES_SPIRIT) then return end
+	
+	local tc=Duel.GetFirstTarget()
 	if tc and tc:IsRelateToEffect(e) then
-		Debug.Message("TC")
 		local sg=Group.CreateGroup()
 		sg:AddCard(tc)
 		sg:AddCard(c)
-
+		Debug.Message(sg:FilterCount(s.e2fil,nil,e,tp))
 		if sg:FilterCount(s.e2fil,nil,e,tp)==2 and Duel.SpecialSummon(sg,0,tp,tp,false,false,POS_FACEUP_DEFENSE)>0 then
 			for sc in sg:Iter() do
 				sc:RegisterFlagEffect(id,RESET_EVENT+RESETS_STANDARD,EFFECT_FLAG_CLIENT_HINT,1,0,aux.Stringid(id,1))
