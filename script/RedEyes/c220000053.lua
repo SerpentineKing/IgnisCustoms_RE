@@ -21,7 +21,7 @@ function s.initial_effect(c)
 	[HOPT]
 	If this card is Normal or Special Summoned:
 	You can target 1 face-up monster your opponent controls;
-	change its ATK to 0,
+	until the end of this turn, change its ATK to 0,
 	also if this card was Special Summoned by the effect of a Synchro Monster, negate that target's effects (if any).
 	]]--
 	local e2a1=Effect.CreateEffect(c)
@@ -120,7 +120,7 @@ function s.e2evt(e,tp)
 		e2b1:SetType(EFFECT_TYPE_SINGLE)
 		e2b1:SetCode(EFFECT_SET_ATTACK_FINAL)
 		e2b1:SetValue(0)
-		e2b1:SetReset(RESET_EVENT+RESETS_STANDARD)
+		e2b1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
 		tc:RegisterEffect(e2b1)
 
 		if alt_chk then
@@ -129,7 +129,7 @@ function s.e2evt(e,tp)
 			local e2b2=Effect.CreateEffect(c)
 			e2b2:SetType(EFFECT_TYPE_SINGLE)
 			e2b2:SetCode(EFFECT_DISABLE)
-			e2b2:SetReset(RESET_EVENT+RESETS_STANDARD)
+			e2b2:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
 			tc:RegisterEffect(e2b2)
 
 			local e2b3=e2b2:Clone()

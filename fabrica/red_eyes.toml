@@ -855,7 +855,7 @@ atk = 700
 def = 1000
 level = 3
 effect = '''
-If you control no monsters, or your opponent controls a Zombie monster: You can Special Summon this card from your hand. If this card is Normal or Special Summoned: You can target 1 face-up monster your opponent controls; change its ATK to 0, also if this card was Special Summoned by the effect of a Synchro Monster, negate that target's effects (if any). If this card is sent from the Monster Zone to the GY: You can send 1 monster that mentions "Zombie World" or 1 Level 4 or lower Dragon monster from your Deck to the GY, except "Red-Eyes Zombie Battle-Scarred Warrior". You can only use each effect of "Red-Eyes Zombie Battle-Scarred Warrior" once per turn.'''
+If you control no monsters, or your opponent controls a Zombie monster: You can Special Summon this card from your hand. If this card is Normal or Special Summoned: You can target 1 face-up monster your opponent controls; until the end of this turn, change its ATK to 0, also if this card was Special Summoned by the effect of a Synchro Monster, negate that target's effects (if any). If this card is sent from the Monster Zone to the GY: You can send 1 monster that mentions "Zombie World" or 1 Level 4 or lower Dragon monster from your Deck to the GY, except "Red-Eyes Zombie Battle-Scarred Warrior". You can only use each effect of "Red-Eyes Zombie Battle-Scarred Warrior" once per turn.'''
 strings=['Special Summon this card','Change target ATK to 0','Send 1 monster that mentions "Zombie World" from your Deck to the GY']
 
 [[card]]
