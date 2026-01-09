@@ -77,13 +77,19 @@ end
 function s.e1evt(e,tp)
 	local c=e:GetHandler()
 
-	if not c:IsRelateToEffect(e) then return end
-
-	Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)
+	if c:IsRelateToEffect(e) then
+		Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)
+	end
 end
 function s.e2fil(c,alt_chk)
+	local alt_res = true
+	if alt_chk then
+		alt_res = c:IsDisabled()
+	end
+
 	return c:IsFaceup()
-	and not (c:GetAttack()==0 and (alt_chk and c:IsDisabled()))
+	and not c:GetAttack()==0
+	and alt_res
 end
 function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local c=e:GetHandler()
@@ -109,33 +115,33 @@ function s.e2evt(e,tp)
 
 	local tc=Duel.GetFirstTarget()
 
-	if not tc:IsRelateToEffect(e) or not tc:IsFaceup() or (alt_chk and tc:IsDisabled()) then return end
+	if tc and tc:IsRelateToEffect(e) and tc:IsFaceup() and not (alt_chk and tc:IsDisabled()) then
+		local e2b1=Effect.CreateEffect(c)
+		e2b1:SetType(EFFECT_TYPE_SINGLE)
+		e2b1:SetCode(EFFECT_SET_ATTACK_FINAL)
+		e2b1:SetValue(0)
+		e2b1:SetReset(RESET_EVENT+RESETS_STANDARD)
+		tc:RegisterEffect(e2b1)
 
-	local e2b1=Effect.CreateEffect(c)
-	e2b1:SetType(EFFECT_TYPE_SINGLE)
-	e2b1:SetCode(EFFECT_SET_ATTACK_FINAL)
-	e2b1:SetValue(0)
-	e2b1:SetReset(RESET_EVENT+RESETS_STANDARD)
-	tc:RegisterEffect(e2b1)
+		if alt_chk then
+			Duel.NegateRelatedChain(tc,RESET_TURN_SET)
+			
+			local e2b2=Effect.CreateEffect(c)
+			e2b2:SetType(EFFECT_TYPE_SINGLE)
+			e2b2:SetCode(EFFECT_DISABLE)
+			e2b2:SetReset(RESET_EVENT+RESETS_STANDARD)
+			tc:RegisterEffect(e2b2)
 
-	if alt_chk then
-		Duel.NegateRelatedChain(tc,RESET_TURN_SET)
+			local e2b3=e2b2:Clone()
+			e2b3:SetCode(EFFECT_DISABLE_EFFECT)
+			e2b3:SetValue(RESET_TURN_SET)
+			tc:RegisterEffect(e2b3)
 		
-		local e2b2=Effect.CreateEffect(c)
-		e2b2:SetType(EFFECT_TYPE_SINGLE)
-		e2b2:SetCode(EFFECT_DISABLE)
-		e2b2:SetReset(RESET_EVENT+RESETS_STANDARD)
-		tc:RegisterEffect(e2b2)
-
-		local e2b3=e2b2:Clone()
-		e2b3:SetCode(EFFECT_DISABLE_EFFECT)
-		e2b3:SetValue(RESET_TURN_SET)
-		tc:RegisterEffect(e2b3)
-	
-		if tc:IsType(TYPE_TRAPMONSTER) then
-			local e2b4=e2b2:Clone()
-			e2b4:SetCode(EFFECT_DISABLE_TRAPMONSTER)
-			tc:RegisterEffect(e2b4)
+			if tc:IsType(TYPE_TRAPMONSTER) then
+				local e2b4=e2b2:Clone()
+				e2b4:SetCode(EFFECT_DISABLE_TRAPMONSTER)
+				tc:RegisterEffect(e2b4)
+			end
 		end
 	end
 end

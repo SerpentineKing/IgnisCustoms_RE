@@ -130,7 +130,7 @@ end
 function s.e3con(e,tp,eg)
 	return eg:IsExists(s.e3fil,1,nil,e,tp)
 end
-function s.e3con(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local c=e:GetHandler()
 
 	if chkc then

@@ -106,26 +106,26 @@ function s.e2evt(e,tp)
 
 	local tc=Duel.GetFirstTarget()
 
-	if not c:IsRelateToEffect(e) or not tc:IsRelateToEffect(e) then return end
+	if tc and tc:IsRelateToEffect(e) then
+		local sg=Group.CreateGroup()
+		sg:AddCard(tc)
+		sg:AddCard(c)
 
-	local sg=Group.CreateGroup()
-	sg:AddCard(tc)
-	sg:AddCard(c)
-
-	if sg:FilterCount(s.e2fil,nil,e,tp)==2 and Duel.SpecialSummon(sg,0,tp,tp,false,false,POS_FACEUP)>0 then
-		for sc in sg:Iter() do
-			sc:RegisterFlagEffect(id,RESET_EVENT+RESETS_STANDARD,EFFECT_FLAG_CLIENT_HINT,1,0,aux.Stringid(id,1))
-			
-			local e2b1=Effect.CreateEffect(c)
-			e2b1:SetType(EFFECT_TYPE_FIELD)
-			e2b1:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
-			e2b1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
-			e2b1:SetRange(LOCATION_MZONE)
-			e2b1:SetAbsoluteRange(tp,1,0)
-			e2b1:SetCondition(function(e) return e:GetHandler():IsControler(e:GetOwnerPlayer()) end)
-			e2b1:SetTarget(function(e,c) return not c:IsRace(RACE_ZOMBIE) end)
-			e2b1:SetReset(RESET_EVENT+RESETS_STANDARD)
-			sc:RegisterEffect(e2b1,true)
+		if sg:FilterCount(s.e2fil,nil,e,tp)==2 and Duel.SpecialSummon(sg,0,tp,tp,false,false,POS_FACEUP_DEFENSE)>0 then
+			for sc in sg:Iter() do
+				sc:RegisterFlagEffect(id,RESET_EVENT+RESETS_STANDARD,EFFECT_FLAG_CLIENT_HINT,1,0,aux.Stringid(id,1))
+				
+				local e2b1=Effect.CreateEffect(c)
+				e2b1:SetType(EFFECT_TYPE_FIELD)
+				e2b1:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+				e2b1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+				e2b1:SetRange(LOCATION_MZONE)
+				e2b1:SetAbsoluteRange(tp,1,0)
+				e2b1:SetCondition(function(e) return e:GetHandler():IsControler(e:GetOwnerPlayer()) end)
+				e2b1:SetTarget(function(e,c) return not c:IsRace(RACE_ZOMBIE) end)
+				e2b1:SetReset(RESET_EVENT+RESETS_STANDARD)
+				sc:RegisterEffect(e2b1,true)
+			end
 		end
 	end
 end

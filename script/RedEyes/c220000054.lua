@@ -46,8 +46,13 @@ s.listed_names={4064256,id}
 s.listed_series={SET_RED_EYES}
 -- Helpers
 function s.e1fil(c,alt_chk)
+	local alt_res = true
+	if alt_chk then
+		alt_res = c:IsAbleToHand()
+	end
+
 	return c:IsDefensePos()
-	and not (alt_chk and not c:IsAbleToHand())
+	and alt_res
 end
 function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local c=e:GetHandler()
@@ -80,26 +85,26 @@ function s.e1evt(e,tp)
 	local alt_chk=e:GetLabel()==1
 
 	local tc=Duel.GetFirstTarget()
-	if not tc or not tc:IsRelateToEffect(e) then return end
+	if tc and tc:IsRelateToEffect(e) then
+		local b1=tc:IsDefensePos()
+		local b2=alt_chk and tc:IsAbleToHand()
 
-	local b1=tc:IsDefensePos()
-	local b2=alt_chk and tc:IsAbleToHand()
+		if not (b1 or b2) then return end
+		
+		local op=1
+		if b1 and b2 then
+			op=Duel.SelectEffect(tp,
+				{b1,aux.Stringid(id,0)},
+				{b2,aux.Stringid(id,1)})
+		elseif (not b1) and b2 then
+			op=2
+		end
 
-	if not (b1 or b2) then return end
-	
-	local op=1
-	if b1 and b2 then
-		op=Duel.SelectEffect(tp,
-			{b1,aux.Stringid(id,0)},
-			{b2,aux.Stringid(id,1)})
-	elseif (not b1) and b2 then
-		op=2
-	end
-
-	if op==1 then
-		Duel.ChangePosition(tc,POS_FACEUP_ATTACK)
-	elseif op==2 then
-		Duel.SendtoHand(tc,nil,REASON_EFFECT)
+		if op==1 then
+			Duel.ChangePosition(tc,POS_FACEUP_ATTACK)
+		elseif op==2 then
+			Duel.SendtoHand(tc,nil,REASON_EFFECT)
+		end
 	end
 end
 function s.e2fil1(c,e,tp)
@@ -123,7 +128,7 @@ function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 		end
 
 		return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and alt_chk
+		and alt_res
 	end
 
 	if alt_chk then
