@@ -99,6 +99,8 @@ function s.e2fil(c)
 	and c:IsMonster()
 end
 function s.e2con(e)
+	local tp=e:GetHandlerPlayer()
+
 	return Duel.IsBattlePhase()
 	and Duel.IsExistingMatchingCard(s.e2fil,tp,LOCATION_MZONE,0,1,nil)
 end
