@@ -1,4 +1,4 @@
--- Red-Eyes Harpie Lady, Nightmare in the Darkness
+-- Red-Eyes Cyber Harpie Lady, Nightmare in the Darkness
 local s,id,o=GetID()
 -- c220000047
 function s.initial_effect(c)

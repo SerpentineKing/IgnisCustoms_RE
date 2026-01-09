@@ -26,6 +26,10 @@ code = 0x64
 name = "Fusion"
 code = 0x46
 
+[set.m_zombie_world]
+name = "Zombie World"
+code = 0xfe3
+
 [[card]]
 id = 220000001
 setnumber = "IPRE-EN001"
@@ -162,7 +166,7 @@ effect = '''
 While this card is equipped with an Equip Card, this card gains the following effects.
 • This card is unaffected by your opponent's Spell/Trap effects during the Battle Phase.
 • If this card battles a monster, that monster's ATK becomes 0 during the Damage Step only.
-Each time your opponent activates a card or effect, you can make 1 face-up monster your opponent controls lose 400 ATK when it resolves, and if you do, inflict 500 damage to your opponent. If this card is destroyed by battle or card effect: You can Special Summon 1 Level 4 or lower Warrior or Spellcaster monster from your hand, Deck, or GY. You can only use this effect of "Old Swordmaster of the Flame" once per turn.'''
+Each time your opponent activates a card or effect, you can make 1 face-up monster your opponent controls lose 500 ATK when it resolves, and if you do, inflict 500 damage to your opponent. If this card is destroyed by battle or card effect: You can Special Summon 1 Level 4 or lower Warrior or Spellcaster monster from your hand, Deck, or GY. You can only use this effect of "Old Swordmaster of the Flame" once per turn.'''
 strings=['Reduce the ATK of 1 monster your opponent controls?','Special Summon 1 monster from your hand, Deck, or GY?']
 
 [[card]]
@@ -551,11 +555,8 @@ name = "Red-Eyes Zombification"
 set = "red_eyes"
 type = "spell continuous"
 effect = '''
-When this card is activated: You can activate 1 of the following effects.
-• Target 1 "Red-Eyes" non-Tuner monster you control; it is treated as a Tuner this turn.
-• Discard 1 Level 7 or lower "Red-Eyes" non-Tuner monster; add 1 "Red-Eyes" Tuner monster from your Deck to your hand.
-You can only use each of the following effects of "Red-Eyes Zombification" once per turn. You can send 1 Level 7 or higher "Red-Eyes" monster from your Deck to the GY; this turn, all "Red-Eyes" monsters on the field and in the GYs become Zombie monsters. When a "Red-Eyes" monster declares an attack: You can target 1 monster in either GY; equip it to a "Red-Eyes" Synchro Monster you control as an Equip Spell that gives it 200 ATK. When a card or effect is activated that targets a "Red-Eyes" card(s) you control: You can destroy this card; negate the activation, and if you do, destroy that card. You can only activate 1 "Red-Eyes Zombification" per turn.'''
-strings=['No Effect','Treat as a Tuner','Add 1 "Red-Eyes" Tuner from your Deck to your hand','All "Red-Eyes" monsters become Zombie-Type','Equip 1 monster to 1 "Red-Eyes" Synchro Monster','Negate a card or effect that targets your "Red-Eyes" card(s)']
+When this card is activated: You can target 1 "Red-Eyes" monster you control; it gains 1200 ATK until the end of this turn (even if this card leaves the field). During the Battle Phase, if you control a Level 7 or higher "Red-Eyes" Zombie monster, all monsters in your opponent's GY become Zombie monsters. If a Dragon or Zombie monster(s) is Special Summoned from either GY to your field (even during the Damage Step): You can target 1 card your opponent controls; place it on top of the Deck. You can only use this effect of "Red-Eyes Zombification" once per turn. You can only activate 1 "Red-Eyes Zombification" per turn.'''
+strings=['Do nothing','Target gains 1200 ATK','Place target on top of the Deck']
 
 [[card]]
 id = 220000033
@@ -748,20 +749,20 @@ strings=['Add 1 Level 1 Dragon from your GY to your hand','Change the monster to
 id = 220000047
 setnumber = "IPRE-EN047"
 ot = "custom"
-name = "Red-Eyes Harpie Lady, Nightmare in the Darkness"
+name = "Red-Eyes Cyber Harpie Lady, Nightmare in the Darkness"
 set = "harpie red_eyes"
 attribute = "dark"
 race = "winged-beast"
 type = "monster effect"
-atk = 1950
-def = 2450
+atk = 2450
+def = 2600
 level = 6
 effect = '''
 (This card is always treated as a "Red-Eyes" card.)
 If you control a "Red-Eyes" monster, you can Normal Summon this card without Tributing. Once per turn, when this card destroys an opponent's monster by battle: Your opponent must discard 1 card. If this card is destroyed by battle or card effect: You can return 1 card on the field to the hand, and if you do, discard 1 card. When your "Red-Eyes" monster is targeted for an attack by a monster with higher ATK than it: You can banish this card from your GY; halve the attack of the attacking monster during this Battle Phase only. During your Main Phase: You can activate 1 of these effects.
 • Destroy as many Spells/Traps your opponent controls as possible, and if you do, inflict 500 damage to your opponent for each card destroyed by this effect.
 • Destroy as many monsters your opponent controls as possible, and if you do, gain LP equal to half the combined ATK of those destroyed monsters.
-You can only use this effect of "Red-Eyes Harpie Lady, Nightmare in the Darkness" once per turn.'''
+You can only use this effect of "Red-Eyes Cyber Harpie Lady, Nightmare in the Darkness" once per turn.'''
 strings=['Normal Summon with Tributing','Return 1 card on the field to the hand','Destroy all Spells/Traps your opponent controls','Destroy all monsters your opponent controls']
 
 [[card]]
@@ -840,3 +841,51 @@ effect = '''
 1 Dragon monster + 1 Level 4 or lower "Red-Eyes" monster
 This card can attack directly. You can only use each of the following effects of "Alligator's Blazing Sword Dragon" once per turn. If this card is Fusion Summoned: You can Special Summon 1 Level 4 or lower "Red-Eyes" monster, or 1 Level 1 Dragon monster, from your Deck, also, you cannot Special Summon monsters from the Extra Deck for the rest of this turn, except Fusion or Xyz Monsters. If this card is sent from the Monster Zone to the GY: You can target 1 WIND, DARK, or LIGHT monster your opponent controls; negate its effects until the end of this turn.'''
 strings=['Special Summon a "Red-Eyes" monster?','Negate the effects of an opposing monster?']
+
+[[card]]
+id = 220000053
+setnumber = "IPRE-EN053"
+ot = "custom"
+name = "Red-Eyes Zombie Battle-Scarred Warrior"
+set = "red_eyes m_zombie_world"
+attribute = "dark"
+race = "zombie"
+type = "monster effect tuner"
+atk = 700
+def = 1000
+level = 3
+effect = '''
+If you control no monsters, or your opponent controls a Zombie monster: You can Special Summon this card from your hand. If this card is Normal or Special Summoned: You can target 1 face-up monster your opponent controls; change its ATK to 0, also if this card was Special Summoned by the effect of a Synchro Monster, negate that target's effects (if any). If this card is sent from the Monster Zone to the GY: You can send 1 monster that mentions "Zombie World" or 1 Level 4 or lower Dragon monster from your Deck to the GY, except "Red-Eyes Zombie Battle-Scarred Warrior". You can only use each effect of "Red-Eyes Zombie Battle-Scarred Warrior" once per turn.'''
+strings=['Special Summon this card','Change target ATK to 0','Send 1 monster that mentions "Zombie World" from your Deck to the GY']
+
+[[card]]
+id = 220000054
+setnumber = "IPRE-EN054"
+ot = "custom"
+name = "Red-Eyes Zombie Halberd Tiger"
+set = "red_eyes m_zombie_world"
+attribute = "dark"
+race = "zombie"
+type = "monster effect"
+atk = 1300
+def = 1100
+level = 4
+effect = '''
+If this card is Normal or Special Summoned: You can target 1 Defense Position monster your opponent controls; change it to face-up Attack Position, or if this card was Special Summoned by the effect of a Synchro Monster, you can return that target to the hand instead. You can banish this card from your GY; Special Summon 1 Level 7 or 8 DARK monster (Dragon or Zombie) from your hand, or if "Zombie World" is in a Field Zone, you can Special Summon it from either GY instead. You can only use each effect of "Red-Eyes Zombie Halberd Tiger" once per turn.'''
+strings=['Change target battle position','Return target to the hand','Special Summon 1 Level 7 DARK monster (Dragon or Zombie)','Special Summon from your hand','Special Summon from either GY']
+
+[[card]]
+id = 220000053
+setnumber = "IPRE-EN055"
+ot = "custom"
+name = "Red-Eyes Zombie Swordsman"
+set = "red_eyes m_zombie_world"
+attribute = "dark"
+race = "zombie"
+type = "monster effect"
+atk = 1800
+def = 1600
+level = 5
+effect = '''
+While you control a Zombie Synchro Monster, you choose the attack targets for your opponent's attacks. You can only use each of the following effects of "Red-Eyes Zombie Swordsman" once per turn. If this card is in your hand: You can target 1 monster that mentions "Zombie World" in your GY or banishment, except a Level 5 monster; Special Summon both this card and that monster, ignoring their Summoning conditions, in face-up Defense Position, but for each one, as long as it remains face-up in the Monster Zone, you cannot Special Summon, except Zombie monsters. If a Dragon or Zombie monster(s) is Tributed, or banished face-up, from your face-up field or GY, while this card is in your GY (except during the Damage Step): You can add this card to your hand.'''
+strings=['Special Summon this card and 1 monster that mentions "Zombie World" from your GY or banishment','You cannot Special Summon except Zombie monsters','Add this card to your hand']

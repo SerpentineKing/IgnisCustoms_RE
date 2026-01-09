@@ -32,7 +32,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1b)
 	--[[
 	Each time your opponent activates a card or effect,
-	you can make 1 face-up monster your opponent controls lose 400 ATK when it resolves,
+	you can make 1 face-up monster your opponent controls lose 500 ATK when it resolves,
 	and if you do, inflict 500 damage to your opponent.
 	]]--
 	local e2a=Effect.CreateEffect(c)
@@ -128,7 +128,7 @@ function s.e2bevt(e,tp)
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATTACK)
 			local g=Duel.SelectMatchingCard(tp,Card.IsFaceup,tp,0,LOCATION_MZONE,1,1,nil)
 			if g:GetCount()>0 then
-				if g:GetFirst():UpdateAttack(-400)<0 then
+				if g:GetFirst():UpdateAttack(-500)<0 then
 					Duel.Damage(1-tp,500,REASON_EFFECT)
 				end
 			end

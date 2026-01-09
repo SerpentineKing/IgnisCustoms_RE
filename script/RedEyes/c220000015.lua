@@ -103,8 +103,7 @@ function s.e1evt(e,tp)
 	end
 end
 function s.e2fil(c,ec)
-	-- TODO : Set Equip Card Traps
-	return c:IsEquipSpell()
+	return (c:IsEquipSpell() or (c:IsEquipTrap() and c:IsNormalTrap()))
 	and c:CheckEquipTarget(ec)
 end
 function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
