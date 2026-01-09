@@ -110,7 +110,7 @@ function s.e2evt(e,tp)
 		sg:AddCard(c)
 		sg:AddCard(tc)
 
-		if Duel.SpecialSummon(sg,0,tp,tp,false,false,POS_FACEUP_DEFENSE)>0 then
+		if Duel.SpecialSummon(sg,0,tp,tp,true,false,POS_FACEUP_DEFENSE)>0 then
 			for sc in sg:Iter() do
 				sc:RegisterFlagEffect(id,RESET_EVENT+RESETS_STANDARD,EFFECT_FLAG_CLIENT_HINT,1,0,aux.Stringid(id,1))
 				
