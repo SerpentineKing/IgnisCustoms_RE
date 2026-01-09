@@ -875,7 +875,7 @@ If this card is Normal or Special Summoned: You can target 1 Defense Position mo
 strings=['Change target battle position','Return target to the hand','Special Summon 1 Level 7 DARK monster (Dragon or Zombie)','Special Summon from your hand','Special Summon from either GY']
 
 [[card]]
-id = 220000053
+id = 220000055
 setnumber = "IPRE-EN055"
 ot = "custom"
 name = "Red-Eyes Zombie Swordsman"
