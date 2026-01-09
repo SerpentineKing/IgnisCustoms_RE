@@ -84,11 +84,11 @@ end
 function s.e2fil(c,alt_chk)
 	local alt_res = true
 	if alt_chk then
-		alt_res = c:IsDisabled()
+		alt_res = not c:IsDisabled()
 	end
 
 	return c:IsFaceup()
-	and not c:GetAttack()==0
+	and not c:IsAttack(0)
 	and alt_res
 end
 function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
@@ -115,7 +115,7 @@ function s.e2evt(e,tp)
 
 	local tc=Duel.GetFirstTarget()
 
-	if tc and tc:IsRelateToEffect(e) and tc:IsFaceup() and not (alt_chk and tc:IsDisabled()) then
+	if tc and tc:IsRelateToEffect(e) and s.e2fil(tc,alt_chk) then
 		local e2b1=Effect.CreateEffect(c)
 		e2b1:SetType(EFFECT_TYPE_SINGLE)
 		e2b1:SetCode(EFFECT_SET_ATTACK_FINAL)

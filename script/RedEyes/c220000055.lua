@@ -101,12 +101,13 @@ function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function s.e2evt(e,tp)
 	local c=e:GetHandler()
-
+	Debug.Message("EVENT")
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<2 or Duel.IsPlayerAffectedByEffect(tp,CARD_BLUEEYES_SPIRIT) then return end
-
+	Debug.Message("LOCATION")
 	local tc=Duel.GetFirstTarget()
 
 	if tc and tc:IsRelateToEffect(e) then
+		Debug.Message("TC")
 		local sg=Group.CreateGroup()
 		sg:AddCard(tc)
 		sg:AddCard(c)
