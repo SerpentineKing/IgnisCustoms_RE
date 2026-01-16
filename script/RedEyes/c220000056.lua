@@ -63,11 +63,8 @@ function s.e2con(e,tp)
 	and Duel.IsMainPhase()
 end
 function s.e2fil(c)
-	return c:IsSynchroSummonable()
+	return c:IsSynchroSummonable(nil)
 	and c:IsRace(RACE_ZOMBIE)
-	and c:IsType(TYPE_SYNCHRO)
-	and c:IsMonster()
-	and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
