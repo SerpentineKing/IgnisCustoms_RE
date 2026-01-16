@@ -106,9 +106,10 @@ function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,c,1,0,0)
 
+	local dmg = 600
 	Duel.SetTargetPlayer(1-tp)
-	Duel.SetTargetParam(1200)
-	Duel.SetPossibleOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,1200)
+	Duel.SetTargetParam(dmg)
+	Duel.SetPossibleOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,dmg)
 end
 function s.e3evt(e,tp)
 	local c=e:GetHandler()
