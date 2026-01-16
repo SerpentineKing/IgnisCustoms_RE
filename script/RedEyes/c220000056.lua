@@ -122,7 +122,7 @@ function s.e3evt(e,tp)
 		e3b:SetReset(RESET_EVENT+RESETS_REDIRECT)
 		c:RegisterEffect(e3b,true)
 
-		if e:GetLabel()==1 and Duel.SelectYesNo(tp,c,aux.Stringid(id,2)) then
+		if e:GetLabel()==1 and Duel.SelectEffectYesNo(tp,aux.Stringid(id,2)) then
 			local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
 			Duel.Damage(p,d,REASON_EFFECT)
 		end
