@@ -555,8 +555,8 @@ name = "Red-Eyes Zombification"
 set = "red_eyes"
 type = "spell continuous"
 effect = '''
-When this card is activated: You can target 1 "Red-Eyes" monster you control; it gains 1200 ATK until the end of this turn (even if this card leaves the field). During the Battle Phase, if you control a Level 7 or higher "Red-Eyes" Zombie monster, all monsters in your opponent's GY become Zombie monsters. If a Dragon or Zombie monster(s) is Special Summoned from either GY to your field (even during the Damage Step): You can target 1 card your opponent controls; place it on top of the Deck. You can only use this effect of "Red-Eyes Zombification" once per turn. You can only activate 1 "Red-Eyes Zombification" per turn.'''
-strings=['Do nothing','Target gains 1200 ATK','Place target on top of the Deck']
+When this card is activated: You can target 1 "Red-Eyes" monster you control; it gains 1200 ATK until the end of this turn (even if this card leaves the field). During the Battle Phase, if you control a Level 7 or higher "Red-Eyes" Zombie monster, all monsters in your opponent's GY become Zombie monsters. If a Dragon or Zombie monster(s) is Special Summoned from either GY to your field (even during the Damage Step): You can target 1 card your opponent controls; banish it. You can only use this effect of "Red-Eyes Zombification" once per turn. You can only activate 1 "Red-Eyes Zombification" per turn.'''
+strings=['Do nothing','Target gains 1200 ATK','Banish the target']
 
 [[card]]
 id = 220000033

@@ -39,11 +39,11 @@ function s.initial_effect(c)
 	[HOPT]
 	If a Dragon or Zombie monster(s) is Special Summoned from either GY to your field (even during the Damage Step):
 	You can target 1 card your opponent controls;
-	place it on top of the Deck.
+	banish it.
 	]]--
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(id,2))
-	e3:SetCategory(CATEGORY_TODECK)
+	e3:SetCategory(CATEGORY_REMOVE)
 	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e3:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY+EFFECT_FLAG_DAMAGE_STEP)
 	e3:SetRange(LOCATION_SZONE)
@@ -137,20 +137,20 @@ function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then
 		return chkc:IsOnField()
 		and chkc:IsControler(1-tp)
-		and chkc:IsAbleToDeck()
+		and chkc:IsAbleToRemove()
 	end
 	if chk==0 then
-		return Duel.IsExistingTarget(Card.IsAbleToDeck,tp,0,LOCATION_ONFIELD,1,c)
+		return Duel.IsExistingTarget(Card.IsAbleToRemove,tp,0,LOCATION_ONFIELD,1,c)
 	end
 
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 	
-	local g=Duel.SelectTarget(tp,Card.IsAbleToDeck,tp,0,LOCATION_ONFIELD,1,1,c)
-	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,1,0,0)
+	local g=Duel.SelectTarget(tp,Card.IsAbleToRemove,tp,0,LOCATION_ONFIELD,1,1,c)
+	Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,g:GetCount(),0,0)
 end
 function s.e3evt(e,tp)
 	local tc=Duel.GetFirstTarget()
 	if tc and tc:IsRelateToEffect(e) then
-		Duel.SendtoDeck(tc,nil,SEQ_DECKTOP,REASON_EFFECT)
+		Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)
 	end
 end
