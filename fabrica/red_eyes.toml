@@ -139,14 +139,14 @@ name = "Jinzo, Black Fullmetal Dragon Armored"
 set = "jinzo red_eyes"
 attribute = "dark"
 race = "machine"
-type = "monster effect nomi"
-atk = 2600
-def = 1800
-level = 8
+type = "monster effect"
+atk = 2400
+def = 1500
+level = 6
 effect = '''
 (This card is always treated as a "Red-Eyes" card.)
-Cannot be Normal Summoned/Set. Must first be Special Summoned with "Max Metalmorph" that was activated by Tributing a Level 5 or higher Machine monster. You can reveal this card in your hand; take 1 "Metalmorph" Trap, or 1 Trap that has "Red-Eyes" in its text, from your GY or banishment, and either add it to your hand or shuffle it into the Deck, and if you do, shuffle this card into the Deck. "Red-Eyes" monsters you control are unaffected by the effects of Trap Cards on your opponent's field. "Metalmorph" Traps you control cannot be destroyed by card effects. You can only use each of the following effects of "Jinzo, Black Fullmetal Dragon Armored" once per turn. You can Tribute 1 Level 7 or higher "Red-Eyes" monster; destroy as many Traps your opponent controls as possible (if a card is Set, reveal it), and if you do, inflict 400 damage to your opponent for each card destroyed by this effect. When your opponent activates a card or effect (Quick Effect): You can target 1 face-up monster your opponent controls; take control of it until the End Phase. If this card is sent from the field to the GY: You can banish this card from your GY; Special Summon 1 DARK Dragon or Machine monster from your hand, Deck, or GY, except "Jinzo, Black Fullmetal Dragon Armored".'''
-strings=['Return 1 "Metalmorph" or "Red-Eyes" Trap to your hand or Deck','Add to your hand','Shuffle into the Deck','Destroy Traps your opponent controls?','Take control of 1 face-up monster your opponent controls','Special Summon 1 monster from your hand, Deck, or GY?']
+The activation and effect of "Metalmorph" and "Red-Eyes" Traps activated on your field cannot be negated. You can only use each of the following effects of "Jinzo, Black Fullmetal Dragon Armored" once per turn. If a monster(s) is Tributed from your hand or field (except during the Damage Step): You can Special Summon this card from your GY (if it was there when the monster was Tributed) or hand (even if not), but banish it when it leaves the field, then you can make it become Level 7. If this card is Normal or Special Summoned: You can target 1 "Metalmorph" Trap or "Jinzo" in your GY; place that target on the bottom of the Deck, then if "Max Metalmorph" is in your GY, you can take control of 1 face-up Level 5 or higher monster your opponent controls until your opponent's next End Phase, but while it is face-up on your field, it cannot activate its effects.'''
+strings=['Special Summon this card','Make this card become Level 7','Place target on the bottom of the Deck','Take control of 1 Level 5 or higher monster',]
 
 [[card]]
 id = 220000008
@@ -887,7 +887,7 @@ atk = 1800
 def = 1600
 level = 5
 effect = '''
-While you control a Zombie Synchro Monster, you choose the attack targets for your opponent's attacks. You can only use each of the following effects of "Red-Eyes Zombie Swordsman" once per turn. If this card is in your hand: You can target 1 monster that mentions "Zombie World" in your GY or banishment, except a Level 5 monster; Special Summon both this card and that monster, ignoring their Summoning conditions, in face-up Defense Position, but for each one, as long as it remains face-up in the Monster Zone, you cannot Special Summon, except Zombie monsters. If a Dragon or Zombie monster(s) is Tributed, or banished face-up, from your face-up field or GY, while this card is in your GY (except during the Damage Step): You can add this card to your hand.'''
+While you control a Zombie Synchro Monster, you choose the attack targets for your opponent's attacks. You can only use each of the following effects of "Red-Eyes Zombie Swordsman" once per turn. If this card is in your hand: You can target 1 monster that mentions "Zombie World" in your GY or banishment, except a Level 5 monster; Special Summon both this card and that monster, ignoring their Summoning conditions, in face-up Defense Position, but for each one, as long as it remains face-up in the Monster Zone, you cannot Special Summon, except Zombie monsters. If a Dragon or Zombie monster(s) is banished face-up from your face-up field or GY, while this card is in your GY (except during the Damage Step): You can add this card to your hand.'''
 strings=['Special Summon this card and 1 monster that mentions "Zombie World" from your GY or banishment','You cannot Special Summon except Zombie monsters','Add this card to your hand']
 
 [[card]]

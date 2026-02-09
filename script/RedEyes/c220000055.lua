@@ -32,7 +32,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 	--[[
 	[HOPT]
-	If a Dragon or Zombie monster(s) is Tributed, or banished face-up, from your face-up field or GY,
+	If a Dragon or Zombie monster(s) is banished face-up from your face-up field or GY,
 	while this card is in your GY (except during the Damage Step):
 	You can add this card to your hand.
 	]]--
@@ -41,19 +41,13 @@ function s.initial_effect(c)
 	e3a1:SetCategory(CATEGORY_TOHAND)
 	e3a1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e3a1:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG2_CHECK_SIMULTANEOUS)
-	e3a1:SetCode(EVENT_RELEASE)
+	e3a1:SetCode(EVENT_REMOVE)
 	e3a1:SetRange(LOCATION_GRAVE)
-	e3a1:SetLabel(0)
 	e3a1:SetCountLimit(1,{id,1})
 	e3a1:SetCondition(s.e3con)
 	e3a1:SetTarget(s.e3tgt)
 	e3a1:SetOperation(s.e3evt)
 	c:RegisterEffect(e3a1)
-	
-	local e3a2=e3a1:Clone()
-	e3a2:SetCode(EVENT_REMOVE)
-	e3a2:SetLabel(1)
-	c:RegisterEffect(e3a2)
 end
 -- Mentions : "Zombie World"
 s.listed_names={4064256,id}
@@ -128,8 +122,8 @@ function s.e2evt(e,tp)
 		end
 	end
 end
-function s.e3fil(c,label)
-	if label==1 and c:IsFacedown() then return false end
+function s.e3fil(c)
+	if c:IsFacedown() then return false end
 
 	if c:IsPreviousLocation(LOCATION_MZONE) then
 		return (c:GetPreviousPosition()&POS_FACEUP>0)
@@ -141,7 +135,7 @@ function s.e3fil(c,label)
 	return false
 end
 function s.e3con(e,tp,eg)
-	return eg:IsExists(s.e3fil,1,nil,e:GetLabel())
+	return eg:IsExists(s.e3fil,1,nil)
 end
 function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
