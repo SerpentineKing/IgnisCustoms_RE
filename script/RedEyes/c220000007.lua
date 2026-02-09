@@ -105,6 +105,7 @@ function s.e3fil2(c)
 	return c:IsFaceup()
 	and c:IsLevelAbove(5)
 	and c:IsMonster()
+	and c:IsAbleToChangeControler()
 end
 function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local c=e:GetHandler()
@@ -128,13 +129,22 @@ function s.e3evt(e,tp)
 	local tc=Duel.GetFirstTarget()
 
 	if tc:IsRelateToEffect(e) and Duel.SendtoDeck(tc,nil,SEQ_DECKBOTTOM,REASON_EFFECT)>0 then
-		if Duel.IsExistingMatchingCard(Card.IsCode,tp,LOCATION_GRAVE,0,1,nil,CARD_MAX_METALMORPH) and Duel.SelectEffectYesNo(tp,c,aux.Stringid(id,3)) then
+		local r1 = Duel.IsExistingMatchingCard(s.e3fil2,tp,0,LOCATION_MZONE,1,nil)
+		local r2 = Duel.IsExistingMatchingCard(Card.IsCode,tp,LOCATION_GRAVE,0,1,nil,CARD_MAX_METALMORPH)
+		if r1 and r2 and Duel.SelectEffectYesNo(tp,c,aux.Stringid(id,3)) then
 			Duel.BreakEffect()
 
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CONTROL)
 
+			local tct=1
+			if Duel.IsTurnPlayer(1-tp) and Duel.IsPhase(PHASE_END) then
+				tct=3
+			elseif Duel.IsTurnPlayer(tp) then
+				tct=2
+			end
+
 			local g=Duel.SelectMatchingCard(tp,s.e3fil2,tp,0,LOCATION_MZONE,1,1,nil)
-			if g:GetCount()>0 and Duel.GetControl(g,tp) then
+			if g:GetCount()>0 and Duel.GetControl(g,tp,PHASE_END,tct) then
 				local sc=g:GetFirst()
 
 				local e3b1=Effect.CreateEffect(c)
