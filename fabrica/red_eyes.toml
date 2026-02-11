@@ -30,6 +30,10 @@ code = 0x46
 name = "Zombie World"
 code = 0xfe3
 
+[set.metalmorph]
+name = "Metalmorph"
+code = 0x1b2
+
 [[card]]
 id = 220000001
 setnumber = "IPRE-EN001"
@@ -145,8 +149,8 @@ def = 1500
 level = 6
 effect = '''
 (This card is always treated as a "Red-Eyes" card.)
-The activation and effect of "Metalmorph" and "Red-Eyes" Traps activated on your field cannot be negated. You can only use each of the following effects of "Jinzo, Black Fullmetal Dragon Armored" once per turn. If a monster(s) is Tributed from your hand or field (except during the Damage Step): You can Special Summon this card from your GY (if it was there when the monster was Tributed) or hand (even if not), but banish it when it leaves the field, then you can make it become Level 7. If this card is Normal or Special Summoned: You can target 1 "Metalmorph" Trap or "Jinzo" in your GY; place that target on the bottom of the Deck, then if "Max Metalmorph" is in your GY, you can take control of 1 face-up Level 5 or higher monster your opponent controls until your opponent's next End Phase, but while it is face-up on your field, it cannot activate its effects.'''
-strings=['Special Summon this card','Make this card become Level 7','Place target on the bottom of the Deck','Take control of 1 Level 5 or higher monster',]
+The activation and effect of "Metalmorph" Traps and "Red-Eyes" Traps activated on your field cannot be negated. You can only use each of the following effects of "Jinzo, Black Fullmetal Dragon Armored" once per turn. If a monster(s) is Tributed from your hand or field (except during the Damage Step): You can Special Summon this card from your GY (if it was there when the monster was Tributed) or hand (even if not), but banish it when it leaves the field, then you can make it become Level 7. If this card is Normal or Special Summoned: You can target 1 "Metalmorph" Trap or "Jinzo" in your GY; shuffle that target into the Deck, then if "Max Metalmorph" is in your GY, you can take control of 1 face-up Level 5 or higher monster your opponent controls until your opponent's next End Phase, but while it is face-up on your field, it cannot activate its effects.'''
+strings=['Special Summon this card','Make this card become Level 7','Shuffle target into the Deck','Take control of 1 Level 5 or higher monster',]
 
 [[card]]
 id = 220000008
@@ -905,3 +909,17 @@ level = 7
 effect = '''
 If this card on the field would be used as Synchro Material, 1 Tuner that mentions "Zombie World" in your hand can be used as 1 of the other materials. You can only use each of the following effects of "Red-Eyes Zombie Miasma Dragon" once per turn. During your opponent's Main Phase, you can (Quick Effect): Immediately after this effect resolves, Synchro Summon 1 Zombie Synchro Monster, using materials including this card you control. When your opponent activates a monster effect on the field or in the GY (Quick Effect): You can Special Summon this card from your hand or GY (but banish it when it leaves the field), then if you activated this effect in response to a Dragon or Zombie monster's effect, you can inflict 600 damage to your opponent.'''
 strings=['Synchro Summon 1 Zombie Synchro Monster','Special Summon this card','Inflict 600 damage to your opponent']
+
+[[card]]
+id = 220000057
+setnumber = "IPRE-EN057"
+ot = "custom"
+name = "Reinforcing Metalmorph"
+set = "metalmorph"
+type = "trap"
+effect = '''
+Special Summon 1 Level 7 DARK Normal Monster from your hand or Deck in face-up Defense Position, then you can equip this card to it with the following effects.
+• This card's name becomes "Metalmorph" while in the Spell & Trap Zone. 
+• Once per turn: You can reveal any number of Machine monsters in your hand that cannot be Normal Summoned/Set and mention either "Metalmorph" or "Max Metalmorph", and place them on the bottom of your Deck in any order, then draw the same number of cards +1.
+If this Set card is sent from the field to the GY: You can Set this card. You can only use this effect of "Reinforcing Metalmorph" once per turn. You can only activate 1 "Reinforcing Metalmorph" per turn.'''
+strings=['Special Summon 1 Level 7 DARK Normal Monster','Equip this card','Shuffle monsters into the Deck and Draw','Set this card']

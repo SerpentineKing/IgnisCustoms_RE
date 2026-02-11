@@ -3,7 +3,7 @@ local s,id,o=GetID()
 -- c220000007
 function s.initial_effect(c)
 	--[[
-	The activation and effect of "Metalmorph" and "Red-Eyes" Traps activated on your field cannot be negated.
+	The activation and effect of "Metalmorph" Traps and "Red-Eyes" Traps activated on your field cannot be negated.
 	]]--
 	
 	--[[
@@ -29,7 +29,7 @@ function s.initial_effect(c)
 	[HOPT]
 	If this card is Normal or Special Summoned:
 	You can target 1 "Metalmorph" Trap or "Jinzo" in your GY;
-	place that target on the bottom of the Deck,
+	shuffle that target into the Deck,
 	then if "Max Metalmorph" is in your GY,
 	you can take control of 1 Level 5 or higher face-up monster your opponent controls until your opponent's next End Phase,
 	but while it is face-up on your field, it cannot activate its effects.
@@ -128,7 +128,7 @@ function s.e3evt(e,tp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 
-	if tc:IsRelateToEffect(e) and Duel.SendtoDeck(tc,nil,SEQ_DECKBOTTOM,REASON_EFFECT)>0 then
+	if tc:IsRelateToEffect(e) and Duel.SendtoDeck(tc,nil,SEQ_DECKSHUFFLE,REASON_EFFECT)>0 then
 		local r1 = Duel.IsExistingMatchingCard(s.e3fil2,tp,0,LOCATION_MZONE,1,nil)
 		local r2 = Duel.IsExistingMatchingCard(Card.IsCode,tp,LOCATION_GRAVE,0,1,nil,CARD_MAX_METALMORPH)
 		if r1 and r2 and Duel.SelectEffectYesNo(tp,c,aux.Stringid(id,3)) then
