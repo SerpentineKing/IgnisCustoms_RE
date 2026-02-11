@@ -920,6 +920,6 @@ type = "trap"
 effect = '''
 Special Summon 1 Level 7 DARK Normal Monster from your hand or Deck in face-up Defense Position, then you can equip this card to it with the following effects.
 • This card's name becomes "Metalmorph" while in the Spell & Trap Zone. 
-• Once per turn: You can reveal any number of Machine monsters in your hand that cannot be Normal Summoned/Set and mention either "Metalmorph" or "Max Metalmorph", and place them on the bottom of your Deck in any order, then draw the same number of cards +1.
+• Once per turn: You can reveal any number of Machine monsters in your hand that cannot be Normal Summoned/Set and mention either "Metalmorph" or "Max Metalmorph", and place them on the bottom of your Deck in any order, then draw the same number of cards.
 If this Set card is sent from the field to the GY: You can Set this card. You can only use this effect of "Reinforcing Metalmorph" once per turn. You can only activate 1 "Reinforcing Metalmorph" per turn.'''
 strings=['Special Summon 1 Level 7 DARK Normal Monster','Equip this card','Shuffle monsters into the Deck and Draw','Set this card']

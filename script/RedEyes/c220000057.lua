@@ -125,7 +125,7 @@ function s.e1b2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 
 	if chk==0 then
-		return Duel.IsPlayerCanDraw(tp,1)
+		return Duel.IsPlayerCanDraw(tp)
 		and Duel.IsExistingMatchingCard(s.e1b2fil,tp,LOCATION_HAND,0,1,nil)
 	end
 	
@@ -157,7 +157,7 @@ function s.e1b2evt(e,tp)
 
 			Duel.BreakEffect()
 			
-			Duel.Draw(sp,ct+1,REASON_EFFECT)
+			Duel.Draw(sp,ct,REASON_EFFECT)
 		end
 	end
 end
