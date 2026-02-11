@@ -40,6 +40,8 @@ local CARD_METALMORPH = 68540058
 s.listed_names={CARD_METALMORPH,CARD_MAX_METALMORPH,id}
 -- Archetype : Metalmorph
 s.listed_series={SET_METALMORPH}
+-- Equip Trap
+s.self_equip_trap=true
 -- Helpers
 function s.e1fil(c,e,tp)
 	return c:IsLevel(7)
