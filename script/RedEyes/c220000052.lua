@@ -131,7 +131,7 @@ function s.e3evt(e,tp,eg,ep,ev,re,r,rp)
 		e3b1:SetType(EFFECT_TYPE_SINGLE)
 		e3b1:SetCode(EFFECT_DISABLE)
 		e3b1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-		e3b1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
+		e3b1:SetReset(RESETS_STANDARD_PHASE_END)
 		tc:RegisterEffect(e3b1)
 
 		local e3b2=Effect.CreateEffect(c)
@@ -139,7 +139,7 @@ function s.e3evt(e,tp,eg,ep,ev,re,r,rp)
 		e3b2:SetCode(EFFECT_DISABLE_EFFECT)
 		e3b2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 		e3b2:SetValue(RESET_TURN_SET)
-		e3b2:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
+		e3b2:SetReset(RESETS_STANDARD_PHASE_END)
 		tc:RegisterEffect(e3b2)
 	end
 end

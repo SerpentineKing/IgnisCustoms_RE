@@ -120,7 +120,7 @@ function s.e2evt(e,tp)
 		e2b1:SetType(EFFECT_TYPE_SINGLE)
 		e2b1:SetCode(EFFECT_SET_ATTACK_FINAL)
 		e2b1:SetValue(0)
-		e2b1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
+		e2b1:SetReset(RESETS_STANDARD_PHASE_END)
 		tc:RegisterEffect(e2b1)
 
 		if alt_chk then
@@ -129,7 +129,7 @@ function s.e2evt(e,tp)
 			local e2b2=Effect.CreateEffect(c)
 			e2b2:SetType(EFFECT_TYPE_SINGLE)
 			e2b2:SetCode(EFFECT_DISABLE)
-			e2b2:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
+			e2b2:SetReset(RESETS_STANDARD_PHASE_END)
 			tc:RegisterEffect(e2b2)
 
 			local e2b3=e2b2:Clone()

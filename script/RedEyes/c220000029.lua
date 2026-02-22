@@ -129,7 +129,7 @@ end
 function s.e3fil2(c)
 	return c:IsSetCard(SET_METALMORPH)
 	and c:IsTrap()
-	and c:IsFaceup()
+	and (c:IsLocation(LOCATION_GRAVE) or (c:IsFaceup() and c:IsLocation(LOCATION_ONFIELD)))
 end
 function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local c=e:GetHandler()
