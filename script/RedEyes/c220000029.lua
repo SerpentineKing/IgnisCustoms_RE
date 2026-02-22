@@ -25,14 +25,20 @@ function s.initial_effect(c)
 	Traps with an effect that equip themselves to a monster in your Spell & Trap Zone cannot be banished by your opponent's card effects,
 	also your opponent cannot target them with card effects.
 	]]--
-	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_FIELD)
-	e2:SetCode(EFFECT_CANNOT_REMOVE)
-	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-	e2:SetRange(LOCATION_SZONE)
-	e2:SetTargetRange(0,1)
-	e2:SetTarget(s.e2tgt)
-	c:RegisterEffect(e2)
+	local e2a1=Effect.CreateEffect(c)
+	e2a1:SetType(EFFECT_TYPE_FIELD)
+	e2a1:SetCode(EFFECT_CANNOT_REMOVE)
+	e2a1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+	e2a1:SetRange(LOCATION_SZONE)
+	e2a1:SetTargetRange(0,1)
+	e2a1:SetTarget(s.e2tgt)
+	c:RegisterEffect(e2a1)
+
+	local e2a2=e2a1:Clone()
+	e2a2:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
+	e2a2:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
+	e2a2:SetValue(aux.tgoval)
+	c:RegisterEffect(e2a2)
 	-- The first time each "Red-Eyes" monster you control would be destroyed by battle each turn, it is not destroyed.
 	local e2b=Effect.CreateEffect(c)
 	e2b:SetType(EFFECT_TYPE_FIELD)
