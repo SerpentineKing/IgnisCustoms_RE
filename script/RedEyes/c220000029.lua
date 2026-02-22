@@ -18,6 +18,7 @@ function s.initial_effect(c)
 	local e1a2=e1a1:Clone()
 	e1a2:SetDescription(aux.Stringid(id,1))
 	e1a2:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
+	e1a2:SetCondition(s.e1con)
 	e1a2:SetOperation(s.e1evt)
 	c:RegisterEffect(e1a2)
 	--[[
@@ -72,13 +73,16 @@ function s.e1fil(c)
 	return (c:IsCode(CARD_INCOMING_MACHINE) or c:IsCode(CARD_DRAGON_NAILS))
 	and c:IsAbleToHand()
 end
+function s.e1con(e,tp,eg)
+	return Duel.IsExistingMatchingCard(s.e1fil,tp,LOCATION_DECK+LOCATION_REMOVED,0,1,nil)
+end
 function s.e1evt(e,tp)
 	local c=e:GetHandler()
 	if not c:IsRelateToEffect(e) then return end
 
 	local g=Duel.GetMatchingGroup(s.e1fil,tp,LOCATION_DECK+LOCATION_REMOVED,0,nil)
 
-	if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
+	if g:GetCount()>0 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 		
 		local sg=g:Select(tp,1,1,nil)
