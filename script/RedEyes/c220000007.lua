@@ -5,7 +5,16 @@ function s.initial_effect(c)
 	--[[
 	The activation and effect of "Metalmorph" Traps and "Red-Eyes" Traps activated on your field cannot be negated.
 	]]--
-	
+	local e1a1=Effect.CreateEffect(c)
+	e1a1:SetType(EFFECT_TYPE_FIELD)
+	e1a1:SetCode(EFFECT_CANNOT_INACTIVATE)
+	e1a1:SetRange(LOCATION_MZONE)
+	e1a1:SetValue(s.e1fil)
+	c:RegisterEffect(e1a1)
+
+	local e1a2=e1a1:Clone()
+	e1a2:SetCode(EFFECT_CANNOT_DISEFFECT)
+	c:RegisterEffect(e1a2)
 	--[[
 	[HOPT]
 	If a monster(s) is Tributed from your hand or field (except during the Damage Step):
@@ -54,6 +63,17 @@ s.listed_names={CARD_MAX_METALMORPH,CARD_JINZO,id}
 -- Archetype : Jinzo, Red-Eyes
 s.listed_series={SET_JINZO,SET_RED_EYES}
 -- Helpers
+function s.e1fil(e,ct)
+	local c=e:GetHandler()
+	local p=c:GetControler()
+
+	local te,tp,loc=Duel.GetChainInfo(ct,CHAININFO_TRIGGERING_EFFECT,CHAININFO_TRIGGERING_PLAYER,CHAININFO_TRIGGERING_LOCATION)
+	local tc=te:GetHandler()
+
+	return p==tp
+	and ((tc:IsSetCard(SET_METALMORPH) or tc:IsSetCard(SET_RED_EYES)) and tc:IsTrap())
+	and loc&LOCATION_ONFIELD~=0
+end
 function s.e2fil(c,tp)
 	return c:IsPreviousControler(tp)
 	and (c:IsPreviousLocation(LOCATION_MZONE) or (c:IsPreviousLocation(LOCATION_HAND) and c:IsMonster()))

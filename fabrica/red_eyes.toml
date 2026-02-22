@@ -517,8 +517,8 @@ name = "Red-Eyes Mechanization"
 set = "red_eyes"
 type = "spell continuous"
 effect = '''
-When this card is activated: You can add 1 "Red-Eyes" monster, 1 monster that mentions "Max Metalmorph", or 1 "Metalmorph" Trap from your Deck to your hand. Once per turn: You can equip 1 "Max Metalmorph" from your Deck or GY to 1 "Red-Eyes" monster you control, and if you do, it becomes a Machine monster while equipped. (This is treated as being equipped by the effect of "Max Metalmorph".) The first time each "Red-Eyes" or Machine monster you control would be destroyed by battle during your opponent's turn, it is not destroyed, and if you took battle damage from that battle, it gains that much ATK until the end of the turn, then you can set 1 "Metalmorph" Trap from your GY. The first time each "Metalmorph" Trap you control would be destroyed by card effect, it is not destroyed. You can only activate 1 "Red-Eyes Mechanization" per turn.'''
-strings=['Add 1 "Red-Eyes" monster, 1 "Max Metalmorph" monster, or "Metalmorph" Trap from your Deck to your hand','Equip 1 "Max Metalmorph" to your "Red-Eyes" monster','Set 1 "Metalmorph" Trap']
+When this card is activated: You can add 1 "Incoming Machine!" or "Dragon Nails" from your Deck or banishment to your hand. Traps with an effect that equip themselves to a monster in your Spell & Trap Zone cannot be banished by your opponent's card effects, also your opponent cannot target them with card effects. The first time each "Red-Eyes" monster you control would be destroyed by battle each turn, it is not destroyed. When your "Red-Eyes" or Level 5 or higher Machine monster is targeted for an attack: You can target 1 Normal Spell/Trap in your opponent's GY; Set it to your field. While a "Metalmorph" Trap is on your field or in your GY, a Normal Trap Set by this effect can be activated the turn it was Set. You can only use this effect of "Red-Eyes Mechanization" once per turn. You can only activate 1 "Red-Eyes Mechanization" per turn.'''
+strings=['Do nothing','Add 1 "Incoming Machine!" or "Dragon Nails" to your hand','Set 1 Normal Spell/Trap from the GY','It can be activated this turn']
 
 [[card]]
 id = 220000030
