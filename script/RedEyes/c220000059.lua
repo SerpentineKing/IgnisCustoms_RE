@@ -173,7 +173,7 @@ function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EFFECT)
 		local op=Duel.SelectOption(tp,table.unpack(eff_table))
-		bsel[val_table[op]] = aux.TRUE
+		bsel[val_table[op+1]] = aux.TRUE
 	end
 
 	if bsel[2] then
