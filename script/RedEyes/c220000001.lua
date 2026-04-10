@@ -135,7 +135,7 @@ function s.e1sxfil(tp,sg,sc)
 end
 function s.e4xfil(e,tp,mg,sumtype)
 	if Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>0 then
-		return Duel.GetMatchingGroup(s.e4mxfil,tp,LOCATION_DECK+LOCATION_EXTRA,0,nil),s.e1sxfil
+		return Duel.GetMatchingGroup(s.e4mxfil,tp,LOCATION_DECK+LOCATION_EXTRA,0,nil,e,tp),s.e1sxfil
 	end
 	return nil
 end
