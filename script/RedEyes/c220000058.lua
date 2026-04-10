@@ -116,7 +116,7 @@ function s.e2evt(e,tp)
 		elseif op==2 then
 			Duel.SpecialSummon(tc,0,tp,1-tp,false,false,POS_FACEUP)
 		elseif op==3 then
-			Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)
+			Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP_DEFENSE)
 		end
 	end
 end

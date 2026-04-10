@@ -113,12 +113,14 @@ function s.e4con(e)
 	and Duel.GetCurrentPhase()~=PHASE_DAMAGE
 end
 function s.e4sfil(c)
+	local CARD_DRAGON_MASTER_MAGIA = 12381100
+	local CARD_MASTER_OF_CHAOS = 85059922
+
 	--[[
 	return (c:IsSetCard(SET_CHAOS) or c:IsSetCard(SET_BLACK_LUSTER_SOLDIER) or c:IsSetCard(SET_NUMBER_C))
 	and c:IsRitualMonster()
 	]]--
-	local CARD_DRAGON_MASTER_MAGIA = 12381100
-	local CARD_MASTER_OF_CHAOS = 85059922
+
 	return (c:IsCode(CARD_DRAGON_MASTER_MAGIA) or c:IsCode(CARD_MASTER_OF_CHAOS))
 end
 function s.e4mxfil(c,e,tp)
@@ -128,8 +130,14 @@ function s.e4mxfil(c,e,tp)
 	and c:IsCanBeFusionMaterial(sc)
 	and c:IsAbleToGrave()
 end
+function s.e1sxfil(tp,sg,sc)
+	return sg:FilterCount(Card.IsLocation,nil,LOCATION_DECK+LOCATION_EXTRA)<=1
+end
 function s.e4xfil(e,tp,mg,sumtype)
-	return Duel.GetMatchingGroup(s.e4mxfil,tp,LOCATION_DECK+LOCATION_EXTRA,0,nil)
+	if Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>0 then
+		return Duel.GetMatchingGroup(s.e4mxfil,tp,LOCATION_DECK+LOCATION_EXTRA,0,nil),s.e1sxfil
+	end
+	return nil
 end
 function s.e4xtgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
