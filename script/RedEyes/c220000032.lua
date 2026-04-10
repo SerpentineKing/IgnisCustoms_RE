@@ -4,7 +4,7 @@ local s,id,o=GetID()
 function s.initial_effect(c)
 	-- [Activation]
 	--[[
-	[HOPT]
+	[H1PT]
 	When this card is activated:
 	You can target 1 "Red-Eyes" monster you control;
 	it gains 1200 ATK until the end of this turn.
@@ -36,7 +36,7 @@ function s.initial_effect(c)
 	e2:SetTarget(s.e2tgt)
 	c:RegisterEffect(e2)
 	--[[
-	[HOPT]
+	[H1PT]
 	If a Dragon or Zombie monster(s) is Special Summoned from either GY to your field (even during the Damage Step):
 	You can target 1 card your opponent controls;
 	banish it.

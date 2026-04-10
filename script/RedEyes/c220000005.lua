@@ -1,4 +1,4 @@
--- Gearfried, Master of the Red-Eyes Black Dragon Sword
+-- Gearfried the Black Dragon Swordmaster
 local s,id,o=GetID()
 -- c220000005
 function s.initial_effect(c)

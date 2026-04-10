@@ -3,7 +3,7 @@ local s,id,o=GetID()
 -- c220000053
 function s.initial_effect(c)
 	--[[
-	[HOPT]
+	[H1PT]
 	If you control no monsters, or your opponent controls a Zombie monster:
 	You can Special Summon this card from your hand.
 	]]--
@@ -18,7 +18,7 @@ function s.initial_effect(c)
 	e1:SetOperation(s.e1evt)
 	c:RegisterEffect(e1)
 	--[[
-	[HOPT]
+	[H1PT]
 	If this card is Normal or Special Summoned:
 	You can target 1 face-up monster your opponent controls;
 	until the end of this turn, change its ATK to 0,
@@ -39,7 +39,7 @@ function s.initial_effect(c)
 	e2a2:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e2a2)
 	--[[
-	[HOPT]
+	[H1PT]
 	If this card is sent from the Monster Zone to the GY:
 	You can send 1 monster that mentions "Zombie World" or 1 Level 4 or lower Dragon monster from your Deck to the GY,
 	except "Red-Eyes Zombie Battle-Scarred Warrior".

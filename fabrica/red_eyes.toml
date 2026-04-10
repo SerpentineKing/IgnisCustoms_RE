@@ -38,34 +38,34 @@ code = 0x1b2
 id = 220000001
 setnumber = "IPRE-EN001"
 ot = "custom"
-name = "Red-Eyes Darkness Chaos Max Dragon"
+name = "Red-Eyes Black Chaos MAX Dragon"
 set = "red_eyes chaos"
 attribute = "dark"
 race = "dragon"
 type = "monster effect ritual"
-atk = 3600
-def = 2800
-level = 10
+atk = 3000
+def = 2500
+level = 8
 effect = '''
-You can Ritual Summon this card with "Chaos Form" or "Red-Eyes Re-Transmigration". This card cannot be targeted or destroyed by card effects. If this card attacks a Defense Position monster, inflict piercing battle damage. At the end of the Damage Step, if this card attacked a Defense Position monster: Inflict damage to your opponent equal to that monster's original ATK. If this card is sent from the field to the GY: You can Fusion Summon 1 Fusion Monster from your Extra Deck that mentions "Red-Eyes Black Dragon" as material, by sending materials listed on it from your Deck to the GY. You can only use this effect of "Red-Eyes Darkness Chaos Max Dragon" once per turn.'''
-strings=['Special Summon 1 monster from your Extra Deck?']
+You can Ritual Summon this card with "Chaos Form". This card cannot be destroyed by battle, also your opponent's monsters cannot target monsters for attacks, except this one. At the end of the Damage Step, if this card battled an opponent's monster: Inflict damage to your opponent equal to that opponent's monster's original ATK, and if you do, destroy that monster. If this card is sent to the GY by a card effect (except during the Damage Step): You can Fusion Summon 1 Fusion Monster from your Extra Deck that mentions a "Chaos" or "Black Luster Soldier" Ritual Monster as material, by using monsters from your hand and/or field as material. If your opponent controls a monster, you can also use 1 non-Effect Monster in your Deck/Extra Deck as material. You can only use this effect of "Red-Eyes Black Chaos MAX Dragon" once per turn.'''
+strings=['Inflict damage and destroy battling monster','Fusion Summon 1 Fusion Monster']
 
 [[card]]
 id = 220000002
 setnumber = "IPRE-EN002"
 ot = "custom"
-name = "Lord of Red Chaos"
+name = "Lord of the Red Chaos"
 set = "red_eyes chaos"
 attribute = "fire"
 race = "dragon"
 type = "monster effect ritual"
-atk = 2800
+atk = 2400
 def = 2100
 level = 8
 effect = '''
 (This card is always treated as a "Red-Eyes" card.)
-You can Ritual Summon this card with "Chaos Form" or "Red-Eyes Re-Transmigration". Once per turn, when a card or effect is activated, except "Lord of Red Chaos" (Quick Effect): You can target 1 monster on the field; destroy it. Once per turn, when a card or effect is activated, except "Lord of Red Chaos" (Quick Effect): You can target 1 Spell/Trap on the field; destroy it. If this card is sent from the field to the GY: You can Special Summon 1 "Red-Eyes" Xyz Monster from your Extra Deck, and if you do, attach this card and 1 Level 7 "Red-Eyes" monster from your GY to it as material. You can only use this effect of "Lord of Red Chaos" once per turn.'''
-strings=['Destroy 1 monster on the field','Destroy 1 Spell/Trap on the field','Special Summon 1 monster from your Extra Deck?']
+You can Ritual Summon this card with "Red-Eyes Re-Transmigration". Twice per turn, when a card or effect is activated (Quick Effect): You can destroy 1 card on the field, and if you do, inflict 500 damage to your opponent, also if you destroyed a card you control by this effect, negate that activated effect. You can only activate this effect of "Lord of the Red Chaos" once per Chain. If this Ritual Summoned card is destroyed: You can target 1 Level 7 or lower "Red-Eyes" monster in your GY; Special Summon it, but it cannot attack directly this turn. You can only use this effect of "Lord of the Red Chaos" once per turn.'''
+strings=['Destroy 1 card on the field','Special Summon 1 monster']
 
 [[card]]
 id = 220000003
@@ -122,18 +122,18 @@ strings=['Equip 1 "Red-Eyes Black Dragon Sword" from your Extra Deck?','Destroy 
 id = 220000006
 setnumber = "IPRE-EN006"
 ot = "custom"
-name = "Red-Eyes, Dragon of the Deep"
+name = "Legendary Fisherman with Eyes of Red"
 set = "red_eyes"
 attribute = "water"
-race = "dragon"
-type = "monster effect fusion"
-atk = 2400
-def = 2800
-level = 7
+race = "warrior"
+type = "monster effect"
+atk = 1850
+def = 1600
+level = 5
 effect = '''
-1 Level 7 "Red-Eyes" monster + 1 Warrior monster
-All monsters you control gain 400 ATK/DEF. All "Red-Eyes" monsters you control are unaffected by Spell effects. Once per turn: You can increase or reduce the Level of all monsters in your hand and on the field by 1 until the end of this turn (even after they are Summoned/Set). Once per turn: You can discard 1 card; this card can attack directly this turn. If this card is destroyed by battle or card effect: You can Special Summon 1 Level 6 or lower "Red-Eyes" or Warrior monster from your Deck or GY. You can only use this effect of "Red-Eyes, Dragon of the Deep" once per turn.'''
-strings=['Change Levels of monsters','Increase Levels','Decrease Levels','Let this monster attack directly?','Special Summon 1 Monster from your Deck or GY?']
+(This card is always treated as a "Red-Eyes" card.)
+A Ritual Monster that was Ritual Summoned using this card as material is unaffected by your opponent's Spell effects. You can only use each of the following effects of "Legendary Fisherman with Eyes of Red" once per turn. You can discard this card; add 1 Ritual Spell that has "Red-Eyes" in its text, or 1 Level 8 or lower Dragon Ritual Monster (DARK or FIRE), from your Deck to your hand. If this card is in your GY: You can target 1 Spell/Trap on each field; Special Summon this card (but banish it when it leaves the field), and if you do, return those targets to the hand, then if you targeted a card whose name was "Umi" while on the field with this effect, until the end of the next turn, your opponent cannot activate cards, or the effects of cards, with the same original name as any card returned to their hand by this effect.'''
+strings=['Add 1 Ritual Spell or Ritual Monster','Special Summon this card and return targets']
 
 [[card]]
 id = 220000007
@@ -631,8 +631,8 @@ name = "Red-Eyes Re-Transmigration"
 set = "red_eyes"
 type = "spell ritual"
 effect = '''
-This card can be used to Ritual Summon "Red-Eyes Darkness Chaos Max Dragon" or "Lord of Red Chaos". You must also Tribute monsters from your hand or field whose total Levels equal or exceed the Ritual Monster, OR Banish 1 "Red-Eyes Black Dragon" you control and 1 monster your opponent controls. A Ritual Monster that was Ritual Summoned by this card's effect becomes "Red-Eyes Black Dragon" while on the field, also, if you Tributed or banished a monster that was Special Summoned from the Extra Deck for that monster's Ritual Summon, it gains 1200 ATK. You can reveal this card in your hand, then send 1 "Red-Eyes Black Dragon" from your hand or Deck to the GY; add 1 Ritual Monster from your Deck to your hand, and if you do, reduce the Level of all Ritual Monsters in your hand by 1 until the End Phase. You can only use this effect of "Red-Eyes Re-Transmigration" once per turn. If a Special Summoned monster(s) you control would be destroyed by battle or card effect, you can banish this card from your GY instead.'''
-strings=['Ritual Summon 1 Ritual Monster from your hand','Banish 1 "Red-Eyes Black Dragon" you control and 1 monster your opponent controls','Tribute monsters from your hand or field','Add 1 Ritual Monster and reduce the Levels of all Ritual Monsters in your hand','Protect a Special Summoned monster you control']
+This card can be used to Ritual Summon any "Red-Eyes" Ritual Monster from your hand or GY. You must also Tribute monsters from your hand and/or field whose total Levels equal or exceed the Level of the Ritual Monster. If Summoning "Lord of the Red Chaos" this way, you can also banish monsters from your opponent's GY as monsters required for the Ritual Summon. When an opponent's monster declares a direct attack, while your LP are 2000 or less and this card is in your GY: You can add this card from your GY to your hand, and if you do, negate that attack. You can only use this effect of "Red-Eyes Re-Transmigration" once per Duel.'''
+strings=['Ritual Summon 1 Ritual Monster','Negate the attack']
 
 [[card]]
 id = 220000039
@@ -923,3 +923,34 @@ Special Summon 1 Level 7 DARK Normal Monster from your hand or Deck in face-up D
 • Once per turn: You can reveal any number of Machine monsters in your hand that cannot be Normal Summoned/Set and mention either "Metalmorph" or "Max Metalmorph", and place them on the bottom of your Deck in any order, then draw the same number of cards.
 If this Set card is sent from the field to the GY: You can Set this card. You can only use this effect of "Reinforcing Metalmorph" once per turn. You can only activate 1 "Reinforcing Metalmorph" per turn.'''
 strings=['Special Summon 1 Level 7 DARK Normal Monster','Equip this card','Shuffle monsters into the Deck and Draw','Set this card']
+
+[[card]]
+id = 220000058
+setnumber = "IPRE-EN058"
+ot = "custom"
+name = "Red-Eyes Black Chaos Dragon"
+set = "red_eyes chaos"
+attribute = "dark"
+race = "dragon"
+type = "monster effect ritual"
+atk = 2400
+def = 2000
+level = 7
+effect = '''
+You can Ritual Summon this card with "Chaos Form". If you Ritual Summon exactly 1 Level 8 Ritual Monster with a card effect that requires the use of monsters, this card can be used as the entire Tribute. You can only use each of the following effects of "Red-Eyes Black Chaos Dragon" once per turn. If this card is Ritual Summoned: You can target 1 Level 7 or higher Normal Monster in your GY or banishment; either add it to your hand or Special Summon it to your opponent's field. If you targeted "Red-Eyes Black Dragon" to activate effect, you can Special Summon it to your field in face-up Defense Position, instead. If a "Chaos" or "Black Luster Soldier" Ritual Monster(s) is Special Summoned to your field, while this card is in your GY (except during the Damage Step): You can banish this card, then target 1 of those monsters; this turn, that monster can attack all monsters your opponent controls, once each.'''
+strings=['Special Summon 1 monster','Add to hand','Special Summon to opposing field','Special Summon to your field','Grant effect']
+
+[[card]]
+id = 220000059
+setnumber = "IPRE-EN059"
+ot = "custom"
+name = "Dimension of Chaos"
+set = "chaos"
+type = "spell continuous"
+effect = '''
+Your opponent cannot activate cards or effects in response to the activation of your Ritual Spell Cards, also your opponent cannot activate cards or effects when a "Chaos" or "Black Luster Soldier" Ritual Monster(s) is Ritual Summoned. During your Main Phase: You can activate 1 of these effects, or if your opponent controls a monster, you can activate 2 of these effects, in sequence, instead;
+• Set 1 "Chaos Form" from your Deck or GY.
+• Reveal 1 Normal Monster in your hand; add 1 Ritual Monster from your Deck to your hand, with the same Type and Level as the revealed monster.
+• Reveal 1 Ritual Monster in your hand; send 1 Normal Monster from your Deck to the GY, with the same Level and ATK as the revealed monster.
+You can only use this effect of "Dimension of Chaos" once per turn.'''
+strings=['Activate effects in sequence','Activate 1 effect','Activate 2 effects','Set 1 "Chaos Form"','Add 1 Ritual Monster','Send 1 Normal Monster']

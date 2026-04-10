@@ -14,7 +14,7 @@ function s.initial_effect(c)
 	e1:SetCondition(s.e1con)
 	c:RegisterEffect(e1)
 	--[[
-	[HOPT]
+	[H1PT]
 	If this card is in your hand:
 	You can target 1 monster that mentions "Zombie World" in your GY or banishment, except a Level 5 monster;
 	Special Summon both this card and that monster, ignoring their Summoning conditions, in face-up Defense Position,
@@ -31,7 +31,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.e2evt)
 	c:RegisterEffect(e2)
 	--[[
-	[HOPT]
+	[H1PT]
 	If a Dragon or Zombie monster(s) is banished face-up from your face-up field or GY,
 	while this card is in your GY (except during the Damage Step):
 	You can add this card to your hand.

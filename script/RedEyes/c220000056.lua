@@ -8,7 +8,7 @@ function s.initial_effect(c)
 	]]--
 	Synchro.AddHandMaterialEffect(c,id,s.e1fil)
 	--[[
-	[HOPT]
+	[H1PT]
 	During your opponent's Main Phase, you can (Quick Effect):
 	Immediately after this effect resolves, Synchro Summon 1 Zombie Synchro Monster,
 	using materials including this card you control.
@@ -26,7 +26,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.e2evt)
 	c:RegisterEffect(e2)
 	--[[
-	[HOPT]
+	[H1PT]
 	When your opponent activates a monster effect on the field or in the GY (Quick Effect):
 	You can Special Summon this card from your hand or GY (but banish it when it leaves the field),
 	then if you activated this effect in response to a Dragon or Zombie monster's effect, you can inflict 1200 damage to your opponent.

@@ -3,7 +3,7 @@ local s,id,o=GetID()
 -- c220000054
 function s.initial_effect(c)
 	--[[
-	[HOPT]
+	[H1PT]
 	If this card is Normal or Special Summoned:
 	You can target 1 Defense Position monster your opponent controls;
 	change it to face-up Attack Position,
@@ -24,7 +24,7 @@ function s.initial_effect(c)
 	e1a2:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e1a2)
 	--[[
-	[HOPT]
+	[H1PT]
 	You can banish this card from your GY;
 	Special Summon 1 Level 7 or 8 DARK monster (Dragon or Zombie) from your hand,
 	or if "Zombie World" is in a Field Zone, you can Special Summon it from either GY instead.

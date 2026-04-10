@@ -1,145 +1,125 @@
--- Lord of Red Chaos
+-- Lord of the Red Chaos
 local s,id,o=GetID()
 -- c220000002
 function s.initial_effect(c)
-	-- You can Ritual Summon this card with "Chaos Form" or "Red-Eyes Re-Transmigration".
+	-- You can Ritual Summon this card with "Red-Eyes Re-Transmigration".
 	c:EnableReviveLimit()
 	--[[
-	[SOPT]
-	Once per turn, when a card or effect is activated, except "Lord of Red Chaos" (Quick Effect):
-	You can target 1 monster on the field; destroy it.
+	[S2PC]
+	Twice per turn, when a card or effect is activated (Quick Effect):
+	You can destroy 1 card on the field,
+	and if you do, inflict 500 damage to your opponent,
+	also if you destroyed a card you control by this effect, negate that activated effect.
 	]]--
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
-	e1:SetCategory(CATEGORY_DESTROY)
+	e1:SetCategory(CATEGORY_DESTROY+CATEGORY_DAMAGE+CATEGORY_DISABLE)
 	e1:SetType(EFFECT_TYPE_QUICK_O)
 	e1:SetCode(EVENT_CHAINING)
 	e1:SetRange(LOCATION_MZONE)
-	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e1:SetCountLimit(1)
+	e1:SetCountLimit(2,id,EFFECT_COUNT_CODE_CHAIN)
 	e1:SetCondition(s.e1con)
 	e1:SetTarget(s.e1tgt)
 	e1:SetOperation(s.e1evt)
 	c:RegisterEffect(e1)
 	--[[
-	[SOPT]
-	Once per turn, when a card or effect is activated, except "Lord of Red Chaos" (Quick Effect):
-	You can target 1 Spell/Trap on the field; destroy it.
+	[H1PT]
+	If this Ritual Summoned card is destroyed:
+	You can target 1 Level 7 or lower "Red-Eyes" monster in your GY;
+	Special Summon it, but it cannot attack directly this turn.
 	]]--
-	local e2=e1:Clone()
-	e2:SetDescription(aux.Stringid(id,1))
+	local e2=Effect.CreateEffect(c)
+	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e2:SetCode(EVENT_DESTROYED)
+	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
+	e2:SetCountLimit(1,{id,1})
+	e2:SetCondition(s.e2con)
 	e2:SetTarget(s.e2tgt)
 	e2:SetOperation(s.e2evt)
 	c:RegisterEffect(e2)
-	--[[
-	[HOPT]
-	If this card is sent from the field to the GY:
-	You can Special Summon 1 "Red-Eyes" Xyz Monster from your Extra Deck,
-	and if you do, attach this card and 1 Level 7 "Red-Eyes" monster from your GY to it as material.
-	]]--
-	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(id,2))
-	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e3:SetCode(EVENT_TO_GRAVE)
-	e3:SetProperty(EFFECT_FLAG_DELAY)
-	e3:SetCountLimit(1,{id,0})
-	e3:SetCondition(s.e3con)
-	e3:SetTarget(s.e3tgt)
-	e3:SetOperation(s.e3evt)
-	c:RegisterEffect(e3)
 end
--- Mentions : "Chaos Form","Red-Eyes Re-Transmigration"
-s.listed_names={21082832,220000038,id}
+local CARD_RED_EYES_RE_TRANSMIGRATION = 220000038
+-- Mentions : "Red-Eyes Re-Transmigration"
+s.listed_names={CARD_RED_EYES_RE_TRANSMIGRATION,id}
 -- Archetype : Red-Eyes, Chaos
 s.listed_series={SET_RED_EYES,SET_CHAOS}
 -- Helpers
-function s.e1con(e,tp,eg,ep,ev,re)
-	return not re:GetHandler():IsCode(id)
-	and not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED)
+function s.e1con(e,tp,eg,ep,ev)
+	return Duel.IsChainDisablable(ev)
 end
-function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then
-		return chkc:IsLocation(LOCATION_MZONE)
-	end
+function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
+	local g=Duel.GetMatchingGroup(aux.TRUE,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
+	local gc=g:GetCount()
+	
 	if chk==0 then
-		return Duel.IsExistingTarget(aux.TRUE,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil)
-	end
-
-	Duel.Hint(HINT_OPSELECTED,1-tp,e:GetDescription())
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-
-	local g=Duel.SelectTarget(tp,aux.TRUE,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
-end
-function s.e1evt(e)
-	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) and tc:IsMonster() then
-		Duel.Destroy(tc,REASON_EFFECT)
-	end
-end
-function s.e2fil(c)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP)
-end
-function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then
-		return chkc:IsOnField()
-		and s.e2fil(chkc)
-	end
-	if chk==0 then
-		return Duel.IsExistingTarget(s.e2fil,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
+		return gc>0
 	end
 	
-	Duel.Hint(HINT_OPSELECTED,1-tp,e:GetDescription())
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-	
-	local g=Duel.SelectTarget(tp,s.e2fil,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,nil)
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
+	local dmg = 500
+	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,gc,tp,0)
+	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,dmg)
+	Duel.SetOperationInfo(0,CATEGORY_DISABLE,eg,1,0,0)
 end
-function s.e2evt(e)
-	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then
-		Duel.Destroy(tc,REASON_EFFECT)
-	end
-end
-function s.e3con(e)
-	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
-end
-function s.e3fil1(c,e,tp)
-	return c:IsType(TYPE_XYZ)
-	and c:IsSetCard(SET_RED_EYES)
-	and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
-	and Duel.GetLocationCountFromEx(tp,tp,nil,c)>0
-end
-function s.e3fil2(c,e)
-	return c:IsLevel(7)
-	and c:IsSetCard(SET_RED_EYES)
-end
-function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	local c=e:GetHandler()
-
-	if chk==0 then
-		return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(s.e3fil1,tp,LOCATION_EXTRA,0,1,nil,e,tp)
-		and Duel.IsExistingMatchingCard(s.e3fil2,tp,LOCATION_GRAVE,0,1,c)
-	end
-
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
-end
-function s.e3evt(e,tp)
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,s.e3fil1,tp,LOCATION_EXTRA,0,1,1,nil,e,tp)
+function s.e1evt(e,tp,eg,ep,ev)
+	local g=Duel.GetMatchingGroup(aux.TRUE,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
 	if g:GetCount()>0 then
 		local tc=g:GetFirst()
-		if Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)>0 then
-			local c=e:GetHandler()
+		local ap=tc:GetControler()
+		if Duel.Destroy(tc,REASON_EFFECT)>0 then
+			local dmg = 500
+			Duel.Damage(1-tp,dmg,REASON_EFFECT)
 
-			local og=Duel.SelectMatchingCard(tp,s.e3fil2,tp,LOCATION_GRAVE,0,1,1,c)
-			if og:GetCount()>0 then
-				og:AddCard(c)
-
-				Duel.Overlay(tc,og)
+			if ap==tp then
+				Duel.NegateEffect(ev)
 			end
 		end
 	end
+end
+function s.e2con(e,tp)
+	local c=e:GetHandler()
+
+	return c:IsRitualSummoned()
+	and c:IsReason(REASON_BATTLE+REASON_EFFECT)
+end
+function s.e2fil(c,e,tp)
+	return c:IsLevelBelow(7)
+	and c:IsSetCard(SET_RED_EYES)
+	and c:IsMonster()
+	and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+end
+function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then
+		return chkc:IsLocation(LOCATION_GRAVE)
+		and chkc:IsControler(tp)
+		and s.e2fil(chkc,e,tp)
+	end
+	if chk==0 then
+		return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+		and Duel.IsExistingTarget(s.e2fil,tp,LOCATION_GRAVE,0,1,nil,e,tp)
+	end
+	
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+	local g=Duel.SelectTarget(tp,s.e2fil,tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
+	
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g,1,0,0)
+end
+function s.e2evt(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+
+	if Duel.GetLocationCount(tp,LOCATION_MZONE)<1 then return end
+
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+	
+	local tc=Duel.GetFirstTarget()
+	if tc:IsRelateToEffect(e) and Duel.SpecialSummonStep(tc,0,tp,tp,false,false,POS_FACEUP) then
+		local e2b1=Effect.CreateEffect(c)
+		e2b1:SetDescription(3207)
+		e2b1:SetType(EFFECT_TYPE_SINGLE)
+		e2b1:SetCode(EFFECT_CANNOT_DIRECT_ATTACK)
+		e2b1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_CLIENT_HINT)
+		e2b1:SetReset(RESETS_STANDARD_PHASE_END)
+		tc:RegisterEffect(e2b1)
+	end
+	Duel.SpecialSummonComplete()
 end
