@@ -153,33 +153,33 @@ function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 		)
 	end
 
-	local bsel = {}
+	local bsel = 0
 	for eff_ct=1,max_ct do
 		local eff_table={}
 		local val_table={}
 
-		if b1tgt and not bsel[1] then
+		if b1tgt and bsel&0x1==0 then
 			table.insert(eff_table, aux.Stringid(id,1))
-			table.insert(val_table,1)
+			table.insert(val_table,0x1)
 		end
-		if b2tgt and not bsel[2] then
+		if b2tgt and bsel&0x2==0 then
 			table.insert(eff_table, aux.Stringid(id,2))
-			table.insert(val_table,2)
+			table.insert(val_table,0x2)
 		end
-		if (b3tgt or (bsel[2] and bxtgt)) and not bsel[3] then
+		if (b3tgt or (bsel&0x2==0 and bxtgt)) and bsel&0x4==0 then
 			table.insert(eff_table, aux.Stringid(id,3))
-			table.insert(val_table,3)
+			table.insert(val_table,0x4)
 		end
 
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EFFECT)
 		local op=Duel.SelectOption(tp,table.unpack(eff_table))
-		bsel[val_table[op+1]] = aux.TRUE
+		bsel=bsel+val_table[op+1]
 	end
 
-	if bsel[2] then
+	if bsel&0x2==0x2 then
 		Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 	end
-	if bsel[3] then
+	if bsel&0x4==0x4 then
 		Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,tp,LOCATION_DECK)
 	end
 
@@ -190,7 +190,7 @@ function s.e3evt(e,tp)
 
 	if not bsel then return end
 
-	if bsel[1] then
+	if bsel&0x1==0x1 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SET)
 		local g=Duel.SelectMatchingCard(tp,s.e3a1fil,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,1,nil)
 		if g:GetCount()>0 then
@@ -198,7 +198,7 @@ function s.e3evt(e,tp)
 		end
 		Duel.BreakEffect()
 	end
-	if bsel[2] then
+	if bsel&0x2==0x2 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CONFIRM)
 		local rc=Duel.SelectMatchingCard(tp,s.e3a2fil1,tp,LOCATION_HAND,0,1,1,nil,tp):GetFirst()
 		Duel.ConfirmCards(1-tp,rc)
@@ -212,7 +212,7 @@ function s.e3evt(e,tp)
 		end
 		Duel.BreakEffect()
 	end
-	if bsel[3] then
+	if bsel&0x4==0x4 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CONFIRM)
 		local rc=Duel.SelectMatchingCard(tp,s.e3a3fil1,tp,LOCATION_HAND,0,1,1,nil,tp):GetFirst()
 		Duel.ConfirmCards(1-tp,rc)
