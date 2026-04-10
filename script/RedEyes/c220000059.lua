@@ -141,9 +141,12 @@ function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 
 	local bxtgt=Duel.IsExistingMatchingCard(s.e3a3fil3a,tp,LOCATION_HAND,0,1,nil,tp)
+	local b1tgtn=(b1tgt) and 1 or 0
+	local b2tgtn=(b2tgt) and 1 or 0
+	local b3tgtn=(b3tgt) and 1 or 0
 
 	local max_ct=1
-	if Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>0 and (b1tgt+b2tgt+b3tgt>=2 or b3tgt+bxtgt==2) then
+	if Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>0 and (b1tgtn+b2tgtn+b3tgtn>=2 or (b3tgt and bxtgt)) then
 		max_ct=Duel.SelectEffect(tp,
 			{aux.TRUE,aux.Stringid(id,1)},
 			{aux.TRUE,aux.Stringid(id,2)}
@@ -183,7 +186,10 @@ function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:SetLabel(bsel)
 end
 function s.e3evt(e,tp)
-	local bsel = e:GetLabel()
+	local bsel=e:GetLabel()
+
+	if not bsel then return end
+
 	if bsel[1] then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SET)
 		local g=Duel.SelectMatchingCard(tp,s.e3a1fil,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,1,nil)
