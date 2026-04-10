@@ -47,71 +47,52 @@ function s.e1sfil(c)
 	return c:IsSetCard(SET_RED_EYES)
 	and c:IsRitualMonster()
 end
-function s.e1s1fil(c)
-	return s.e1sfil(c)
-	and c:IsCode(CARD_LORD_OF_THE_RED_CHAOS)
-end
-function s.e1s2fil(c)
-	return s.e1sfil(c)
-	and not c:IsCode(CARD_LORD_OF_THE_RED_CHAOS)
-end
 function s.e1mxfil(c,e,tp)
 	local sc=e:GetHandler()
 
-	return c:IsMonster()
-	and c:IsCanBeRitualMaterial(sc)
-	and c:IsLevelAbove(1)
+	return c:IsCanBeRitualMaterial(sc)
+	and (c:GetOwner()==tp
+	c:IsLocation(LOCATION_HAND+LOCATION_MZONE)
+	and c:IsAbleToGrave())
+	or (c:GetOwner()==1-tp
+	and c:IsLocation(LOCATION_GRAVE)
 	and not Duel.IsPlayerAffectedByEffect(c:GetControler(),CARD_SPIRIT_ELIMINATION)
-	and c:IsAbleToRemove()
+	and c:IsAbleToRemove())
+end
+function s.e1sxfil(tp,sg,sc)
+	return sc:IsCode(CARD_LORD_OF_THE_RED_CHAOS)
 end
 function s.e1xfil(e,tp,mg)
 	if not Duel.IsPlayerCanRelease(tp) then return nil end
 
-	return Duel.GetMatchingGroup(s.e1mxfil,tp,0,LOCATION_GRAVE,nil,e,tp)
+	return Duel.GetMatchingGroup(s.e1mxfil,tp,LOCATION_HAND+LOCATION_MZONE,LOCATION_GRAVE,nil,e,tp),s.e1sxfil
 end
 function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 
-	local rparams1={handler=c,filter=s.e1s1fil,extrafil=s.e1xfil,lvtype=RITPROC_GREATER,location=LOCATION_HAND+LOCATION_GRAVE}
-	local rittg1=Ritual.Target(rparams1)
-
-	local rparams2={handler=c,filter=s.e1s2fil,lvtype=RITPROC_GREATER,location=LOCATION_HAND+LOCATION_GRAVE}
-	local rittg2=Ritual.Target(rparams2)
+	local rparams={handler=c,filter=s.e1sfil,extrafil=s.e1xfil,lvtype=RITPROC_GREATER,location=LOCATION_HAND+LOCATION_GRAVE}
+	local rittg=Ritual.Target(rparams)
 
 	if chk==0 then
 		return (Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 		and Duel.IsExistingMatchingCard(s.e1sfil,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,nil))
-		or rittg1(e,tp,eg,ep,ev,re,r,rp,chk)
-		or rittg2(e,tp,eg,ep,ev,re,r,rp,chk)
+		or rittg(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 
 	Duel.SetPossibleOperationInfo(0,CATEGORY_REMOVE,nil,1,1-tp,LOCATION_GRAVE)
 
-	rittg1(e,tp,eg,ep,ev,re,r,rp,chk)
-	rittg2(e,tp,eg,ep,ev,re,r,rp,chk)
+	rittg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.e1evt(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 
-	local rparams1={handler=c,filter=s.e1s1fil,extrafil=s.e1xfil,lvtype=RITPROC_GREATER,location=LOCATION_HAND+LOCATION_GRAVE}
-	local rittg1=Ritual.Target(rparams1)
-	local ritop1=Ritual.Operation(rparams1)
-
-	local rparams2={handler=c,filter=s.e1s2fil,lvtype=RITPROC_GREATER,location=LOCATION_HAND+LOCATION_GRAVE}
-	local rittg2=Ritual.Target(rparams2)
-	local ritop2=Ritual.Operation(rparams2)
+	local rparams={handler=c,filter=s.e1sfil,extrafil=s.e1xfil,lvtype=RITPROC_GREATER,location=LOCATION_HAND+LOCATION_GRAVE}
+	local rittg=Ritual.Target(rparams)
+	local ritop=Ritual.Operation(rparams)
 
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 
-	local sc=Duel.SelectMatchingCard(tp,s.e1sfil,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,1,nil):GetFirst()
-
-	if not sc then return end
-
-	if sc:GetCode()==CARD_LORD_OF_THE_RED_CHAOS then
-		ritop1(e,tp,eg,ep,ev,re,r,rp,0)
-	else
-		ritop2(e,tp,eg,ep,ev,re,r,rp,0)
-	end
+	ritop(e,tp,eg,ep,ev,re,r,rp,0)
 end
 function s.e2con(e,tp)
 	return Duel.GetAttacker():IsControler(1-tp)

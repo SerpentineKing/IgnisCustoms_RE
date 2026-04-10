@@ -132,6 +132,7 @@ function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 		end
 	end
 
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,c,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g1,2,0,0)
 end
 function s.e3lim(e,re,tp)
@@ -141,22 +142,32 @@ function s.e3evt(e,tp)
 	local c=e:GetHandler()
 	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
 
-	local tg=g:Filter(Card.IsRelateToEffect,nil,e)
-	if tg:GetCount()>0 then
-		if Duel.SendtoHand(tg,nil,REASON_EFFECT)>0 and e:GetLabel()==1 then
-			Duel.BreakEffect()
+	if c:IsRelateToEffect(e) and Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)>0 then
+		local e3b1=Effect.CreateEffect(c)
+		e3b1:SetType(EFFECT_TYPE_SINGLE)
+		e3b1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+		e3b1:SetCode(EFFECT_LEAVE_FIELD_REDIRECT)
+		e3b1:SetValue(LOCATION_REMOVED)
+		e3b1:SetReset(RESET_EVENT+RESETS_REDIRECT)
+		c:RegisterEffect(e3b1,true)
 
-			for tc in g:Iter() do
-				if tc:IsLocation(LOCATION_HAND) then
-					local e3b1=Effect.CreateEffect(c)
-					e3b1:SetType(EFFECT_TYPE_FIELD)
-					e3b1:SetCode(EFFECT_CANNOT_ACTIVATE)
-					e3b1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-					e3b1:SetTargetRange(0,1)
-					e3b1:SetValue(s.e3lim)
-					e3b1:SetLabel(tc:GetCode())
-					e3b1:SetReset(RESETS_END_PHASE,2)
-					Duel.RegisterEffect(e3b1,tp)
+		local tg=g:Filter(Card.IsRelateToEffect,nil,e)
+		if tg:GetCount()>0 then
+			if Duel.SendtoHand(tg,nil,REASON_EFFECT)>0 and e:GetLabel()==1 then
+				Duel.BreakEffect()
+
+				for tc in g:Iter() do
+					if tc:IsLocation(LOCATION_HAND) then
+						local e3b2=Effect.CreateEffect(c)
+						e3b2:SetType(EFFECT_TYPE_FIELD)
+						e3b2:SetCode(EFFECT_CANNOT_ACTIVATE)
+						e3b2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+						e3b2:SetTargetRange(0,1)
+						e3b2:SetValue(s.e3lim)
+						e3b2:SetLabel(tc:GetCode())
+						e3b2:SetReset(RESETS_END_PHASE,2)
+						Duel.RegisterEffect(e3b2,tp)
+					end
 				end
 			end
 		end
