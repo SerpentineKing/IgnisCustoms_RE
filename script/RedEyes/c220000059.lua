@@ -146,7 +146,7 @@ function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	local b3tgtn=(b3tgt) and 1 or 0
 
 	local max_ct=1
-	if Duel.GetFieldGroupCount(1-tp,LOCATION_MZONE,0)>0 and (b1tgtn+b2tgtn+b3tgtn>=2 or (b3tgt and bxtgt)) then
+	if Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>0 and (b1tgtn+b2tgtn+b3tgtn>=2 or (b3tgt and bxtgt)) then
 		max_ct=Duel.SelectEffect(tp,
 			{aux.TRUE,aux.Stringid(id,1)},
 			{aux.TRUE,aux.Stringid(id,2)}
@@ -159,15 +159,15 @@ function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 		local val_table={}
 
 		if b1tgt and bsel&0x1==0 then
-			table.insert(eff_table, aux.Stringid(id,1))
+			table.insert(eff_table, aux.Stringid(id,3))
 			table.insert(val_table,0x1)
 		end
 		if b2tgt and bsel&0x2==0 then
-			table.insert(eff_table, aux.Stringid(id,2))
+			table.insert(eff_table, aux.Stringid(id,4))
 			table.insert(val_table,0x2)
 		end
-		if (b3tgt or (bsel&0x2==0 and bxtgt)) and bsel&0x4==0 then
-			table.insert(eff_table, aux.Stringid(id,3))
+		if (b3tgt or (bsel&0x2==0x2 and bxtgt)) and bsel&0x4==0 then
+			table.insert(eff_table, aux.Stringid(id,5))
 			table.insert(val_table,0x4)
 		end
 
