@@ -52,7 +52,7 @@ function s.e1mxfil(c,e,tp)
 
 	return c:IsCanBeRitualMaterial(sc)
 	and (c:GetOwner()==tp
-	c:IsLocation(LOCATION_HAND+LOCATION_MZONE)
+	and c:IsLocation(LOCATION_HAND+LOCATION_MZONE)
 	and c:IsAbleToGrave())
 	or (c:GetOwner()==1-tp
 	and c:IsLocation(LOCATION_GRAVE)
