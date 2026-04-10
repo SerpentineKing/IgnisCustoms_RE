@@ -157,7 +157,7 @@ function s.e3evt(e,tp)
 				Duel.BreakEffect()
 
 				for tc in g:Iter() do
-					if tc:IsLocation(LOCATION_HAND) then
+					if tc:IsLocation(LOCATION_HAND) and tc:IsControler(1-tp) then
 						local e3b2=Effect.CreateEffect(c)
 						e3b2:SetType(EFFECT_TYPE_FIELD)
 						e3b2:SetCode(EFFECT_CANNOT_ACTIVATE)
