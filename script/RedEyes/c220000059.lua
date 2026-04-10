@@ -146,7 +146,7 @@ function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	local b3tgtn=(b3tgt) and 1 or 0
 
 	local max_ct=1
-	if Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>0 and (b1tgtn+b2tgtn+b3tgtn>=2 or (b3tgt and bxtgt)) then
+	if Duel.GetFieldGroupCount(1-tp,LOCATION_MZONE,0)>0 and (b1tgtn+b2tgtn+b3tgtn>=2 or (b3tgt and bxtgt)) then
 		max_ct=Duel.SelectEffect(tp,
 			{aux.TRUE,aux.Stringid(id,1)},
 			{aux.TRUE,aux.Stringid(id,2)}
