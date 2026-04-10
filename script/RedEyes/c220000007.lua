@@ -97,8 +97,9 @@ function s.e2evt(e,tp)
 	
 	if c:IsRelateToEffect(e) and Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)>0 then
 		local e2b1=Effect.CreateEffect(c)
+		e2b1:SetDescription(3300)
 		e2b1:SetType(EFFECT_TYPE_SINGLE)
-		e2b1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+		e2b1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_CLIENT_HINT)
 		e2b1:SetCode(EFFECT_LEAVE_FIELD_REDIRECT)
 		e2b1:SetValue(LOCATION_REMOVED)
 		e2b1:SetReset(RESET_EVENT+RESETS_REDIRECT)

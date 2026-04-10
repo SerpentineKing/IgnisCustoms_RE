@@ -144,8 +144,9 @@ function s.e3evt(e,tp)
 
 	if c:IsRelateToEffect(e) and Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)>0 then
 		local e3b1=Effect.CreateEffect(c)
+		e3b1:SetDescription(3300)
 		e3b1:SetType(EFFECT_TYPE_SINGLE)
-		e3b1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+		e3b1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_CLIENT_HINT)
 		e3b1:SetCode(EFFECT_LEAVE_FIELD_REDIRECT)
 		e3b1:SetValue(LOCATION_REMOVED)
 		e3b1:SetReset(RESET_EVENT+RESETS_REDIRECT)

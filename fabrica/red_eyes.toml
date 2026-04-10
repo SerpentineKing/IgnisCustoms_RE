@@ -938,7 +938,7 @@ def = 2000
 level = 7
 effect = '''
 You can Ritual Summon this card with "Chaos Form". If you Ritual Summon exactly 1 Level 8 Ritual Monster with a card effect that requires the use of monsters, this card can be used as the entire Tribute. You can only use each of the following effects of "Red-Eyes Black Chaos Dragon" once per turn. If this card is Ritual Summoned: You can target 1 Level 7 or higher Normal Monster in your GY or banishment; either add it to your hand or Special Summon it to your opponent's field. If you targeted "Red-Eyes Black Dragon" to activate effect, you can Special Summon it to your field in face-up Defense Position, instead. If a "Chaos" or "Black Luster Soldier" Ritual Monster(s) is Special Summoned to your field, while this card is in your GY (except during the Damage Step): You can banish this card, then target 1 of those monsters; this turn, that monster can attack all monsters your opponent controls, once each.'''
-strings=['Special Summon 1 monster','Add to hand','Special Summon to opposing field','Special Summon to your field','Grant effect']
+strings=['Special Summon 1 monster','Add to hand','Special Summon to opposing field','Special Summon to your field','Grant effect','Can attack all monsters your opponent controls, once each']
 
 [[card]]
 id = 220000059
