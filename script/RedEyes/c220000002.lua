@@ -17,7 +17,7 @@ function s.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_QUICK_O)
 	e1:SetCode(EVENT_CHAINING)
 	e1:SetRange(LOCATION_MZONE)
-	e1:SetCountLimit(2,id,EFFECT_COUNT_CODE_CHAIN)
+	e1:SetCountLimit(2)
 	e1:SetCondition(s.e1con)
 	e1:SetTarget(s.e1tgt)
 	e1:SetOperation(s.e1evt)
@@ -29,6 +29,7 @@ function s.initial_effect(c)
 	Special Summon it, but it cannot attack directly this turn.
 	]]--
 	local e2=Effect.CreateEffect(c)
+	e2:SetDescription(aux.Stringid(id,2))
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_DESTROYED)
@@ -54,18 +55,26 @@ function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	
 	if chk==0 then
 		return gc>0
+		and Duel.GetFlagEffect(tp,id)==0
 	end
+
+	Duel.RegisterFlagEffect(tp,id,RESET_CHAIN,0,1)
 	
 	local dmg = 500
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,gc,tp,0)
+	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,dmg)
-	Duel.SetOperationInfo(0,CATEGORY_DISABLE,eg,1,0,0)
+	Duel.SetPossibleOperationInfo(0,CATEGORY_DISABLE,eg,1,0,0)
 end
 function s.e1evt(e,tp,eg,ep,ev)
-	local g=Duel.GetMatchingGroup(aux.TRUE,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
+	local c=e:GetHandler()
+
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
+	local g=Duel.SelectMatchingCard(tp,aux.TRUE,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,nil)
 	if g:GetCount()>0 then
 		local tc=g:GetFirst()
 		local ap=tc:GetControler()
+		
+		Duel.HintSelection(g)
 		if Duel.Destroy(tc,REASON_EFFECT)>0 then
 			local dmg = 500
 			Duel.Damage(1-tp,dmg,REASON_EFFECT)
@@ -75,6 +84,8 @@ function s.e1evt(e,tp,eg,ep,ev)
 			end
 		end
 	end
+
+	c:RegisterFlagEffect(id,RESETS_STANDARD_PHASE_END,EFFECT_FLAG_CLIENT_HINT,1,nil,aux.Stringid(id,1))
 end
 function s.e2con(e,tp)
 	local c=e:GetHandler()

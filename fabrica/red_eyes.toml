@@ -65,7 +65,7 @@ level = 8
 effect = '''
 (This card is always treated as a "Red-Eyes" card.)
 You can Ritual Summon this card with "Red-Eyes Re-Transmigration". Twice per turn, when a card or effect is activated (Quick Effect): You can destroy 1 card on the field, and if you do, inflict 500 damage to your opponent, also if you destroyed a card you control by this effect, negate that activated effect. You can only activate this effect of "Lord of the Red Chaos" once per Chain. If this Ritual Summoned card is destroyed: You can target 1 Level 7 or lower "Red-Eyes" monster in your GY; Special Summon it, but it cannot attack directly this turn. You can only use this effect of "Lord of the Red Chaos" once per turn.'''
-strings=['Destroy 1 card on the field','Special Summon 1 monster']
+strings=['Destroy 1 card on the field','Effect can only be activated once per Chain','Special Summon 1 monster']
 
 [[card]]
 id = 220000003
