@@ -158,6 +158,8 @@ function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_CONTROL,g,1,0,0)
 end
 function s.e2evt(e,tp)
+	local c=e:GetHandler()
+	
 	local tc=Duel.GetFirstTarget()
 	if tc and tc:IsRelateToEffect(e) then
 		Duel.GetControl(tc,tp)
