@@ -110,7 +110,7 @@ function s.e3fil2(c,e,tp,rc)
 	and (c:ListsCode(CARD_THE_CLAW_OF_HERMOS) or c.material_race)
 	and not c:IsCode(rc:GetCode())
 	and not c:IsLevel(8)
-	and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
+	and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local c=e:GetHandler()
