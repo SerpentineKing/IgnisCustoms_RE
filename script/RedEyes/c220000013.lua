@@ -152,9 +152,7 @@ end
 function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	
-	if chk==0 then
-		return true--Duel.IsExistingMatchingCard(s.e3fil2,tp,LOCATION_EXTRA,0,1,nil,e,tp,e:GetLabel())
-	end
+	if chk==0 then return true end
 	
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
@@ -168,7 +166,7 @@ function s.e3evt(e,tp)
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 		local sc=g:Select(tp,1,1,nil):GetFirst()
 		if sc then
-			Duel.SpecialSummon(c,0,tp,tp,true,false,POS_FACEUP)
+			Duel.SpecialSummon(sc,0,tp,tp,true,false,POS_FACEUP)
 		end
 	end
 end
