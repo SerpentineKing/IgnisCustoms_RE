@@ -146,7 +146,10 @@ function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 		return Duel.IsExistingTarget(s.e2fil1,tp,0,LOCATION_MZONE,1,nil,e,tp)
 	end
 
-	e:SetLabel(Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,CARD_REDEYES_B_DRAGON),tp,LOCATION_MZONE,0,1,nil))
+	e:SetLabel(0)
+	if Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,CARD_REDEYES_B_DRAGON),tp,LOCATION_MZONE,0,1,nil) then
+		e:SetLabel(1)
+	end
 	
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CONTROL)
 
@@ -159,7 +162,7 @@ function s.e2evt(e,tp)
 	if tc and tc:IsRelateToEffect(e) then
 		Duel.GetControl(tc,tp)
 
-		if e:GetLabel() then return end
+		if e:GetLabel()==1 then return end
 
 		local e2b1=Effect.CreateEffect(c)
 		e2b1:SetType(EFFECT_TYPE_SINGLE)
