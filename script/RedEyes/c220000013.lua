@@ -103,12 +103,11 @@ function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 		return Duel.IsExistingTarget(s.e2fil,tp,LOCATION_MZONE,0,1,nil,e,tp)
 	end
 
-	local g=Duel.GetMatchingGroup(s.e2fil,tp,LOCATION_MZONE,0,nil,e,tp)
-	local dval=Duel.AnnounceRace(tp,1,RACE_ALL)
-
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
 	
-	Duel.SelectTarget(tp,s.e2fil,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
+	local g=Duel.SelectTarget(tp,s.e2fil,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
+
+	local dval=Duel.AnnounceRace(tp,1,RACE_ALL&~g:GetFirst():GetRace())
 	e:SetLabel(dval)
 end
 function s.e2evt(e,tp)
@@ -131,11 +130,11 @@ function s.e3fil1(c,e,tp)
 	and c:IsReleasable()
 	and Duel.IsExistingMatchingCard(s.e3fil2,tp,LOCATION_EXTRA,0,1,nil,e,tp,c:GetRace())
 end
-function s.e3fil2(c,e,tp)
+function s.e3fil2(c,e,tp,rval)
 	return c:IsType(TYPE_FUSION)
 	and c:IsMonster()
 	and c.material_race
-	and c:IsRace(e:GetLabel())
+	and c:IsRace(rval)
 	and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
 end
 function s.e3cst(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -155,7 +154,7 @@ function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	
 	if chk==0 then
-		return Duel.IsExistingMatchingCard(s.e3fil2,tp,LOCATION_EXTRA,0,1,nil,e,tp)
+		return Duel.IsExistingMatchingCard(s.e3fil2,tp,LOCATION_EXTRA,0,1,nil,e,tp,e:GetLabel())
 	end
 	
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
@@ -165,7 +164,7 @@ function s.e3evt(e,tp)
 
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)==0 then return end
 	
-	local g=Duel.GetMatchingGroup(s.e3fil2,tp,LOCATION_EXTRA,0,nil,e,tp)
+	local g=Duel.GetMatchingGroup(s.e3fil2,tp,LOCATION_EXTRA,0,nil,e,tp,e:GetLabel())
 	if g:GetCount()>0 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 		local sc=g:Select(tp,1,1,nil):GetFirst()

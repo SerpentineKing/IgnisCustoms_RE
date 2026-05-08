@@ -84,7 +84,7 @@ function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 		return Duel.IsExistingTarget(Card.IsDestructable,tp,0,LOCATION_ONFIELD,1,c)
 	end
 
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
 	
 	local g=Duel.SelectTarget(tp,Card.IsDestructable,tp,0,LOCATION_ONFIELD,1,1,c)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
@@ -100,13 +100,13 @@ end
 function s.e3fil1(c)
 	return c:IsType(TYPE_FUSION)
 	and c:IsMonsterCard()
-	and c:ListsCode(CARD_THE_CLAW_OF_HERMOS)
+	and (c:ListsCode(CARD_THE_CLAW_OF_HERMOS) or c.material_race)
 	and c:IsAbleToExtra()
 end
 function s.e3fil2(c,e,tp,rc)
 	return c:IsType(TYPE_FUSION)
 	and c:IsMonster()
-	and c:ListsCode(CARD_THE_CLAW_OF_HERMOS)
+	and (c:ListsCode(CARD_THE_CLAW_OF_HERMOS) or c.material_race)
 	and not c:IsCode(rc:GetCode())
 	and not c:IsLevel(8)
 	and c:IsCanBeSpecialSummoned(e,0,tp,true,false)

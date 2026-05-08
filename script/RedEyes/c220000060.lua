@@ -53,7 +53,7 @@ s.listed_names={CARD_THE_CLAW_OF_HERMOS,CARD_REDEYES_B_DRAGON,id}
 function s.e1fil1(c)
 	return c:IsType(TYPE_FUSION)
 	and c:IsMonster()
-	and c:ListsCode(CARD_THE_CLAW_OF_HERMOS)
+	and (c:ListsCode(CARD_THE_CLAW_OF_HERMOS) or c.material_race)
 end
 function s.e1cst(e,tp,rg)
 	local rc=rg:GetFirst()
