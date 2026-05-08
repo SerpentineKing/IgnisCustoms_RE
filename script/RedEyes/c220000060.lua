@@ -70,6 +70,7 @@ function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 
 	local rc=e:GetLabelObject()
+	if not rc then return end
 	
 	if chk==0 then
 		return s.e1fil1(rc)

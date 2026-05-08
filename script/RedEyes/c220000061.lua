@@ -105,15 +105,16 @@ function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then
 		return chkc:IsLocation(LOCATION_MZONE)
 		and s.e2fil(chkc)
+		and chkc~=c
 	end
 	if chk==0 then
 		return Duel.GetLocationCount(tp,LOCATION_SZONE)>0
-		and Duel.IsExistingTarget(s.e2fil,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil)
+		and Duel.IsExistingTarget(s.e2fil,tp,LOCATION_MZONE,LOCATION_MZONE,1,c)
 	end
 	
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
 	
-	Duel.SelectTarget(tp,s.e2fil,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
+	Duel.SelectTarget(tp,s.e2fil,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,c)
 
 	Duel.SetOperationInfo(0,CATEGORY_EQUIP,c,1,tp,0)
 end
