@@ -19,7 +19,7 @@ function s.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetCountLimit(1,{id,0})
-	e1:SetCost(Cost.Reveal(s.e1fil1,false,1,1,s.e1cst,LOCATION_EXTRA))
+	e1:SetCost(s.e1cst)
 	e1:SetTarget(s.e1tgt)
 	e1:SetOperation(s.e1evt)
 	c:RegisterEffect(e1)
@@ -50,37 +50,42 @@ local CARD_THE_CLAW_OF_HERMOS = 46232525
 -- Mentions : "The Claw of Hermos","Red-Eyes Black Dragon"
 s.listed_names={CARD_THE_CLAW_OF_HERMOS,CARD_REDEYES_B_DRAGON,id}
 -- Helpers
-function s.e1fil1(c)
-	return c:IsType(TYPE_FUSION)
+function s.e1fil1(c,e,tp)
+	local rval=c:GetRace()
+
+	return not c:IsPublic()
+	and c:IsType(TYPE_FUSION)
 	and c:IsMonster()
-	and (c:ListsCode(CARD_THE_CLAW_OF_HERMOS) or c.material_race)
+	and ((c.material_race and c:IsCanBeSpecialSummoned(e,0,tp,true,false)) or (c:ListsCode(CARD_THE_CLAW_OF_HERMOS) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)))
+	and ((Duel.IsExistingMatchingCard(s.e1fil2,tp,LOCATION_MZONE,0,1,c,rval)) or (Duel.IsExistingMatchingCard(s.e1fil2,tp,LOCATION_HAND+LOCATION_SZONE+LOCATION_EXTRA,0,1,c,rval) and Duel.GetLocationCount(tp,LOCATION_MZONE)>0))
 end
-function s.e1cst(e,tp,rg)
-	local rc=rg:GetFirst()
-	e:SetLabelObject(rc)
-	rc:CreateEffectRelation(e)
-end
-function s.e1fil2(c,e)
+function s.e1fil2(c,rval)
 	return c:IsMonsterCard()
-	and c:IsRace(e:GetLabelObject():GetRace())
+	and c:IsRace(rval)
 	and c:IsAbleToGrave()
+end
+function s.e1cst(e,tp,eg,ep,ev,re,r,rp,chk)
+	local c=e:GetHandler()
+
+	if chk==0 then
+		return Duel.IsExistingMatchingCard(s.e1fil1,tp,LOCATION_EXTRA,0,1,nil,e,tp)
+	end
+	
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CONFIRM)
+
+	local g=Duel.SelectMatchingCard(tp,s.e1fil1,tp,LOCATION_EXTRA,0,1,1,nil,e,tp)
+	Duel.ConfirmCards(1-tp,g)
+	Duel.ShuffleHand(tp)
+
+	e:SetLabelObject(g:GetFirst())
 end
 function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
-
-	local rc=e:GetLabelObject()
-	if not rc then return end
 	
-	if chk==0 then
-		return s.e1fil1(rc)
-		and rc:IsCanBeSpecialSummoned(e,0,tp,true,false)
-		and ((Duel.IsExistingMatchingCard(s.e1fil2,tp,LOCATION_MZONE,0,1,rc,e))
-		or (Duel.IsExistingMatchingCard(s.e1fil2,tp,LOCATION_HAND+LOCATION_SZONE+LOCATION_EXTRA,0,1,rc,e)
-		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0))
-	end
+	if chk==0 then return true end
 	
 	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,tp,LOCATION_HAND+LOCATION_ONFIELD+LOCATION_EXTRA)
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,rc,1,0,0)
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetLabelObject(),1,0,0)
 end
 function s.e1evt(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -94,7 +99,7 @@ function s.e1evt(e,tp,eg,ep,ev,re,r,rp)
 		zn=LOCATION_MZONE
 	end
 
-	local g=Duel.SelectMatchingCard(tp,s.e1fil2,tp,zn,0,1,1,rc,e)
+	local g=Duel.SelectMatchingCard(tp,s.e1fil2,tp,zn,0,1,1,rc,rc:GetRace())
 	local tc=g:GetFirst()
 	if tc and not tc:IsImmuneToEffect(e) then
 		if tc:IsOnField() and tc:IsFacedown() then
@@ -159,7 +164,7 @@ function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function s.e2evt(e,tp)
 	local c=e:GetHandler()
-	
+
 	local tc=Duel.GetFirstTarget()
 	if tc and tc:IsRelateToEffect(e) then
 		Duel.GetControl(tc,tp)
