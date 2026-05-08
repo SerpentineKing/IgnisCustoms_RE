@@ -144,7 +144,7 @@ function s.e3evt(e,tp)
 				local sc=g:Select(tp,1,1,nil):GetFirst()
 				if sc then
 					Duel.BreakEffect()
-					Duel.SpecialSummon(c,0,tp,tp,true,false,POS_FACEUP)
+					Duel.SpecialSummon(sc,0,tp,tp,true,false,POS_FACEUP)
 				end
 			end
 		end
