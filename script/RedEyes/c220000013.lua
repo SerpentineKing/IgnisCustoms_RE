@@ -133,9 +133,8 @@ end
 function s.e3fil2(c,e,tp,rval)
 	return c:IsType(TYPE_FUSION)
 	and c:IsMonster()
-	and c.material_race
 	and c:IsRace(rval)
-	and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
+	and (c.material_race and c:IsCanBeSpecialSummoned(e,0,tp,true,false))
 end
 function s.e3cst(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -154,7 +153,7 @@ function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	
 	if chk==0 then
-		return Duel.IsExistingMatchingCard(s.e3fil2,tp,LOCATION_EXTRA,0,1,nil,e,tp,e:GetLabel())
+		return true--Duel.IsExistingMatchingCard(s.e3fil2,tp,LOCATION_EXTRA,0,1,nil,e,tp,e:GetLabel())
 	end
 	
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
