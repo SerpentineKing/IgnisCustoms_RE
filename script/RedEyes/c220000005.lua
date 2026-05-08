@@ -5,83 +5,55 @@ function s.initial_effect(c)
 	-- 1 Level 7 "Red-Eyes" monster + 1 Level 8 Warrior monster
 	Fusion.AddProcMix(c,true,true,s.m1fil,s.m2fil)
 	c:EnableReviveLimit()
-	--[[
-	When this card is Summoned:
-	You can send 1 "The Claw of Hermos" and 1 Dragon monster from your Deck to the GY;
-	equip 1 "Red-Eyes Black Dragon Sword" from your Extra Deck to this card.
-	]]--
+	-- During the Battle Phase, all monsters you control become Dragon monsters.
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(id,0))
-	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e1:SetCode(EVENT_SUMMON_SUCCESS)
-	e1:SetCountLimit(1)
-	e1:SetCost(s.e1cst)
-	e1:SetTarget(s.e1tgt)
-	e1:SetOperation(s.e1evt)
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetCode(EFFECT_CHANGE_RACE)
+	e1:SetRange(LOCATION_MZONE)
+	e1:SetTargetRange(LOCATION_MZONE,0)
+	e1:SetValue(RACE_DRAGON)
+	e1:SetCondition(s.e1con)
 	c:RegisterEffect(e1)
-
-	local e1b=e1:Clone()
-	e1b:SetCode(EVENT_FLIP_SUMMON_SUCCESS)
-	c:RegisterEffect(e1b)
-	
-	local e1c=e1:Clone()
-	e1c:SetCode(EVENT_SPSUMMON_SUCCESS)
-	c:RegisterEffect(e1c)
-	-- This card gains 1000 ATK, and 500 ATK/DEF for each Dragon monster on the field and in the GYs.
-	local e2=Effect.CreateEffect(c)
-	e2:SetCategory(CATEGORY_ATKCHANGE)
-	e2:SetType(EFFECT_TYPE_SINGLE)
-	e2:SetCode(EFFECT_UPDATE_ATTACK)
-	e2:SetValue(1000)
-	c:RegisterEffect(e2)
-
-	local e2b=Effect.CreateEffect(c)
-	e2b:SetCategory(CATEGORY_ATKCHANGE)
-	e2b:SetType(EFFECT_TYPE_SINGLE)
-	e2b:SetCode(EFFECT_UPDATE_ATTACK)
-	e2b:SetValue(s.e2bval)
-	c:RegisterEffect(e2b)
-	
-	local e2c=e2b:Clone()
-	e2c:SetCategory(CATEGORY_DEFCHANGE)
-	e2c:SetCode(EFFECT_UPDATE_DEFENSE)
-	c:RegisterEffect(e2c)
 	--[[
-	[HOPT]
-	If a "Red-Eyes Black Dragon Sword" equipped to this card
-	is sent from your field to the GY by an opponent's card effect (except during the Damage Step):
-	You can target 1 card your opponent controls; destroy it.
+	[H1PT]
+	If either player equips an Equip Card(s) to this card:
+	You can target 1 card your opponent controls;
+	destroy it.
+	]]--
+	local e2=Effect.CreateEffect(c)
+	e2:SetDescription(aux.Stringid(id,0))
+	e2:SetCategory(CATEGORY_DESTROY)
+	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e2:SetCode(EVENT_EQUIP)
+	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
+	e2:SetCountLimit(1,{id,0})
+	e2:SetTarget(s.e2tgt)
+	e2:SetOperation(s.e2evt)
+	c:RegisterEffect(e2)
+	--[[
+	[H1PT]
+	(Quick Effect):
+	You can target 1 Fusion Monster Card in your field or GY that mentions "The Claw of Hermos";
+	return it to the Extra Deck,
+	then you can Special Summon 1 Fusion Monster with a different name from your Extra Deck
+	that mentions "The Claw of Hermos", except a Level 8 monster.
+	(This is treated as a Special Summon by the effect of "The Claw of Hermos".)
 	]]--
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(id,1))
-	e3:SetCategory(CATEGORY_DESTROY)
-	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
-	e3:SetCode(EVENT_TO_GRAVE)
+	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e3:SetType(EFFECT_TYPE_QUICK_O)
+	e3:SetCode(EVENT_FREE_CHAIN)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e3:SetCountLimit(1,{id,0})
-	e3:SetCondition(s.e3con)
+	e3:SetCountLimit(1,{id,1})
 	e3:SetTarget(s.e3tgt)
 	e3:SetOperation(s.e3evt)
 	c:RegisterEffect(e3)
-	--[[
-	[HOPT]
-	If this card is destroyed by battle or an opponent's card effect and sent to the GY:
-	You can banish this card from your GY; return all Fusion and Xyz Monsters in your GY to the Extra Deck.
-	]]--
-	local e4=Effect.CreateEffect(c)
-	e4:SetDescription(aux.Stringid(id,2))
-	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e4:SetCode(EVENT_TO_GRAVE)
-	e4:SetCountLimit(1,{id,1})
-	e4:SetCost(aux.bfgcost)
-	e4:SetCondition(s.e4con)
-	e4:SetTarget(s.e4tgt)
-	e4:SetOperation(s.e4evt)
-	c:RegisterEffect(e4)
 end
--- Mentions : "The Claw of Hermos","Red-Eyes Black Dragon Sword"
-s.listed_names={46232525,19747827,id}
+local CARD_THE_CLAW_OF_HERMOS = 46232525
+-- Mentions : "The Claw of Hermos"
+s.listed_names={CARD_THE_CLAW_OF_HERMOS,id}
 -- Archetype : Red-Eyes
 s.listed_series={SET_RED_EYES}
 -- Red-Eyes Fusion
@@ -95,123 +67,84 @@ function s.m2fil(c,fc,sumtype,tp)
 	return c:IsRace(RACE_WARRIOR)
 	and c:IsLevel(8)
 end
-function s.e1fil1(c)
-	return c:IsCode(46232525)
-	and c:IsAbleToGraveAsCost()
-end
-function s.e1fil2(c)
-	return c:IsRace(RACE_DRAGON)
-	and c:IsAbleToGraveAsCost()
-end
-function s.e1fil3(c,e,tp)
-	return c:IsCode(19747827)
-	and c:CheckUniqueOnField(tp)
-	and not c:IsForbidden()
-end
-function s.e1cst(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then
-		return Duel.IsExistingMatchingCard(s.e1fil1,tp,LOCATION_DECK,0,1,nil)
-		and Duel.IsExistingMatchingCard(s.e1fil2,tp,LOCATION_DECK,0,1,nil)
-	end
+function s.e1con(e)
+	local tp=e:GetHandlerPlayer()
 
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-
-	local g1=Duel.SelectMatchingCard(tp,s.e1fil1,tp,LOCATION_DECK,0,1,1,nil)
-	local s1=g1:GetFirst()
-	
-	local g2=Duel.SelectMatchingCard(tp,s.e1fil2,tp,LOCATION_DECK,0,1,1,nil)
-	local s2=g2:GetFirst()
-
-	local g=Group.CreateGroup()
-	g:AddCard(s1)
-	g:AddCard(s2)
-
-	Duel.SendtoGrave(g,REASON_COST)
+	return Duel.IsBattlePhase()
 end
-function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then
-		return chkc:IsLocation(LOCATION_EXTRA)
-		and chkc:IsControler(tp)
-		and s.e1fil3(chkc,tp)
-	end
-	if chk==0 then
-		return Duel.IsExistingMatchingCard(s.e1fil3,tp,LOCATION_EXTRA,0,1,nil,e,tp)
-		and Duel.GetLocationCount(tp,LOCATION_SZONE)>0
-	end
-	
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
-	local g=Duel.GetMatchingGroup(s.e1fil3,tp,LOCATION_EXTRA,0,nil,e,tp)
-	Duel.SetOperationInfo(0,CATEGORY_EQUIP,g,1,0,0)
-end
-function s.e1lim(e,c)
-	return c==e:GetLabelObject()
-end
-function s.e1evt(e,tp)
+function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local c=e:GetHandler()
-	local g=Duel.SelectMatchingCard(tp,s.e1fil3,tp,LOCATION_EXTRA,0,1,1,nil,e,tp)
-	local tc=g:GetFirst()
-	if Duel.Equip(tp,tc,c,true) then
-		local e1d=Effect.CreateEffect(c)
-		e1d:SetType(EFFECT_TYPE_SINGLE)
-		e1d:SetCode(EFFECT_EQUIP_LIMIT)
-		e1d:SetReset(RESET_EVENT+RESETS_STANDARD)
-		e1d:SetValue(s.e1lim)
-		e1d:SetLabelObject(c)
-		tc:RegisterEffect(e1d)
-	end
-end
-function s.e2bval(e,c)
-	return 500*Duel.GetMatchingGroupCount(aux.FaceupFilter(Card.IsRace,RACE_DRAGON),0,LOCATION_MZONE+LOCATION_GRAVE,LOCATION_MZONE+LOCATION_GRAVE,nil)
-end
-function s.e3fil(c,tp,ec)
-	-- Red-Eyes Black Dragon Sword
-	return c:IsCode(19747827)
-	and c:IsPreviousControler(tp)
-	and c:GetPreviousEquipTarget()==ec
-	and c:IsReasonPlayer(1-tp)
-end
-function s.e3con(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	return eg:IsExists(s.e3fil,1,nil,tp,c)
-end
-function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+
 	if chkc then
-		return chkc:IsControler(1-tp)
-		and chkc:IsLocation(LOCATION_ONFIELD)
+		return chkc:IsOnField()
+		and chkc:IsControler(1-tp)
+		and chkc:IsDestructable()
 	end
 	if chk==0 then
-		return Duel.IsExistingTarget(aux.TRUE,tp,0,LOCATION_ONFIELD,1,nil)
+		return Duel.IsExistingTarget(Card.IsDestructable,tp,0,LOCATION_ONFIELD,1,c)
 	end
 
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-
-	local g=Duel.SelectTarget(tp,aux.TRUE,tp,0,LOCATION_ONFIELD,1,1,nil)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
+	
+	local g=Duel.SelectTarget(tp,Card.IsDestructable,tp,0,LOCATION_ONFIELD,1,1,c)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
 end
-function s.e3evt(e)
+function s.e2evt(e,tp)
+	local c=e:GetHandler()
+
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then
+	if tc and tc:IsRelateToEffect(e) then
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end
-function s.e4con(e,tp)
-	local c=e:GetHandler()
-
-	return c:IsReason(REASON_DESTROY)
-	and (c:IsReason(REASON_BATTLE) or (c:IsReason(REASON_EFFECT) and c:GetReasonPlayer()==1-tp))
-end
-function s.e4fil(c)
-	return (c:IsType(TYPE_FUSION) or c:IsType(TYPE_XYZ))
+function s.e3fil1(c)
+	return c:IsType(TYPE_FUSION)
+	and c:IsMonsterCard()
+	and c:ListsCode(CARD_THE_CLAW_OF_HERMOS)
 	and c:IsAbleToExtra()
 end
-function s.e4tgt(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then
-		return Duel.IsExistingMatchingCard(s.e4fil,tp,LOCATION_GRAVE,0,1,e:GetHandler())
-	end
+function s.e3fil2(c,e,tp,rc)
+	return c:IsType(TYPE_FUSION)
+	and c:IsMonster()
+	and c:ListsCode(CARD_THE_CLAW_OF_HERMOS)
+	and not c:IsCode(rc:GetCode())
+	and not c:IsLevel(8)
+	and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
 end
-function s.e4evt(e,tp)
-	local g=Duel.GetMatchingGroup(s.e4fil,tp,LOCATION_GRAVE,0,nil)
-	if g:GetCount()>0 then
-		Duel.SendtoHand(g,nil,REASON_EFFECT)
+function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then
+		return (chkc:IsLocation(LOCATION_ONFIELD) or chkc:IsLocation(LOCATION_GRAVE))
+		and chkc:IsControler(tp)
+		and s.e3fil1(chkc)
+	end
+	if chk==0 then
+		return (Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+		and Duel.IsExistingTarget(s.e3fil1,tp,LOCATION_ONFIELD,0,1,nil))
+		or Duel.IsExistingTarget(s.e3fil1,tp,LOCATION_GRAVE,0,1,nil)
+	end
+	
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
+	local g=Duel.SelectTarget(tp,s.e3fil1,tp,LOCATION_ONFIELD+LOCATION_GRAVE,0,1,1,nil,e,tp)
+	
+	Duel.SetOperationInfo(0,CATEGORY_TOEXTRA,g,1,0,0)
+end
+function s.e3evt(e,tp)
+	local c=e:GetHandler()
+	
+	local tc=Duel.GetFirstTarget()
+	if tc:IsRelateToEffect(e) then
+		if Duel.SendtoDeck(tc,nil,SEQ_DECKSHUFFLE,REASON_EFFECT)>0 and tc:IsLocation(LOCATION_EXTRA) then
+			if Duel.GetLocationCount(tp,LOCATION_MZONE)==0 then return end
+
+			local g=Duel.GetMatchingGroup(s.e3fil2,tp,LOCATION_EXTRA,0,nil,e,tp,tc)
+			if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(id,1)) then
+				Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+				local sc=g:Select(tp,1,1,nil):GetFirst()
+				if sc then
+					Duel.BreakEffect()
+					Duel.SpecialSummon(c,0,tp,tp,true,false,POS_FACEUP)
+				end
+			end
+		end
 	end
 end

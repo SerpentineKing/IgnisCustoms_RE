@@ -56,8 +56,9 @@ function s.initial_effect(c)
 	e3:SetOperation(s.e3evt)
 	c:RegisterEffect(e3)
 end
+local CARD_ZOMBIE_WORLD = 4064256
 -- Mentions : "Zombie World"
-s.listed_names={4064256,id}
+s.listed_names={CARD_ZOMBIE_WORLD,id}
 -- Archetype : Red-Eyes
 s.listed_series={SET_RED_EYES}
 -- Helpers
@@ -151,11 +152,7 @@ function s.e3con(e,tp)
 end
 function s.e3fil(c)
 	return not c:IsCode(id)
-	and ((c:IsSetCard(0xfe3)
-		or c:IsCode(4064256)
-		or c:IsCode(32485518)
-		or c:IsCode(92964816)
-		or c:IsCode(66570171))
+	and (c:ListsCode(CARD_ZOMBIE_WORLD)
 		or (c:IsRace(RACE_DRAGON) and c:IsLevelBelow(4)))
 	and c:IsMonster()
 	and c:IsAbleToGrave()

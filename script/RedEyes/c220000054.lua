@@ -40,8 +40,9 @@ function s.initial_effect(c)
 	e2:SetOperation(s.e2evt)
 	c:RegisterEffect(e2)
 end
+local CARD_ZOMBIE_WORLD = 4064256
 -- Mentions : "Zombie World"
-s.listed_names={4064256,id}
+s.listed_names={CARD_ZOMBIE_WORLD,id}
 -- Archetype : Red-Eyes
 s.listed_series={SET_RED_EYES}
 -- Helpers

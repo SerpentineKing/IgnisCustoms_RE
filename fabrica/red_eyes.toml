@@ -107,16 +107,17 @@ setnumber = "IPRE-EN005"
 ot = "custom"
 name = "Gearfried, Master of the Red-Eyes Black Dragon Sword"
 set = "red_eyes"
-attribute = "earth"
+attribute = "dark"
 race = "warrior"
 type = "monster effect fusion"
-atk = 2700
-def = 2500
+atk = 2600
+def = 2200
 level = 8
 effect = '''
 1 Level 7 "Red-Eyes" monster + 1 Level 8 Warrior monster
-When this card is Summoned: You can send 1 "The Claw of Hermos" and 1 Dragon monster from your Deck to the GY; equip 1 "Red-Eyes Black Dragon Sword" from your Extra Deck to this card. This card gains 1000 ATK, and 500 ATK/DEF for each Dragon monster on the field and in the GYs. You can only use each of the following effects of "Gearfried, Master of the Red-Eyes Black Dragon Sword" once per turn. If a "Red-Eyes Black Dragon Sword" equipped to this card is sent from your field to the GY by an opponent's card effect (except during the Damage Step): You can target 1 card your opponent controls; destroy it. If this card is destroyed by battle or an opponent's card effect and sent to the GY: You can banish this card from your GY; return all Fusion and Xyz Monsters in your GY to the Extra Deck.'''
-strings=['Equip 1 "Red-Eyes Black Dragon Sword" from your Extra Deck?','Destroy 1 card your opponent controls?','Return monsters from your GY to the Extra Deck?']
+(This card is always treated as a "Red-Eyes" card.)
+During the Battle Phase, all monsters you control become Dragon monsters You can only use each of the following effects of "Gearfried the Black Dragon Swordmaster" once per turn. If either player equips an Equip Card(s) to this card: You can target 1 card your opponent controls; destroy it. (Quick Effect): You can target 1 Fusion Monster Card in your field or GY that mentions "The Claw of Hermos"; return it to the Extra Deck, then you can Special Summon 1 Fusion Monster with a different name from your Extra Deck that mentions "The Claw of Hermos", except a Level 8 monster. (This is treated as a Special Summon by the effect of "The Claw of Hermos".)'''
+strings=['Destroy 1 opposing card','Special Summon 1 Fusion Monster']
 
 [[card]]
 id = 220000006
@@ -243,7 +244,6 @@ id = 220000013
 setnumber = "IPRE-EN013"
 ot = "custom"
 name = "Hermos the Support Dragon"
-set = "m_red_eyes"
 attribute = "light"
 race = "dragon"
 type = "monster effect"
@@ -251,10 +251,8 @@ atk = 2800
 def = 1800
 level = 8
 effect = '''
-You can send 1 Dragon monster, or 1 Spell/Trap that has "Red-Eyes" in its text, from your hand or face-up field to the GY; Special Summon this card from your hand. During your Main Phase: You can Fusion Summon 1 Fusion Monster from your Extra Deck, using monsters from your hand and/or field as material, including a Dragon monster. If this card is sent from the field to the GY: You can banish this card from your GY; apply the following effect.
-• Show 1 Fusion Monster that must be Special Summoned with "The Claw of Hermos" from your Extra Deck, and if you do, send 1 monster from your hand or field to the GY with same Type as the shown monster (if that card is Set, reveal it), then Special Summon the shown monster from your Extra Deck. (This is treated as a Special Summon by the effect of "The Claw of Hermos".)
-You can only use each effect of "Hermos the Support Dragon" once per turn.'''
-strings=['Special Summon this card','Fusion Summon 1 Fusion Monster','Special Summon 1 monster that mentions "The Claw of Hermos"']
+You can send 1 "Red-Eyes" or Warrior monster from your hand or face-up field to the GY; Special Summon this card from your hand. If this card is Special Summoned: You can target 1 face-up monster you control and declare 1 Monster Type; that target becomes the declared Type, until the end of this turn. You can Tribute 1 face-up monster; Special Summon 1 Fusion Monster that can only be Special Summoned with "The Claw of Hermos" from your Extra Deck with the same Type that Tributed monster had on the field. (This is treated as a Special Summon by the effect of "The Claw of Hermos"). You can only use each effect of "Hermos the Support Dragon" once per turn.'''
+strings=['Special Summon this card','Change Monster Type','Special Summon 1 monster that mentions "The Claw of Hermos"']
 
 [[card]]
 id = 220000014
@@ -954,3 +952,47 @@ Your opponent cannot activate cards or effects in response to the activation of 
 • Reveal 1 Ritual Monster in your hand; send 1 Normal Monster from your Deck to the GY, with the same Level and ATK as the revealed monster.
 You can only use this effect of "Dimension of Chaos" once per turn.'''
 strings=['Activate effects in sequence','Activate 1 effect','Activate 2 effects','Set 1 "Chaos Form"','Add 1 Ritual Monster','Send 1 Normal Monster']
+
+[[card]]
+id = 220000060
+setnumber = "IPRE-EN060"
+ot = "custom"
+name = "Rampage of Hermos"
+type = "spell quickplay"
+effect = '''
+Reveal 1 Fusion Monster in your Extra Deck that mentions "The Claw of Hermos"; send 1 other Monster Card from your hand, field, or Extra Deck to the GY with the same Type as the revealed monster (if that card is Set, reveal it), and if you do, Special Summon the revealed monster. (This is treated as a Fusion Summon by the effect of "The Claw of Hermos".) If this effect was activated during the Battle Phase, your opponent cannot activate cards or effects when a monster is Special Summoned this way. During your Main Phase: You can banish this card from your GY, then target 1 face-up monster your opponent controls equipped with a Fusion Monster Card(s) in your Spell & Trap Zone; take control of that target, but unless you controlled "Red-Eyes Black Dragon" when this effect was activated, negate its effects, also it cannot attack directly. You can only use each effect of "Rampage of Hermos" once per turn.'''
+strings=['Special Summon 1 Fusion Monster','Take control of opposing monster']
+
+[[card]]
+id = 220000061
+setnumber = "IPRE-EN061"
+ot = "custom"
+name = "Red-Eyes Arsenal Dragon"
+set = "red_eyes"
+attribute = "dark"
+race = "dragon"
+type = "monster effect fusion"
+atk = 1900
+def = 1200
+level = 4
+effect = '''
+1 "Red-Eyes" monster equipped with a Monster Card + 1 Effect Monster Card
+Must first be Special Summoned (from your Extra Deck) by sending the above cards from your hand and/or face-up field to the GY. You can only use each of the following effects of "Red-Eyes Arsenal Dragon" once per turn. If this card is Special Summoned from the Extra Deck: You can add 1 "The Claw of Hermos" or 1 Spell/Trap that mentions it from your Deck or GY to your hand. (Quick Effect): You can target 1 face-up monster on the field; equip this card to it as an Equip Spell with the following effect.
+• The equipped monster cannot be destroyed by card effects, except during the Battle Phase.'''
+strings=['Add 1 Spell/Trap that mentions "The Claw of Hermos"','Equip this card','Cannot be destroyed by card effects, except during the Battle Phase']
+
+[[card]]
+id = 220000062
+setnumber = "IPRE-EN062"
+ot = "custom"
+name = "Big Bang Dragon Blow"
+attribute = "earth"
+race = "machine"
+type = "monster effect fusion"
+atk = 0
+def = 0
+level = 4
+effect = '''
+Must be Special Summoned with "The Claw of Hermos", using a Machine monster. If this card is Special Summoned: Target 1 other face-up monster on the field; equip this card to it as an Equip Spell with the following effect.
+• Once per turn, when an opponent's monster declares an attack: You can Tribute 1 monster, except the equipped monster; destroy all monsters your opponent controls, then if you Tributed a Dragon monster to activate this effect, inflict damage to your opponent equal to the combined original ATK of the destroyed monsters.'''
+strings=['Equip this card','Destroy opposing monsters']

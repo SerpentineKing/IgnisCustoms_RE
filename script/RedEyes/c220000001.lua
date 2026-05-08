@@ -15,9 +15,9 @@ function s.initial_effect(c)
 	-- Your opponent's monsters cannot target monsters for attacks, except this one.
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
+	e2:SetCode(EFFECT_CANNOT_SELECT_BATTLE_TARGET)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetTargetRange(0,LOCATION_MZONE)
-	e2:SetCode(EFFECT_CANNOT_SELECT_BATTLE_TARGET)
 	e2:SetValue(s.e2lim)
 	c:RegisterEffect(e2)
 	--[[

@@ -115,7 +115,7 @@ function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g,1,0,0)
 end
-function s.e2evt(e,tp,eg,ep,ev,re,r,rp)
+function s.e2evt(e,tp)
 	local c=e:GetHandler()
 
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<1 then return end

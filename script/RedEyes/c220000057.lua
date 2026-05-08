@@ -35,6 +35,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.e2evt)
 	c:RegisterEffect(e2)
 end
+local RESETS_ON_LEAVE = RESET_EVENT+RESETS_STANDARD
 local CARD_METALMORPH = 68540058
 -- Mentions : "Metalmorph","Max Metalmorph"
 s.listed_names={CARD_METALMORPH,CARD_MAX_METALMORPH,id}
@@ -78,13 +79,14 @@ function s.e1evt(e,tp)
 		Duel.BreakEffect()
 		
 		if not tc:EquipByEffectAndLimitRegister(e,tp,c,nil,true) then return end
-		
+		-- [Equip Limit]
 		local e1b0=Effect.CreateEffect(c)
 		e1b0:SetType(EFFECT_TYPE_SINGLE)
 		e1b0:SetCode(EFFECT_EQUIP_LIMIT)
 		e1b0:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-		e1b0:SetValue(function(e,c) return c==tc end)
-		e1b0:SetReset(RESET_EVENT+RESETS_STANDARD)
+		e1b0:SetValue(s.eqlim)
+		e1b0:SetLabelObject(tc)
+		e1b0:SetReset(RESETS_ON_LEAVE)
 		c:RegisterEffect(e1b0)
 		--[[
 		This card's name becomes "Metalmorph" while in the Spell & Trap Zone.
@@ -114,6 +116,9 @@ function s.e1evt(e,tp)
 		e1b2:SetOperation(s.e1b2evt)
 		c:RegisterEffect(e1b2)
 	end
+end
+function s.eqlim(e,c)
+	return c==e:GetLabelObject()
 end
 function s.e1b2fil(c)
 	return not c:IsPublic()

@@ -49,8 +49,9 @@ function s.initial_effect(c)
 	e3a1:SetOperation(s.e3evt)
 	c:RegisterEffect(e3a1)
 end
+local CARD_ZOMBIE_WORLD = 4064256
 -- Mentions : "Zombie World"
-s.listed_names={4064256,id}
+s.listed_names={CARD_ZOMBIE_WORLD,id}
 -- Archetype : Red-Eyes
 s.listed_series={SET_RED_EYES}
 -- Helpers
@@ -66,11 +67,7 @@ end
 function s.e2fil(c,e,tp)
 	return c:IsMonster()
 	and not c:IsLevel(5)
-	and (c:IsSetCard(0xfe3)
-		or c:IsCode(4064256)
-		or c:IsCode(32485518)
-		or c:IsCode(92964816)
-		or c:IsCode(66570171))
+	and c:ListsCode(CARD_ZOMBIE_WORLD)
 	and c:IsCanBeSpecialSummoned(e,0,tp,true,false,POS_FACEUP_DEFENSE)
 end
 function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

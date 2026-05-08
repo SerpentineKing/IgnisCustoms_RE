@@ -44,17 +44,14 @@ function s.initial_effect(c)
 	e3:SetOperation(s.e3evt)
 	c:RegisterEffect(e3)
 end
+local CARD_ZOMBIE_WORLD = 4064256
 -- Mentions : "Zombie World"
-s.listed_names={4064256,id}
+s.listed_names={CARD_ZOMBIE_WORLD,id}
 -- Archetype : Red-Eyes
 s.listed_series={SET_RED_EYES}
 -- Helpers
 function s.e1fil(c)
-	return (c:IsSetCard(0xfe3)
-		or c:IsCode(4064256)
-		or c:IsCode(32485518)
-		or c:IsCode(92964816)
-		or c:IsCode(66570171))
+	return c:ListsCode(CARD_ZOMBIE_WORLD)
 	and c:IsType(TYPE_TUNER)
 	and c:IsMonster()
 end

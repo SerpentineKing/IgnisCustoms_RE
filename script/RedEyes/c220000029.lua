@@ -45,8 +45,8 @@ function s.initial_effect(c)
 	e2b:SetCode(EFFECT_INDESTRUCTABLE_COUNT)
 	e2b:SetRange(LOCATION_SZONE)
 	e2b:SetTargetRange(LOCATION_MZONE,0)
-	e2b:SetTarget(s.e2btgt)
 	e2b:SetValue(s.e2bval)
+	e2b:SetTarget(s.e2btgt)
 	c:RegisterEffect(e2b)
 	--[[
 	[HOPT]
