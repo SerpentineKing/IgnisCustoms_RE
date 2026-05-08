@@ -101,7 +101,7 @@ function s.e3fil1(c)
 	return c:IsType(TYPE_FUSION)
 	and c:IsMonsterCard()
 	and (c:ListsCode(CARD_THE_CLAW_OF_HERMOS) or c.material_race)
-	and c:IsAbleToExtra()
+	and (c:IsAbleToExtra() or c:IsAbleToDeck())
 end
 function s.e3fil2(c,e,tp,rc)
 	return c:IsType(TYPE_FUSION)
@@ -115,7 +115,7 @@ function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local c=e:GetHandler()
 
 	if chkc then
-		return (chkc:IsLocation(LOCATION_ONFIELD) or chkc:IsLocation(LOCATION_GRAVE))
+		return (chkc:IsLocation(LOCATION_MZONE) or chkc:IsLocation(LOCATION_SZONE) or chkc:IsLocation(LOCATION_GRAVE))
 		and chkc:IsControler(tp)
 		and s.e3fil1(chkc)
 	end
