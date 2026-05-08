@@ -8,7 +8,7 @@ function s.initial_effect(c)
 	]]--
 	c:EnableReviveLimit()
 	Fusion.AddProcMix(c,true,true,s.m1fil,s.m2fil)
-	Fusion.AddContactProc(c,s.fs1fil,s.fs2fil,s.fslim)
+	Fusion.AddContactProc(c,s.fsfil,s.fsevt,s.fslim,nil,1)
 	--[[
 	[H1PT]
 	If this card is Special Summoned from the Extra Deck:
@@ -50,20 +50,20 @@ s.listed_names={CARD_THE_CLAW_OF_HERMOS,id}
 -- Archetype : Red-Eyes
 s.listed_series={SET_RED_EYES}
 -- Helpers
-function s.m1fil(c)
+function s.m1fil(c,fc,sumtype,tp)
 	return c:IsSetCard(SET_RED_EYES)
 	and c:IsMonster()
 	and c:GetEquipGroup():IsExists(Card.IsMonsterCard,1,nil)
 end
 function s.m2fil(c,fc,sumtype,tp)
-	return c:IsType(TYPE_EFFECT)
+	return c:IsOriginalType(TYPE_EFFECT)
 	and c:IsMonsterCard()
 end
-function s.fs1fil(tp)
+function s.fsfil(tp)
 	return Duel.GetMatchingGroup(Card.IsAbleToGraveAsCost,tp,LOCATION_HAND+LOCATION_ONFIELD,0,nil)
 end
-function s.fs2fil(g)
-	return Duel.SendtoGrave(g,REASON_COST+REASON_MATERIAL)
+function s.fsevt(g)
+	Duel.SendtoGrave(g,REASON_COST+REASON_MATERIAL)
 end
 function s.fslim(e,se,sp,st)
 	local c=e:GetHandler()
