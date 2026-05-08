@@ -112,6 +112,8 @@ function s.e3fil2(c,e,tp,rc)
 	and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
 end
 function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	local c=e:GetHandler()
+
 	if chkc then
 		return (chkc:IsLocation(LOCATION_ONFIELD) or chkc:IsLocation(LOCATION_GRAVE))
 		and chkc:IsControler(tp)
@@ -119,8 +121,8 @@ function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	end
 	if chk==0 then
 		return (Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingTarget(s.e3fil1,tp,LOCATION_ONFIELD,0,1,nil))
-		or Duel.IsExistingTarget(s.e3fil1,tp,LOCATION_GRAVE,0,1,nil)
+		and Duel.IsExistingTarget(s.e3fil1,tp,LOCATION_SZONE+LOCATION_GRAVE,0,1,nil))
+		or Duel.IsExistingTarget(s.e3fil1,tp,LOCATION_MZONE,0,1,nil)
 	end
 	
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
