@@ -114,7 +114,7 @@ atk = 2600
 def = 2200
 level = 8
 effect = '''
-1 Level 7 "Red-Eyes" monster + 1 Level 8 Warrior monster
+1 Level 7 "Red-Eyes" monster + 1 LIGHT Warrior monster that cannot be Normal Summoned/Set
 (This card is always treated as a "Red-Eyes" card.)
 During the Battle Phase, all monsters you control become Dragon monsters You can only use each of the following effects of "Gearfried the Black Dragon Swordmaster" once per turn. If either player equips an Equip Card(s) to this card: You can target 1 card your opponent controls; destroy it. (Quick Effect): You can target 1 Fusion Monster Card in your field or GY that mentions "The Claw of Hermos"; return it to the Extra Deck, then you can Special Summon 1 Fusion Monster with a different name from your Extra Deck that mentions "The Claw of Hermos", except a Level 8 monster. (This is treated as a Special Summon by the effect of "The Claw of Hermos".)'''
 strings=['Destroy 1 opposing card','Special Summon 1 Fusion Monster']

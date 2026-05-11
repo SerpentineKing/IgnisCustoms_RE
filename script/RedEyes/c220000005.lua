@@ -64,8 +64,9 @@ function s.m1fil(c,fc,sumtype,tp)
 	and c:IsLevel(7)
 end
 function s.m2fil(c,fc,sumtype,tp)
-	return c:IsRace(RACE_WARRIOR)
-	and c:IsLevel(8)
+	return c:IsAttribute(ATTRIBUTE_LIGHT)
+	and c:IsRace(RACE_WARRIOR)
+	and not c:IsSummonableCard()
 end
 function s.e1con(e)
 	local tp=e:GetHandlerPlayer()
