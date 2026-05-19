@@ -1,172 +1,167 @@
--- Hermos the Support Dragon
+-- Red-Eyes Black Chaos MAX Dragon
 local s,id,o=GetID()
 -- c220000013
 function s.initial_effect(c)
-	--[[
-	[H1PT]
-	You can send 1 "Red-Eyes" or Warrior monster from your hand or face-up field to the GY;
-	Special Summon this card from your hand.
-	]]--
+	-- You can Ritual Summon this card with "Chaos Form".
+	c:EnableReviveLimit()
+	-- This card cannot be destroyed by battle
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(id,0))
-	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e1:SetType(EFFECT_TYPE_IGNITION)
-	e1:SetRange(LOCATION_HAND)
-	e1:SetCountLimit(1,{id,0})
-	e1:SetCost(s.e1cst)
-	e1:SetTarget(s.e1tgt)
-	e1:SetOperation(s.e1evt)
+	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
+	e1:SetRange(LOCATION_MZONE)
+	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+	e1:SetValue(1)
 	c:RegisterEffect(e1)
-	--[[
-	[H1PT]
-	If this card is Special Summoned:
-	You can target 1 face-up monster you control and declare 1 Monster Type;
-	that target becomes the declared Type, until the end of this turn.
-	]]--
+	-- Your opponent's monsters cannot target monsters for attacks, except this one.
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(id,1))
-	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
-	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e2:SetCountLimit(1,{id,1})
-	e2:SetTarget(s.e2tgt)
-	e2:SetOperation(s.e2evt)
+	e2:SetType(EFFECT_TYPE_FIELD)
+	e2:SetCode(EFFECT_CANNOT_SELECT_BATTLE_TARGET)
+	e2:SetRange(LOCATION_MZONE)
+	e2:SetTargetRange(0,LOCATION_MZONE)
+	e2:SetValue(s.e2lim)
 	c:RegisterEffect(e2)
 	--[[
-	[H1PT]
-	You can Tribute 1 face-up monster;
-	Special Summon 1 Fusion Monster that can only be Special Summoned with "The Claw of Hermos"
-	from your Extra Deck with the same Type that Tributed monster had on the field.
-	(This is treated as a Special Summon by the effect of "The Claw of Hermos").
+	At the end of the Damage Step, if this card battled an opponent's monster:
+	Inflict damage to your opponent equal to that opponent's monster's original ATK,
+	and if you do, destroy that monster.
 	]]--
 	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(id,2))
-	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e3:SetType(EFFECT_TYPE_IGNITION)
-	e3:SetRange(LOCATION_MZONE)
-	e3:SetCountLimit(1,{id,2})
-	e3:SetCost(s.e3cst)
+	e3:SetDescription(aux.Stringid(id,0))
+	e3:SetCategory(CATEGORY_DAMAGE+CATEGORY_DESTROY)
+	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
+	e3:SetCode(EVENT_DAMAGE_STEP_END)
+	e3:SetCondition(s.e3con)
 	e3:SetTarget(s.e3tgt)
 	e3:SetOperation(s.e3evt)
 	c:RegisterEffect(e3)
+	--[[
+	[H1PT]
+	If this card is sent to the GY by a card effect (except during the Damage Step):
+	You can Fusion Summon 1 Fusion Monster from your Extra Deck
+	that mentions a "Chaos" or "Black Luster Soldier" Ritual Monster as material,
+	by using monsters from your hand and/or field as material.
+	If your opponent controls a monster, you can also use 1 non-Effect Monster in your Deck/Extra Deck as material.
+	]]--
+	local e4=Effect.CreateEffect(c)
+	e4:SetDescription(aux.Stringid(id,1))
+	e4:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_FUSION_SUMMON+CATEGORY_TOGRAVE)
+	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e4:SetCode(EVENT_TO_GRAVE)
+	e4:SetProperty(EFFECT_FLAG_DELAY)
+	e4:SetCountLimit(1,{id,0})
+	e4:SetCondition(s.e4con)
+	e4:SetTarget(s.e4tgt)
+	e4:SetOperation(s.e4evt)
+	c:RegisterEffect(e4)
 end
-local CARD_THE_CLAW_OF_HERMOS = 46232525
--- Mentions : "The Claw of Hermos"
-s.listed_names={CARD_THE_CLAW_OF_HERMOS,id}
+local CARD_CHAOS_FORM = 21082832
+-- Mentions : "Chaos Form","Red-Eyes Black Dragon"
+s.listed_names={CARD_CHAOS_FORM,CARD_REDEYES_B_DRAGON,id}
+-- Archetype : Red-Eyes, Chaos
+s.listed_series={SET_RED_EYES,SET_CHAOS}
 -- Helpers
-function s.e1fil(c,tp)
-	return (c:IsSetCard(SET_RED_EYES) or c:IsRace(RACE_WARRIOR))
-	and c:IsMonster()
-	and (c:IsFaceup() or c:IsLocation(LOCATION_HAND))
-	and c:IsAbleToGraveAsCost()
-	and Duel.GetMZoneCount(tp,c)>0
+function s.e2lim(e,c)
+	return c~=e:GetHandler()
 end
-function s.e1cst(e,tp,eg,ep,ev,re,r,rp,chk)
+function s.e3con(e,tp)
 	local c=e:GetHandler()
+	local tc=c:GetBattleTarget()
+
+	if not tc then return false end
 	
-	if chk==0 then
-		return Duel.IsExistingMatchingCard(s.e1fil,tp,LOCATION_ONFIELD+LOCATION_HAND,0,1,c,tp)
+	if tc:IsRelateToBattle() then
+		return tc:IsControler(1-tp)
+	else
+		return tc:IsPreviousControler(1-tp)
 	end
-	
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-	local g=Duel.SelectMatchingCard(tp,s.e1fil,tp,LOCATION_ONFIELD+LOCATION_HAND,0,1,1,c,tp)
-	Duel.SendtoGrave(g,REASON_COST)
-end
-function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
-	local c=e:GetHandler()
-	if chk==0 then
-		return c:IsCanBeSpecialSummoned(e,0,tp,false,false)
-	end
-
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,c,1,0,0)
-end
-function s.e1evt(e,tp)
-	local c=e:GetHandler()
-	if c:IsRelateToEffect(e) then
-		Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)
-	end
-end
-function s.e2fil(c,e,tp)
-	return c:IsFaceup()
-	and c:IsControler(tp)
-	and c:IsMonster()
-	and c:IsCanBeEffectTarget(e)
-end
-function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	local c=e:GetHandler()
-
-	if chkc then
-		return chkc:IsLocation(LOCATION_MZONE)
-		and s.e2fil(chkc)
-	end
-	if chk==0 then
-		return Duel.IsExistingTarget(s.e2fil,tp,LOCATION_MZONE,0,1,nil,e,tp)
-	end
-
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
-	
-	local g=Duel.SelectTarget(tp,s.e2fil,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
-
-	local dval=Duel.AnnounceRace(tp,1,RACE_ALL&~g:GetFirst():GetRace())
-	e:SetLabel(dval)
-end
-function s.e2evt(e,tp)
-	local c=e:GetHandler()
-
-	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsRelateToEffect(e) then
-		local e2b1=Effect.CreateEffect(c)
-		e2b1:SetType(EFFECT_TYPE_SINGLE)
-		e2b1:SetCode(EFFECT_CHANGE_RACE)
-		e2b1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-		e2b1:SetValue(e:GetLabel())
-		e2b1:SetReset(RESETS_STANDARD_PHASE_END)
-		tc:RegisterEffect(e2b1)
-	end
-end
-function s.e3fil1(c,e,tp)
-	return c:IsFaceup()
-	and c:IsMonster()
-	and c:IsReleasable()
-	and Duel.IsExistingMatchingCard(s.e3fil2,tp,LOCATION_EXTRA,0,1,nil,e,tp,c:GetRace())
-end
-function s.e3fil2(c,e,tp,rval)
-	return c:IsType(TYPE_FUSION)
-	and c:IsMonster()
-	and c:IsRace(rval)
-	and (c.material_race and c:IsCanBeSpecialSummoned(e,0,tp,true,false))
-end
-function s.e3cst(e,tp,eg,ep,ev,re,r,rp,chk)
-	local c=e:GetHandler()
-
-	if chk==0 then
-		return Duel.CheckReleaseGroupCost(tp,s.e3fil1,1,false,nil,nil,e,tp)
-	end
-	
-	local sg=Duel.SelectReleaseGroupCost(tp,s.e3fil1,1,1,false,nil,nil,e,tp)
-
-	e:SetLabel(sg:GetFirst():GetRace())
-	
-	Duel.Release(sg,REASON_COST)
 end
 function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
-	
+
 	if chk==0 then return true end
-	
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
+
+	local tc=c:GetBattleTarget()
+
+	local dmg=tc:GetBaseAttack()
+	if tc:IsRelateToBattle() then
+		Duel.SetOperationInfo(0,CATEGORY_DESTROY,tc,1,0,0)
+	else
+		e:SetLabel(dmg)
+	end
+
+	e:SetLabelObject(tc)
+	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,dmg)
 end
-function s.e3evt(e,tp)
+function s.e3evt(e,tp,eg,ep,ev,re,r,rp)
+	local dmg=0
+	local tc=e:GetLabelObject()
+	local battle_relation=tc:IsRelateToBattle()
+
+	if battle_relation and tc:IsFaceup() and tc:IsControler(1-tp) then
+		dmg=tc:GetBaseAttack()
+	elseif not battle_relation then
+		dmg=e:GetLabel()
+	end
+	if Duel.Damage(1-tp,dmg,REASON_EFFECT)>0 and battle_relation then
+		Duel.Destroy(tc,REASON_EFFECT)
+	end
+end
+function s.e4con(e)
 	local c=e:GetHandler()
 
-	if Duel.GetLocationCount(tp,LOCATION_MZONE)==0 then return end
-	
-	local g=Duel.GetMatchingGroup(s.e3fil2,tp,LOCATION_EXTRA,0,nil,e,tp,e:GetLabel())
-	if g:GetCount()>0 then
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-		local sc=g:Select(tp,1,1,nil):GetFirst()
-		if sc then
-			Duel.SpecialSummon(sc,0,tp,tp,true,false,POS_FACEUP)
-		end
+	return c:IsReason(REASON_EFFECT)
+	and Duel.GetCurrentPhase()~=PHASE_DAMAGE
+end
+function s.e4sfil(c)
+	local CARD_DRAGON_MASTER_MAGIA = 12381100
+	local CARD_MASTER_OF_CHAOS = 85059922
+
+	--[[
+	return (c:IsSetCard(SET_CHAOS) or c:IsSetCard(SET_BLACK_LUSTER_SOLDIER) or c:IsSetCard(SET_NUMBER_C))
+	and c:IsRitualMonster()
+	]]--
+
+	return (c:IsCode(CARD_DRAGON_MASTER_MAGIA) or c:IsCode(CARD_MASTER_OF_CHAOS))
+end
+function s.e4mxfil(c,e,tp)
+	local sc=e:GetHandler()
+
+	return c:IsNonEffectMonster()
+	and c:IsCanBeFusionMaterial(sc)
+	and c:IsAbleToGrave()
+end
+function s.e1sxfil(tp,sg,sc)
+	return sg:FilterCount(Card.IsLocation,nil,LOCATION_DECK+LOCATION_EXTRA)<=1
+end
+function s.e4xfil(e,tp,mg,sumtype)
+	if Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>0 then
+		return Duel.GetMatchingGroup(s.e4mxfil,tp,LOCATION_DECK+LOCATION_EXTRA,0,nil,e,tp),s.e1sxfil
+	end
+	return nil
+end
+function s.e4xtgt(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return true end
+
+	Duel.SetPossibleOperationInfo(0,CATEGORY_TOGRAVE,nil,1,tp,LOCATION_DECK+LOCATION_EXTRA)
+end 
+function s.e4tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	local c=e:GetHandler()
+	local fparams={handler=c,fusfilter=s.e4sfil,extrafil=s.e4xfil,extratg=s.e4xtgt}
+	local fustg=Fusion.SummonEffTG(fparams)
+
+	if chk==0 then
+		return fustg(e,tp,eg,ep,ev,re,r,rp,chk)
+	end
+
+	fustg(e,tp,eg,ep,ev,re,r,rp,chk)
+end
+function s.e4evt(e,tp)
+	local fparams={handler=c,fusfilter=s.e4sfil,extrafil=s.e4xfil,extratg=s.e4xtgt}
+	local fustg=Fusion.SummonEffTG(fparams)
+	local fusop=Fusion.SummonEffOP(fparams)
+
+	local b=fustg(e,tp,eg,ep,ev,re,r,rp,0)
+	if b then
+		fusop(e,tp,eg,ep,ev,re,r,rp,0)
 	end
 end

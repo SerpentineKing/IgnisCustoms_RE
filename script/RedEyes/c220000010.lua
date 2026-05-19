@@ -1,79 +1,118 @@
--- Red-Eyes Twin Inferno Dragon
+-- Red-Eyes Re-Transmigration
 local s,id,o=GetID()
 -- c220000010
 function s.initial_effect(c)
-	-- 2 Level 7 monsters
-	Xyz.AddProcedure(c,aux.TRUE,7,2)
-	c:EnableReviveLimit()
-	-- This card's name becomes "Red-Eyes Black Dragon" while on the field.
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetCode(EFFECT_CHANGE_CODE)
-	e1:SetRange(LOCATION_MZONE)
-	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-	e1:SetValue(CARD_REDEYES_B_DRAGON)
-	c:RegisterEffect(e1)
-	-- Cannot be destroyed by battle.
-	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_SINGLE)
-	e2:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
-	e2:SetRange(LOCATION_MZONE)
-	e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-	e2:SetValue(1)
-	c:RegisterEffect(e2)
-	-- This card can make up to 2 attacks on monsters during each Battle Phase.
-	local e3=Effect.CreateEffect(c)
-	e3:SetType(EFFECT_TYPE_SINGLE)
-	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-	e3:SetRange(LOCATION_MZONE)
-	e3:SetCode(EFFECT_EXTRA_ATTACK_MONSTER)
-	e3:SetValue(1)
-	c:RegisterEffect(e3)
+	-- [Activation]
 	--[[
-	At the end of the Damage Step, if this card attacks an opponent's monster,
-	but that opponent's monster was not destroyed by battle:
-	You can inflict damage to your opponent equal to that monster's original ATK.
+	This card can be used to Ritual Summon any "Red-Eyes" Ritual Monster from your hand or GY.
+	You must also Tribute monsters from your hand and/or field
+	whose total Levels equal or exceed the Level of the Ritual Monster.
+	If Summoning "Lord of the Red Chaos" this way,
+	you can also banish monsters from your opponent's GY as monsters required for the Ritual Summon.
 	]]--
-	local e4=Effect.CreateEffect(c)
-	e4:SetDescription(aux.Stringid(id,0))
-	e4:SetCategory(CATEGORY_DAMAGE)
-	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e4:SetCode(EVENT_DAMAGE_STEP_END)
-	e4:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-	e4:SetCondition(s.e4con)
-	e4:SetTarget(s.e4tgt)
-	e4:SetOperation(s.e4evt)
-	c:RegisterEffect(e4)
+	local e1=Effect.CreateEffect(c)
+	e1:SetDescription(aux.Stringid(id,0))
+	e1:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_RELEASE+CATEGORY_REMOVE)
+	e1:SetType(EFFECT_TYPE_ACTIVATE)
+	e1:SetCode(EVENT_FREE_CHAIN)
+	e1:SetTarget(s.e1tgt)
+	e1:SetOperation(s.e1evt)
+	c:RegisterEffect(e1)
+	--[[
+	[H1PD]
+	When an opponent's monster declares a direct attack,
+	while your LP are 2000 or less and this card is in your GY:
+	You can add this card from your GY to your hand,
+	and if you do, negate that attack.
+	]]--
+	local e2=Effect.CreateEffect(c)
+	e2:SetDescription(aux.Stringid(id,1))
+	e2:SetCategory(CATEGORY_TOHAND)
+	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
+	e2:SetCode(EVENT_ATTACK_ANNOUNCE)
+	e2:SetRange(LOCATION_GRAVE)
+	e2:SetCountLimit(1,{id,0},EFFECT_COUNT_CODE_DUEL)
+	e2:SetCondition(s.e2con)
+	e2:SetTarget(s.e2tgt)
+	e2:SetOperation(s.e2evt)
+	c:RegisterEffect(e2)
 end
--- Mentions : "Red-Eyes Black Dragon"
-s.listed_names={CARD_REDEYES_B_DRAGON,id}
+local CARD_LORD_OF_THE_RED_CHAOS = 220000009
+-- Mentions : "Lord of the Red Chaos"
+s.listed_names={CARD_LORD_OF_THE_RED_CHAOS,id}
 -- Archetype : Red-Eyes
 s.listed_series={SET_RED_EYES}
 -- Helpers
-function s.e4con(e,tp,eg,ep,ev,re,r,rp)
+function s.e1sfil(c)
+	return c:IsSetCard(SET_RED_EYES)
+	and c:IsRitualMonster()
+end
+function s.e1mxfil(c,e,tp)
+	local sc=e:GetHandler()
+
+	return c:IsCanBeRitualMaterial(sc)
+	and (c:GetOwner()==tp
+	and c:IsLocation(LOCATION_HAND+LOCATION_MZONE)
+	and c:IsAbleToGrave())
+	or (c:GetOwner()==1-tp
+	and c:IsLocation(LOCATION_GRAVE)
+	and not Duel.IsPlayerAffectedByEffect(c:GetControler(),CARD_SPIRIT_ELIMINATION)
+	and c:IsAbleToRemove())
+end
+function s.e1sxfil(tp,sg,sc)
+	return sc:IsCode(CARD_LORD_OF_THE_RED_CHAOS)
+end
+function s.e1xfil(e,tp,mg)
+	if not Duel.IsPlayerCanRelease(tp) then return nil end
+
+	return Duel.GetMatchingGroup(s.e1mxfil,tp,LOCATION_HAND+LOCATION_MZONE,LOCATION_GRAVE,nil,e,tp),s.e1sxfil
+end
+function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
-	local d=c:GetBattleTarget()
 
-	if not d then return false end
+	local rparams={handler=c,filter=s.e1sfil,extrafil=s.e1xfil,lvtype=RITPROC_GREATER,location=LOCATION_HAND+LOCATION_GRAVE}
+	local rittg=Ritual.Target(rparams)
 
-	local dmg=d:GetBaseAttack()
-	e:SetLabel(dmg)
+	if chk==0 then
+		return (Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+		and Duel.IsExistingMatchingCard(s.e1sfil,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,nil))
+		or rittg(e,tp,eg,ep,ev,re,r,rp,chk)
+	end
 
-	return c==Duel.GetAttacker()
-	and dmg>0
-	and c:IsStatus(STATUS_OPPO_BATTLE)
-	and d:IsOnField()
-	and d:IsRelateToBattle()
+	Duel.SetPossibleOperationInfo(0,CATEGORY_REMOVE,nil,1,1-tp,LOCATION_GRAVE)
+
+	rittg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
-function s.e4tgt(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return true end
-	local d=e:GetLabel()
+function s.e1evt(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
 
-	Duel.SetTargetPlayer(1-tp)
-	Duel.SetTargetParam(d)
-	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,d)
+	local rparams={handler=c,filter=s.e1sfil,extrafil=s.e1xfil,lvtype=RITPROC_GREATER,location=LOCATION_HAND+LOCATION_GRAVE}
+	local rittg=Ritual.Target(rparams)
+	local ritop=Ritual.Operation(rparams)
+
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+
+	ritop(e,tp,eg,ep,ev,re,r,rp,0)
 end
-function s.e4evt(e,tp)
-	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
-	Duel.Damage(p,d,REASON_EFFECT)
+function s.e2con(e,tp)
+	return Duel.GetAttacker():IsControler(1-tp)
+	and Duel.GetAttackTarget()==nil
+	and Duel.GetLP(tp)<=2000
+end
+function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
+	local c=e:GetHandler()
+	
+	if chk==0 then
+		return c:IsAbleToHand()
+	end
+	
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,c,1,tp,0)
+end
+function s.e2evt(e,tp)
+	local c=e:GetHandler()
+	if c:IsRelateToEffect(e) then
+		if Duel.SendtoHand(c,nil,REASON_EFFECT)>0 then
+			Duel.NegateAttack()
+		end
+	end
 end

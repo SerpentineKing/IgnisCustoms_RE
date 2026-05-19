@@ -1,136 +1,174 @@
--- Lord of the Red Chaos
+-- Red-Eyes Zombie Halberd Tiger
 local s,id,o=GetID()
 -- c220000002
 function s.initial_effect(c)
-	-- You can Ritual Summon this card with "Red-Eyes Re-Transmigration".
-	c:EnableReviveLimit()
-	--[[
-	[S2PC]
-	Twice per turn, when a card or effect is activated (Quick Effect):
-	You can destroy 1 card on the field,
-	and if you do, inflict 500 damage to your opponent,
-	also if you destroyed a card you control by this effect, negate that activated effect.
-	]]--
-	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(id,0))
-	e1:SetCategory(CATEGORY_DESTROY+CATEGORY_DAMAGE+CATEGORY_DISABLE)
-	e1:SetType(EFFECT_TYPE_QUICK_O)
-	e1:SetCode(EVENT_CHAINING)
-	e1:SetRange(LOCATION_MZONE)
-	e1:SetCountLimit(2)
-	e1:SetCondition(s.e1con)
-	e1:SetTarget(s.e1tgt)
-	e1:SetOperation(s.e1evt)
-	c:RegisterEffect(e1)
 	--[[
 	[H1PT]
-	If this Ritual Summoned card is destroyed:
-	You can target 1 Level 7 or lower "Red-Eyes" monster in your GY;
-	Special Summon it, but it cannot attack directly this turn.
+	If this card is Normal or Special Summoned:
+	You can target 1 Defense Position monster your opponent controls;
+	change it to face-up Attack Position,
+	or if this card was Special Summoned by the effect of a Synchro Monster, you can return that target to the hand instead.
+	]]--
+	local e1a1=Effect.CreateEffect(c)
+	e1a1:SetDescription(aux.Stringid(id,1))
+	e1a1:SetCategory(CATEGORY_POSITION+CATEGORY_TOHAND)
+	e1a1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e1a1:SetCode(EVENT_SUMMON_SUCCESS)
+	e1a1:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
+	e1a1:SetCountLimit(1,{id,0})
+	e1a1:SetTarget(s.e1tgt)
+	e1a1:SetOperation(s.e1evt)
+	c:RegisterEffect(e1a1)
+	
+	local e1a2=e1a1:Clone()
+	e1a2:SetCode(EVENT_SPSUMMON_SUCCESS)
+	c:RegisterEffect(e1a2)
+	--[[
+	[H1PT]
+	You can banish this card from your GY;
+	Special Summon 1 Level 7 or 8 DARK monster (Dragon or Zombie) from your hand,
+	or if "Zombie World" is in a Field Zone, you can Special Summon it from either GY instead.
 	]]--
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,2))
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e2:SetCode(EVENT_DESTROYED)
-	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
+	e2:SetType(EFFECT_TYPE_IGNITION)
+	e2:SetRange(LOCATION_GRAVE)
 	e2:SetCountLimit(1,{id,1})
-	e2:SetCondition(s.e2con)
+	e2:SetCost(Cost.SelfBanish)
 	e2:SetTarget(s.e2tgt)
 	e2:SetOperation(s.e2evt)
 	c:RegisterEffect(e2)
 end
-local CARD_RED_EYES_RE_TRANSMIGRATION = 220000038
--- Mentions : "Red-Eyes Re-Transmigration"
-s.listed_names={CARD_RED_EYES_RE_TRANSMIGRATION,id}
--- Archetype : Red-Eyes, Chaos
-s.listed_series={SET_RED_EYES,SET_CHAOS}
+local CARD_ZOMBIE_WORLD = 4064256
+-- Mentions : "Zombie World"
+s.listed_names={CARD_ZOMBIE_WORLD,id}
+-- Archetype : Red-Eyes
+s.listed_series={SET_RED_EYES}
 -- Helpers
-function s.e1con(e,tp,eg,ep,ev)
-	return Duel.IsChainDisablable(ev)
-end
-function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
-	local g=Duel.GetMatchingGroup(aux.TRUE,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
-	local gc=g:GetCount()
-	
-	if chk==0 then
-		return gc>0
-		and Duel.GetFlagEffect(tp,id)==0
+function s.e1fil(c,alt_chk)
+	local alt_res = true
+	if alt_chk then
+		alt_res = c:IsAbleToHand()
 	end
 
-	Duel.RegisterFlagEffect(tp,id,RESET_CHAIN,0,1)
-	
-	local dmg = 500
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
-	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,dmg)
-	Duel.SetPossibleOperationInfo(0,CATEGORY_DISABLE,eg,1,0,0)
+	return c:IsDefensePos()
+	and alt_res
 end
-function s.e1evt(e,tp,eg,ep,ev)
+function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local c=e:GetHandler()
+	local alt_chk=re and c:IsSpecialSummoned() and re:IsMonsterEffect() and re:GetHandler():IsOriginalType(TYPE_SYNCHRO)
+	
+	if chkc then
+		return chkc:IsLocation(LOCATION_MZONE)
+		and chkc:IsControler(1-tp)
+		and s.e1fil(chkc,alt_chk)
+	end
+	if chk==0 then
+		return Duel.IsExistingTarget(s.e1fil,tp,0,LOCATION_MZONE,1,nil,alt_chk)
+	end
 
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-	local g=Duel.SelectMatchingCard(tp,aux.TRUE,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,nil)
-	if g:GetCount()>0 then
-		local tc=g:GetFirst()
-		local ap=tc:GetControler()
+	e:SetLabel(alt_chk and 1 or 0)
+
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_POSCHANGE)
+
+	local g=Duel.SelectTarget(tp,s.e1fil,tp,0,LOCATION_MZONE,1,1,nil,alt_chk)
+
+	if alt_chk then
+		Duel.SetPossibleOperationInfo(0,CATEGORY_POSITION,g,1,0,0)
+		Duel.SetPossibleOperationInfo(0,CATEGORY_TOHAND,g,1,0,0)
+	else
+		Duel.SetOperationInfo(0,CATEGORY_POSITION,g,1,0,0)
+	end
+end
+function s.e1evt(e,tp)
+	local c=e:GetHandler()
+	local alt_chk=e:GetLabel()==1
+
+	local tc=Duel.GetFirstTarget()
+	if tc and tc:IsRelateToEffect(e) then
+		local b1=tc:IsDefensePos()
+		local b2=alt_chk and tc:IsAbleToHand()
+
+		if not (b1 or b2) then return end
 		
-		Duel.HintSelection(g)
-		if Duel.Destroy(tc,REASON_EFFECT)>0 then
-			local dmg = 500
-			Duel.Damage(1-tp,dmg,REASON_EFFECT)
+		local op=1
+		if b1 and b2 then
+			op=Duel.SelectEffect(tp,
+				{b1,aux.Stringid(id,0)},
+				{b2,aux.Stringid(id,1)})
+		elseif (not b1) and b2 then
+			op=2
+		end
 
-			if ap==tp then
-				Duel.NegateEffect(ev)
-			end
+		if op==1 then
+			Duel.ChangePosition(tc,POS_FACEUP_ATTACK)
+		elseif op==2 then
+			Duel.SendtoHand(tc,nil,REASON_EFFECT)
 		end
 	end
-
-	c:RegisterFlagEffect(id,RESETS_STANDARD_PHASE_END,EFFECT_FLAG_CLIENT_HINT,1,nil,aux.Stringid(id,1))
 end
-function s.e2con(e,tp)
-	local c=e:GetHandler()
-
-	return c:IsRitualSummoned()
-	and c:IsReason(REASON_BATTLE+REASON_EFFECT)
-end
-function s.e2fil(c,e,tp)
-	return c:IsLevelBelow(7)
-	and c:IsSetCard(SET_RED_EYES)
+function s.e2fil1(c,e,tp)
+	return c:IsAttribute(ATTRIBUTE_DARK)
+	and (c:IsLevel(7) or c:IsLevel(8))
 	and c:IsMonster()
+	and (c:IsRace(RACE_DRAGON) or c:IsRace(RACE_ZOMBIE))
 	and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
-function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then
-		return chkc:IsLocation(LOCATION_GRAVE)
-		and chkc:IsControler(tp)
-		and s.e2fil(chkc,e,tp)
-	end
+function s.e2fil2(c)
+	return c:IsCode(4064256)
+	and c:IsFaceup()
+end
+function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
+	local alt_chk = Duel.IsExistingMatchingCard(s.e2fil2,tp,LOCATION_FZONE,LOCATION_FZONE,1,nil)
+
 	if chk==0 then
+		local alt_res = Duel.IsExistingMatchingCard(s.e2fil1,tp,LOCATION_HAND,0,1,nil,e,tp)
+		if alt_chk then
+			alt_res = Duel.IsExistingMatchingCard(s.e2fil1,tp,LOCATION_HAND+LOCATION_GRAVE,LOCATION_GRAVE,1,nil,e,tp)
+		end
+
 		return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingTarget(s.e2fil,tp,LOCATION_GRAVE,0,1,nil,e,tp)
+		and alt_res
 	end
-	
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectTarget(tp,s.e2fil,tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
-	
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g,1,0,0)
+
+	if alt_chk then
+		Duel.SetPossibleOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND)
+		Duel.SetPossibleOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_GRAVE)
+	else
+		Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND)
+	end
 end
 function s.e2evt(e,tp)
 	local c=e:GetHandler()
+	local alt_chk = Duel.IsExistingMatchingCard(s.e2fil2,tp,LOCATION_FZONE,LOCATION_FZONE,1,nil)
 
-	if Duel.GetLocationCount(tp,LOCATION_MZONE)<1 then return end
+	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	
-	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) and Duel.SpecialSummonStep(tc,0,tp,tp,false,false,POS_FACEUP) then
-		local e2b1=Effect.CreateEffect(c)
-		e2b1:SetDescription(3207)
-		e2b1:SetType(EFFECT_TYPE_SINGLE)
-		e2b1:SetCode(EFFECT_CANNOT_DIRECT_ATTACK)
-		e2b1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_CLIENT_HINT)
-		e2b1:SetReset(RESETS_STANDARD_PHASE_END)
-		tc:RegisterEffect(e2b1)
+
+	local b1 = Duel.IsExistingMatchingCard(s.e2fil1,tp,LOCATION_HAND,0,1,nil,e,tp)
+	local b2 = Duel.IsExistingMatchingCard(s.e2fil1,tp,LOCATION_GRAVE,LOCATION_GRAVE,1,nil,e,tp) and alt_chk
+
+	if not (b1 or b2) then return end
+
+	local op=1
+	if b1 and b2 then
+		op=Duel.SelectEffect(tp,
+			{b1,aux.Stringid(id,3)},
+			{b2,aux.Stringid(id,4)})
+	elseif (not b1) and b2 then
+		op=2
 	end
-	Duel.SpecialSummonComplete()
+	
+	local g=nil
+	if op==1 then
+		g=Duel.SelectMatchingCard(tp,s.e2fil1,tp,LOCATION_HAND,0,1,1,nil,e,tp)
+	elseif op==2 then
+		g=Duel.SelectMatchingCard(tp,s.e2fil1,tp,LOCATION_GRAVE,LOCATION_GRAVE,1,1,nil,e,tp)
+	end
+
+	if g:GetCount()>0 then
+		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
+	end
 end

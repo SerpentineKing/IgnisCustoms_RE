@@ -1,167 +1,175 @@
--- Red-Eyes Black Chaos MAX Dragon
+-- Red-Eyes Zombie Battle-Scarred Warrior
 local s,id,o=GetID()
 -- c220000001
 function s.initial_effect(c)
-	-- You can Ritual Summon this card with "Chaos Form".
-	c:EnableReviveLimit()
-	-- This card cannot be destroyed by battle
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
-	e1:SetRange(LOCATION_MZONE)
-	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-	e1:SetValue(1)
-	c:RegisterEffect(e1)
-	-- Your opponent's monsters cannot target monsters for attacks, except this one.
-	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_FIELD)
-	e2:SetCode(EFFECT_CANNOT_SELECT_BATTLE_TARGET)
-	e2:SetRange(LOCATION_MZONE)
-	e2:SetTargetRange(0,LOCATION_MZONE)
-	e2:SetValue(s.e2lim)
-	c:RegisterEffect(e2)
 	--[[
-	At the end of the Damage Step, if this card battled an opponent's monster:
-	Inflict damage to your opponent equal to that opponent's monster's original ATK,
-	and if you do, destroy that monster.
+	[H1PT]
+	If you control no monsters, or your opponent controls a Zombie monster:
+	You can Special Summon this card from your hand.
+	]]--
+	local e1=Effect.CreateEffect(c)
+	e1:SetDescription(aux.Stringid(id,0))
+	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e1:SetType(EFFECT_TYPE_IGNITION)
+	e1:SetRange(LOCATION_HAND)
+	e1:SetCountLimit(1,{id,0})
+	e1:SetCondition(s.e1con)
+	e1:SetTarget(s.e1tgt)
+	e1:SetOperation(s.e1evt)
+	c:RegisterEffect(e1)
+	--[[
+	[H1PT]
+	If this card is Normal or Special Summoned:
+	You can target 1 face-up monster your opponent controls;
+	until the end of this turn, change its ATK to 0,
+	also if this card was Special Summoned by the effect of a Synchro Monster, negate that target's effects (if any).
+	]]--
+	local e2a1=Effect.CreateEffect(c)
+	e2a1:SetDescription(aux.Stringid(id,1))
+	e2a1:SetCategory(CATEGORY_ATKCHANGE+CATEGORY_DISABLE)
+	e2a1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e2a1:SetCode(EVENT_SUMMON_SUCCESS)
+	e2a1:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
+	e2a1:SetCountLimit(1,{id,1})
+	e2a1:SetTarget(s.e2tgt)
+	e2a1:SetOperation(s.e2evt)
+	c:RegisterEffect(e2a1)
+	
+	local e2a2=e2a1:Clone()
+	e2a2:SetCode(EVENT_SPSUMMON_SUCCESS)
+	c:RegisterEffect(e2a2)
+	--[[
+	[H1PT]
+	If this card is sent from the Monster Zone to the GY:
+	You can send 1 monster that mentions "Zombie World" or 1 Level 4 or lower Dragon monster from your Deck to the GY,
+	except "Red-Eyes Zombie Battle-Scarred Warrior".
 	]]--
 	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(id,0))
-	e3:SetCategory(CATEGORY_DAMAGE+CATEGORY_DESTROY)
-	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
-	e3:SetCode(EVENT_DAMAGE_STEP_END)
+	e3:SetDescription(aux.Stringid(id,2))
+	e3:SetCategory(CATEGORY_TOGRAVE)
+	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e3:SetCode(EVENT_TO_GRAVE)
+	e3:SetProperty(EFFECT_FLAG_DELAY)
+	e3:SetCountLimit(1,{id,2})
 	e3:SetCondition(s.e3con)
 	e3:SetTarget(s.e3tgt)
 	e3:SetOperation(s.e3evt)
 	c:RegisterEffect(e3)
-	--[[
-	[H1PT]
-	If this card is sent to the GY by a card effect (except during the Damage Step):
-	You can Fusion Summon 1 Fusion Monster from your Extra Deck
-	that mentions a "Chaos" or "Black Luster Soldier" Ritual Monster as material,
-	by using monsters from your hand and/or field as material.
-	If your opponent controls a monster, you can also use 1 non-Effect Monster in your Deck/Extra Deck as material.
-	]]--
-	local e4=Effect.CreateEffect(c)
-	e4:SetDescription(aux.Stringid(id,1))
-	e4:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_FUSION_SUMMON+CATEGORY_TOGRAVE)
-	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e4:SetCode(EVENT_TO_GRAVE)
-	e4:SetProperty(EFFECT_FLAG_DELAY)
-	e4:SetCountLimit(1,{id,0})
-	e4:SetCondition(s.e4con)
-	e4:SetTarget(s.e4tgt)
-	e4:SetOperation(s.e4evt)
-	c:RegisterEffect(e4)
 end
-local CARD_CHAOS_FORM = 21082832
--- Mentions : "Chaos Form","Red-Eyes Black Dragon"
-s.listed_names={CARD_CHAOS_FORM,CARD_REDEYES_B_DRAGON,id}
--- Archetype : Red-Eyes, Chaos
-s.listed_series={SET_RED_EYES,SET_CHAOS}
+local CARD_ZOMBIE_WORLD = 4064256
+-- Mentions : "Zombie World"
+s.listed_names={CARD_ZOMBIE_WORLD,id}
+-- Archetype : Red-Eyes
+s.listed_series={SET_RED_EYES}
 -- Helpers
-function s.e2lim(e,c)
-	return c~=e:GetHandler()
+function s.e1con(e,tp)
+	return Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)==0
+	or Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsRace,RACE_ZOMBIE),tp,0,LOCATION_MZONE,1,nil)
+end
+function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
+	local c=e:GetHandler()
+	if chk==0 then
+		return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+		and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	end
+	
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,c,1,0,0)
+end
+function s.e1evt(e,tp)
+	local c=e:GetHandler()
+
+	if c:IsRelateToEffect(e) then
+		Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)
+	end
+end
+function s.e2fil(c,alt_chk)
+	local alt_res = true
+	if alt_chk then
+		alt_res = not c:IsDisabled()
+	end
+
+	return c:IsFaceup()
+	and not c:IsAttack(0)
+	and alt_res
+end
+function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	local c=e:GetHandler()
+	local alt_chk=re and c:IsSpecialSummoned() and re:IsMonsterEffect() and re:GetHandler():IsOriginalType(TYPE_SYNCHRO)
+
+	if chkc then
+		return chkc:IsLocation(LOCATION_MZONE)
+		and chkc:IsControler(1-tp)
+		and s.e2fil(chkc,alt_chk)
+	end
+	if chk==0 then
+		return Duel.IsExistingTarget(s.e2fil,tp,0,LOCATION_MZONE,1,nil,alt_chk)
+	end
+
+	e:SetLabel(alt_chk and 1 or 0)
+
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
+	Duel.SelectTarget(tp,s.e2fil,tp,0,LOCATION_MZONE,1,1,nil,alt_chk)
+end
+function s.e2evt(e,tp)
+	local c=e:GetHandler()
+	local alt_chk=e:GetLabel()==1
+
+	local tc=Duel.GetFirstTarget()
+
+	if tc and tc:IsRelateToEffect(e) and s.e2fil(tc,alt_chk) then
+		local e2b1=Effect.CreateEffect(c)
+		e2b1:SetType(EFFECT_TYPE_SINGLE)
+		e2b1:SetCode(EFFECT_SET_ATTACK_FINAL)
+		e2b1:SetValue(0)
+		e2b1:SetReset(RESETS_STANDARD_PHASE_END)
+		tc:RegisterEffect(e2b1)
+
+		if alt_chk then
+			Duel.NegateRelatedChain(tc,RESET_TURN_SET)
+			
+			local e2b2=Effect.CreateEffect(c)
+			e2b2:SetType(EFFECT_TYPE_SINGLE)
+			e2b2:SetCode(EFFECT_DISABLE)
+			e2b2:SetReset(RESETS_STANDARD_PHASE_END)
+			tc:RegisterEffect(e2b2)
+
+			local e2b3=e2b2:Clone()
+			e2b3:SetCode(EFFECT_DISABLE_EFFECT)
+			e2b3:SetValue(RESET_TURN_SET)
+			tc:RegisterEffect(e2b3)
+		
+			if tc:IsType(TYPE_TRAPMONSTER) then
+				local e2b4=e2b2:Clone()
+				e2b4:SetCode(EFFECT_DISABLE_TRAPMONSTER)
+				tc:RegisterEffect(e2b4)
+			end
+		end
+	end
 end
 function s.e3con(e,tp)
 	local c=e:GetHandler()
-	local tc=c:GetBattleTarget()
-
-	if not tc then return false end
-	
-	if tc:IsRelateToBattle() then
-		return tc:IsControler(1-tp)
-	else
-		return tc:IsPreviousControler(1-tp)
-	end
+	return c:IsPreviousLocation(LOCATION_MZONE)
 end
-function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
-	local c=e:GetHandler()
-
-	if chk==0 then return true end
-
-	local tc=c:GetBattleTarget()
-
-	local dmg=tc:GetBaseAttack()
-	if tc:IsRelateToBattle() then
-		Duel.SetOperationInfo(0,CATEGORY_DESTROY,tc,1,0,0)
-	else
-		e:SetLabel(dmg)
-	end
-
-	e:SetLabelObject(tc)
-	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,dmg)
-end
-function s.e3evt(e,tp,eg,ep,ev,re,r,rp)
-	local dmg=0
-	local tc=e:GetLabelObject()
-	local battle_relation=tc:IsRelateToBattle()
-
-	if battle_relation and tc:IsFaceup() and tc:IsControler(1-tp) then
-		dmg=tc:GetBaseAttack()
-	elseif not battle_relation then
-		dmg=e:GetLabel()
-	end
-	if Duel.Damage(1-tp,dmg,REASON_EFFECT)>0 and battle_relation then
-		Duel.Destroy(tc,REASON_EFFECT)
-	end
-end
-function s.e4con(e)
-	local c=e:GetHandler()
-
-	return c:IsReason(REASON_EFFECT)
-	and Duel.GetCurrentPhase()~=PHASE_DAMAGE
-end
-function s.e4sfil(c)
-	local CARD_DRAGON_MASTER_MAGIA = 12381100
-	local CARD_MASTER_OF_CHAOS = 85059922
-
-	--[[
-	return (c:IsSetCard(SET_CHAOS) or c:IsSetCard(SET_BLACK_LUSTER_SOLDIER) or c:IsSetCard(SET_NUMBER_C))
-	and c:IsRitualMonster()
-	]]--
-
-	return (c:IsCode(CARD_DRAGON_MASTER_MAGIA) or c:IsCode(CARD_MASTER_OF_CHAOS))
-end
-function s.e4mxfil(c,e,tp)
-	local sc=e:GetHandler()
-
-	return c:IsNonEffectMonster()
-	and c:IsCanBeFusionMaterial(sc)
+function s.e3fil(c)
+	return not c:IsCode(id)
+	and (c:ListsCode(CARD_ZOMBIE_WORLD)
+		or (c:IsRace(RACE_DRAGON) and c:IsLevelBelow(4)))
+	and c:IsMonster()
 	and c:IsAbleToGrave()
 end
-function s.e1sxfil(tp,sg,sc)
-	return sg:FilterCount(Card.IsLocation,nil,LOCATION_DECK+LOCATION_EXTRA)<=1
-end
-function s.e4xfil(e,tp,mg,sumtype)
-	if Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>0 then
-		return Duel.GetMatchingGroup(s.e4mxfil,tp,LOCATION_DECK+LOCATION_EXTRA,0,nil,e,tp),s.e1sxfil
-	end
-	return nil
-end
-function s.e4xtgt(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return true end
-
-	Duel.SetPossibleOperationInfo(0,CATEGORY_TOGRAVE,nil,1,tp,LOCATION_DECK+LOCATION_EXTRA)
-end 
-function s.e4tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	local c=e:GetHandler()
-	local fparams={handler=c,fusfilter=s.e4sfil,extrafil=s.e4xfil,extratg=s.e4xtgt}
-	local fustg=Fusion.SummonEffTG(fparams)
-
+function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
-		return fustg(e,tp,eg,ep,ev,re,r,rp,chk)
+		return Duel.IsExistingMatchingCard(s.e3fil,tp,LOCATION_DECK,0,1,nil)
 	end
-
-	fustg(e,tp,eg,ep,ev,re,r,rp,chk)
+	
+	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,tp,LOCATION_DECK)
 end
-function s.e4evt(e,tp)
-	local fparams={handler=c,fusfilter=s.e4sfil,extrafil=s.e4xfil,extratg=s.e4xtgt}
-	local fustg=Fusion.SummonEffTG(fparams)
-	local fusop=Fusion.SummonEffOP(fparams)
+function s.e3evt(e,tp)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
+	
+	local g=Duel.SelectMatchingCard(tp,s.e3fil,tp,LOCATION_DECK,0,1,1,nil)
 
-	local b=fustg(e,tp,eg,ep,ev,re,r,rp,0)
-	if b then
-		fusop(e,tp,eg,ep,ev,re,r,rp,0)
+	if g:GetCount()>0 then
+		Duel.SendtoGrave(g,REASON_EFFECT)
 	end
 end

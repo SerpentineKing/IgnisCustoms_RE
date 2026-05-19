@@ -1,152 +1,156 @@
--- Gearfried the Black Dragon Swordmaster
+-- Red-Eyes Zombification
 local s,id,o=GetID()
 -- c220000005
 function s.initial_effect(c)
-	-- 1 Level 7 "Red-Eyes" monster + 1 Level 8 Warrior monster
-	Fusion.AddProcMix(c,true,true,s.m1fil,s.m2fil)
-	c:EnableReviveLimit()
-	-- During the Battle Phase, all monsters you control become Dragon monsters.
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_FIELD)
-	e1:SetCode(EFFECT_CHANGE_RACE)
-	e1:SetRange(LOCATION_MZONE)
-	e1:SetTargetRange(LOCATION_MZONE,0)
-	e1:SetValue(RACE_DRAGON)
-	e1:SetCondition(s.e1con)
-	c:RegisterEffect(e1)
+	-- [Activation]
 	--[[
 	[H1PT]
-	If either player equips an Equip Card(s) to this card:
-	You can target 1 card your opponent controls;
-	destroy it.
+	When this card is activated:
+	You can target 1 "Red-Eyes" monster you control;
+	it gains 1200 ATK until the end of this turn.
+	]]--
+	local e1a1=Effect.CreateEffect(c)
+	e1a1:SetDescription(aux.Stringid(id,0))
+	e1a1:SetType(EFFECT_TYPE_ACTIVATE)
+	e1a1:SetCode(EVENT_FREE_CHAIN)
+	e1a1:SetCountLimit(1,{id,0},EFFECT_COUNT_CODE_OATH)
+	c:RegisterEffect(e1a1)
+
+	local e1a2=e1a1:Clone()
+	e1a2:SetDescription(aux.Stringid(id,1))
+	e1a2:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e1a2:SetTarget(s.e1tgt)
+	e1a2:SetOperation(s.e1evt)
+	c:RegisterEffect(e1a2)
+	--[[
+	During the Battle Phase, if you control a Level 7 or higher "Red-Eyes" Zombie monster,
+	all monsters in your opponent's GY become Zombie monsters.
 	]]--
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(id,0))
-	e2:SetCategory(CATEGORY_DESTROY)
-	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e2:SetCode(EVENT_EQUIP)
-	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
-	e2:SetCountLimit(1,{id,0})
+	e2:SetType(EFFECT_TYPE_FIELD)
+	e2:SetCode(EFFECT_CHANGE_RACE)
+	e2:SetRange(LOCATION_SZONE)
+	e2:SetTargetRange(0,LOCATION_GRAVE)
+	e2:SetValue(RACE_ZOMBIE)
+	e2:SetCondition(s.e2con)
 	e2:SetTarget(s.e2tgt)
-	e2:SetOperation(s.e2evt)
 	c:RegisterEffect(e2)
 	--[[
 	[H1PT]
-	(Quick Effect):
-	You can target 1 Fusion Monster Card in your field or GY that mentions "The Claw of Hermos";
-	return it to the Extra Deck,
-	then you can Special Summon 1 Fusion Monster with a different name from your Extra Deck
-	that mentions "The Claw of Hermos", except a Level 8 monster.
-	(This is treated as a Special Summon by the effect of "The Claw of Hermos".)
+	If a Dragon or Zombie monster(s) is Special Summoned from either GY to your field (even during the Damage Step):
+	You can target 1 card your opponent controls;
+	banish it.
 	]]--
 	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(id,1))
-	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e3:SetType(EFFECT_TYPE_QUICK_O)
-	e3:SetCode(EVENT_FREE_CHAIN)
-	e3:SetRange(LOCATION_MZONE)
-	e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e3:SetDescription(aux.Stringid(id,2))
+	e3:SetCategory(CATEGORY_REMOVE)
+	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
+	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
+	e3:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY+EFFECT_FLAG_DAMAGE_STEP)
+	e3:SetRange(LOCATION_SZONE)
 	e3:SetCountLimit(1,{id,1})
+	e3:SetCondition(s.e3con)
 	e3:SetTarget(s.e3tgt)
 	e3:SetOperation(s.e3evt)
 	c:RegisterEffect(e3)
 end
-local CARD_THE_CLAW_OF_HERMOS = 46232525
--- Mentions : "The Claw of Hermos"
-s.listed_names={CARD_THE_CLAW_OF_HERMOS,id}
 -- Archetype : Red-Eyes
 s.listed_series={SET_RED_EYES}
--- Red-Eyes Fusion
-s.material_setcode=SET_RED_EYES
 -- Helpers
-function s.m1fil(c,fc,sumtype,tp)
-	return c:IsSetCard(SET_RED_EYES)
-	and c:IsLevel(7)
+function s.e1fil(c)
+	return c:IsFaceup()
+	and c:IsSetCard(SET_RED_EYES)
+	and c:IsMonster()
 end
-function s.m2fil(c,fc,sumtype,tp)
-	return c:IsAttribute(ATTRIBUTE_LIGHT)
-	and c:IsRace(RACE_WARRIOR)
-	and not c:IsSummonableCard()
-end
-function s.e1con(e)
-	local tp=e:GetHandlerPlayer()
-
-	return Duel.IsBattlePhase()
-end
-function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local c=e:GetHandler()
 
 	if chkc then
-		return chkc:IsOnField()
-		and chkc:IsControler(1-tp)
-		and chkc:IsDestructable()
+		return chkc:IsLocation(LOCATION_MZONE)
+		and chkc:IsControler(tp)
+		and s.e1fil(chkc)
 	end
 	if chk==0 then
-		return Duel.IsExistingTarget(Card.IsDestructable,tp,0,LOCATION_ONFIELD,1,c)
+		return Duel.IsExistingTarget(s.e1fil,tp,LOCATION_MZONE,0,1,nil)
 	end
-
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
 	
-	local g=Duel.SelectTarget(tp,Card.IsDestructable,tp,0,LOCATION_ONFIELD,1,1,c)
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
-end
-function s.e2evt(e,tp)
-	local c=e:GetHandler()
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
 
+	Duel.SelectTarget(tp,s.e1fil,tp,LOCATION_MZONE,0,1,1,nil)
+end
+function s.e1evt(e,tp)
+	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsRelateToEffect(e) then
-		Duel.Destroy(tc,REASON_EFFECT)
+
+	if tc:IsRelateToEffect(e) and tc:IsFaceup() then
+		local e1b1=Effect.CreateEffect(c)
+		e1b1:SetType(EFFECT_TYPE_SINGLE)
+		e1b1:SetCode(EFFECT_UPDATE_ATTACK)
+		e1b1:SetReset(RESETS_STANDARD_PHASE_END)
+		e1b1:SetValue(1200)
+		tc:RegisterEffect(e1b1)
 	end
 end
-function s.e3fil1(c)
-	return ((c:IsFaceup() and c:IsLocation(LOCATION_ONFIELD)) or c:IsLocation(LOCATION_GRAVE))
-	and c:IsOriginalType(TYPE_FUSION)
-	and c:IsMonsterCard()
-	and (c:ListsCode(CARD_THE_CLAW_OF_HERMOS) or c.material_race)
-	and c:IsAbleToExtra()
-end
-function s.e3fil2(c,e,tp,rc)
-	return c:IsType(TYPE_FUSION)
+function s.e2fil(c)
+	return c:IsFaceup()
+	and c:IsLevelAbove(7)
+	and c:IsSetCard(SET_RED_EYES)
+	and c:IsRace(RACE_ZOMBIE)
 	and c:IsMonster()
-	and not c:IsCode(rc:GetCode())
-	and not c:IsLevel(8)
-	and ((c.material_race and c:IsCanBeSpecialSummoned(e,0,tp,true,false)) or (c:ListsCode(CARD_THE_CLAW_OF_HERMOS) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)))
+end
+function s.e2con(e)
+	local tp=e:GetHandlerPlayer()
+
+	return Duel.IsBattlePhase()
+	and Duel.IsExistingMatchingCard(s.e2fil,tp,LOCATION_MZONE,0,1,nil)
+end
+function s.e2tgt(e,c)
+	-- NECROVALLEY
+	if c:GetFlagEffect(1)==0 then
+		c:RegisterFlagEffect(1,0,0,0)
+		local eff
+		if c:IsLocation(LOCATION_MZONE) then
+			eff={Duel.GetPlayerEffect(c:GetControler(),EFFECT_NECRO_VALLEY)}
+		else
+			eff={c:GetCardEffect(EFFECT_NECRO_VALLEY)}
+		end
+		c:ResetFlagEffect(1)
+		for _,te in ipairs(eff) do
+			local op=te:GetOperation()
+			if not op or op(e,c) then return false end
+		end
+	end
+	return true
+end
+function s.e3fil(c,e,tp)
+	return (c:IsRace(RACE_DRAGON) or c:IsRace(RACE_ZOMBIE))
+	and c:IsMonster()
+	and c:IsControler(tp)
+	and c:IsSummonLocation(LOCATION_GRAVE)
+end
+function s.e3con(e,tp,eg)
+	return eg:IsExists(s.e3fil,1,nil,e,tp)
 end
 function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local c=e:GetHandler()
 
 	if chkc then
-		return chkc:IsControler(tp)
-		and s.e3fil1(chkc)
+		return chkc:IsOnField()
+		and chkc:IsControler(1-tp)
+		and chkc:IsAbleToRemove()
 	end
 	if chk==0 then
-		return (Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingTarget(s.e3fil1,tp,LOCATION_SZONE+LOCATION_GRAVE,0,1,nil))
-		or Duel.IsExistingTarget(s.e3fil1,tp,LOCATION_MZONE,0,1,nil)
+		return Duel.IsExistingTarget(Card.IsAbleToRemove,tp,0,LOCATION_ONFIELD,1,c)
 	end
+
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 	
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
-	local g=Duel.SelectTarget(tp,s.e3fil1,tp,LOCATION_ONFIELD+LOCATION_GRAVE,0,1,1,nil,e,tp)
-	
-	Duel.SetOperationInfo(0,CATEGORY_TOEXTRA,g,1,0,0)
+	local g=Duel.SelectTarget(tp,Card.IsAbleToRemove,tp,0,LOCATION_ONFIELD,1,1,c)
+	Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,1,0,0)
 end
 function s.e3evt(e,tp)
-	local c=e:GetHandler()
-	
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then
-		if Duel.SendtoDeck(tc,nil,SEQ_DECKSHUFFLE,REASON_EFFECT)>0 and tc:IsLocation(LOCATION_EXTRA) then
-			if Duel.GetLocationCount(tp,LOCATION_MZONE)==0 then return end
-
-			local g=Duel.GetMatchingGroup(s.e3fil2,tp,LOCATION_EXTRA,0,nil,e,tp,tc)
-			if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(id,1)) then
-				Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-				local sc=g:Select(tp,1,1,nil):GetFirst()
-				if sc then
-					Duel.BreakEffect()
-					Duel.SpecialSummon(sc,0,tp,tp,true,false,POS_FACEUP)
-				end
-			end
-		end
+	if tc and tc:IsRelateToEffect(e) then
+		Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)
 	end
 end

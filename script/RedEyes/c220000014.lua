@@ -1,205 +1,227 @@
--- Gilford the Legend of Blazing Red Lightning
+-- Dimension of Chaos
 local s,id,o=GetID()
 -- c220000014
 function s.initial_effect(c)
-	--[[
-	[HOPT]
-	You can Special Summon this card (from your hand) by sending 3 other "Red-Eyes" monsters from your hand to the GY.
-	]]--
+	-- [Activation]
+	local e0=Effect.CreateEffect(c)
+	e0:SetType(EFFECT_TYPE_ACTIVATE)
+	e0:SetCode(EVENT_FREE_CHAIN)
+	c:RegisterEffect(e0)
+	-- Your opponent cannot activate cards or effects in response to the activation of your Ritual Spell Cards.
 	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_FIELD)
-	e1:SetCode(EFFECT_SPSUMMON_PROC)
-	e1:SetRange(LOCATION_HAND)
-	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE)
-	e1:SetCountLimit(1,{id,0})
-	e1:SetValue(1)
-	e1:SetCondition(s.e1con)
-	e1:SetTarget(s.e1tgt)
+	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e1:SetCode(EVENT_CHAINING)
+	e1:SetRange(LOCATION_SZONE)
 	e1:SetOperation(s.e1evt)
 	c:RegisterEffect(e1)
 	--[[
-	When Summoned this way:
-	Destroy as many monsters your opponent controls as possible,
-	and if you do, inflict 500 damage to your opponent for each monster destroyed by this effect.
+	Your opponent cannot activate cards or effects
+	when a "Chaos" or "Black Luster Soldier" Ritual Monster(s) is Ritual Summoned.
 	]]--
-	local e1b=Effect.CreateEffect(c)
-	e1b:SetCategory(CATEGORY_DESTROY+CATEGORY_DAMAGE)
-	e1b:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
-	e1b:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e1b:SetCondition(s.e1bcon)
-	e1b:SetTarget(s.e1btgt)
-	e1b:SetOperation(s.e1bevt)
-	c:RegisterEffect(e1b)
+	local e2a1=Effect.CreateEffect(c)
+	e2a1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e2a1:SetCode(EVENT_SPSUMMON_SUCCESS)
+	e2a1:SetRange(LOCATION_SZONE)
+	e2a1:SetOperation(s.e2a1evt)
+	c:RegisterEffect(e2a1)
+
+	local e2a2=Effect.CreateEffect(c)
+	e2a2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e2a2:SetCode(EVENT_CHAIN_END)
+	e2a2:SetRange(LOCATION_SZONE)
+	e2a2:SetOperation(s.e2a2evt)
+	e2a2:SetLabelObject(e2a1)
+	c:RegisterEffect(e2a2)
 	--[[
-	[HOPT]
-	If this card battles, during damage calculation:
-	This card gains ATK equal to half the ATK of the monster your opponent controls with the highest ATK (your choice, if tied).
-	]]--
-	local e2=Effect.CreateEffect(c)
-	e2:SetCategory(CATEGORY_ATKCHANGE)
-	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
-	e2:SetCode(EVENT_PRE_DAMAGE_CALCULATE)
-	e2:SetCountLimit(1,{id,1})
-	e2:SetTarget(s.e2tgt)
-	e2:SetOperation(s.e2evt)
-	c:RegisterEffect(e2)
-	--[[
-	[HOPT]
-	If this card is destroyed by battle or an opponent's card effect:
-	You can Special Summon 1 other Warrior monster from your GY,
-	and if you do, add 1 Equip Spell from your GY to your hand,
-	and if you do that, return all Equip Spells in your GY (if any) to the Deck.
+	[H1PT]
+	During your Main Phase:
+	You can activate 1 of these effects,
+	or if your opponent controls a monster, you can activate 2 of these effects, in sequence, instead;
+	•
+	Set 1 "Chaos Form" from your Deck or GY.
+	•
+	Reveal 1 Normal Monster in your hand;
+	add 1 Ritual Monster from your Deck to your hand, with the same Type and Level as the revealed monster.
+	•
+	Reveal 1 Ritual Monster in your hand;
+	send 1 Normal Monster from your Deck to the GY, with the same Level and ATK as the revealed monster.
 	]]--
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(id,0))
-	e3:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_TOHAND+CATEGORY_TODECK)
-	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e3:SetCode(EVENT_TO_GRAVE)
-	e3:SetCountLimit(1,{id,2})
-	e3:SetCondition(s.e3con)
+	e3:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH+CATEGORY_TOGRAVE)
+	e3:SetType(EFFECT_TYPE_IGNITION)
+	e3:SetRange(LOCATION_SZONE)
+	e3:SetCountLimit(1,{id,0})
 	e3:SetTarget(s.e3tgt)
 	e3:SetOperation(s.e3evt)
 	c:RegisterEffect(e3)
 end
--- Archetype : Red-Eyes
-s.listed_series={SET_RED_EYES}
+local CARD_CHAOS_FORM = 21082832
+-- Mentions : "Chaos Form"
+s.listed_names={CARD_CHAOS_FORM,id}
+-- Archetype : Chaos
+s.listed_series={SET_CHAOS}
 -- Helpers
-function s.e1fil(c)
-	return c:IsMonster()
-	and c:IsSetCard(SET_RED_EYES)
-	and c:IsAbleToGraveAsCost()
+function s.e1lim(e,rp,tp)
+	return tp==rp
 end
-function s.e1con(e,c)
-	if c==nil then return true end
-
-	local tp=e:GetHandlerPlayer()
-	local rg=Duel.GetMatchingGroup(s.e1fil,tp,LOCATION_HAND,0,e:GetHandler())
-
-	return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-	and rg:GetCount()>2
-	and aux.SelectUnselectGroup(rg,e,tp,3,3,nil,0)
-end
-function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,c)
-	local c=e:GetHandler()
-	local g=nil
-	local rg=Duel.GetMatchingGroup(s.e1fil,tp,LOCATION_HAND,0,c)
-	local g=aux.SelectUnselectGroup(rg,e,tp,3,3,nil,1,tp,HINTMSG_TOGRAVE,nil,nil,true)
-
-	if g:GetCount()>0 then
-		g:KeepAlive()
-		e:SetLabelObject(g)
-		return true
-	end
-	return false
-end
-function s.e1evt(e,tp,eg,ep,ev,re,r,rp,c)
-	local g=e:GetLabelObject()
-	
-	if not g then return end
-
-	Duel.SendtoGrave(g,REASON_COST)
-	g:DeleteGroup()
-end
-function s.e1bcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+1
-end
-function s.e1btgt(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then
-		return true
-	end
-
-	local g=Duel.GetMatchingGroup(aux.TRUE,tp,0,LOCATION_MZONE,nil)
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,g:GetCount(),0,0,nil)
-end
-function s.e1bevt(e,tp)
-	local g=Duel.GetMatchingGroup(aux.TRUE,tp,0,LOCATION_MZONE,nil)
-	local ct=Duel.Destroy(g,REASON_EFFECT)
-	Duel.Damage(1-tp,ct*500,REASON_EFFECT)
-end
-function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return true end
-
-	local c=e:GetHandler()
-	local g=Duel.GetMatchingGroup(Card.IsFaceup,tp,0,LOCATION_MZONE,nil):GetMaxGroup(Card.GetAttack)
-
-	local atk=0
-	if g:GetCount()>0 then
-		atk=g:GetFirst():GetAttack()/2
-	end
-
-	Duel.SetOperationInfo(0,CATEGORY_ATKCHANGE,c,1,tp,atk)
-end
-function s.e2evt(e,tp)
-	local c=e:GetHandler()
-	if c:IsRelateToEffect(e) and c:IsFaceup() then
-		local g=Duel.GetMatchingGroup(Card.IsFaceup,tp,0,LOCATION_MZONE,nil):GetMaxGroup(Card.GetAttack)
-
-		if g:GetCount()>0 then
-			local atk=g:GetFirst():GetAttack()/2
-
-			if atk>0 then
-				local e2b=Effect.CreateEffect(c)
-				e2b:SetType(EFFECT_TYPE_SINGLE)
-				e2b:SetCode(EFFECT_UPDATE_ATTACK)
-				e2b:SetValue(atk)
-				c:RegisterEffect(e2b)
-			end
-		end
+function s.e1evt(e,tp,eg,ep,ev,re)
+	local rc=re:GetHandler()
+	if re:IsHasType(EFFECT_TYPE_ACTIVATE) and re:GetHandlerPlayer()==tp and rc:IsRitualSpell() then
+		Duel.SetChainLimit(s.e1lim)
 	end
 end
-function s.e3con(e,tp)
-	local c=e:GetHandler()
-
-	return c:IsReason(REASON_DESTROY)
-	and (c:IsReason(REASON_BATTLE) or (c:IsReason(REASON_EFFECT) and c:GetReasonPlayer()==1-tp))
+function s.e2a1fil(c)
+	return (c:IsSetCard(SET_CHAOS) or c:IsSetCard(SET_BLACK_LUSTER_SOLDIER) or c:IsSetCard(SET_NUMBER_C))
+	and c:IsRitualMonster()
+	and c:IsRitualSummoned()
 end
-function s.e3fil1(c,e,tp)
-	return c:IsRace(RACE_WARRIOR)
-	and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
-	and Duel.GetLocationCountFromEx(tp,tp,nil,c)>0
+function s.e2a1evt(e,tp,eg)
+	if eg:IsExists(s.e2a1fil,1,nil) then
+		e:SetLabel(1)
+	else
+		e:SetLabel(0)
+	end
 end
-function s.e3fil2(c)
-	return c:IsEquipSpell()
+function s.e2a2evt(e,tp)
+	if Duel.CheckEvent(EVENT_SPSUMMON_SUCCESS) and e:GetLabelObject():GetLabel()==1 then
+		Duel.SetChainLimitTillChainEnd(s.e1lim)
+	end
+end
+function s.e3a1fil(c)
+	return c:IsCode(CARD_CHAOS_FORM)
+	and c:IsSSetable()
+end
+function s.e3a2fil1(c,tp)
+	return c:IsType(TYPE_NORMAL)
+	and c:IsMonster()
+	and not c:IsPublic()
+	and Duel.IsExistingMatchingCard(s.e3a2fil2,tp,LOCATION_DECK,0,1,nil,c:GetLevel(),c:GetRace())
+end
+function s.e3a2fil2(c,lvl,typ)
+	return c:IsRitualMonster()
+	and c:IsLevel(lvl)
+	and c:IsRace(typ)
 	and c:IsAbleToHand()
 end
-function s.e3fil3(c)
-	return c:IsEquipSpell()
-	and c:IsAbleToDeck()
+function s.e3a3fil1(c,tp)
+	return c:IsRitualMonster()
+	and not c:IsPublic()
+	and Duel.IsExistingMatchingCard(s.e3a3fil2,tp,LOCATION_DECK,0,1,nil,c:GetLevel(),c:GetBaseAttack())
 end
-function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function s.e3a3fil2(c,lvl,atk)
+	return c:IsType(TYPE_NORMAL)
+	and c:IsMonster()
+	and c:IsLevel(lvl)
+	and c:IsAttack(atk)
+	and c:IsAbleToGrave()
+end
+-- [Chain]
+function s.e3a3fil3a(c,tp)
+	return c:IsType(TYPE_NORMAL)
+	and c:IsMonster()
+	and not c:IsPublic()
+	and Duel.IsExistingMatchingCard(s.e3a3fil3b,tp,LOCATION_DECK,0,1,nil,c:GetLevel(),c:GetRace())
+end
+function s.e3a2fil3b(c,lvl,typ)
+	return c:IsRitualMonster()
+	and c:IsLevel(lvl)
+	and c:IsRace(typ)
+	and c:IsAbleToHand()
+	and Duel.IsExistingMatchingCard(s.e3a3fil2,tp,LOCATION_DECK,0,1,nil,c:GetLevel(),c:GetBaseAttack())
+end
+function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
+	local b1tgt=Duel.IsExistingMatchingCard(s.e3a1fil,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,nil)
+	local b2tgt=Duel.IsExistingMatchingCard(s.e3a2fil1,tp,LOCATION_HAND,0,1,nil,tp)
+	local b3tgt=Duel.IsExistingMatchingCard(s.e3a3fil1,tp,LOCATION_HAND,0,1,nil,tp)
 
 	if chk==0 then
-		return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(s.e3fil1,tp,LOCATION_GRAVE,0,1,c,e,tp)
-		and Duel.IsExistingMatchingCard(s.e3fil2,tp,LOCATION_GRAVE,0,1,c)
+		return b1tgt or b2tgt or b3tgt
 	end
 
-	local rg=Duel.GetMatchingGroup(s.e3fil3,tp,LOCATION_GRAVE,0,nil)
+	local bxtgt=Duel.IsExistingMatchingCard(s.e3a3fil3a,tp,LOCATION_HAND,0,1,nil,tp)
+	local b1tgtn=(b1tgt) and 1 or 0
+	local b2tgtn=(b2tgt) and 1 or 0
+	local b3tgtn=(b3tgt) and 1 or 0
 
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_GRAVE)
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_GRAVE)
-	Duel.SetPossibleOperationInfo(0,CATEGORY_TODECK,nil,rg:GetCount()-1,tp,LOCATION_GRAVE)
+	local max_ct=1
+	if Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>0 and (b1tgtn+b2tgtn+b3tgtn>=2 or (b3tgt and bxtgt)) then
+		max_ct=Duel.SelectEffect(tp,
+			{aux.TRUE,aux.Stringid(id,1)},
+			{aux.TRUE,aux.Stringid(id,2)}
+		)
+	end
+
+	local bsel = 0
+	for eff_ct=1,max_ct do
+		local eff_table={}
+		local val_table={}
+
+		if b1tgt and bsel&0x1==0 then
+			table.insert(eff_table, aux.Stringid(id,3))
+			table.insert(val_table,0x1)
+		end
+		if b2tgt and bsel&0x2==0 then
+			table.insert(eff_table, aux.Stringid(id,4))
+			table.insert(val_table,0x2)
+		end
+		if (b3tgt or (bsel&0x2==0x2 and bxtgt)) and bsel&0x4==0 then
+			table.insert(eff_table, aux.Stringid(id,5))
+			table.insert(val_table,0x4)
+		end
+
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EFFECT)
+		local op=Duel.SelectOption(tp,table.unpack(eff_table))
+		bsel=bsel+val_table[op+1]
+	end
+
+	if bsel&0x2==0x2 then
+		Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
+	end
+	if bsel&0x4==0x4 then
+		Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,tp,LOCATION_DECK)
+	end
+
+	e:SetLabel(bsel)
 end
 function s.e3evt(e,tp)
-	local c=e:GetHandler()
-	
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,s.e3fil1,tp,LOCATION_GRAVE,0,1,1,c,e,tp)
-	if g:GetCount()>0 then
-		local tc=g:GetFirst()
-		if Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)>0 then
-			local c=e:GetHandler()
+	local bsel=e:GetLabel()
 
-			local ag=Duel.SelectMatchingCard(tp,s.e3fil2,tp,LOCATION_GRAVE,0,1,1,nil)
-			if ag:GetCount()>0 then
-				if Duel.SendtoHand(ag:GetFirst(),nil,REASON_EFFECT)>0 then
-					local rg=Duel.GetMatchingGroup(s.e3fil3,tp,LOCATION_GRAVE,0,nil)
-					if rg:GetCount()>0 then
-						Duel.SendtoDeck(rg,nil,SEQ_DECKSHUFFLE,REASON_EFFECT)
-					end
-				end
-			end
+	if not bsel then return end
+
+	if bsel&0x1==0x1 then
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SET)
+		local g=Duel.SelectMatchingCard(tp,s.e3a1fil,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,1,nil)
+		if g:GetCount()>0 then
+			Duel.SSet(tp,g)
+		end
+		Duel.BreakEffect()
+	end
+	if bsel&0x2==0x2 then
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CONFIRM)
+		local rc=Duel.SelectMatchingCard(tp,s.e3a2fil1,tp,LOCATION_HAND,0,1,1,nil,tp):GetFirst()
+		Duel.ConfirmCards(1-tp,rc)
+		Duel.ShuffleHand(tp)
+
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
+		local g=Duel.SelectMatchingCard(tp,s.e3a2fil2,tp,LOCATION_DECK,0,1,1,nil,rc:GetLevel(),rc:GetRace())
+		if g:GetCount()>0 then
+			Duel.SendtoHand(g,nil,REASON_EFFECT)
+			Duel.ConfirmCards(1-tp,g)
+		end
+		Duel.BreakEffect()
+	end
+	if bsel&0x4==0x4 then
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CONFIRM)
+		local rc=Duel.SelectMatchingCard(tp,s.e3a3fil1,tp,LOCATION_HAND,0,1,1,nil,tp):GetFirst()
+		Duel.ConfirmCards(1-tp,rc)
+		Duel.ShuffleHand(tp)
+
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
+		local g=Duel.SelectMatchingCard(tp,s.e3a3fil2,tp,LOCATION_DECK,0,1,1,nil,rc:GetLevel(),rc:GetBaseAttack())
+		if g:GetCount()>0 then
+			Duel.SendtoGrave(g,REASON_EFFECT)
 		end
 	end
 end
