@@ -2,180 +2,181 @@
 local s,id,o=GetID()
 -- c220000006
 function s.initial_effect(c)
+	-- "Jinzo" + 1 "Red-Eyes" monster (Dragon or Machine)
+	Fusion.AddProcMix(c,true,true,s.m1fil,s.m2fil)
+	c:EnableReviveLimit()
+	-- Must first be Fusion Summoned.
+	local e0=Effect.CreateEffect(c)
+	e0:SetType(EFFECT_TYPE_SINGLE)
+	e0:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+	e0:SetCode(EFFECT_SPSUMMON_CONDITION)
+	e0:SetValue(s.e0lim)
+	c:RegisterEffect(e0)
 	--[[
-	The activation and effect of "Metalmorph" Traps and "Red-Eyes" Traps activated on your field cannot be negated.
+	"Red-Eyes" and Level 5 or higher Machine monsters you control are unaffected by your opponent's Trap effects.
 	]]--
-	local e1a1=Effect.CreateEffect(c)
-	e1a1:SetType(EFFECT_TYPE_FIELD)
-	e1a1:SetCode(EFFECT_CANNOT_INACTIVATE)
-	e1a1:SetRange(LOCATION_MZONE)
-	e1a1:SetValue(s.e1fil)
-	c:RegisterEffect(e1a1)
-
-	local e1a2=e1a1:Clone()
-	e1a2:SetCode(EFFECT_CANNOT_DISEFFECT)
-	c:RegisterEffect(e1a2)
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetCode(EFFECT_IMMUNE_EFFECT)
+	e1:SetRange(LOCATION_MZONE)
+	e1:SetTargetRange(LOCATION_MZONE,0)
+	e1:SetTarget(aux.TargetBoolFunction(s.e1fil))
+	e1:SetValue(s.e1val)
+	c:RegisterEffect(e1)
 	--[[
 	[HOPT]
-	If a monster(s) is Tributed from your hand or field (except during the Damage Step):
-	You can Special Summon this card from your GY (if it was there when the monster was Tributed) or hand (even if not),
-	but banish it when it leaves the field,
-	then you can make it become Level 7.
+	If this card is Special Summoned:
+	You can target any number of Traps in your GY with an effect that equip themselves to a monster;
+	shuffle them into the Deck,
+	then if "Max Metalmorph" was shuffled into your Deck by this effect,
+	you can shuffle an equal number of Set cards your opponent controls into the Deck.
 	]]--
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,0))
-	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
-	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
-	e2:SetRange(LOCATION_HAND+LOCATION_GRAVE)
-	e2:SetCode(EVENT_RELEASE)
+	e2:SetCategory(CATEGORY_TODECK)
+	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY+EFFECT_FLAG_DAMAGE_STEP)
+	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e2:SetCountLimit(1,{id,0})
-	e2:SetCondition(s.e2con)
 	e2:SetTarget(s.e2tgt)
 	e2:SetOperation(s.e2evt)
 	c:RegisterEffect(e2)
 	--[[
 	[HOPT]
-	If this card is Normal or Special Summoned:
-	You can target 1 "Metalmorph" Trap or "Jinzo" in your GY;
-	shuffle that target into the Deck,
-	then if "Max Metalmorph" is in your GY,
-	you can take control of 1 Level 5 or higher face-up monster your opponent controls until your opponent's next End Phase,
-	but while it is face-up on your field, it cannot activate its effects.
+	At the start of your Battle Phase:
+	You can take control of the 1 monster your opponent controls with the highest ATK (your choice, if tied),
+	until the end of the Battle Phase, also it must attack this turn, if able.
 	]]--
-	local e3a1=Effect.CreateEffect(c)
-	e3a1:SetDescription(aux.Stringid(id,2))
-	e3a1:SetCategory(CATEGORY_TODECK+CATEGORY_CONTROL)
-	e3a1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e3a1:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
-	e3a1:SetCode(EVENT_SUMMON_SUCCESS)
-	e3a1:SetCountLimit(1,{id,1})
-	e3a1:SetTarget(s.e3tgt)
-	e3a1:SetOperation(s.e3evt)
-	c:RegisterEffect(e3a1)
-
-	local e3a2=e3a1:Clone()
-	e3a2:SetCode(EVENT_SPSUMMON_SUCCESS)
-	c:RegisterEffect(e3a2)
+	local e3=Effect.CreateEffect(c)
+	e3:SetDescription(aux.Stringid(id,2))
+	e3:SetCategory(CATEGORY_CONTROL)
+	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
+	e3:SetCode(EVENT_PHASE+PHASE_BATTLE_START)
+	e3:SetRange(LOCATION_MZONE)
+	e3:SetCountLimit(1,{id,1})
+	e3:SetTarget(s.e3tgt)
+	e3:SetOperation(s.e3evt)
+	c:RegisterEffect(e3)
 end
--- Mentions : "Max Metalmorph","Jinzo"
-s.listed_names={CARD_MAX_METALMORPH,CARD_JINZO,id}
--- Archetype : Jinzo, Red-Eyes
-s.listed_series={SET_JINZO,SET_RED_EYES}
+local RESETS_END_PHASE = RESET_PHASE+PHASE_END
+-- Mentions : "Jinzo","Max Metalmorph"
+s.listed_names={CARD_JINZO,CARD_MAX_METALMORPH,id}
+-- Archetype : Jinzo
+s.listed_series={SET_JINZO}
 -- Helpers
-function s.e1fil(e,ct)
+function s.m1fil(c,fc,sumtype,tp)
+	return c:IsCode(CARD_JINZO)
+end
+function s.m2fil(c,fc,sumtype,tp)
+	return c:IsSetCard(SET_RED_EYES)
+	and (c:IsRace(RACE_DRAGON) or c:IsRace(RACE_MACHINE))
+end
+function s.e0lim(e,se,sp,st)
 	local c=e:GetHandler()
-	local p=c:GetControler()
 
-	local te,tp,loc=Duel.GetChainInfo(ct,CHAININFO_TRIGGERING_EFFECT,CHAININFO_TRIGGERING_PLAYER,CHAININFO_TRIGGERING_LOCATION)
-	local tc=te:GetHandler()
+	return not c:IsLocation(LOCATION_EXTRA)
+	or (st&SUMMON_TYPE_FUSION)==SUMMON_TYPE_FUSION
+end
+function s.e1fil(c)
+	return (c:IsSetCard(SET_RED_EYES)
+	or (c:IsLevelAbove(5) and c:IsRace(RACE_MACHINE)))
+	and c:IsMonster()
+end
+function s.e1val(e,te)
+	local tc=te:GetOwner()
 
-	return p==tp
-	and ((tc:IsSetCard(SET_METALMORPH) or tc:IsSetCard(SET_RED_EYES)) and tc:IsTrap())
-	and loc&LOCATION_ONFIELD~=0
+	return te:IsTrapEffect()
+	and te:GetOwnerPlayer()==1-e:GetHandlerPlayer()
 end
-function s.e2fil(c,tp)
-	return c:IsPreviousControler(tp)
-	and (c:IsPreviousLocation(LOCATION_MZONE) or (c:IsPreviousLocation(LOCATION_HAND) and c:IsMonster()))
-end
-function s.e2con(e,tp,eg)
-	return eg:IsExists(s.e2fil,1,nil,tp)
-end
-function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
-	local c=e:GetHandler()
-	
-	if chk==0 then
-		return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
-		and ((c:IsLocation(LOCATION_GRAVE) and not eg:IsContains(c)) or (c:IsLocation(LOCATION_HAND)))
-	end
-	
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,c,1,0,0)
-end
-function s.e2evt(e,tp)
-	local c=e:GetHandler()
-	
-	if c:IsRelateToEffect(e) and Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)>0 then
-		local e2b1=Effect.CreateEffect(c)
-		e2b1:SetDescription(3300)
-		e2b1:SetType(EFFECT_TYPE_SINGLE)
-		e2b1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_CLIENT_HINT)
-		e2b1:SetCode(EFFECT_LEAVE_FIELD_REDIRECT)
-		e2b1:SetValue(LOCATION_REMOVED)
-		e2b1:SetReset(RESET_EVENT+RESETS_REDIRECT)
-		c:RegisterEffect(e2b1,true)
-
-		if Duel.SelectEffectYesNo(tp,c,aux.Stringid(id,1)) then
-			Duel.BreakEffect()
-
-			local e2b2=Effect.CreateEffect(c)
-			e2b2:SetType(EFFECT_TYPE_SINGLE)
-			e2b2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-			e2b2:SetCode(EFFECT_CHANGE_LEVEL)
-			e2b2:SetValue(7)
-			e2b2:SetReset(RESET_EVENT+RESETS_STANDARD)
-			c:RegisterEffect(e2b2)
-		end
-	end
-end
-function s.e3fil1(c)
-	return ((c:IsSetCard(SET_METALMORPH) and c:IsTrap()) or c:IsCode(CARD_JINZO))
+function s.e2fil1(c)
+	return c:IsEquipTrap()
 	and c:IsAbleToDeck()
 end
-function s.e3fil2(c)
-	return c:IsFaceup()
-	and c:IsLevelAbove(5)
-	and c:IsMonster()
-	and c:IsAbleToChangeControler()
+function s.e2fil2(c)
+	return c:IsFacedown()
+	and c:IsAbleToDeck()
 end
-function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local c=e:GetHandler()
 
 	if chkc then
 		return chkc:IsLocation(LOCATION_GRAVE)
 		and chkc:IsControler(tp)
-		and s.e3fil1(chkc) end
+		and s.e2fil(chkc)
+	end
 	if chk==0 then
-		return Duel.IsExistingTarget(s.e3fil1,tp,LOCATION_GRAVE,0,1,nil)
+		return Duel.IsExistingTarget(s.e2fil1,tp,LOCATION_GRAVE,0,1,nil)
 	end
 	
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
 
-	local g=Duel.SelectTarget(tp,s.e3fil1,tp,LOCATION_GRAVE,0,1,1,nil)
+	local max=Duel.GetMatchingGroupCount(s.e2fil1,tp,LOCATION_GRAVE,0,nil)
+	local g=Duel.SelectTarget(tp,s.e2fil1,tp,LOCATION_GRAVE,0,1,max,nil)
+	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,g:GetCount(),0,0)
+end
+function s.e2evt(e,tp)
+	local c=e:GetHandler()
+
+	local g1=Duel.GetTargetCards(e)
+	if g1:GetCount()>0 then
+		local ct=Duel.SendtoDeck(g1,nil,SEQ_DECKSHUFFLE,REASON_EFFECT)
+
+		local cond1=0
+		for tc in g1:Iter() do
+			if (tc:GetCode() == CARD_MAX_METALMORPH) and tc:IsLocation(LOCATION_DECK) then
+				cond1=1
+				break
+			end
+		end
+
+		local cond2=(Duel.GetMatchingGroupCount(s.e2fil2,tp,0,LOCATION_ONFIELD,nil)>=ct)
+		if cond1==1 and cond2 and Duel.SelectEffectYesNo(tp,c,aux.Stringid(id,1)) then
+			Duel.BreakEffect()
+
+			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
+			local g2=Duel.SelectMatchingCard(tp,s.e2fil2,tp,0,LOCATION_ONFIELD,ct,ct,nil)
+
+			if g2:GetCount()>0 then
+				Duel.HintSelection(g2)
+				Duel.SendtoDeck(g2,nil,SEQ_DECKSHUFFLE,REASON_EFFECT)
+			end
+		end
+	end
+end
+function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk)
+	local c=e:GetHandler()
+	local g=Duel.GetMatchingGroup(Card.IsFaceup,tp,0,LOCATION_MZONE,nil):GetMaxGroup(Card.GetAttack)
+
+	if chk==0 then
+		return g
+		and g:IsExists(Card.IsControlerCanBeChanged,1,nil)
+		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+	end
 	
-	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,1,0,0)
+	Duel.SetOperationInfo(0,CATEGORY_CONTROL,g,1,tp,0)
 end
 function s.e3evt(e,tp)
 	local c=e:GetHandler()
-	local tc=Duel.GetFirstTarget()
 
-	if tc:IsRelateToEffect(e) and Duel.SendtoDeck(tc,nil,SEQ_DECKSHUFFLE,REASON_EFFECT)>0 then
-		local r1 = Duel.IsExistingMatchingCard(s.e3fil2,tp,0,LOCATION_MZONE,1,nil)
-		local r2 = Duel.IsExistingMatchingCard(Card.IsCode,tp,LOCATION_GRAVE,0,1,nil,CARD_MAX_METALMORPH)
-		if r1 and r2 and Duel.SelectEffectYesNo(tp,c,aux.Stringid(id,3)) then
-			Duel.BreakEffect()
+	local g=Duel.GetMatchingGroup(Card.IsFaceup,tp,0,LOCATION_MZONE,nil):GetMaxGroup(Card.GetAttack)
+	if not g or g:GetCount()==0 or Duel.GetLocationCount(tp,LOCATION_MZONE)==0 then return end
+	
+	g:Match(Card.IsControlerCanBeChanged,nil)
+	if g:GetCount()>=2 then
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CONTROL)
+		g=g:Select(tp,1,1,nil)
+	end
+	
+	if g:GetCount()>0 then
+		Duel.HintSelection(g)
 
-			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CONTROL)
+		local tc=g:GetFirst()
+		Duel.GetControl(tc,tp,PHASE_BATTLE,1)
 
-			local tct=1
-			if Duel.IsTurnPlayer(1-tp) and Duel.IsPhase(PHASE_END) then
-				tct=3
-			elseif Duel.IsTurnPlayer(tp) then
-				tct=2
-			end
-
-			local g=Duel.SelectMatchingCard(tp,s.e3fil2,tp,0,LOCATION_MZONE,1,1,nil)
-			if g:GetCount()>0 and Duel.GetControl(g,tp,PHASE_END,tct) then
-				local sc=g:GetFirst()
-
-				local e3b1=Effect.CreateEffect(c)
-				e3b1:SetDescription(3302)
-				e3b1:SetProperty(EFFECT_FLAG_CLIENT_HINT)
-				e3b1:SetType(EFFECT_TYPE_SINGLE)
-				e3b1:SetCode(EFFECT_CANNOT_TRIGGER)
-				e3b1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_CONTROL)
-				sc:RegisterEffect(e3b1,true)
-			end
-		end
+		local e3b1=Effect.CreateEffect(c)
+		e3b1:SetType(EFFECT_TYPE_SINGLE)
+		e3b1:SetCode(EFFECT_MUST_ATTACK)
+		e3b1:SetReset(RESETS_END_PHASE)
+		tc:RegisterEffect(e3b1)
 	end
 end

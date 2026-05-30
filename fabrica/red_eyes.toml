@@ -114,18 +114,17 @@ id = 220000006
 setnumber = "IPRE-EN006"
 ot = "custom"
 name = "Jinzo, Black Fullmetal Dragon Armored"
-set = "jinzo red_eyes"
+set = "jinzo"
 attribute = "dark"
 race = "machine"
-type = "monster effect"
-atk = 2400
-def = 1500
-level = 6
+type = "monster effect fusion"
+atk = 2900
+def = 2400
+level = 8
 effect = '''
-(This card is always treated as a "Red-Eyes" card.)
-The activation and effect of "Metalmorph" Traps and "Red-Eyes" Traps activated on your field cannot be negated. You can only use each of the following effects of "Jinzo, Black Fullmetal Dragon Armored" once per turn. If a monster(s) is Tributed from your hand or field (except during the Damage Step): You can Special Summon this card from your GY (if it was there when the monster was Tributed) or hand (even if not), but banish it when it leaves the field, then you can make it become Level 7. If this card is Normal or Special Summoned: You can target 1 "Metalmorph" Trap or "Jinzo" in your GY; shuffle that target into the Deck, then if "Max Metalmorph" is in your GY, you can take control of 1 face-up Level 5 or higher monster your opponent controls until your opponent's next End Phase, but while it is face-up on your field, it cannot activate its effects.'''
-strings=['Special Summon this card','Make this card become Level 7','Shuffle target into the Deck','Take control of 1 Level 5 or higher monster',]
-
+"Jinzo" + 1 "Red-Eyes" monster (Dragon or Machine)
+Must first be Fusion Summoned. "Red-Eyes" and Level 5 or higher Machine monsters you control are unaffected by your opponent's Trap effects. You can only use each of the following effects of "Jinzo, Black Fullmetal Dragon Armored" once per turn. If this card is Special Summoned: You can target any number of Traps in your GY with an effect that equip themselves to a monster; shuffle them into the Deck, then if "Max Metalmorph" was shuffled into your Deck by this effect, you can shuffle an equal number of Set cards your opponent controls into the Deck. At the start of your Battle Phase: You can take control of the 1 monster your opponent controls with the highest ATK (your choice, if tied), until the end of the Battle Phase, also it must attack this turn, if able.'''
+strings=['Shuffle Traps into Deck','Shuffle opposing Set cards','Take control of opposing monster']
 
 [[card]]
 id = 220000007
