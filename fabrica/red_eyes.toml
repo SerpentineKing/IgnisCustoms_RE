@@ -123,7 +123,7 @@ def = 2400
 level = 8
 effect = '''
 "Jinzo" + 1 "Red-Eyes" monster (Dragon or Machine)
-Must first be Fusion Summoned. "Red-Eyes" and Level 5 or higher Machine monsters you control are unaffected by your opponent's Trap effects. You can only use each of the following effects of "Jinzo, Black Fullmetal Dragon Armored" once per turn. If this card is Special Summoned: You can target any number of Traps in your GY with an effect that equip themselves to a monster; shuffle them into the Deck, then if "Max Metalmorph" was shuffled into your Deck by this effect, you can shuffle an equal number of Set cards your opponent controls into the Deck. At the start of your Battle Phase: You can take control of the 1 monster your opponent controls with the highest ATK (your choice, if tied), until the end of the Battle Phase, also it must attack this turn, if able.'''
+Must first be Fusion Summoned. "Red-Eyes" and Level 5 or higher Machine monsters you control are unaffected by your opponent's Trap effects. You can only use each of the following effects of "Jinzo, Black Fullmetal Dragon Armored" once per turn. If this card is Special Summoned: You can target up to 3 Traps in your GY with an effect that equip themselves to a monster; shuffle them into the Deck, then if "Max Metalmorph" was shuffled into your Deck by this effect, you can shuffle an equal number of Set cards your opponent controls into the Deck. At the start of your Battle Phase: You can take control of the 1 monster your opponent controls with the highest ATK (your choice, if tied), until the end of the Battle Phase, also it must attack this turn, if able.'''
 strings=['Shuffle Traps into Deck','Shuffle opposing Set cards','Take control of opposing monster']
 
 [[card]]

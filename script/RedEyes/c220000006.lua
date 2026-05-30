@@ -26,7 +26,7 @@ function s.initial_effect(c)
 	--[[
 	[HOPT]
 	If this card is Special Summoned:
-	You can target any number of Traps in your GY with an effect that equip themselves to a monster;
+	You can target up to 3 Traps in your GY with an effect that equip themselves to a monster;
 	shuffle them into the Deck,
 	then if "Max Metalmorph" was shuffled into your Deck by this effect,
 	you can shuffle an equal number of Set cards your opponent controls into the Deck.
@@ -111,6 +111,10 @@ function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
 
 	local max=Duel.GetMatchingGroupCount(s.e2fil1,tp,LOCATION_GRAVE,0,nil)
+	if max>3 then
+		max=3
+	end
+
 	local g=Duel.SelectTarget(tp,s.e2fil1,tp,LOCATION_GRAVE,0,1,max,nil)
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,g:GetCount(),0,0)
 end
