@@ -24,7 +24,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1a2)
 	--[[
 	During the Battle Phase, if you control a Level 7 or higher "Red-Eyes" Zombie monster,
-	all monsters in your opponent's GY become Zombie monsters.
+	all monsters in your opponent's GY become Zombies.
 	]]--
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)

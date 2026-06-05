@@ -1,4 +1,4 @@
--- Red-Eyes Potential
+-- Brigade of the Red-Eyes
 local s,id,o=GetID()
 -- c220000130
 function s.initial_effect(c)

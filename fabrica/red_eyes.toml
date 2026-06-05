@@ -6,10 +6,6 @@ code = 0x3b
 name = "Red-Eyes"
 code = 0xfe1
 
-[set.flame_swordsman]
-name = "Flame Swordsman"
-code = 0xfe2
-
 [set.chaos]
 name = "Chaos"
 code = 0xcf
@@ -28,11 +24,15 @@ code = 0x46
 
 [set.m_zombie_world]
 name = "Zombie World"
-code = 0xfe3
+code = 0xfe2
 
 [set.metalmorph]
 name = "Metalmorph"
 code = 0x1b2
+
+[set.m_dark_time_wizard]
+name = "Dark Time Wizard"
+code = 0xfe3
 
 [[card]]
 id = 220000001
@@ -106,7 +106,7 @@ name = "Red-Eyes Zombification"
 set = "red_eyes"
 type = "spell continuous"
 effect = '''
-When this card is activated: You can target 1 "Red-Eyes" monster you control; it gains 1200 ATK until the end of this turn (even if this card leaves the field). During the Battle Phase, if you control a Level 7 or higher "Red-Eyes" Zombie monster, all monsters in your opponent's GY become Zombie monsters. If a Dragon or Zombie monster(s) is Special Summoned from either GY to your field (even during the Damage Step): You can target 1 card your opponent controls; banish it. You can only use this effect of "Red-Eyes Zombification" once per turn. You can only activate 1 "Red-Eyes Zombification" per turn.'''
+When this card is activated: You can target 1 "Red-Eyes" monster you control; it gains 1200 ATK until the end of this turn (even if this card leaves the field). During the Battle Phase, if you control a Level 7 or higher "Red-Eyes" Zombie monster, all monsters in your opponent's GY become Zombies. If a Dragon or Zombie monster(s) is Special Summoned from either GY to your field (even during the Damage Step): You can target 1 card your opponent controls; banish it. You can only use this effect of "Red-Eyes Zombification" once per turn. You can only activate 1 "Red-Eyes Zombification" per turn.'''
 strings=['Do nothing','Target gains 1200 ATK','Banish the target']
 
 [[card]]
@@ -134,7 +134,7 @@ name = "Red-Eyes Mechanization"
 set = "red_eyes"
 type = "spell continuous"
 effect = '''
-When this card is activated: You can add 1 "Incoming Machine!" or "Dragon Nails" from your Deck or banishment to your hand. Traps with an effect that equip themselves to a monster in your Spell & Trap Zone cannot be banished by your opponent's card effects, also your opponent cannot target them with card effects. The first time each "Red-Eyes" monster you control would be destroyed by battle each turn, it is not destroyed. When your "Red-Eyes" or Level 5 or higher Machine monster is targeted for an attack: You can target 1 Normal Spell/Trap in your opponent's GY; Set it to your field. While a "Metalmorph" Trap is on your field or in your GY, a Normal Trap Set by this effect can be activated the turn it was Set. You can only use this effect of "Red-Eyes Mechanization" once per turn. You can only activate 1 "Red-Eyes Mechanization" per turn.'''
+When this card is activated: You can add 1 "Incoming Machine!" or "Dragon Nails" from your Deck or banishment to your hand. Traps with an effect that equip themselves to a monster in your Spell & Trap Zone cannot be banished by your opponent's card effects, also your opponent cannot target them with card effects. When your "Red-Eyes" or Level 5 or higher Machine monster is targeted for an attack: You can target 1 Normal Spell/Trap in your opponent's GY; Set it to your field. While a "Metalmorph" Trap is on your field or in your GY, a Normal Trap Set by this effect can be activated the turn it was Set. You can only use this effect of "Red-Eyes Mechanization" once per turn. You can only activate 1 "Red-Eyes Mechanization" per turn.'''
 strings=['Do nothing','Add 1 "Incoming Machine!" or "Dragon Nails" to your hand','Set 1 Normal Spell/Trap from the GY','It can be activated this turn']
 
 [[card]]
@@ -268,7 +268,7 @@ level = 8
 effect = '''
 1 Level 7 "Red-Eyes" monster + 1 LIGHT Warrior monster that cannot be Normal Summoned/Set
 (This card is always treated as a "Red-Eyes" card.)
-During the Battle Phase, all monsters you control become Dragon monsters You can only use each of the following effects of "Gearfried the Black Dragon Swordmaster" once per turn. If either player equips an Equip Card(s) to this card: You can target 1 card your opponent controls; destroy it. (Quick Effect): You can target 1 Fusion Monster Card in your field or GY that mentions "The Claw of Hermos"; return it to the Extra Deck, then you can Special Summon 1 Fusion Monster with a different name from your Extra Deck that mentions "The Claw of Hermos", except a Level 8 monster. (This is treated as a Special Summon by the effect of "The Claw of Hermos".)'''
+During the Battle Phase, all monsters you control become Dragons. You can only use each of the following effects of "Gearfried the Black Dragon Swordmaster" once per turn. If either player equips an Equip Card(s) to this card: You can target 1 card your opponent controls; destroy it. (Quick Effect): You can target 1 Fusion Monster Card in your field or GY that mentions "The Claw of Hermos"; return it to the Extra Deck, then you can Special Summon 1 Fusion Monster with a different name from your Extra Deck that mentions "The Claw of Hermos", except a Level 8 monster. (This is treated as a Special Summon by the effect of "The Claw of Hermos".)'''
 strings=['Destroy 1 opposing card','Special Summon 1 Fusion Monster']
 
 [[card]]
@@ -319,3 +319,223 @@ effect = '''
 Must be Special Summoned with "The Claw of Hermos", using a Machine monster. If this card is Special Summoned: Target 1 other face-up monster on the field; equip this card to it as an Equip Spell with the following effect.
 • Once per turn, when an opponent's monster declares an attack: You can Tribute 1 monster, except the equipped monster; destroy all monsters your opponent controls, then if you Tributed a Dragon monster to activate this effect, inflict damage to your opponent equal to the combined original ATK of the destroyed monsters.'''
 strings=['Equip this card','Destroy opposing monsters']
+
+[[card]]
+id = 220000020
+setnumber = "IPRE-EN020"
+ot = "custom"
+name = "Red-Eyes Furious Six"
+set = "red_eyes"
+attribute = "dark"
+race = "warrior"
+type = "monster effect xyz"
+atk = 1900
+def = 1600
+rank = 6
+effect = '''
+2 Level 6 DARK monsters
+If this card is Xyz Summoned: You can roll a six-sided die. All face-up monsters your opponent currently controls lose ATK/DEF equal to the result x 300, until the end of this turn. You can detach 1 material from this card; Special Summon from your Extra Deck, 1 Rank 7 "Red-Eyes" Xyz Monster, by using this face-up card you control as material, but destroy it during your opponent's next End Phase. (This is treated as an Xyz Summon. Transfer its materials to the Summoned monster.) You can only use this effect of "Red-Eyes Furious Six" once per turn.'''
+strings=['']
+
+[[card]]
+id = 220000021
+setnumber = "IPRE-EN021"
+ot = "custom"
+name = "Megacyber with Eyes of Red"
+set = "red_eyes"
+attribute = "dark"
+race = "warrior"
+type = "monster effect"
+atk = 2200
+def = 1200
+level = 6
+effect = '''
+(This card is always treated as a "Red-Eyes" card.)
+If you control no monsters, you can Special Summon this card (from your hand). You can only Special Summon "Megacyber with Eyes of Red" once per turn this way. You can only use each of the following effects of "Megacyber with Eyes of Red" once per turn. If this card is Special Summoned, and your opponent controls more monsters than you do: You can Special Summon Level 7 or lower "Red-Eyes" monsters with different names from your hand or GY, up to the difference. You cannot Special Summon monsters from the Extra Deck the turn you activate this effect, except Fusion or Xyz Monsters. If this card is sent to the GY: You can target 1 "Red-Eyes" Gemini Monster you control; it is treated as an Effect Monster, and gains its effect(s).'''
+strings=['']
+
+[[card]]
+id = 220000022
+setnumber = "IPRE-EN022"
+ot = "custom"
+name = "Harpie Lady the Red-Eyes Cyber Nightingale"
+set = "harpie red_eyes"
+attribute = "wind"
+race = "winged-beast"
+type = "monster effect"
+atk = 1800
+def = 1300
+level = 4
+effect = '''
+This card's name becomes "Harpie Lady" while on the field or in the GY, but is still treated as a "Red-Eyes" card. You can only use each of the following effects of "Harpie Lady the Red-Eyes Cyber Nightingale" once per turn. If this card is Normal or Special Summoned: You can discard 1 card; place 1 "Return of the Red-Eyes" from your hand, Deck, or GY face-up in your Spell & Trap Zone, then if you discarded a Normal Monster to activate this effect, you can destroy all face-up Spells your opponent controls. You can target 1 Level 5 or higher "Harpie" or "Red-Eyes" monster you control; until the end of this turn, the Level of that monster or this card becomes the Level of the other, also you cannot declare an attack for the rest of this turn, except with DARK or WIND monsters.'''
+strings=['']
+
+[[card]]
+id = 220000023
+setnumber = "IPRE-EN023"
+ot = "custom"
+name = "Red-Eyes Potential"
+set = "red_eyes"
+type = "spell continuous"
+effect = '''
+'''
+strings=['']
+
+[[card]]
+id = 220000024
+setnumber = "IPRE-EN024"
+ot = "custom"
+name = "Red-Eyes Dark Flare Fusion"
+set = "red_eyes"
+type = "spell"
+effect = '''
+Fusion Summon 1 DARK or FIRE Fusion Monster from your Extra Deck, using monsters from your hand and/or field as material, including a Normal Monster, also, you cannot Special Summon monsters from the Extra Deck for the rest of this turn, except Fusion or Xyz Monsters. If Summoning a Fusion Monster that mentions "Red-Eyes Black Dragon" as material this way, you can also use 1 monster in your Deck as material. If this Set card in its owner's control is destroyed by an opponent's card effect and sent to the GY: You can Tribute 1 monster your opponent controls, and if you do, inflict 1200 damage to your opponent. You can only use each of the preceding effects of "Red-Eyes Dark Flare Fusion" once per turn. This card's name becomes "Red-Eyes Fusion" while in the GY.'''
+strings=['']
+
+[[card]]
+id = 220000025
+setnumber = "IPRE-EN025"
+ot = "custom"
+name = "Legendary Gambler of Landstar"
+set = "m_dark_time_wizard"
+attribute = "earth"
+race = "warrior"
+type = "monster effect"
+atk = 500
+def = 1200
+level = 3
+effect = '''
+If this card is Normal or Special Summoned, or if this card is Tributed: You can activate this effect; for the rest of this turn, apply the following effects.
+• Once, during this turn, if you activate a card or effect that requires a die roll, you can choose 1 die result and treat it as a number between 1 and 6 (inclusive).
+• Once, during this turn, if you activate a card or effect that requires a coin toss, you can choose 1 result and treat it as either heads or tails.
+When an attack is declared involving this card: You can target 1 Quick-Play Spell or Normal Trap in your GY or banishment that mentions "Dark Time Wizard"; shuffle that target into the Deck, and if you do, apply that target's activation effect. You can only use each effect of "Legendary Gambler of Landstar" once per turn.'''
+strings=['']
+
+[[card]]
+id = 220000026
+setnumber = "IPRE-EN026"
+ot = "custom"
+name = "Soaring Hayabusa Knight"
+set = "m_dark_time_wizard"
+attribute = "earth"
+race = "warrior"
+type = "monster effect"
+atk = 1000
+def = 700
+level = 3
+effect = '''
+A Fusion Monster that was Fusion Summoned using this card as material can attack twice during each Battle Phase. You can only use each of the following effects of "Soaring Hayabusa Knight" once per turn. If this card is Normal or Special Summoned: You can return a number of Spells/Traps your opponent controls to the hand equal to the number of monsters you control that mention "Dark Time Wizard". During damage calculation, when you are about to take battle damage from a battle involving 2 monsters: You can banish this card from your GY; gain LP equal to double the damage you would take first.'''
+strings=['']
+
+[[card]]
+id = 220000027
+setnumber = "IPRE-EN027"
+ot = "custom"
+name = "Voracious Insect Queen"
+set = "m_dark_time_wizard"
+attribute = "earth"
+race = "insect"
+type = "monster effect"
+atk = 2200
+def = 2400
+level = 8
+effect = '''
+Gains 400 ATK for all other Insect monsters and monsters that mentions "Dark Time Wizard" on the field. Once per turn, when this card destroys an opponent's monster by battle: You can Special Summon 1 "Insect Monster Token" (Insect/EARTH/Level 1/ATK 100/DEF 100) to either field. While that Token is in the Monster Zone, all monsters on its controller's field become Insects, and they cannot be Tributed for a Tribute Summon. When your opponent activates a card or effect that targets a card(s) in your field or GY that mentions "Dark Time Wizard" (Quick Effect): You can Tribute 1 other monster; negate the activation, and if you do, destroy that card. You can only use this effect of "Voracious Insect Queen" once per turn.'''
+strings=['']
+
+[[card]]
+id = 220000028
+setnumber = "IPRE-EN028"
+ot = "custom"
+name = "Time Magic Fusion"
+set = "m_dark_time_wizard"
+type = "spell quickplay"
+effect = '''
+This card's name becomes "Dark Time Wizard" while in the GY. Activate 1 of these effects (but you can only use each effect of "Time Magic Fusion" once per turn.);
+• Set 1 Trap that mentions "Dark Time Wizard" from your hand or Deck. It can be activated this turn.
+• Fusion Summon 1 Fusion Monster that mentions either "Dark Time Wizard" or "Time Wizard" from your Extra Deck, by Tributing monsters from either field as material. If a monster(s) you controlled was destroyed by your monster or Spell effect this turn, you can also shuffle monsters from your GY into the Deck as material.'''
+strings=['']
+
+[[card]]
+id = 220000029
+setnumber = "IPRE-EN029"
+ot = "custom"
+name = "Thousand Dragon, Breath of Time Magic"
+set = "m_dark_time_wizard"
+attribute = "wind"
+race = "dragon"
+type = "monster effect fusion"
+atk = 2400
+def = 2000
+level = 7
+effect = '''
+2 monsters that mention "Dark Time Wizard" with different names
+'''
+strings=['']
+
+[[card]]
+id = 220000030
+setnumber = "IPRE-EN030"
+ot = "custom"
+name = "Gilford the Blazing Red Lightning"
+set = "m_dark_time_wizard"
+attribute = "light"
+race = "warrior"
+type = "monster effect fusion"
+atk = 2800
+def = 1400
+level = 8
+effect = '''
+3 monsters with different Types, including a monster that mentions "Dark Time Wizard"
+'''
+strings=['']
+
+[[card]]
+id = 220000031
+setnumber = "IPRE-EN031"
+ot = "custom"
+name = "Primordial Dark Sage"
+set = "m_dark_time_wizard"
+attribute = "dark"
+race = "spellcaster"
+type = "monster effect fusion"
+atk = 2800
+def = 3200
+level = 9
+effect = '''
+"Dark Magician" + 1 monster that mentions "Dark Time Wizard"
+'''
+strings=['']
+
+[[card]]
+id = 220000032
+setnumber = "IPRE-EN032"
+ot = "custom"
+name = "Old Swordmaster of the Flame"
+set = "m_dark_time_wizard"
+attribute = "fire"
+race = "warrior"
+type = "monster effect fusion"
+atk = 2600
+def = 1600
+level = 7
+effect = '''
+"Flame Swordsman" + 1 monster that mentions "Dark Time Wizard"
+'''
+strings=['']
+
+[[card]]
+id = 220000080
+setnumber = "IPRE-EN080"
+ot = "custom"
+name = "Shield & Flame Swordsman"
+set = "m_dark_time_wizard"
+attribute = "fire"
+race = "warrior"
+type = "monster effect"
+atk = 1800
+def = 1600
+level = 5
+effect = '''
+This card's name becomes "Flame Swordsman" while on the field or in the GY. You can only use each of the following effects of "Shield & Flame Swordsman" once per turn. If "Dark Time Wizard", "Flame Swordsman", or a card that mentions either of those cards is in your field or GY, and this card is in your hand: Immediately after this effect resolves, you can Normal Summon this card without Tributing. If this card is Normal or Special Summoned: You can add 1 monster that mentions either "Dark Time Wizard" or "Flame Swordsman" from your Deck to your hand, then you can switch the original ATK and DEF of 1 face-up monster your opponent controls until the end of this turn.'''
+strings=['']

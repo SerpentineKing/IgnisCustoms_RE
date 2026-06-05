@@ -5,7 +5,7 @@ function s.initial_effect(c)
 	-- 1 Level 7 "Red-Eyes" monster + 1 Level 8 Warrior monster
 	Fusion.AddProcMix(c,true,true,s.m1fil,s.m2fil)
 	c:EnableReviveLimit()
-	-- During the Battle Phase, all monsters you control become Dragon monsters.
+	-- During the Battle Phase, all monsters you control become Dragons.
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_CHANGE_RACE)

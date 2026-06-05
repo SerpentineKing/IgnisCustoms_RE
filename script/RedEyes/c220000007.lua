@@ -39,15 +39,6 @@ function s.initial_effect(c)
 	e2a2:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
 	e2a2:SetValue(aux.tgoval)
 	c:RegisterEffect(e2a2)
-	-- The first time each "Red-Eyes" monster you control would be destroyed by battle each turn, it is not destroyed.
-	local e2b=Effect.CreateEffect(c)
-	e2b:SetType(EFFECT_TYPE_FIELD)
-	e2b:SetCode(EFFECT_INDESTRUCTABLE_COUNT)
-	e2b:SetRange(LOCATION_SZONE)
-	e2b:SetTargetRange(LOCATION_MZONE,0)
-	e2b:SetValue(s.e2bval)
-	e2b:SetTarget(s.e2btgt)
-	c:RegisterEffect(e2b)
 	--[[
 	[HOPT]
 	When your "Red-Eyes" or Level 5 or higher Machine monster is targeted for an attack:
@@ -105,13 +96,6 @@ function s.e2tgt(e,c,tp,r)
 	and c:IsFaceup()
 	and c:IsControler(tp)
 	and not c:IsImmuneToEffect(e) and r&REASON_EFFECT>0
-end
-function s.e2btgt(e,c)
-	return c:IsSetCard(SET_RED_EYES)
-	and c:IsMonster()
-end
-function s.e2bval(e,re,r)
-	return r&REASON_BATTLE==REASON_BATTLE
 end
 function s.e3con(e,tp,eg)
 	local tc=eg:GetFirst()
