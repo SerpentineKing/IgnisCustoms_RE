@@ -1,4 +1,4 @@
--- Giltia the Fierce Knight
+-- Giltia the Assault Spear
 local s,id,o=GetID()
 -- c220000028
 function s.initial_effect(c)

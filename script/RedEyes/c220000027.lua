@@ -1,4 +1,4 @@
--- Shield & Flame Swordsman
+-- Flash Flame Swordsman
 local s,id,o=GetID()
 -- c220000027
 function s.initial_effect(c)
@@ -19,7 +19,7 @@ function s.initial_effect(c)
 	]]--
 	--[[
 	[HOPT]
-	During the Main Phase (Quick Effect):
+	During your Main Phase or your opponent's Battle Phase (Quick Effect):
 	You can Fusion Summon 1 Fusion Monster that mentions "Dark Time Wizard" or "Flame Swordsman"
 	from your Extra Deck, using monsters from your hand and/or field as material, including this card.
 	]]--

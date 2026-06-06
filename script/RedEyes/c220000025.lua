@@ -4,22 +4,17 @@ local s,id,o=GetID()
 function s.initial_effect(c)
 	--[[
 	[HOPT]
-	If this card is Normal or Special Summoned, or if this card is Tributed:
-	You can activate this effect;
-	for the rest of this turn, apply the following effects.
-	•
-	Once, during this turn, if you activate a card or effect that requires a die roll,
-	you can choose 1 die result and treat it as a number between 1 and 6 (inclusive).
-	•
-	Once, during this turn, if you activate a card or effect that requires a coin toss,
-	you can choose 1 result and treat it as either heads or tails.
+	If a card(s) is added to your opponent's hand (except during the Draw Phase or Damage Step):
+	You can reveal this card in your hand;
+	Special Summon 1 monster that mentions "Dark Time Wizard" from your hand.
 	]]--
 	--[[
 	[HOPT]
-	When an attack is declared involving this card:
-	You can target 1 Quick-Play Spell or Normal Trap in your GY or banishment that mentions "Dark Time Wizard";
-	shuffle that target into the Deck,
-	and if you do, apply that target's activation effect.
+	If this card is sent to the GY, and your opponent has more cards in their hand than you do:
+	You can toss a coin and call it. If you call it right, draw until your hand has 5 cards,
+	and if you do, show 1 drawn card that mentions "Dark Time Wizard",
+	or if you cannot, reveal the drawn cards, and place them on the top of the Deck in the same order.
+	If you call it wrong, your opponent can conduct their next Battle Phase twice.
 	]]--
 end
 -- Mentions : "Dark Time Wizard"

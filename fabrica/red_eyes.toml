@@ -405,10 +405,7 @@ atk = 500
 def = 1200
 level = 3
 effect = '''
-If this card is Normal or Special Summoned, or if this card is Tributed: You can activate this effect; for the rest of this turn, apply the following effects.
-• Once, during this turn, if you activate a card or effect that requires a die roll, you can choose 1 die result and treat it as a number between 1 and 6 (inclusive).
-• Once, during this turn, if you activate a card or effect that requires a coin toss, you can choose 1 result and treat it as either heads or tails.
-When an attack is declared involving this card: You can target 1 Quick-Play Spell or Normal Trap in your GY or banishment that mentions "Dark Time Wizard"; shuffle that target into the Deck, and if you do, apply that target's activation effect. You can only use each effect of "Legendary Gambler of Landstar" once per turn.'''
+If a card(s) is added to your opponent's hand (except during the Draw Phase or Damage Step): You can reveal this card in your hand; Special Summon 1 monster that mentions "Dark Time Wizard" from your hand. If this card is sent to the GY, and your opponent has more cards in their hand than you do: You can toss a coin and call it. If you call it right, draw until your hand has 5 cards, and if you do, show 1 drawn card that mentions "Dark Time Wizard", or if you cannot, reveal the drawn cards, and place them on the top of the Deck in the same order. If you call it wrong, your opponent can conduct their next Battle Phase twice. You can only use each "Legendary Gambler of Landstar" effect once per turn.'''
 strings=['']
 
 [[card]]
@@ -431,7 +428,7 @@ strings=['']
 id = 220000027
 setnumber = "IPRE-EN027"
 ot = "custom"
-name = "Shield & Flame Swordsman"
+name = "Flash Flame Swordsman"
 set = "m_dark_time_wizard"
 attribute = "fire"
 race = "warrior"
@@ -440,14 +437,14 @@ atk = 1800
 def = 1600
 level = 5
 effect = '''
-This card's name becomes "Flame Swordsman" while on the field or in the GY. You can only use each of the following effects of "Shield & Flame Swordsman" once per turn. If this card is in your hand: You can target 1 face-up monster your opponent controls; switch the original ATK and DEF of that monster until the end of this turn, then immediately after this effect resolves, Normal Summon this card without Tributing. During the Main Phase (Quick Effect): You can Fusion Summon 1 Fusion Monster that mentions "Dark Time Wizard" or "Flame Swordsman" from your Extra Deck, using monsters from your hand and/or field as material, including this card.'''
+This card's name becomes "Flame Swordsman" while on the field or in the GY. You can only use each of the following effects of "Flash Flame Swordsman" once per turn. If this card is in your hand: You can target 1 face-up monster your opponent controls; switch the original ATK and DEF of that monster until the end of this turn, then immediately after this effect resolves, Normal Summon this card without Tributing. During your Main Phase or your opponent's Battle Phase (Quick Effect): You can Fusion Summon 1 Fusion Monster that mentions "Dark Time Wizard" or "Flame Swordsman" from your Extra Deck, using monsters from your hand and/or field as material, including this card.'''
 strings=['']
 
 [[card]]
 id = 220000028
 setnumber = "IPRE-EN028"
 ot = "custom"
-name = "Giltia the Fierce Knight"
+name = "Giltia the Assault Spear"
 set = "m_dark_time_wizard"
 attribute = "light"
 race = "warrior"
@@ -456,7 +453,7 @@ atk = 1850
 def = 1500
 level = 6
 effect = '''
-You can banish this card from your hand or field; add 1 monster that mentions "Dark Time Wizard" from your Deck or GY to your hand, except a Level 6 monster, then if this effect was activated on the field, you can add a second such card to your hand, also you cannot Special Summon monsters from the Extra Deck for the rest of this turn, except Fusion Monsters. If a face-up monster(s) that mentions "Dark Time Wizard" you control is destroyed by card effect, while this card is in your GY (except during the Damage Step): You can Special Summon this card. You can only use each effect of "Giltia the Fierce Knight" once per turn.'''
+You can banish this card from your hand or field; add 1 monster that mentions "Dark Time Wizard" from your Deck or GY to your hand, except a Level 6 monster, then if this effect was activated on the field, you can add a second such card to your hand, also you cannot Special Summon monsters from the Extra Deck for the rest of this turn, except Fusion Monsters. If a face-up monster(s) that mentions "Dark Time Wizard" you control is destroyed by card effect, while this card is in your GY (except during the Damage Step): You can Special Summon this card. You can only use each effect of "Giltia the Assault Spear" once per turn.'''
 strings=['']
 
 [[card]]
