@@ -1,4 +1,4 @@
--- Gilford the Blazing Red Lightning
+-- Gilford the Thunderous Lightning
 local s,id,o=GetID()
 -- c220000032
 function s.initial_effect(c)
