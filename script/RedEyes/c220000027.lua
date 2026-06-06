@@ -1,23 +1,29 @@
--- Voracious Insect Queen
+-- Shield & Flame Swordsman
 local s,id,o=GetID()
 -- c220000027
 function s.initial_effect(c)
-	-- Gains 400 ATK for all other Insect monsters and monsters that mentions "Dark Time Wizard" on the field.
+	-- This card's name becomes "Flame Swordsman" while on the field or in the GY.
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+	e1:SetCode(EFFECT_CHANGE_CODE)
+	e1:SetRange(LOCATION_MZONE+LOCATION_GRAVE)
+	e1:SetValue(CARD_FLAME_SWORDSMAN)
+	c:RegisterEffect(e1)
 	--[[
-	[SOPT]
-	Once per turn, when this card destroys an opponent's monster by battle:
-	You can Special Summon 1 "Insect Monster Token" (Insect/EARTH/Level 1/ATK 100/DEF 100) to either field.
-	While that Token is in the Monster Zone,
-	all monsters on its controller's field become Insects, and they cannot be Tributed for a Tribute Summon.
+	[HOPT]
+	If card is in your hand:
+	You can target 1 face-up monster your opponent controls;
+	switch the original ATK and DEF of that monster until the end of this turn,
+	then immediately after this effect resolves, Normal Summon this card without Tributing.
 	]]--
 	--[[
 	[HOPT]
-	When your opponent activates a card or effect
-	that targets a card(s) in your field or GY that mentions "Dark Time Wizard" (Quick Effect):
-	You can Tribute 1 other monster;
-	negate the activation, and if you do, destroy that card.
+	During the Main Phase (Quick Effect):
+	You can Fusion Summon 1 Fusion Monster that mentions "Dark Time Wizard" or "Flame Swordsman"
+	from your Extra Deck, using monsters from your hand and/or field as material, including this card.
 	]]--
 end
--- Mentions : "Dark Time Wizard"
-s.listed_names={CARD_DARK_TIME_WIZARD,id}
+-- Mentions : "Flame Swordsman","Dark Time Wizard"
+s.listed_names={CARD_FLAME_SWORDSMAN,CARD_DARK_TIME_WIZARD,id}
 -- Helpers

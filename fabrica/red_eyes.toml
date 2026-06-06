@@ -431,6 +431,38 @@ strings=['']
 id = 220000027
 setnumber = "IPRE-EN027"
 ot = "custom"
+name = "Shield & Flame Swordsman"
+set = "m_dark_time_wizard"
+attribute = "fire"
+race = "warrior"
+type = "monster effect"
+atk = 1800
+def = 1600
+level = 5
+effect = '''
+This card's name becomes "Flame Swordsman" while on the field or in the GY. You can only use each of the following effects of "Shield & Flame Swordsman" once per turn. If this card is in your hand: You can target 1 face-up monster your opponent controls; switch the original ATK and DEF of that monster until the end of this turn, then immediately after this effect resolves, Normal Summon this card without Tributing. During the Main Phase (Quick Effect): You can Fusion Summon 1 Fusion Monster that mentions "Dark Time Wizard" or "Flame Swordsman" from your Extra Deck, using monsters from your hand and/or field as material, including this card.'''
+strings=['']
+
+[[card]]
+id = 220000028
+setnumber = "IPRE-EN028"
+ot = "custom"
+name = "Giltia the Fierce Knight"
+set = "m_dark_time_wizard"
+attribute = "light"
+race = "warrior"
+type = "monster effect"
+atk = 1850
+def = 1500
+level = 6
+effect = '''
+You can banish this card from your hand or field; add 1 monster that mentions "Dark Time Wizard" from your Deck or GY to your hand, except a Level 6 monster, then if this effect was activated on the field, you can add a second such card to your hand, also you cannot Special Summon monsters from the Extra Deck for the rest of this turn, except Fusion Monsters. If a face-up monster(s) that mentions "Dark Time Wizard" you control is destroyed by card effect, while this card is in your GY (except during the Damage Step): You can Special Summon this card. You can only use each effect of "Giltia the Fierce Knight" once per turn.'''
+strings=['']
+
+[[card]]
+id = 220000029
+setnumber = "IPRE-EN029"
+ot = "custom"
 name = "Voracious Insect Queen"
 set = "m_dark_time_wizard"
 attribute = "earth"
@@ -444,21 +476,22 @@ Gains 400 ATK for all other Insect monsters and monsters that mentions "Dark Tim
 strings=['']
 
 [[card]]
-id = 220000028
-setnumber = "IPRE-EN028"
+id = 220000030
+setnumber = "IPRE-EN030"
 ot = "custom"
 name = "Time Magic Fusion"
 set = "m_dark_time_wizard"
 type = "spell quickplay"
 effect = '''
-This card's name becomes "Dark Time Wizard" while in the GY. Activate 1 of these effects (but you can only use each effect of "Time Magic Fusion" once per turn.);
+Activate 1 of these effects (but you can only use each effect of "Time Magic Fusion" once per turn.);
 • Set 1 Trap that mentions "Dark Time Wizard" from your hand or Deck. It can be activated this turn.
-• Fusion Summon 1 Fusion Monster that mentions either "Dark Time Wizard" or "Time Wizard" from your Extra Deck, by Tributing monsters from either field as material. If a monster(s) you controlled was destroyed by your monster or Spell effect this turn, you can also shuffle monsters from your GY into the Deck as material.'''
+• Fusion Summon 1 Fusion Monster that mentions either "Dark Time Wizard" or "Time Wizard" from your Extra Deck, by Tributing monsters from either field as material. If a monster(s) you controlled was destroyed by your monster or Spell effect this turn, you can also shuffle monsters from your GY into the Deck as material.
+This card's name becomes "Dark Time Wizard" while in the GY. '''
 strings=['']
 
 [[card]]
-id = 220000029
-setnumber = "IPRE-EN029"
+id = 220000031
+setnumber = "IPRE-EN031"
 ot = "custom"
 name = "Thousand Dragon, Breath of Time Magic"
 set = "m_dark_time_wizard"
@@ -474,8 +507,8 @@ effect = '''
 strings=['']
 
 [[card]]
-id = 220000030
-setnumber = "IPRE-EN030"
+id = 220000032
+setnumber = "IPRE-EN032"
 ot = "custom"
 name = "Gilford the Blazing Red Lightning"
 set = "m_dark_time_wizard"
@@ -491,8 +524,8 @@ effect = '''
 strings=['']
 
 [[card]]
-id = 220000031
-setnumber = "IPRE-EN031"
+id = 220000033
+setnumber = "IPRE-EN033"
 ot = "custom"
 name = "Primordial Dark Sage"
 set = "m_dark_time_wizard"
@@ -508,8 +541,8 @@ effect = '''
 strings=['']
 
 [[card]]
-id = 220000032
-setnumber = "IPRE-EN032"
+id = 220000034
+setnumber = "IPRE-EN034"
 ot = "custom"
 name = "Old Swordmaster of the Flame"
 set = "m_dark_time_wizard"
@@ -522,20 +555,4 @@ level = 7
 effect = '''
 "Flame Swordsman" + 1 monster that mentions "Dark Time Wizard"
 '''
-strings=['']
-
-[[card]]
-id = 220000080
-setnumber = "IPRE-EN080"
-ot = "custom"
-name = "Shield & Flame Swordsman"
-set = "m_dark_time_wizard"
-attribute = "fire"
-race = "warrior"
-type = "monster effect"
-atk = 1800
-def = 1600
-level = 5
-effect = '''
-This card's name becomes "Flame Swordsman" while on the field or in the GY. You can only use each of the following effects of "Shield & Flame Swordsman" once per turn. If "Dark Time Wizard", "Flame Swordsman", or a card that mentions either of those cards is in your field or GY, and this card is in your hand: Immediately after this effect resolves, you can Normal Summon this card without Tributing. If this card is Normal or Special Summoned: You can add 1 monster that mentions either "Dark Time Wizard" or "Flame Swordsman" from your Deck to your hand, then you can switch the original ATK and DEF of 1 face-up monster your opponent controls until the end of this turn.'''
 strings=['']
