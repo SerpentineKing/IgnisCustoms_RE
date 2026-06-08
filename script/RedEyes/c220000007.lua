@@ -4,7 +4,7 @@ local s,id,o=GetID()
 function s.initial_effect(c)
 	-- [Activation]
 	--[[
-	[HOPT]
+	[H1PT]
 	When this card is activated:
 	You can add 1 "Incoming Machine!" or "Dragon Nails" from your Deck or banishment to your hand.
 	]]--
@@ -40,7 +40,7 @@ function s.initial_effect(c)
 	e2a2:SetValue(aux.tgoval)
 	c:RegisterEffect(e2a2)
 	--[[
-	[HOPT]
+	[H1PT]
 	When your "Red-Eyes" or Level 5 or higher Machine monster is targeted for an attack:
 	You can target 1 Normal Spell/Trap in your opponent's GY;
 	Set it to your field.

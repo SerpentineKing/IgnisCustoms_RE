@@ -3,7 +3,7 @@ local s,id,o=GetID()
 -- c220000146
 function s.initial_effect(c)
 	--[[
-	[HOPT]
+	[H1PT]
 	If this card is Normal or Special Summoned:
 	You can target 1 Level 1 Dragon monster in your GY;
 	add it to your hand.
@@ -23,7 +23,7 @@ function s.initial_effect(c)
 	e1b:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e1b)
 	--[[
-	[HOPT]
+	[H1PT]
 	If this card is targeted for an attack by a monster with a higher Level than it,
 	OR when your opponent's monster on the field activates its effect (Quick Effect):
 	You can negate that attack or effect activation,

@@ -3,7 +3,7 @@ local s,id,o=GetID()
 -- c220000115
 function s.initial_effect(c)
 	--[[
-	[HOPT]
+	[H1PT]
 	You can reveal this card in your hand;
 	shuffle 1 other card from your hand into the Deck,
 	and if you do, Special Summon this card.
@@ -19,7 +19,7 @@ function s.initial_effect(c)
 	e1:SetOperation(s.e1evt)
 	c:RegisterEffect(e1)
 	--[[
-	[HOPT]
+	[H1PT]
 	If this card is Special Summoned:
 	You can target 1 other face-up monster you control;
 	equip 1 Equip Spell, or 1 Normal Trap that has an effect to equip itself to a monster, from your Deck or GY to that appropriate monster.
@@ -35,7 +35,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.e2evt)
 	c:RegisterEffect(e2)
 	--[[
-	[HOPT]
+	[H1PT]
 	If this card is destroyed by battle or an opponent's card effect:
 	You can banish this card from your GY;
 	take 1 card that has "Metalmorph" in its text in your GY or banishment, except this card,

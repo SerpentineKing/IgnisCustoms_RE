@@ -23,7 +23,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.e2evt)
 	c:RegisterEffect(e2)
 	--[[
-	[HOPT]
+	[H1PT]
 	During your Main Phase:
 	You can add 1 card that has "Red-Eyes" in its text from your Deck to your hand, except "Red-Eyes Sovereignty".
 	]]--
@@ -37,7 +37,7 @@ function s.initial_effect(c)
 	e3:SetOperation(s.e3evt)
 	c:RegisterEffect(e3)
 	--[[
-	[HOPT]
+	[H1PT]
 	If your opponent Special Summons a monster(s) (except during the Damage Step):
 	You can Special Summon 1 "Red-Eyes" monster from your hand, Deck, or GY.
 	]]--
@@ -54,7 +54,7 @@ function s.initial_effect(c)
 	e4:SetOperation(s.e4evt)
 	c:RegisterEffect(e4)
 	--[[
-	[HOPT]
+	[H1PT]
 	If this card is sent from the field to the GY: You can banish this card from your GY;
 	show any number of "Red-Eyes Black Dragon" in your hand, GY, banishment, and/or face-up field to your opponent,
 	then banish that many cards your opponent controls.

@@ -40,7 +40,7 @@ function s.initial_effect(c)
 	e3b:SetLabelObject(e3a)
 	c:RegisterEffect(e3b)
 	--[[
-	[HOPT]
+	[H1PT]
 	You can target 1 Level 7 or lower Dragon monster in your GY;
 	equip it to this card as an Equip Spell that gives this card ATK equal to half that monster's original ATK.
 	]]--
@@ -54,7 +54,7 @@ function s.initial_effect(c)
 	e4:SetOperation(s.e4evt)
 	c:RegisterEffect(e4)
 	--[[
-	[HOPT]
+	[H1PT]
 	At the end of the Damage Step, when this card attacks an opponent's monster,
 	but the opponent's monster was not destroyed by the battle:
 	You can target 1 card in your banishment;
@@ -72,7 +72,7 @@ function s.initial_effect(c)
 	e5:SetOperation(s.e5evt)
 	c:RegisterEffect(e5)
 	--[[
-	[HOPT]
+	[H1PT]
 	If this card is destroyed by card effect and sent to the GY: Inflict 2400 damage to your opponent,
 	and if you do, you can return 1 other Fusion Monster from your GY to the Extra Deck.
 	]]--

@@ -1,24 +1,29 @@
--- Soaring Hayabusa Knight
+-- Flash Flame Swordsman
 local s,id,o=GetID()
 -- c220000026
 function s.initial_effect(c)
+	-- This card's name becomes "Flame Swordsman" while on the field or in the GY.
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetCode(EFFECT_CHANGE_CODE)
+	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+	e1:SetRange(LOCATION_MZONE+LOCATION_GRAVE)
+	e1:SetValue(CARD_FLAME_SWORDSMAN)
+	c:RegisterEffect(e1)
 	--[[
-	A Fusion Monster that was Fusion Summoned using this card as material
-	can attack twice during each Battle Phase.
+	[H1PT]
+	If card is in your hand:
+	You can target 1 face-up monster your opponent controls;
+	switch the original ATK and DEF of that monster until the end of this turn,
+	then immediately after this effect resolves, Normal Summon this card without Tributing.
 	]]--
 	--[[
-	[HOPT]
-	If this card is Normal or Special Summoned:
-	You can return a number of Spells/Traps your opponent controls to the hand
-	equal to the number of monsters you control that mention "Dark Time Wizard".
-	]]--
-	--[[
-	[HOPT]
-	During damage calculation, when you are about to take battle damage from a battle involving 2 monsters:
-	You can banish this card from your GY;
-	gain LP equal to double the damage you would take first.
+	[H1PT]
+	During your Main Phase or your opponent's Battle Phase (Quick Effect):
+	You can Fusion Summon 1 Fusion Monster that mentions "Dark Time Wizard" or "Flame Swordsman"
+	from your Extra Deck, using monsters from your hand and/or field as material, including this card.
 	]]--
 end
--- Mentions : "Dark Time Wizard"
-s.listed_names={CARD_DARK_TIME_WIZARD,id}
+-- Mentions : "Flame Swordsman","Dark Time Wizard"
+s.listed_names={CARD_FLAME_SWORDSMAN,CARD_DARK_TIME_WIZARD,id}
 -- Helpers

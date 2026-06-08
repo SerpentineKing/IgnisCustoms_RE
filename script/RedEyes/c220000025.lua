@@ -1,20 +1,22 @@
--- Legendary Gambler of Landstar
+-- Soaring Hayabusa Knight
 local s,id,o=GetID()
 -- c220000025
 function s.initial_effect(c)
 	--[[
-	[HOPT]
-	If a card(s) is added to your opponent's hand (except during the Draw Phase or Damage Step):
-	You can reveal this card in your hand;
-	Special Summon 1 monster that mentions "Dark Time Wizard" from your hand.
+	A Fusion Monster that was Fusion Summoned using this card as material
+	can attack twice during each Battle Phase.
 	]]--
 	--[[
-	[HOPT]
-	If this card is sent to the GY, and your opponent has more cards in their hand than you do:
-	You can toss a coin and call it. If you call it right, draw until your hand has 5 cards,
-	and if you do, show 1 drawn card that mentions "Dark Time Wizard",
-	or if you cannot, reveal the drawn cards, and place them on the top of the Deck in the same order.
-	If you call it wrong, your opponent can conduct their next Battle Phase twice.
+	[H1PT]
+	If this card is Normal or Special Summoned:
+	You can return a number of Spells/Traps your opponent controls to the hand
+	equal to the number of monsters you control that mention "Dark Time Wizard".
+	]]--
+	--[[
+	[H1PT]
+	During damage calculation, when you are about to take battle damage from a battle involving 2 monsters:
+	You can banish this card from your GY;
+	gain LP equal to double the damage you would take first.
 	]]--
 end
 -- Mentions : "Dark Time Wizard"

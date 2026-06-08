@@ -24,7 +24,7 @@ function s.initial_effect(c)
 	e1:SetValue(s.e1val)
 	c:RegisterEffect(e1)
 	--[[
-	[HOPT]
+	[H1PT]
 	If this card is Special Summoned:
 	You can target up to 3 Traps in your GY with an effect that equip themselves to a monster;
 	shuffle them into the Deck,
@@ -42,7 +42,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.e2evt)
 	c:RegisterEffect(e2)
 	--[[
-	[HOPT]
+	[H1PT]
 	At the start of your Battle Phase:
 	You can take control of the 1 monster your opponent controls with the highest ATK (your choice, if tied),
 	until the end of the Battle Phase, also it must attack this turn, if able.

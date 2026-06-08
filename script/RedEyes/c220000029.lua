@@ -1,23 +1,28 @@
--- Voracious Insect Queen
+-- Time Magic Fusion
 local s,id,o=GetID()
 -- c220000029
 function s.initial_effect(c)
-	-- Gains 400 ATK for all other Insect monsters and monsters that mentions "Dark Time Wizard" on the field.
+	-- This card's name becomes "Dark Time Wizard" while in the GY.
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetCode(EFFECT_CHANGE_CODE)
+	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+	e1:SetRange(LOCATION_GRAVE)
+	e1:SetValue(CARD_DARK_TIME_WIZARD)
+	c:RegisterEffect(e1)
 	--[[
-	[SOPT]
-	Once per turn, when this card destroys an opponent's monster by battle:
-	You can Special Summon 1 "Insect Monster Token" (Insect/EARTH/Level 1/ATK 100/DEF 100) to either field.
-	While that Token is in the Monster Zone,
-	all monsters on its controller's field become Insects, and they cannot be Tributed for a Tribute Summon.
+	[H1PT]
+	Set 1 Trap that mentions "Dark Time Wizard" from your hand or Deck. It can be activated this turn.
 	]]--
 	--[[
-	[HOPT]
-	When your opponent activates a card or effect
-	that targets a card(s) in your field or GY that mentions "Dark Time Wizard" (Quick Effect):
-	You can Tribute 1 other monster;
-	negate the activation, and if you do, destroy that card.
+	[H1PT]
+	Fusion Summon 1 Fusion Monster that mentions either "Dark Time Wizard" or "Time Wizard" from your Extra Deck,
+	by Tributing monsters from either field as material.
+	If a monster(s) you controlled was destroyed by your monster or Spell effect this turn,
+	you can also shuffle monsters from your GY into the Deck as material.
 	]]--
 end
--- Mentions : "Dark Time Wizard"
-s.listed_names={CARD_DARK_TIME_WIZARD,id}
+local CARD_TIME_WIZARD = 71625222
+-- Mentions : "Dark Time Wizard","Time Wizard"
+s.listed_names={CARD_DARK_TIME_WIZARD,CARD_TIME_WIZARD,id}
 -- Helpers

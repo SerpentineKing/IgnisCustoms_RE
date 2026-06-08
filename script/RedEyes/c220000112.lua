@@ -5,7 +5,7 @@ function s.initial_effect(c)
 	-- Cannot be Normal Summoned/Set.
 	c:EnableReviveLimit()
 	--[[
-	[HOPT]
+	[H1PT]
 	Must be Special Summoned (from your hand) by Tributing 1 Level 7 or higher "Red-Eyes" monster from your hand or field,
 	and cannot be Special Summoned by other ways.
 	]]--

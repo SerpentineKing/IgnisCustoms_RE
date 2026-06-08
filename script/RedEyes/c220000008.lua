@@ -4,7 +4,7 @@ local s,id,o=GetID()
 function s.initial_effect(c)
 	-- [Activation]
 	--[[
-	[HOPT]
+	[H1PT]
 	Special Summon 1 Level 7 DARK Normal Monster from your hand or Deck in face-up Defense Position,
 	then you can equip this card to it with the following effects.
 	]]--
@@ -19,7 +19,7 @@ function s.initial_effect(c)
 	e1:SetOperation(s.e1evt)
 	c:RegisterEffect(e1)
 	--[[
-	[HOPT]
+	[H1PT]
 	If this Set card is sent from the field to the GY:
 	You can Set this card.
 	]]--

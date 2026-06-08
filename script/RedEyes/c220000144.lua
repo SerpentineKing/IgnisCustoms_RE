@@ -19,7 +19,7 @@ function s.initial_effect(c)
 	e1:SetOperation(s.e1evt)
 	c:RegisterEffect(e1)
 	--[[
-	[HOPT]
+	[H1PT]
 	If this Set card is sent from the field to the GY: You can banish this card from your GY; draw 2 cards.
 	]]--
 	local e2=Effect.CreateEffect(c)

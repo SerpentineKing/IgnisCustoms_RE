@@ -3,7 +3,7 @@ local s,id,o=GetID()
 -- c220000121
 function s.initial_effect(c)
 	--[[
-	[HOPT]
+	[H1PT]
 	If you control a "Red-Eyes" or Warrior monster, you can Special Summon this card (from your hand).
 	]]--
 	local e1=Effect.CreateEffect(c)
@@ -105,7 +105,7 @@ function s.initial_effect(c)
 	e7b:SetLabelObject(e7a)
 	c:RegisterEffect(e7b)
 	--[[
-	[HOPT]
+	[H1PT]
 	If this card is Tribute Summoned: You can Special Summon 1 “Flame Swordsman” monster from your hand.
 	]]--
 	local e8=Effect.CreateEffect(c)
@@ -120,7 +120,7 @@ function s.initial_effect(c)
 	e8:SetOperation(s.e8evt)
 	c:RegisterEffect(e8)
 	--[[
-	[HOPT]
+	[H1PT]
 	If this card is sent from the field to the GY, while it is equipped with a Monster Card:
 	You can inflict 1000 damage to your opponent.
 	]]--
@@ -137,7 +137,7 @@ function s.initial_effect(c)
 	e9:SetLabelObject(e7a)
 	c:RegisterEffect(e9)
 	--[[
-	[HOPT]
+	[H1PT]
 	When this attacking card destroys an opponent's monster by battle and sends it to the GY:
 	You can equip the destroyed monster to this card.
 	]]--
@@ -152,7 +152,7 @@ function s.initial_effect(c)
 	e10:SetOperation(s.e10evt)
 	c:RegisterEffect(e10)
 	--[[
-	[HOPT]
+	[H1PT]
 	If this card you control is destroyed by battle or card effect and sent to the GY:
 	You can banish this card from your GY,
 	then target 1 FIRE Warrior or DARK Dragon monster in your GY;

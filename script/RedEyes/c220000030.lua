@@ -1,28 +1,22 @@
--- Time Magic Fusion
+-- Magical Arm Capture
 local s,id,o=GetID()
 -- c220000030
 function s.initial_effect(c)
-	-- This card's name becomes "Dark Time Wizard" while in the GY.
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-	e1:SetCode(EFFECT_CHANGE_CODE)
-	e1:SetRange(LOCATION_GRAVE)
-	e1:SetValue(CARD_DARK_TIME_WIZARD)
-	c:RegisterEffect(e1)
 	--[[
-	[HOPT]
-	Set 1 Trap that mentions "Dark Time Wizard" from your hand or Deck. It can be activated this turn.
+	[H1PT]
+	If you control a card that mentions "Dark Time Wizard":
+	You can Tribute any number of monsters, then target an equal number of face-up monsters your opponent controls;
+	take control of them until the End Phase of the next turn,
+	but while you control them, you cannot activate their effects, they cannot declare an attack,
+	also they are also treated as monsters that mention "Dark Time Wizard".
 	]]--
 	--[[
-	[HOPT]
-	Fusion Summon 1 Fusion Monster that mentions either "Dark Time Wizard" or "Time Wizard" from your Extra Deck,
-	by Tributing monsters from either field as material.
-	If a monster(s) you controlled was destroyed by your monster or Spell effect this turn,
-	you can also shuffle monsters from your GY into the Deck as material.
+	[H1PT]
+	You can banish this card from your GY;
+	reveal any number of cards in your hand, including a card that mentions "Dark Time Wizard",
+	and place them on the bottom of the Deck in any order, then draw that many cards.
 	]]--
 end
-local CARD_TIME_WIZARD = 71625222
--- Mentions : "Dark Time Wizard","Time Wizard"
-s.listed_names={CARD_DARK_TIME_WIZARD,CARD_TIME_WIZARD,id}
+-- Mentions : "Dark Time Wizard"
+s.listed_names={CARD_DARK_TIME_WIZARD,id}
 -- Helpers

@@ -11,7 +11,7 @@ function s.initial_effect(c)
 	e1:SetValue(CARD_REDEYES_B_DRAGON)
 	c:RegisterEffect(e1)
 	--[[
-	[HOPT]
+	[H1PT]
 	If "Red-Eyes Sovereignty" is on the field: You can Special Summon this card from your hand.
 	]]--
 	local e2=Effect.CreateEffect(c)
@@ -25,7 +25,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.e2evt)
 	c:RegisterEffect(e2)
 	--[[
-	[HOPT]
+	[H1PT]
 	If this card is destroyed by card effect and sent to the GY or banishment,
 	while another Level 5 or higher monster is on the field:
 	You can Special Summon this card,

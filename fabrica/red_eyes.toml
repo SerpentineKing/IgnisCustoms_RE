@@ -334,8 +334,8 @@ def = 1600
 rank = 6
 effect = '''
 2 Level 6 DARK monsters
-If this card is Xyz Summoned: You can roll a six-sided die. All face-up monsters your opponent currently controls lose ATK/DEF equal to the result x 300, until the end of this turn. You can detach 1 material from this card; Special Summon from your Extra Deck, 1 Rank 7 "Red-Eyes" Xyz Monster, by using this face-up card you control as material, but destroy it during your opponent's next End Phase. (This is treated as an Xyz Summon. Transfer its materials to the Summoned monster.) You can only use this effect of "Red-Eyes Furious Six" once per turn.'''
-strings=['']
+If this card is Xyz Summoned: Roll a six-sided die. All face-up monsters your opponent currently controls lose ATK/DEF equal to the result x 300, until the end of this turn. You can detach 1 material from this card; Special Summon from your Extra Deck, 1 Rank 7 "Red-Eyes" Xyz Monster, by using this face-up card you control as material, but destroy it during your opponent's next End Phase. (This is treated as an Xyz Summon. Transfer its materials to the Summoned monster.) You can only use this effect of "Red-Eyes Furious Six" once per turn.'''
+strings=['Opposing monsters lose ATK','Special Summon 1 Rank 7 "Red-Eyes" Xyz Monster','Destroy during the next opposing End Phase']
 
 [[card]]
 id = 220000021
@@ -352,7 +352,7 @@ level = 6
 effect = '''
 (This card is always treated as a "Red-Eyes" card.)
 If you control no monsters, you can Special Summon this card (from your hand). You can only Special Summon "Megacyber with Eyes of Red" once per turn this way. You can only use each of the following effects of "Megacyber with Eyes of Red" once per turn. If this card is Special Summoned, and your opponent controls more monsters than you do: You can Special Summon Level 7 or lower "Red-Eyes" monsters with different names from your hand or GY, up to the difference. You cannot Special Summon monsters from the Extra Deck the turn you activate this effect, except Fusion or Xyz Monsters. If this card is sent to the GY: You can target 1 "Red-Eyes" Gemini Monster you control; it is treated as an Effect Monster, and gains its effect(s).'''
-strings=['']
+strings=['Special Summon "Red-Eyes" monsters','Grant Gemini effects']
 
 [[card]]
 id = 220000022
@@ -368,7 +368,7 @@ def = 1300
 level = 4
 effect = '''
 This card's name becomes "Harpie Lady" while on the field or in the GY, but is still treated as a "Red-Eyes" card. You can only use each of the following effects of "Harpie Lady the Red-Eyes Cyber Nightingale" once per turn. If this card is Normal or Special Summoned: You can discard 1 card; place 1 "Return of the Red-Eyes" from your hand, Deck, or GY face-up in your Spell & Trap Zone, then if you discarded a Normal Monster to activate this effect, you can destroy all face-up Spells your opponent controls. You can target 1 Level 5 or higher "Harpie" or "Red-Eyes" monster you control; until the end of this turn, the Level of that monster or this card becomes the Level of the other, also you cannot declare an attack for the rest of this turn, except with DARK or WIND monsters.'''
-strings=['']
+strings=['Change level of a monster','Select the monster with the Level you want','Cannot attack except with DARK or WIND monsters']
 
 [[card]]
 id = 220000023
@@ -378,8 +378,8 @@ name = "Red-Eyes Potential"
 set = "red_eyes"
 type = "spell continuous"
 effect = '''
-'''
-strings=['']
+"Red-Eyes" Gemini Monsters are treated as Normal Monsters while in your hand or Deck. You can only use each of the following effects of "Red-Eyes Potential" once per turn. You can target 1 "Red-Eyes" Xyz Monster you control; attach 1 Level 7 or lower "Red-Eyes" monster from your hand or Deck to that monster as material.'''
+strings=['Attach 1 "Red-Eyes" monster']
 
 [[card]]
 id = 220000024
@@ -396,22 +396,6 @@ strings=['']
 id = 220000025
 setnumber = "IPRE-EN025"
 ot = "custom"
-name = "Legendary Gambler of Landstar"
-set = "m_dark_time_wizard"
-attribute = "earth"
-race = "warrior"
-type = "monster effect"
-atk = 500
-def = 1200
-level = 3
-effect = '''
-If a card(s) is added to your opponent's hand (except during the Draw Phase or Damage Step): You can reveal this card in your hand; Special Summon 1 monster that mentions "Dark Time Wizard" from your hand. If this card is sent to the GY, and your opponent has more cards in their hand than you do: You can toss a coin and call it. If you call it right, draw until your hand has 5 cards, and if you do, show 1 drawn card that mentions "Dark Time Wizard", or if you cannot, reveal the drawn cards, and place them on the top of the Deck in the same order. If you call it wrong, your opponent can conduct their next Battle Phase twice. You can only use each "Legendary Gambler of Landstar" effect once per turn.'''
-strings=['']
-
-[[card]]
-id = 220000026
-setnumber = "IPRE-EN026"
-ot = "custom"
 name = "Soaring Hayabusa Knight"
 set = "m_dark_time_wizard"
 attribute = "earth"
@@ -425,8 +409,8 @@ A Fusion Monster that was Fusion Summoned using this card as material can attack
 strings=['']
 
 [[card]]
-id = 220000027
-setnumber = "IPRE-EN027"
+id = 220000026
+setnumber = "IPRE-EN026"
 ot = "custom"
 name = "Flash Flame Swordsman"
 set = "m_dark_time_wizard"
@@ -441,8 +425,8 @@ This card's name becomes "Flame Swordsman" while on the field or in the GY. You 
 strings=['']
 
 [[card]]
-id = 220000028
-setnumber = "IPRE-EN028"
+id = 220000027
+setnumber = "IPRE-EN027"
 ot = "custom"
 name = "Giltia the Assault Spear"
 set = "m_dark_time_wizard"
@@ -457,8 +441,8 @@ You can banish this card from your hand or field; add 1 monster that mentions "D
 strings=['']
 
 [[card]]
-id = 220000029
-setnumber = "IPRE-EN029"
+id = 220000028
+setnumber = "IPRE-EN028"
 ot = "custom"
 name = "Voracious Insect Queen"
 set = "m_dark_time_wizard"
@@ -469,12 +453,13 @@ atk = 2200
 def = 2400
 level = 8
 effect = '''
-Gains 400 ATK for all other Insect monsters and monsters that mentions "Dark Time Wizard" on the field. Once per turn, when this card destroys an opponent's monster by battle: You can Special Summon 1 "Insect Monster Token" (Insect/EARTH/Level 1/ATK 100/DEF 100) to either field. While that Token is in the Monster Zone, all monsters on its controller's field become Insects, and they cannot be Tributed for a Tribute Summon. When your opponent activates a card or effect that targets a card(s) in your field or GY that mentions "Dark Time Wizard" (Quick Effect): You can Tribute 1 other monster; negate the activation, and if you do, destroy that card. You can only use this effect of "Voracious Insect Queen" once per turn.'''
+Gains 400 ATK for all other Insect monsters and monsters that mentions "Dark Time Wizard" on the field. You can only use each of the following effects of "Voracious Insect Queen" once per turn. If a monster(s) your opponent controls is destroyed by battle or card effect: You can Special Summon 1 "Insect Monster Token" (Insect/EARTH/Level 1/ATK 100/DEF 100) to either field. While that Token is in the Monster Zone, all monsters on its controller's field become Insects, also they cannot be Tributed for a Tribute or Ritual Summon, nor used as material for a Fusion, Synchro, Xyz, or Link Summon, except for the Fusion Summon of a monster that mentions "Dark Time Wizard". When your opponent activates a card or effect that targets a card(s) in your field or GY that mentions "Dark Time Wizard" (Quick Effect): You can Tribute 1 other monster; negate the activation, and if you do, destroy that card.
+'''
 strings=['']
 
 [[card]]
-id = 220000030
-setnumber = "IPRE-EN030"
+id = 220000029
+setnumber = "IPRE-EN029"
 ot = "custom"
 name = "Time Magic Fusion"
 set = "m_dark_time_wizard"
@@ -484,6 +469,17 @@ Activate 1 of these effects (but you can only use each effect of "Time Magic Fus
 • Set 1 Trap that mentions "Dark Time Wizard" from your hand or Deck. It can be activated this turn.
 • Fusion Summon 1 Fusion Monster that mentions either "Dark Time Wizard" or "Time Wizard" from your Extra Deck, by Tributing monsters from either field as material. If a monster(s) you controlled was destroyed by your monster or Spell effect this turn, you can also shuffle monsters from your GY into the Deck as material.
 This card's name becomes "Dark Time Wizard" while in the GY. '''
+strings=['']
+
+[[card]]
+id = 220000030
+setnumber = "IPRE-EN030"
+ot = "custom"
+name = "Magical Arm Capture"
+set = "m_dark_time_wizard"
+type = "trap"
+effect = '''
+If you control a card that mentions "Dark Time Wizard": You can Tribute any number of monsters, then target an equal number of face-up monsters your opponent controls; take control of them until the End Phase of the next turn, but while you control them, you cannot activate their effects, they cannot declare an attack, also they are also treated as monsters that mention "Dark Time Wizard". You can banish this card from your GY; reveal any number of cards in your hand, including a card that mentions "Dark Time Wizard", and place them on the bottom of the Deck in any order, then draw that many cards. You can only use 1 "Magical Arm Capture" effect per turn, and only once that turn.'''
 strings=['']
 
 [[card]]
@@ -534,7 +530,7 @@ def = 3200
 level = 9
 effect = '''
 "Dark Magician" + 1 monster that mentions "Dark Time Wizard"
-'''
+Must be either Fusion Summoned, or Special Summoned (from your Extra Deck) by Tributing 1 Level 5 or higher monster from your hand or face-up field during the turn you called a coin toss correctly. You can only Special Summon "Primordial Dark Sage" once per turn this way, no matter which method you use. During your opponent's turn, you can activate Quick-Play Spells that mention "Dark Time Wizard" from your hand. If this card is Special Summoned: You can activate this effect; during the End Phase of this turn, add 1 Spell Card from your Deck to your hand, then place 1 card from your hand on the top of the Deck. You can only use this effect of "Primordial Dark Sage" once per turn.'''
 strings=['']
 
 [[card]]

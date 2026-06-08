@@ -3,7 +3,7 @@ local s,id,o=GetID()
 -- c220000142
 function s.initial_effect(c)
 	--[[
-	[HOPT]
+	[H1PT]
 	When your opponent activates a card or effect when your "Red-Eyes" monster(s) is Normal or Special Summoned:
 	Negate the activation,
 	and if you do, you can shuffle up to 2 cards your opponent controls into the Deck,
@@ -24,7 +24,7 @@ function s.initial_effect(c)
 	e1b:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e1b)
 	--[[
-	[HOPT]
+	[H1PT]
 	If a "Red-Eyes" monster(s) you control that cannot be Normal Summoned/Set is sent to your GY or banishment:
 	You can banish this card from your GY, then target 1 of those monsters;
 	Special Summon it, ignoring its Summoning conditions.

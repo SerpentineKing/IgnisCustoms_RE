@@ -8,7 +8,7 @@ function s.initial_effect(c)
 	e0:SetCode(EVENT_FREE_CHAIN)
 	c:RegisterEffect(e0)
 	--[[
-	[HOPT]
+	[H1PT]
 	During your Main Phase: Apply these effects in sequence, based on the number of "Red-Eyes" monsters on the field and in the GYs.
 	• 1+:
 	Add 1 Level 7 or lower "Red-Eyes" monster from your Deck or GY to your hand,

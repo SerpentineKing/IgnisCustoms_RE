@@ -4,7 +4,7 @@ local s,id,o=GetID()
 function s.initial_effect(c)
 	-- [Activation]
 	--[[
-	[HOPT]
+	[H1PT]
 	When this card is activated:
 	You can add 1 Level 4 or lower Warrior monster from your Deck or GY to your hand.
 	]]--
@@ -16,7 +16,7 @@ function s.initial_effect(c)
 	e1:SetOperation(s.e1evt)
 	c:RegisterEffect(e1)
 	--[[
-	[HOPT]
+	[H1PT]
 	If this card leaves the field:
 	You can Special Summon 1 Gemini monster from your Deck as an Effect Monster that gains its effects.
 	]]--
@@ -29,7 +29,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.e2evt)
 	c:RegisterEffect(e2)
 	--[[
-	[HOPT]
+	[H1PT]
 	When your Warrior monster targeted for an attack, OR when your Warrior monster(s) is destroyed:
 	You can banish this card from your GY, then Tribute 1 Gemini Monster;
 	Special Summon 1 FIRE Warrior from your hand or Deck,
@@ -58,7 +58,7 @@ function s.initial_effect(c)
 	e3b:SetOperation(s.e3evt)
 	c:RegisterEffect(e3b)
 	--[[
-	[HOPT]
+	[H1PT]
 	•
 	When an attack is declared involving your Dragon monster:
 	You can Special Summon 1 Level 4 or lower Warrior monster from your hand or GY.

@@ -35,7 +35,7 @@ function s.initial_effect(c)
 	e3:SetOperation(s.e3evt)
 	c:RegisterEffect(e3)
 	--[[
-	[HOPT]
+	[H1PT]
 	If your opponent Special Summons a Level 5 or higher monster(s) (Quick Effect):
 	You can Tribute 1 face-up monster;
 	destroy that Summoned monster(s),
@@ -53,7 +53,7 @@ function s.initial_effect(c)
 	e4:SetOperation(s.e4evt)
 	c:RegisterEffect(e4)
 	--[[
-	[HOPT]
+	[H1PT]
 	If this card is destroyed by battle or card effect and sent to the GY:
 	You can banish this card from your GY;
 	Special Summon 1 Level 8 or lower FIRE Warrior monster from your hand or Deck,

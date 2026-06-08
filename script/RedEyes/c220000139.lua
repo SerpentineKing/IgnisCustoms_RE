@@ -18,7 +18,7 @@ function s.initial_effect(c)
 	e1:SetValue(s.e1val)
 	c:RegisterEffect(e1)
 	--[[
-	[HOPT]
+	[H1PT]
 	•
 	This turn, each time a "Red-Eyes" monster(s) is Special Summoned from the GY to your field:
 	Increase the ATK of all "Red-Eyes" monsters you currently control by the number of "Red-Eyes" monsters on the field x 400.

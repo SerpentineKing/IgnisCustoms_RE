@@ -3,7 +3,7 @@ local s,id,o=GetID()
 -- c220000118
 function s.initial_effect(c)
 	--[[
-	[HOPT]
+	[H1PT]
 	When this card is Normal Summoned:
 	You can add 1 Spell/Trap that has "Red-Eyes" in its text from your Deck to your hand.
 	]]--
@@ -17,7 +17,7 @@ function s.initial_effect(c)
 	e1:SetOperation(s.e1evt)
 	c:RegisterEffect(e1)
 	--[[
-	[HOPT]
+	[H1PT]
 	During your opponent's turn, if you activate a Spell/Trap Card or effect,
 	while this card is in your GY (except during the Damage Step):
 	You can Tribute 1 DARK Dragon monster;

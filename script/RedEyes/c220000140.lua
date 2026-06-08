@@ -32,7 +32,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.e2evt)
 	c:RegisterEffect(e2)
 	--[[
-	[HOPT]
+	[H1PT]
 	You can activate 1 of these effects;
 	•
 	Special Summon 1 Level 7 or lower "Red-Eyes" monster from your hand or GY.

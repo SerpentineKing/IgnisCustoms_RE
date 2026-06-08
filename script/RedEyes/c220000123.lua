@@ -3,7 +3,7 @@ local s,id,o=GetID()
 -- c220000123
 function s.initial_effect(c)
 	--[[
-	[HOPT]
+	[H1PT]
 	When an opponent's monster, that was Normal or Special Summoned this turn, declares an attack:
 	You can discard this card;
 	destroy that attacking monster, and if you do, inflict damage to your opponent equal to half the original ATK of that monster.
@@ -21,7 +21,7 @@ function s.initial_effect(c)
 	e1:SetOperation(s.e1evt)
 	c:RegisterEffect(e1)
 	--[[
-	[HOPT]
+	[H1PT]
 	If this card is Normal or Special Summoned:
 	You can Special Summon 1 Level 4 or lower "Red-Eyes" or Warrior monster from your Deck or GY, except "Axe Raider with Eyes of Red",
 	also, you cannot Special Summon monsters from the Extra Deck for the rest of this turn,
@@ -42,7 +42,7 @@ function s.initial_effect(c)
 	e2b:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e2b)
 	--[[
-	[HOPT]
+	[H1PT]
 	When your opponent activates a monster effect (Quick Effect):
 	You can negate the activation, and if you do, banish it.
 	]]--
@@ -59,7 +59,7 @@ function s.initial_effect(c)
 	e3:SetOperation(s.e3evt)
 	c:RegisterEffect(e3)
 	--[[
-	[HOPT]
+	[H1PT]
 	During the Battle Phase (Quick Effect):
 	You can return all Spells / Traps on the field to the hand.
 	]]--
@@ -76,7 +76,7 @@ function s.initial_effect(c)
 	e4:SetOperation(s.e4evt)
 	c:RegisterEffect(e4)
 	--[[
-	[HOPT]
+	[H1PT]
 	During damage calculation, if this card battles (Quick Effect):
 	You can make this card gain ATK equal to its current DEF until the end of your opponent's next turn.
 	]]--
@@ -91,7 +91,7 @@ function s.initial_effect(c)
 	e5:SetOperation(s.e5evt)
 	c:RegisterEffect(e5)
 	--[[
-	[HOPT]
+	[H1PT]
 	If this card is sent from the field to the GY:
 	You can target 5 other cards that have "Red-Eyes" in their text in your GY and/or banishment;
 	shuffle them into the Deck, and if you do, draw 2 cards.

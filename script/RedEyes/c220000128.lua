@@ -8,7 +8,7 @@ function s.initial_effect(c)
 	e0:SetCode(EVENT_FREE_CHAIN)
 	c:RegisterEffect(e0)
 	--[[
-	[HOPT]
+	[H1PT]
 	At the start of the Battle Phase:
 	You can activate this effect; this turn, apply 1 of the following effects,
 	or if you control a "Red-Eyes" monster, you can apply both effects.
@@ -27,7 +27,7 @@ function s.initial_effect(c)
 	e1:SetOperation(s.e1evt)
 	c:RegisterEffect(e1)
 	--[[
-	[HOPT]
+	[H1PT]
 	During your Main Phase, if this card is in your GY, except the turn it was sent there: You can banish this card;
 	add 1 Spell/Trap that has "Red-Eyes" in its text from your GY or banishment to your hand, except "Cerise in Ebony".
 	]]--

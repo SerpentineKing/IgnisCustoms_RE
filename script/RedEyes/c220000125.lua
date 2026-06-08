@@ -3,7 +3,7 @@ local s,id,o=GetID()
 -- c220000125
 function s.initial_effect(c)
 	--[[
-	[HOPT]
+	[H1PT]
 	If you control no monsters:
 	You can Special Summon this card and 1 Level 4 or lower "Red-Eyes" monster from your hand.
 	You cannot Special Summon monsters from the Extra Deck the turn you activate this effect,
@@ -21,7 +21,7 @@ function s.initial_effect(c)
 	e1:SetOperation(s.e1evt)
 	c:RegisterEffect(e1)
 	--[[
-	[HOPT]
+	[H1PT]
 	During your Battle Phase (Quick Effect):
 	You can target 1 other "Red-Eyes" monster you control; equip this card to it.
 	]]--
@@ -39,7 +39,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.e2evt)
 	c:RegisterEffect(e2)
 	--[[
-	[HOPT]
+	[H1PT]
 	If this card is sent to the GY while equipped to a monster:
 	You can target 1 "Red-Eyes" monster you control; equip this card to it.
 	]]--

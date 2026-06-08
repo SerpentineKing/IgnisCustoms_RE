@@ -11,7 +11,7 @@ function s.initial_effect(c)
 	e1:SetCode(EFFECT_DIRECT_ATTACK)
 	c:RegisterEffect(e1)
 	--[[
-	[HOPT]
+	[H1PT]
 	If this card is Fusion Summoned:
 	You can Special Summon 1 Level 4 or lower "Red-Eyes" monster, or 1 Level 1 Dragon monster, from your Deck,
 	also, you cannot Special Summon monsters from the Extra Deck for the rest of this turn, except Fusion or Xyz Monsters.
@@ -28,7 +28,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.e2evt)
 	c:RegisterEffect(e2)
 	--[[
-	[HOPT]
+	[H1PT]
 	If this card is sent from the Monster Zone to the GY:
 	You can target 1 WIND, DARK, or LIGHT monster your opponent controls;
 	negate its effects until the end of this turn.

@@ -4,7 +4,7 @@ local s,id,o=GetID()
 function s.initial_effect(c)
 	-- [Activation]
 	--[[
-	[HOPT]
+	[H1PT]
 	Activate this card by targeting 1 "Red-Eyes" monster you control; apply the following effects,
 	also, you can add 1 "Red-Eyes" monster that cannot be Normal Summoned/Set from your Deck or GY to your hand.
 	•
@@ -24,7 +24,7 @@ function s.initial_effect(c)
 	e1:SetOperation(s.e1evt)
 	c:RegisterEffect(e1)
 	--[[
-	[HOPT]
+	[H1PT]
 	When your opponent activates a monster effect that targets a "Red-Eyes" monster you control:
 	You can target 1 face-up monster your opponent controls;
 	inflict damage to your opponent equal to the original ATK of that target,

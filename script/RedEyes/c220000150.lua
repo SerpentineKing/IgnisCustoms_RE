@@ -6,7 +6,7 @@ function s.initial_effect(c)
 	Fusion.AddProcMix(c,true,true,s.m1fil,s.m2fil)
 	c:EnableReviveLimit()
 	--[[
-	[HOPT]
+	[H1PT]
 	If this card is Fusion Summoned:
 	You can make the ATK of all face-up monsters your opponent currently controls become their original ATK,
 	then if you called the result of an effect that tosses a coin once correctly this turn, negate the effects of those monsters.
@@ -34,7 +34,7 @@ function s.initial_effect(c)
 		Duel.RegisterEffect(ge1,0)
 	end)
 	--[[
-	[HOPT]
+	[H1PT]
 	If a monster(s) you control is destroyed by card effect, while this card is in your GY (except during the Damage Step):
 	You can Special Summon this card, but banish it when it leaves the field.
 	]]--

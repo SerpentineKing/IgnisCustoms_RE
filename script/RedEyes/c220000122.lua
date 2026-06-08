@@ -3,7 +3,7 @@ local s,id,o=GetID()
 -- c220000122
 function s.initial_effect(c)
 	--[[
-	[HOPT]
+	[H1PT]
 	When an opponent's monster declares an attack, while your opponent controls 2 or more face-up monsters and you control a monster:
 	You can discard this card, then target 1 face-up monster your opponent controls, except the attacking monster;
 	take control of that face-up monster (until the end of the Battle Phase),
@@ -23,7 +23,7 @@ function s.initial_effect(c)
 	e1:SetOperation(s.e1evt)
 	c:RegisterEffect(e1)
 	--[[
-	[HOPT]
+	[H1PT]
 	If this card is Normal or Special Summoned:
 	You can add 1 Spell/Trap that has "Red-Eyes" in its text from your Deck or GY to your hand.
 	]]--
