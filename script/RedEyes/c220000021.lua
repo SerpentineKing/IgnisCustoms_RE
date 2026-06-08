@@ -80,7 +80,7 @@ function s.e2fil(c,e,tp)
 	return c:IsLevelBelow(7)
 	and c:IsSetCard(SET_RED_EYES)
 	and c:IsMonster()
-	amd c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

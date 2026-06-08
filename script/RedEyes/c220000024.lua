@@ -22,7 +22,7 @@ function s.initial_effect(c)
 	e3:SetCode(EFFECT_CHANGE_CODE)
 	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e3:SetRange(LOCATION_GRAVE)
-	e3:SetValue(CARD_RED_EYES_FUSION)
+	e3:SetValue(s.e3val)
 	c:RegisterEffect(e3)
 end
 local CARD_RED_EYES_FUSION = 6172122
@@ -31,3 +31,6 @@ s.listed_names={CARD_REDEYES_B_DRAGON,CARD_RED_EYES_FUSION,id}
 -- Archetype : Red-Eyes
 s.listed_series={SET_RED_EYES}
 -- Helpers
+function s.e3val()
+	return CARD_RED_EYES_FUSION
+end

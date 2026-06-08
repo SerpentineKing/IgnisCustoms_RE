@@ -2,6 +2,11 @@
 local s,id,o=GetID()
 -- c220000023
 function s.initial_effect(c)
+	-- [Activation]
+	local e0=Effect.CreateEffect(c)
+	e0:SetType(EFFECT_TYPE_ACTIVATE)
+	e0:SetCode(EVENT_FREE_CHAIN)
+	c:RegisterEffect(e0)
 	-- "Red-Eyes" Gemini Monsters are treated as Normal Monsters while in your hand or Deck.
 	local e1a1=Effect.CreateEffect(c)
 	e1a1:SetType(EFFECT_TYPE_FIELD)
