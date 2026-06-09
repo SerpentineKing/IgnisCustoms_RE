@@ -83,8 +83,6 @@ function s.e2fil(c,e,tp)
 	and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
-	local c=e:GetHandler()
-
 	if chk==0 then
 		return s.e2con(e,tp)
 		and Duel.IsExistingMatchingCard(s.e2fil,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,nil,e,tp)
@@ -93,8 +91,6 @@ function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND+LOCATION_GRAVE)
 end
 function s.e2evt(e,tp)
-	local c=e:GetHandler()
-
 	local g=Duel.GetMatchingGroup(s.e2fil,tp,LOCATION_HAND+LOCATION_GRAVE,0,nil,e,tp)
 	local gc=g:GetCount()
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 or gc==0 then return end
@@ -119,8 +115,6 @@ function s.e3fil(c)
 	and not c:IsGeminiStatus()
 end
 function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	local c=e:GetHandler()
-
 	if chkc then
 		return chkc:IsLocation(LOCATION_MZONE)
 		and chkc:IsControler(tp)
@@ -134,8 +128,6 @@ function s.e3tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SelectTarget(tp,s.e3fil,tp,LOCATION_MZONE,0,1,1,nil)
 end
 function s.e3evt(e,tp)
-	local c=e:GetHandler()
-
 	local tc=Duel.GetFirstTarget()
 	if tc and tc:IsRelateToEffect(e) and s.e3fil(tc) then
 		tc:EnableGeminiStatus()

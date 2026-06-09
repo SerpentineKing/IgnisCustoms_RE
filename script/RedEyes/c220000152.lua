@@ -44,6 +44,7 @@ function s.initial_effect(c)
 	e3:SetOperation(s.e3evt)
 	c:RegisterEffect(e3)
 end
+local RESETS_END_PHASE = RESET_PHASE+PHASE_END
 -- Archetype : N/A
 -- Helpers
 function s.m1fil(c,fc,sumtype,tp)
@@ -71,10 +72,6 @@ function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk)
 
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
 end
-function s.e2lim(e,c,sump,sumtype,sumpos,targetp,se)
-	return c:IsLocation(LOCATION_EXTRA)
-	and not (c:IsType(TYPE_FUSION) or c:IsType(TYPE_XYZ))
-end
 function s.e2evt(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 
@@ -86,15 +83,25 @@ function s.e2evt(e,tp,eg,ep,ev,re,r,rp)
 	if g:GetCount()>0 then
 		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
 
-		local e2b=Effect.CreateEffect(c)
-		e2b:SetType(EFFECT_TYPE_FIELD)
-		e2b:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-		e2b:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
-		e2b:SetTargetRange(1,0)
-		e2b:SetTarget(s.e2lim)
-		e2b:SetReset(RESET_PHASE+PHASE_END)
-		Duel.RegisterEffect(e2b,tp)
+		local e2b1=Effect.CreateEffect(c)
+		e2b1:SetType(EFFECT_TYPE_FIELD)
+		e2b1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+		e2b1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+		e2b1:SetTargetRange(1,0)
+		e2b1:SetTarget(s.e2lim)
+		e2b1:SetReset(RESETS_END_PHASE)
+		Duel.RegisterEffect(e2b1,tp)
+
+		--lizard check
+		aux.addTempLizardCheck(c,tp,s.e2xfil)
 	end
+end
+function s.e2lim(e,c,sump,sumtype,sumpos,targetp,se)
+	return not (c:IsType(TYPE_FUSION) or c:IsType(TYPE_XYZ))
+	and c:IsLocation(LOCATION_EXTRA)
+end
+function s.e2xfil(e,c)
+	return not (c:IsOriginalType(TYPE_FUSION) or c:IsOriginalType(TYPE_XYZ))
 end
 function s.e3con(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsPreviousLocation(LOCATION_MZONE)

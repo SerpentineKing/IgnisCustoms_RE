@@ -61,8 +61,6 @@ function s.e2fil2(c)
 	and c:IsMonster()
 end
 function s.e2tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	local c=e:GetHandler()
-
 	if chkc then
 		return chkc:IsControler(tp)
 		and chkc:IsLocation(LOCATION_MZONE)

@@ -53,8 +53,6 @@ function s.e1con(e,tp)
 	return c:IsXyzSummoned()
 end
 function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk)
-	local c=e:GetHandler()
-
 	if chk==0 then
 		return Duel.IsExistingMatchingCard(Card.IsFaceup,tp,0,LOCATION_MZONE,1,nil)
 	end

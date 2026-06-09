@@ -368,7 +368,7 @@ def = 1300
 level = 4
 effect = '''
 This card's name becomes "Harpie Lady" while on the field or in the GY, but is still treated as a "Red-Eyes" card. You can only use each of the following effects of "Harpie Lady the Red-Eyes Cyber Nightingale" once per turn. If this card is Normal or Special Summoned: You can discard 1 card; place 1 "Return of the Red-Eyes" from your hand, Deck, or GY face-up in your Spell & Trap Zone, then if you discarded a Normal Monster to activate this effect, you can destroy all face-up Spells your opponent controls. You can target 1 Level 5 or higher "Harpie" or "Red-Eyes" monster you control; until the end of this turn, the Level of that monster or this card becomes the Level of the other, also you cannot declare an attack for the rest of this turn, except with DARK or WIND monsters.'''
-strings=['Change level of a monster','Select the monster with the Level you want','Cannot attack except with DARK or WIND monsters']
+strings=['Place 1 Continuous Trap','Destroy opposing Spells','Change level of a monster','Select the monster with the Level you want','Cannot attack except with DARK or WIND monsters']
 
 [[card]]
 id = 220000023
@@ -390,7 +390,7 @@ set = "red_eyes"
 type = "spell"
 effect = '''
 Fusion Summon 1 DARK or FIRE Fusion Monster from your Extra Deck, using monsters from your hand and/or field as material, including a Normal Monster, also, you cannot Special Summon monsters from the Extra Deck for the rest of this turn, except Fusion or Xyz Monsters. If Summoning a Fusion Monster that mentions "Red-Eyes Black Dragon" as material this way, you can also use 1 monster in your Deck as material. If this Set card in its owner's control is destroyed by an opponent's card effect and sent to the GY: You can Tribute 1 monster your opponent controls, and if you do, inflict 1200 damage to your opponent. You can only use each of the preceding effects of "Red-Eyes Dark Flare Fusion" once per turn. This card's name becomes "Red-Eyes Fusion" while in the GY.'''
-strings=['']
+strings=['Fusion Summon 1 DARK or FIRE Fusion Monster','Cannot Special Summon from the Extra Deck, except Fusion or Xyz Monsters']
 
 [[card]]
 id = 220000025

@@ -130,14 +130,14 @@ function s.e4mxfil(c,e,tp)
 	and c:IsCanBeFusionMaterial(sc)
 	and c:IsAbleToGrave()
 end
-function s.e1sxfil(tp,sg,sc)
+function s.e4sxfil(tp,sg,sc)
 	return sg:FilterCount(Card.IsLocation,nil,LOCATION_DECK+LOCATION_EXTRA)<=1
 end
 function s.e4xfil(e,tp,mg,sumtype)
 	if Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>0 then
-		return Duel.GetMatchingGroup(s.e4mxfil,tp,LOCATION_DECK+LOCATION_EXTRA,0,nil,e,tp),s.e1sxfil
+		return Duel.GetMatchingGroup(s.e4mxfil,tp,LOCATION_DECK+LOCATION_EXTRA,0,nil,e,tp),s.e4sxfil
 	end
-	return nil
+	return nil,nil
 end
 function s.e4xtgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
@@ -160,8 +160,8 @@ function s.e4evt(e,tp)
 	local fustg=Fusion.SummonEffTG(fparams)
 	local fusop=Fusion.SummonEffOP(fparams)
 
-	local b=fustg(e,tp,eg,ep,ev,re,r,rp,0)
-	if b then
+	local cond=fustg(e,tp,eg,ep,ev,re,r,rp,0)
+	if cond then
 		fusop(e,tp,eg,ep,ev,re,r,rp,0)
 	end
 end
