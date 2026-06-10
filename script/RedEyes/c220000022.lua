@@ -31,7 +31,7 @@ function s.initial_effect(c)
 	e2a1:SetCost(s.e2cst)
 	e2a1:SetTarget(s.e2tgt)
 	e2a1:SetOperation(s.e2evt)
-	c:RegisterEffect(e1a1)
+	c:RegisterEffect(e2a1)
 	
 	local e2a2=e2a1:Clone()
 	e2a2:SetCode(EVENT_SPSUMMON_SUCCESS)
