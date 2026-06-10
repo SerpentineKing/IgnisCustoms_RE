@@ -56,24 +56,19 @@ s.listed_series={SET_RED_EYES}
 function s.e1sfil(c)
 	return (c:IsAttribute(ATTRIBUTE_DARK) or c:IsAttribute(ATTRIBUTE_FIRE))
 end
-function s.e1sxfil1(tp,sg,sc)
+function s.e1sxfil(tp,sg,sc)
 	return sg:IsExists(Card.IsType,1,nil,TYPE_NORMAL)
+	and sg:FilterCount(Card.IsLocation,nil,LOCATION_DECK)<=1
 end
 function s.e1mxfil(c,e,tp)
 	local sc=e:GetHandler()
 
 	return c:IsCanBeFusionMaterial(sc)
 	and c:IsAbleToGrave()
-end
-function s.e1sxfil2(tp,sg,sc)
-	return sg:FilterCount(Card.IsLocation,nil,LOCATION_DECK)<=1
-	and s.e1sxfil1(tp,sg,sc)
+	and sc:ListsCodeAsMaterial(CARD_REDEYES_B_DRAGON)
 end
 function s.e1xfil(e,tp,mg,sumtype)
-	if Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>0 then
-		return Duel.GetMatchingGroup(s.e1mxfil,tp,LOCATION_DECK,0,nil,e,tp),s.e1sxfil2
-	end
-	return nil,s.e1sxfil1
+	return Duel.GetMatchingGroup(s.e1mxfil,tp,LOCATION_DECK,0,nil,e,tp),s.e1sxfil
 end
 function s.e1xtgt(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
