@@ -114,14 +114,13 @@ function s.e1evt(e,tp)
 	e1b1:SetReset(RESETS_END_PHASE)
 	Duel.RegisterEffect(e1b1,tp)
 
-	--lizard check
-	aux.addTempLizardCheck(c,tp,s.e1xfil)
+	aux.addTempLizardCheck(c,tp,s.e1zfil)
 end
 function s.e1lim(e,c,sump,sumtype,sumpos,targetp,se)
 	return not (c:IsType(TYPE_FUSION) or c:IsType(TYPE_XYZ))
 	and c:IsLocation(LOCATION_EXTRA)
 end
-function s.e1xfil(e,c)
+function s.e1zfil(e,c)
 	return not (c:IsOriginalType(TYPE_FUSION) or c:IsOriginalType(TYPE_XYZ))
 end
 function s.e2con(e,tp,eg,ep,ev,re,r,rp)
