@@ -6,13 +6,18 @@ function s.initial_effect(c)
 	This card's name becomes "Harpie Lady" while on the field or in the GY,
 	but is still treated as a "Red-Eyes" card.
 	]]--
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetCode(EFFECT_CHANGE_CODE)
-	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-	e1:SetRange(LOCATION_MZONE+LOCATION_GRAVE)
-	e1:SetValue(CARD_HARPIE_LADY)
-	c:RegisterEffect(e1)
+	local e1a1=Effect.CreateEffect(c)
+	e1a1:SetType(EFFECT_TYPE_SINGLE)
+	e1a1:SetCode(EFFECT_CHANGE_CODE)
+	e1a1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+	e1a1:SetRange(LOCATION_MZONE+LOCATION_GRAVE)
+	e1a1:SetValue(CARD_HARPIE_LADY)
+	c:RegisterEffect(e1a1)
+
+	local e1a2=e1a1:Clone()
+	e1a2:SetCode(EFFECT_ADD_SETCODE)
+	e1a2:SetValue(SET_RED_EYES)
+	c:RegisterEffect(e1a2)
 	--[[
 	[H1PT]
 	If this card is Normal or Special Summoned:
