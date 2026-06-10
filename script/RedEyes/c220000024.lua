@@ -92,6 +92,7 @@ function s.e1tgt(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	fustg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.e1evt(e,tp)
+	local c=e:GetHandler()
 	local fparams={handler=c,fusfilter=s.e1sfil,extrafil=s.e1xfil,extratg=s.e1xtgt}
 	local fustg=Fusion.SummonEffTG(fparams)
 	local fusop=Fusion.SummonEffOP(fparams)
