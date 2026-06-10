@@ -123,11 +123,9 @@ function s.e4sfil(c)
 
 	return (c:IsCode(CARD_DRAGON_MASTER_MAGIA) or c:IsCode(CARD_MASTER_OF_CHAOS))
 end
-function s.e4mxfil(c,e,tp)
-	local sc=e:GetHandler()
-
+function s.e4mxfil(c,tp)
 	return c:IsNonEffectMonster()
-	and c:IsCanBeFusionMaterial(sc)
+	and c:IsMonster()
 	and c:IsAbleToGrave()
 end
 function s.e4sxfil(tp,sg,sc)
@@ -135,7 +133,7 @@ function s.e4sxfil(tp,sg,sc)
 end
 function s.e4xfil(e,tp,mg,sumtype)
 	if Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>0 then
-		return Duel.GetMatchingGroup(s.e4mxfil,tp,LOCATION_DECK+LOCATION_EXTRA,0,nil,e,tp),s.e4sxfil
+		return Duel.GetMatchingGroup(s.e4mxfil,tp,LOCATION_DECK+LOCATION_EXTRA,0,nil,tp),s.e4sxfil
 	end
 	return nil,nil
 end

@@ -57,15 +57,14 @@ function s.e1sfil(c)
 	return (c:IsAttribute(ATTRIBUTE_DARK) or c:IsAttribute(ATTRIBUTE_FIRE))
 end
 function s.e1sxfil(tp,sg,sc)
+	local ct=sg:FilterCount(Card.IsLocation,nil,LOCATION_DECK)
 	return sg:IsExists(Card.IsType,1,nil,TYPE_NORMAL)
-	and sg:FilterCount(Card.IsLocation,nil,LOCATION_DECK)<=1
+	and ((ct==0)
+	or (sc:ListsCodeAsMaterial(CARD_REDEYES_B_DRAGON) and ct<=1))
 end
-function s.e1mxfil(c,e,tp)
-	local sc=e:GetHandler()
-
-	return c:IsCanBeFusionMaterial(sc)
+function s.e1mxfil(c,tp)
+	return c:IsMonster()
 	and c:IsAbleToGrave()
-	and sc:ListsCodeAsMaterial(CARD_REDEYES_B_DRAGON)
 end
 function s.e1xfil(e,tp,mg,sumtype)
 	return Duel.GetMatchingGroup(s.e1mxfil,tp,LOCATION_DECK,0,nil,e,tp),s.e1sxfil
